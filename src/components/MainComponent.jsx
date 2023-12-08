@@ -5,22 +5,25 @@ import { RootState } from "../redux/store";
 import tabData from "../utils/tabData";
 
 function MainComponent() {
-
-  let subTabName = useSelector((state:RootState)=>state.subTabName.selectedSubTab);
-  let splitterShow = useSelector((state:RootState)=>state.displaySplitter.valueSplitterShow);
+  let subTabName = useSelector(
+    (state: RootState) => state.subTabName.selectedSubTab
+  );
+  let splitterShow = useSelector(
+    (state: RootState) => state.displaySplitter.valueSplitterShow
+  );
 
   tabData.map((tab) => {
     if (tab.subTabs && Array.isArray(tab.subTabs)) {
-     tab.subTabs.map((sub) => { 
-        if(subTabName==sub.name){
-          splitterShow=true;
+      tab.subTabs.map((sub) => {
+        if (subTabName == sub.name) {
+          splitterShow = true;
         }
-       });
+      });
     } else {
-      splitterShow=false;
+      splitterShow = false;
     }
   });
-  
+
   return (
     <>
       {splitterShow && (

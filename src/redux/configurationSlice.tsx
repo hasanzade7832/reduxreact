@@ -1,30 +1,35 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const fetchTodos = createAsyncThunk("fetchTodo", async () => {
-  const data = await fetch("https://jsonplaceholder.typicode.com/todos");
+export const fetchConfiguration = createAsyncThunk("fetchTodo", async () => {
+  const data = await fetch("https://jsonplaceholder.typicode.com/posts");
   return data.json();
 });
 
-const todoSlice = createSlice({
+const configurationSlice = createSlice({
   name: "todo",
   initialState: {
     isLoading: false,
     data: null,
     error: false,
+    headersString: "bodyName|titleName",
+    fieldColumn: "body|title",
   },
   reducers: {},
   extraReducers: (builder) => {
-    // builder.addCase(fetchTodos.pending, (state, action) => {
+    // builder.addCase(fetchConfiguration.pending, (state, action) => {
     //   state.isLoading = true;
     // });
-    builder.addCase(fetchTodos.fulfilled, (state, action) => {
+    builder.addCase(fetchConfiguration.fulfilled, (state, action) => {
       state.isLoading = false;
       state.data = action.payload;
+      state.headersString = "bodyName|titleName";
+      state.fieldColumn = "body|title";
     });
-    // builder.addCase(fetchTodos.rejected, (state, action) => {
+    // builder.addCase(fetchConfiguration.rejected, (state, action) => {
     //   state.error = true;
     // });
+    // state.columnTitle = "title|body";
   },
 });
 
-export default todoSlice;
+export default configurationSlice;

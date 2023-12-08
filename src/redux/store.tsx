@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { counterSlice } from "./counterSlice";
 import { mainSlice } from "./mainSlice";
-import todoSlice from "./configurationSlice";
+import configurationSlice from "./configurationSlice";
+import commentsSlice from "./commentsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
     displaySplitter: mainSlice.reducer,
     mainTab: mainSlice.reducer,
     resetSubTab: mainSlice.reducer,
-    dataConfiguration: todoSlice.reducer,
+    dataConfiguration: configurationSlice.reducer,
+    datacomments: commentsSlice.reducer,
   },
 });
 
