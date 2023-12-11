@@ -9,6 +9,7 @@ import { RootState } from "../../redux/store";
 import { fetchConfiguration } from "../../redux/configurationSlice";
 import { fetchComments } from "../../redux/commentsSlice";
 
+
 const TableDynamic = () => {
   const dispatch = useDispatch();
   const subTabName = useSelector((state) => state.subTabName.selectedSubTab);
@@ -20,6 +21,7 @@ const TableDynamic = () => {
       dispatch(fetchComments());
     }
   }, [subTabName]);
+
 
   const tabDataMap = {
     Configuration: {

@@ -5,6 +5,8 @@ import MainComponent from "../components/MainComponent";
 import { useDispatch, useSelector } from "react-redux";
 import { mainSlice } from "../redux/mainSlice";
 import { RootState } from "../redux/store";
+import projectService from "../components/services/project.services";
+
 
 const MyTabs = () => {
 
@@ -17,6 +19,16 @@ const MyTabs = () => {
 
   const activeIndex = useSelector((state:RootState)=>state.mainTab.valueMainTab);
   console.log("activeIndex",activeIndex)
+
+  projectService
+  .getAllCompany()
+  .then((res) => {
+    console.log("dataaaaaaaaa",res.data)
+  })
+  .catch((err) => {
+    // messageShow(messageIcon.error, err.request.responseText);
+  });
+
 
   return (
     <>
