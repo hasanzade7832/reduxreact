@@ -1,0 +1,30 @@
+/* Login.css */
+
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .login-box {
+    width:430px;
+    padding:40px;
+    border: 1px solid red;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .p-inputgroup {
+    margin-bottom: 15px;
+  }
+  
+  .p-inputgroup-addon {
+    background-color: #007ad9;
+    color: #ffffff;
+  }
+  
+  .p-inputgroup-addon i {
+    font-size: 1rem;
+  }
+  

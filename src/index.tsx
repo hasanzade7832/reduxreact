@@ -1,10 +1,13 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../src/views/Home";
+import Login from "./views/login";
 import "../src/assets/styles/global.css";
 import { SubTabProvider } from "./contexts/TabContext";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
+import 'primeicons/primeicons.css';
+
 
 import Box from "./components/box/box";
 
@@ -26,6 +29,7 @@ root!.render(
           <Route path="/home" element={<Home />} />
           <Route path="/" element={<Home />} />
           <Route path="/box" element={<Box />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </SubTabProvider>

@@ -22,4 +22,28 @@ body{
     height: auto;
     margin-bottom: 8px;
   }
+
+  body{
+    overflow: hidden;
+  }
+  
+  .headerTitle {
+    text-align: center;
+    background: linear-gradient(to right, #ffa500, #ff5733);
+    padding: 10px;
+    font-size: 1.3rem;
+  }
+  
+  .tabs {
+    background: linear-gradient(to right, #ffa500, #ff5733);
+    padding: 1px;
+    margin-top: -21px;
+  }
+  
+  .subTabsStyles{
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgb(211, 209, 206,0.3));
+  
+  
+  }
+  
   

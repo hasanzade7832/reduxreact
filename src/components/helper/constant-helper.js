@@ -1,3 +1,4 @@
 export const ApiConst = Object.freeze({
-    getAllCompany: "api/Company/GetAll",
-  })
+  webLogin: "api/Login/LoginO",
+  getAllCompany: "api/Company/GetAll",
+})

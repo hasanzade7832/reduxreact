@@ -3,6 +3,7 @@ import { counterSlice } from "./counterSlice";
 import { mainSlice } from "./mainSlice";
 import configurationSlice from "./configurationSlice";
 import commentsSlice from "./commentsSlice";
+import {loginSlice} from "./Login/loginSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     resetSubTab: mainSlice.reducer,
     dataConfiguration: configurationSlice.reducer,
     datacomments: commentsSlice.reducer,
+    dataLogin:loginSlice.reducer
   },
 });
 
@@ -36,5 +38,11 @@ export type RootState = {
   mainTab: {
     valueMainTab: number;
   };
+  dataLogin: {
+    userName: string;
+    password: string;
+    showPassword:string
+  };
+
 };
 export type AppDispatch = typeof store.dispatch;
