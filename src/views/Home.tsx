@@ -7,36 +7,22 @@ import { mainSlice } from "../redux/mainSlice";
 import { RootState } from "../redux/store";
 import projectService from "../components/services/project.services";
 
-
 const MyTabs = () => {
-
   const dispatch = useDispatch();
 
-  // const handleMainTabClick = (index: number) => {
-  //   resetSubTab();
-  //   setActiveIndex(index);
-  // };
-
-  const activeIndex = useSelector((state:RootState)=>state.mainTab.valueMainTab);
-  console.log("activeIndex",activeIndex)
-
-  projectService
-  .getAllCompany()
-  .then((res) => {
-    console.log("dataaaaaaaaa",res.data)
-  })
-  .catch((err) => {
-    // messageShow(messageIcon.error, err.request.responseText);
-  });
-
+  const activeIndex = useSelector(
+    (state: RootState) => state.mainTab.valueMainTab
+  );
 
   return (
     <>
       <TabView
         activeIndex={activeIndex}
         onTabChange={(e) => {
-          const newValue = dispatch(mainSlice.actions.setvalueMainTab(e.index)).payload;
-          const resetVal = dispatch(mainSlice.actions.setSubTab("")).payload
+          const newValue = dispatch(
+            mainSlice.actions.setvalueMainTab(e.index)
+          ).payload;
+          const resetVal = dispatch(mainSlice.actions.setSubTab("")).payload;
           return newValue;
         }}
       >

@@ -6,8 +6,7 @@ import "../src/assets/styles/global.css";
 import { SubTabProvider } from "./contexts/TabContext";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
-import 'primeicons/primeicons.css';
-
+import "primeicons/primeicons.css";
 
 import Box from "./components/box/box";
 
@@ -27,7 +26,7 @@ root!.render(
       <BrowserRouter>
         <Routes>
           <Route path="/home" element={<Home />} />
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Login />} />
           <Route path="/box" element={<Box />} />
           <Route path="/login" element={<Login />} />
         </Routes>
