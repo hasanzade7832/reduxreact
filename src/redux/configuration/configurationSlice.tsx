@@ -25,15 +25,29 @@ export const fetchAllMenu = createAsyncThunk("fetchAllMenu", async () => {
   }
 });
 
+export const fetchPrugTemplate = createAsyncThunk(
+  "fetchPrugTemplate",
+  async () => {
+    try {
+      const response = await projectServices.getAllFirstPrugTemplate();
+      return response.data;
+    } catch (error) {
+      console.error("Hata:", error);
+      throw error;
+    }
+  }
+);
+
 const configurationSlice = createSlice({
   name: "Configuration",
   initialState: {
     isLoading: false,
-    dataConfiguration: null,
-    dataMenu: null,
+    dataConfiguration: [],
+    dataMenu: [],
+    dataPrugTemplate: [],
     error: false,
-    headersString: "bodyName|titleName",
-    fieldColumn: "body|title",
+    headersString: "",
+    fieldColumn: "",
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -43,11 +57,14 @@ const configurationSlice = createSlice({
     builder.addCase(fetchConfiguration.fulfilled, (state, action) => {
       state.isLoading = false;
       state.dataConfiguration = action.payload;
-      state.headersString = "bodyName|titleName";
-      state.fieldColumn = "body|title";
+      state.headersString = "Name|Description";
+      state.fieldColumn = "Name|Description";
     });
     builder.addCase(fetchAllMenu.fulfilled, (state, action) => {
       state.dataMenu = action.payload;
+    });
+    builder.addCase(fetchPrugTemplate.fulfilled, (state, action) => {
+      state.dataPrugTemplate = action.payload;
     });
 
     // builder.addCase(fetchConfiguration.rejected, (state, action) => {

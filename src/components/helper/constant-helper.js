@@ -3,4 +3,5 @@ export const ApiConst = Object.freeze({
   getAllCompany: "api/Company/GetAll",
   getAllSetting: "api/Setting/GetAll",
   getAllMenu: "api/Menu/GetAll",
+  getAllFirstPrugTemplate: "api/ProgramTemplate/GetAll",
 });

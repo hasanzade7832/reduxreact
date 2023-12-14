@@ -13,5 +13,8 @@ class projectService {
   async getAllMenu() {
     return await httpClient.post(ApiConst.getAllMenu);
   }
+  async getAllFirstPrugTemplate() {
+    return await httpClient.post(ApiConst.getAllFirstPrugTemplate);
+  }
 }
 export default new projectService();

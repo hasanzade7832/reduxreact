@@ -5,6 +5,7 @@ import { Column } from "primereact/column";
 import {
   fetchConfiguration,
   fetchAllMenu,
+  fetchPrugTemplate,
 } from "../../redux/configuration/configurationSlice";
 
 const TableDynamic = () => {
@@ -14,25 +15,31 @@ const TableDynamic = () => {
     (state) => state.dataConfiguration.dataConfiguration
   );
 
-  const dataFromFetchData2 = useSelector(
+  const dataConfigurationForTable = useSelector(
     (state) => state.dataConfiguration.dataMenu
+  );
+
+  const dataPrugTemplate = useSelector(
+    (state) => state.dataConfiguration.dataPrugTemplate
   );
 
   useEffect(() => {
     if (subTabName === "Configuration") {
       dispatch(fetchConfiguration());
       dispatch(fetchAllMenu());
+      dispatch(fetchPrugTemplate());
     }
   }, [dispatch]);
 
   useEffect(() => {
     console.log("Data from fetchData1:", dataFromFetchData1);
-    console.log("Data from fetchData2:", dataFromFetchData2);
-  }, [dataFromFetchData1, dataFromFetchData2]);
+    console.log("Data from fetchData2:", dataConfigurationForTable);
+    console.log("Data from fetchData3:", dataPrugTemplate);
+  }, [dataFromFetchData1, dataConfigurationForTable, dataPrugTemplate]);
 
   const tabDataMap = {
     Configuration: {
-      data: useSelector((state) => state.dataConfiguration.data),
+      data: useSelector((state) => state.dataConfiguration.dataConfiguration),
       headersString: useSelector(
         (state) => state.dataConfiguration.headersString
       ),
@@ -57,9 +64,16 @@ const TableDynamic = () => {
   const columnsArray = fieldsColumns.split("|");
 
   return (
-    <div style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
+    <div
+      style={{
+        position: "relative",
+        height: "100vh",
+        overflow: "hidden",
+        width: "100%",
+      }}
+    >
       <h1>{subTabName}</h1>
-      <DataTable scrollable scrollHeight="80vh" value={data}>
+      <DataTable scrollable scrollHeight="80vh" value={data} showGridlines>
         {headersString.split("|").map((header, index) => (
           <Column
             key={header}
@@ -67,6 +81,30 @@ const TableDynamic = () => {
             header={header}
           ></Column>
         ))}
+        {/* configuration */}
+        <Column
+          field="data2"
+          header="Prg.Template"
+          body={(rowData) => {
+            const foundItem = dataPrugTemplate?.find(
+              (item) => item.ID == rowData.FirstIDProgramTemplate
+            );
+            const data2 = foundItem ? foundItem.Name : "Not Found";
+            return <span>{data2}</span>;
+          }}
+        ></Column>
+        <Column
+          field="data2"
+          header="Default Ribbon"
+          body={(rowData) => {
+            const foundItem = dataConfigurationForTable?.find(
+              (item) => item.ID == rowData.SelMenuIDForMain
+            );
+            const data2 = foundItem ? foundItem.Name : "Not Found";
+            return <span>{data2}</span>;
+          }}
+        ></Column>
+        {/* configuration */}
       </DataTable>
     </div>
   );
