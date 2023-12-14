@@ -3,12 +3,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../src/views/Home";
 import Login from "./views/login";
 import "../src/assets/styles/global.css";
-import { SubTabProvider } from "./contexts/TabContext";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import "primeicons/primeicons.css";
-
-import Box from "./components/box/box";
 
 let root: ReactDOM.Root | null = null;
 
@@ -22,16 +19,13 @@ if (rootElement) {
 
 root!.render(
   <Provider store={store}>
-    <SubTabProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/home" element={<Home />} />
-          <Route path="/" element={<Login />} />
-          <Route path="/box" element={<Box />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </BrowserRouter>
-    </SubTabProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
   </Provider>
 );
 
