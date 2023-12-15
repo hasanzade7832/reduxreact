@@ -7,6 +7,8 @@ import {
   setUserName,
   setPassword,
   setshowPassword,
+  setLoginSlice,
+  loginSlice,
 } from "../redux/Login/loginSlice";
 import { Image } from "primereact/image";
 import CryptoJS from "crypto-js";
@@ -70,6 +72,7 @@ const Login: React.FC = () => {
         );
         setTimeout(() => {
           setLoading(false);
+          dispatch(loginSlice.actions.setLoginSlice(true));
           navigate("/home");
         }, 500);
       })
@@ -204,5 +207,6 @@ interface RootState {
     userName: string;
     password: string;
     showPassword: Boolean;
+    loginSuccess: Boolean;
   };
 }

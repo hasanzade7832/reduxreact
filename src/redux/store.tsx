@@ -15,6 +15,7 @@ export const store = configureStore({
     isEditClicked: mainSlice.reducer,
     dataConfiguration: configurationSlice.reducer,
     dataLogin: loginSlice.reducer,
+    loginSuccess: loginSlice.reducer,
     dataCommands: commandsSlice.reducer,
   },
 });
@@ -39,6 +40,7 @@ export type RootState = {
     userName: string;
     password: string;
     showPassword: string;
+    loginSuccess: Boolean;
   };
   isAddClicked: {
     isAddClicked: Boolean;

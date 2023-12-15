@@ -43,7 +43,11 @@ body{
   .subTabsStyles{
     background: linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgb(211, 209, 206,0.3));
   
-  
   }
+
+p-tabview-nav-content{
+  background-color: #ff5733;
+}
+  
   
   
