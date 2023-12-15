@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -10,10 +10,36 @@ import {
 import { fetchCommands } from "../../redux/commands/commandsSlice";
 import { Button } from "primereact/button";
 import { mainSlice } from "../../redux/mainSlice";
+import { Toast } from "primereact/toast";
+import { Dialog } from "primereact/dialog"; // Add this import
 
 const TableDynamic = () => {
   const dispatch = useDispatch();
   const [selectedRow, setSelectedRow] = useState(null);
+
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+
+  const handleDelete = (rowData) => {
+    setSelectedRow(rowData);
+    setShowDeleteConfirmation(true);
+  };
+
+  const confirmDelete = () => {
+    setSelectedRow(null);
+    setShowDeleteConfirmation(false);
+    toast.current.show({
+      severity: "success",
+      summary: "Success",
+      detail: "Item deleted successfully",
+    });
+  };
+
+  const cancelDelete = () => {
+    setSelectedRow(null);
+    setShowDeleteConfirmation(false);
+  };
+
+  const toast = useRef(null);
 
   ///////////////////////All data to need this table dynamic////////////////////////////////////////////////
   const subTabName = useSelector((state) => state.subTabName.selectedSubTab);
@@ -145,6 +171,35 @@ const TableDynamic = () => {
         width: "100%",
       }}
     >
+      <Toast ref={toast} position="bottom-right" />
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog
+        visible={showDeleteConfirmation}
+        onHide={cancelDelete}
+        header="Confirmation"
+        icon="pi pi-exclamation-triangle"
+        position="top"
+        footer={
+          <div>
+            <Button
+              label="No"
+              icon="pi pi-times"
+              className="p-button-text"
+              onClick={cancelDelete}
+            />
+            <Button
+              label="Yes"
+              icon="pi pi-check"
+              className="p-button-text"
+              onClick={confirmDelete}
+            />
+          </div>
+        }
+      >
+        <div>Do you sure want to delete?</div>
+      </Dialog>
+
       <h1>{subTabName}</h1>
       <div style={{ textAlign: "right", marginTop: "10px" }}>
         <Button
@@ -167,7 +222,7 @@ const TableDynamic = () => {
         <Button
           icon="pi pi-trash"
           className="p-button-rounded p-button-danger p-button-animated p-button-rounded-hover"
-          onClick={() => handleDelete(rowData)}
+          onClick={() => handleDelete(selectedRow)}
         />
       </div>
       <DataTable
@@ -178,8 +233,7 @@ const TableDynamic = () => {
         selectionMode="single"
         selection={selectedRow}
         onSelectionChange={(e) => {
-          setSelectedRow(e.value),
-            dispatch(mainSlice.actions.setIsEditClicked(true));
+          setSelectedRow(e.value);
         }}
         onRowDoubleClick={() => {
           dispatch(mainSlice.actions.setIsEditClicked(true));
