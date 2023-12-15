@@ -1,10 +1,10 @@
 import axios from "axios";
 import { authHeader } from "./auth-header";
 
-const baseUrl = process.env.REACT_APP_ROOT_URL; 
-console.log("bbbbbbbbbb",baseUrl)
+const baseUrl = process.env.REACT_APP_ROOT_URL;
+// console.log("bbbbbbbbbb",baseUrl)
 
-const Api_Path = `${baseUrl}/`; 
+const Api_Path = `${baseUrl}/`;
 
 const httpClient = axios.create({
   baseURL: Api_Path,
@@ -23,10 +23,10 @@ const authInterceptor = (config) => {
 };
 
 httpClient.interceptors.response.use(
-  function(response) {
+  function (response) {
     return response;
   },
-  function(error) {
+  function (error) {
     if (error.response.status === 401) {
     }
     return Promise.reject(error);

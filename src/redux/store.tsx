@@ -11,6 +11,8 @@ export const store = configureStore({
     displaySplitter: mainSlice.reducer,
     mainTab: mainSlice.reducer,
     resetSubTab: mainSlice.reducer,
+    isAddClicked: mainSlice.reducer,
+    isEditClicked: mainSlice.reducer,
     dataConfiguration: configurationSlice.reducer,
     dataLogin: loginSlice.reducer,
     dataCommands: commandsSlice.reducer,
@@ -37,6 +39,12 @@ export type RootState = {
     userName: string;
     password: string;
     showPassword: string;
+  };
+  isAddClicked: {
+    isAddClicked: Boolean;
+  };
+  isEditClicked: {
+    isEditClicked: Boolean;
   };
 };
 export type AppDispatch = typeof store.dispatch;

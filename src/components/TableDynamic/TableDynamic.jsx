@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -9,12 +9,22 @@ import {
 } from "../../redux/configuration/configurationSlice";
 import { fetchCommands } from "../../redux/commands/commandsSlice";
 import { Button } from "primereact/button";
+import { mainSlice } from "../../redux/mainSlice";
 
 const TableDynamic = () => {
   const dispatch = useDispatch();
+  const [selectedRow, setSelectedRow] = useState(null);
+
+  ///////////////////////All data to need this table dynamic////////////////////////////////////////////////
   const subTabName = useSelector((state) => state.subTabName.selectedSubTab);
 
-  console.log("sub", subTabName);
+  const isAddClicked = useSelector((state) => state.isAddClicked.isAddClicked);
+  console.log("AAADDDDDD", isAddClicked);
+
+  const isEditClicked = useSelector(
+    (state) => state.isEditClicked.isEditClicked
+  );
+  console.log("Edittttttttt", isEditClicked);
 
   const dataConfiguration = useSelector(
     (state) => state.dataConfiguration.dataConfiguration
@@ -50,18 +60,12 @@ const TableDynamic = () => {
       dispatch(fetchConfiguration());
       dispatch(fetchAllMenu());
       dispatch(fetchPrugTemplate());
-    }
-  }, [subTabName]);
-
-  useEffect(() => {
-    if (subTabName === "Commands") {
+    } else if (subTabName === "Commands") {
       dispatch(fetchCommands());
     }
   }, [subTabName]);
 
-  useEffect(() => {
-    console.log("Data from fetchData4:", dataCommands);
-  }, [dataCommands]);
+  useEffect(() => {}, [dataCommands]);
 
   /////////////////////////DATA FOR TABLE//////////////////////////////////////////////////////////////////////
 
@@ -108,7 +112,6 @@ const TableDynamic = () => {
           );
           const data2 =
             foundItems.length > 0 ? foundItems[0].Name : "Not Found";
-          console.log("data22222222", data2);
           return <span>{data2}</span>;
         }}
       />,
@@ -128,6 +131,9 @@ const TableDynamic = () => {
       />
     );
   }
+
+  const isEditDisabled = selectedRow === null;
+
   //////////////////////////////////////////////////////////////////////////////////////
 
   return (
@@ -143,21 +149,43 @@ const TableDynamic = () => {
       <div style={{ textAlign: "right", marginTop: "10px" }}>
         <Button
           icon="pi pi-plus"
-          className="p-button-rounded p-button-success"
-          onClick={() => handleAdd(rowData)}
+          className="p-button-rounded p-button-success p-button-animated p-button-rounded-hover"
+          onClick={() => {
+            dispatch(mainSlice.actions.setIsAddClicked(true));
+            dispatch(mainSlice.actions.setIsEditClicked(false));
+          }}
         />
         <Button
           icon="pi pi-pencil"
-          className="p-button-rounded p-button-warning"
-          onClick={() => handleEdit(rowData)}
+          className="p-button-rounded p-button-warning p-button-animated p-button-rounded-hover"
+          onClick={() => {
+            dispatch(mainSlice.actions.setIsEditClicked(true));
+            dispatch(mainSlice.actions.setIsAddClicked(false));
+          }}
+          disabled={isEditDisabled}
         />
         <Button
           icon="pi pi-trash"
-          className="p-button-rounded p-button-danger"
+          className="p-button-rounded p-button-danger p-button-animated p-button-rounded-hover"
           onClick={() => handleDelete(rowData)}
         />
       </div>
-      <DataTable scrollable scrollHeight="80vh" value={data} showGridlines>
+      <DataTable
+        scrollable
+        scrollHeight="80vh"
+        value={data}
+        showGridlines
+        selectionMode="single"
+        selection={selectedRow}
+        onSelectionChange={(e) => {
+          setSelectedRow(e.value),
+            dispatch(mainSlice.actions.setIsEditClicked(true));
+        }}
+        onRowDoubleClick={() => {
+          dispatch(mainSlice.actions.setIsEditClicked(true));
+          dispatch(mainSlice.actions.setIsAddClicked(false));
+        }}
+      >
         {headersString.split("|").map((header, index) => (
           <Column
             key={header}
