@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { mainSlice } from "./mainSlice";
 import configurationSlice from "./configuration/configurationSlice";
 import { loginSlice } from "./Login/loginSlice";
+import commandsSlice from "./commands/commandsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     resetSubTab: mainSlice.reducer,
     dataConfiguration: configurationSlice.reducer,
     dataLogin: loginSlice.reducer,
+    dataCommands: commandsSlice.reducer,
   },
 });
 

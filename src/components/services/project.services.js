@@ -16,5 +16,9 @@ class projectService {
   async getAllFirstPrugTemplate() {
     return await httpClient.post(ApiConst.getAllFirstPrugTemplate);
   }
+
+  async getAllCommand() {
+    return await httpClient.post(ApiConst.getAllCommand);
+  }
 }
 export default new projectService();

@@ -7,20 +7,42 @@ import {
   fetchAllMenu,
   fetchPrugTemplate,
 } from "../../redux/configuration/configurationSlice";
+import { fetchCommands } from "../../redux/commands/commandsSlice";
+import { Button } from "primereact/button";
 
 const TableDynamic = () => {
   const dispatch = useDispatch();
   const subTabName = useSelector((state) => state.subTabName.selectedSubTab);
-  const dataFromFetchData1 = useSelector(
+
+  console.log("sub", subTabName);
+
+  const dataConfiguration = useSelector(
     (state) => state.dataConfiguration.dataConfiguration
   );
 
-  const dataConfigurationForTable = useSelector(
+  const headersStringConfiguration = useSelector(
+    (state) => state.dataConfiguration.headersString
+  );
+
+  const fieldsColumnsConfiguration = useSelector(
+    (state) => state.dataConfiguration.fieldColumn
+  );
+
+  const dataMenuForTable = useSelector(
     (state) => state.dataConfiguration.dataMenu
   );
 
   const dataPrugTemplate = useSelector(
     (state) => state.dataConfiguration.dataPrugTemplate
+  );
+  const dataCommands = useSelector((state) => state.dataCommands.dataCommands);
+
+  const headersStringCommands = useSelector(
+    (state) => state.dataCommands.headersString
+  );
+
+  const fieldsColumnsCommands = useSelector(
+    (state) => state.dataCommands.fieldColumn
   );
 
   useEffect(() => {
@@ -29,23 +51,30 @@ const TableDynamic = () => {
       dispatch(fetchAllMenu());
       dispatch(fetchPrugTemplate());
     }
-  }, [dispatch]);
+  }, [subTabName]);
 
   useEffect(() => {
-    console.log("Data from fetchData1:", dataFromFetchData1);
-    console.log("Data from fetchData2:", dataConfigurationForTable);
-    console.log("Data from fetchData3:", dataPrugTemplate);
-  }, [dataFromFetchData1, dataConfigurationForTable, dataPrugTemplate]);
+    if (subTabName === "Commands") {
+      dispatch(fetchCommands());
+    }
+  }, [subTabName]);
+
+  useEffect(() => {
+    console.log("Data from fetchData4:", dataCommands);
+  }, [dataCommands]);
+
+  /////////////////////////DATA FOR TABLE//////////////////////////////////////////////////////////////////////
 
   const tabDataMap = {
     Configuration: {
-      data: useSelector((state) => state.dataConfiguration.dataConfiguration),
-      headersString: useSelector(
-        (state) => state.dataConfiguration.headersString
-      ),
-      fieldsColumns: useSelector(
-        (state) => state.dataConfiguration.fieldColumn
-      ),
+      data: dataConfiguration,
+      headersString: headersStringConfiguration,
+      fieldsColumns: fieldsColumnsConfiguration,
+    },
+    Commands: {
+      data: dataCommands,
+      headersString: headersStringCommands,
+      fieldsColumns: fieldsColumnsCommands,
     },
   };
 
@@ -63,6 +92,44 @@ const TableDynamic = () => {
 
   const columnsArray = fieldsColumns.split("|");
 
+  ///////////////////////////ADDITIONAL COLUMNS////////////////////////////////////////////////////
+
+  const additionalColumns = [];
+
+  if (subTabName === "Configuration") {
+    additionalColumns.push(
+      <Column
+        key="Prg.Template"
+        field="data2"
+        header="Prg.Template"
+        body={(rowData) => {
+          const foundItems = dataPrugTemplate.filter(
+            (item) => item.ID === rowData.FirstIDProgramTemplate
+          );
+          const data2 =
+            foundItems.length > 0 ? foundItems[0].Name : "Not Found";
+          console.log("data22222222", data2);
+          return <span>{data2}</span>;
+        }}
+      />,
+      <Column
+        key="Default Ribbon"
+        field="data2"
+        header="Default Ribbon"
+        body={(rowData) => {
+          const foundItems = dataMenuForTable.filter(
+            (item) => item.ID === rowData.SelMenuIDForMain
+          );
+          const data2 =
+            foundItems.length > 0 ? foundItems[0].Name : "Not Found";
+
+          return <span>{data2}</span>;
+        }}
+      />
+    );
+  }
+  //////////////////////////////////////////////////////////////////////////////////////
+
   return (
     <div
       style={{
@@ -73,6 +140,23 @@ const TableDynamic = () => {
       }}
     >
       <h1>{subTabName}</h1>
+      <div style={{ textAlign: "right", marginTop: "10px" }}>
+        <Button
+          icon="pi pi-plus"
+          className="p-button-rounded p-button-success"
+          onClick={() => handleAdd(rowData)}
+        />
+        <Button
+          icon="pi pi-pencil"
+          className="p-button-rounded p-button-warning"
+          onClick={() => handleEdit(rowData)}
+        />
+        <Button
+          icon="pi pi-trash"
+          className="p-button-rounded p-button-danger"
+          onClick={() => handleDelete(rowData)}
+        />
+      </div>
       <DataTable scrollable scrollHeight="80vh" value={data} showGridlines>
         {headersString.split("|").map((header, index) => (
           <Column
@@ -82,29 +166,8 @@ const TableDynamic = () => {
           ></Column>
         ))}
         {/* configuration */}
-        <Column
-          field="data2"
-          header="Prg.Template"
-          body={(rowData) => {
-            const foundItem = dataPrugTemplate?.find(
-              (item) => item.ID == rowData.FirstIDProgramTemplate
-            );
-            const data2 = foundItem ? foundItem.Name : "Not Found";
-            return <span>{data2}</span>;
-          }}
-        ></Column>
-        <Column
-          field="data2"
-          header="Default Ribbon"
-          body={(rowData) => {
-            const foundItem = dataConfigurationForTable?.find(
-              (item) => item.ID == rowData.SelMenuIDForMain
-            );
-            const data2 = foundItem ? foundItem.Name : "Not Found";
-            return <span>{data2}</span>;
-          }}
-        ></Column>
-        {/* configuration */}
+        {/* Conditionally render the last two columns for subTabName === "Configuration" */}
+        {additionalColumns}
       </DataTable>
     </div>
   );
