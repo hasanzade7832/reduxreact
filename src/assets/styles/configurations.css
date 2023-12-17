@@ -4,6 +4,45 @@
     justify-content:space-evenly;
     margin-top:50px;
   }
+
+  .custom-input {
+    border: none;
+    border-bottom: 1px solid #000; /* یا هر رنگ دیگری که دلتان بخواهد */
+    border-radius: 0;
+    outline: none;
+    box-shadow: none;
+    transition: border-bottom 0.3s; /* انیمیشن مرتبط با تغییرات در border-bottom */
+  }
+  
+  .custom-input:focus {
+    border: none;
+    border-bottom: 2px solid #00f; /* یا هر رنگ دیگری که دلتان بخواهد */
+    box-shadow: none;
+  }
+
+  .w-90 {
+    width: 95% !important;
+  }
+
+  .drop-down{
+    border: none;
+    border-bottom: 1px solid #000; /* یا هر رنگ دیگری که دلتان بخواهد */
+    border-radius: 0;
+    outline: none;
+    box-shadow: none;
+    transition: border-bottom 0.3s; /* انیمیشن مرتبط با تغییرات در border-bottom */
+  }
+
+  .drop-down:focus{
+    border: none;
+    border-bottom: 2px solid #00f; /* یا هر رنگ دیگری که دلتان بخواهد */
+    box-shadow: none;
+  }
+
+
+
+  
+    
   
 
 
