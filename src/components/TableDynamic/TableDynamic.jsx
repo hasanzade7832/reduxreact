@@ -200,11 +200,12 @@ const TableDynamic = () => {
         <div>Do you sure want to delete?</div>
       </Dialog>
 
-      <h1>{subTabName}</h1>
+      <h3>{subTabName}</h3>
       <div style={{ textAlign: "right", marginTop: "10px" }}>
         <Button
           icon="pi pi-plus"
-          className="p-button-rounded p-button-success p-button-animated p-button-rounded-hover"
+          size="small"
+          className="p-button-rounded p-button-success "
           onClick={() => {
             dispatch(mainSlice.actions.setIsAddClicked(true));
             dispatch(mainSlice.actions.setIsEditClicked(false));
@@ -212,7 +213,8 @@ const TableDynamic = () => {
         />
         <Button
           icon="pi pi-pencil"
-          className="p-button-rounded p-button-warning p-button-animated p-button-rounded-hover"
+          size="small"
+          className="p-button-rounded p-button-warning "
           onClick={() => {
             dispatch(mainSlice.actions.setIsEditClicked(true));
             dispatch(mainSlice.actions.setIsAddClicked(false));
@@ -221,7 +223,8 @@ const TableDynamic = () => {
         />
         <Button
           icon="pi pi-trash"
-          className="p-button-rounded p-button-danger p-button-animated p-button-rounded-hover"
+          size="small"
+          className="p-button-rounded p-button-danger "
           onClick={() => handleDelete(selectedRow)}
         />
       </div>

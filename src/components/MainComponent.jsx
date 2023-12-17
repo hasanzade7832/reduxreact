@@ -60,7 +60,7 @@ function MainComponent() {
   return (
     <>
       {splitterShow && (
-        <Splitter style={{ height: "100vh" }}>
+        <Splitter style={{ height: "100vh", overflow: "hidden" }}>
           <SplitterPanel className="flex align-items-center justify-content-center">
             <TableDynamic />
           </SplitterPanel>
