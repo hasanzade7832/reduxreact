@@ -44,47 +44,51 @@ const MyTabs = () => {
   return (
     <>
       <Toast ref={toast} />
-      <TabView
-        className="custom-tabview"
-        activeIndex={activeIndex}
-        onTabChange={(e) => {
-          const newValue = dispatch(
-            mainSlice.actions.setvalueMainTab(e.index)
-          ).payload;
-          const resetVal = dispatch(mainSlice.actions.setSubTab("")).payload;
-          return newValue;
-        }}
-      >
-        {tabData.map((tab, tabIndex) => (
-          <TabPanel key={tabIndex} header={tab.tabName}>
-            {tab.subTabs && (
-              <div style={{ display: "flex" }}>
-                {tab.subTabs.map((subTab, subTabIndex) => (
-                  <div
-                    key={subTabIndex}
-                    onClick={() => {
-                      dispatch(mainSlice.actions.setSubTab(subTab.name));
-                      setSelectedSubTab(subTab.name);
-                    }}
-                    style={{
-                      backgroundColor:
-                        selectedSubTab === subTab.name
-                          ? "#e1e1e1"
-                          : "transparent",
-                      cursor: "pointer",
-                      padding: "15px",
-                      textAlign: "center",
-                    }}
-                  >
-                    <span style={{ marginRight: "20px" }}>{subTab.name}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </TabPanel>
-        ))}
-      </TabView>
-      <MainComponent />
+      <div className="custom-tabview ">
+        <TabView
+          className="custom-tabview"
+          activeIndex={activeIndex}
+          onTabChange={(e) => {
+            const newValue = dispatch(
+              mainSlice.actions.setvalueMainTab(e.index)
+            ).payload;
+            const resetVal = dispatch(mainSlice.actions.setSubTab("")).payload;
+            return newValue;
+          }}
+        >
+          {tabData.map((tab, tabIndex) => (
+            <TabPanel key={tabIndex} header={tab.tabName}>
+              {tab.subTabs && (
+                <div style={{ display: "flex" }}>
+                  {tab.subTabs.map((subTab, subTabIndex) => (
+                    <div
+                      key={subTabIndex}
+                      onClick={() => {
+                        dispatch(mainSlice.actions.setSubTab(subTab.name));
+                        setSelectedSubTab(subTab.name);
+                      }}
+                      style={{
+                        backgroundColor:
+                          selectedSubTab === subTab.name
+                            ? "#e1e1e1"
+                            : "transparent",
+                        cursor: "pointer",
+                        padding: "15px",
+                        textAlign: "center",
+                      }}
+                    >
+                      <span style={{ marginRight: "20px" }}>{subTab.name}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </TabPanel>
+          ))}
+        </TabView>
+      </div>
+      <div className="main-component-wrapper">
+        <MainComponent />
+      </div>
     </>
   );
 };
