@@ -34,6 +34,7 @@ const ConfigurationAdd = () => {
             id="username1"
             style={{ width: "80%" }}
             className="p-inputtext-sm custom-input"
+            max={50}
           />
           <label htmlFor="username1">Name</label>
         </span>
@@ -42,6 +43,7 @@ const ConfigurationAdd = () => {
             id="username2"
             style={{ width: "80%" }}
             className="p-inputtext-sm custom-input"
+            max={50}
           />
           <label htmlFor="username2">Description</label>
         </span>
