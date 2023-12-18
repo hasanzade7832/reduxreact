@@ -5,11 +5,14 @@ import { Dropdown } from "primereact/dropdown";
 import CustomInputText from "../globalComponents/inputCom";
 import CustomDropdown from "../globalComponents/dropDownComp";
 import CustomButton from "../globalComponents/buttonComp";
-import Box from "../../components/globalComponents/box"
+import Box from "../../components/globalComponents/box";
 import "../../assets/styles/configurations.css";
+import { Dialog } from "primereact/dialog";
+import ContentBoxDialog from "../configuration/selectBoxConfiguration";
 
 const ConfigurationAdd = () => {
   const [selectedCity, setSelectedCity] = useState(null);
+  const [dialogVisible, setDialogVisible] = useState(false);
 
   const cities = [
     { name: "New York", code: "NY" },
@@ -18,6 +21,14 @@ const ConfigurationAdd = () => {
     { name: "Istanbul", code: "IST" },
     { name: "Paris", code: "PRS" },
   ];
+
+  const showDialog = () => {
+    setDialogVisible(true);
+  };
+
+  const hideDialog = () => {
+    setDialogVisible(false);
+  };
 
   return (
     <>
@@ -124,16 +135,46 @@ const ConfigurationAdd = () => {
         <div style={{ marginRight: "90px" }}></div>
       </div>
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", marginTop: "40px", marginRight: "50px" }}>
-          <Box />
-          <Box />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-around",
+            marginTop: "40px",
+            marginRight: "50px",
+          }}
+        >
+          <Box dialogData={showDialog} />
+          <Box dialogData={showDialog} />
         </div>
-        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", marginTop: "40px", marginRight: "50px" }}>
-          <Box />
-          <div style={{ background: '#fff', width: '38%', height: '100px', position: 'relative' }}>
-          </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-around",
+            marginTop: "40px",
+            marginRight: "50px",
+          }}
+        >
+          <Box dialogData={showDialog} />
+          <div
+            style={{
+              background: "#fff",
+              width: "38%",
+              height: "100px",
+              position: "relative",
+            }}
+          ></div>
         </div>
       </div>
+      <Dialog
+        style={{ width: "50vw" }}
+        visible={dialogVisible}
+        onHide={hideDialog}
+        header="Add Configuration"
+      >
+        <ContentBoxDialog />
+      </Dialog>
     </>
   );
 };
