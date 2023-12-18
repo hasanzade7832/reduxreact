@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
+import CustomInputText from "../globalComponents/inputCom";
+import CustomDropdown from "../globalComponents/dropDownComp";
+import CustomButton from "../globalComponents/buttonComp";
+import Box from "../../components/globalComponents/box"
 import "../../assets/styles/configurations.css";
 
 const ConfigurationAdd = () => {
@@ -17,6 +21,7 @@ const ConfigurationAdd = () => {
 
   return (
     <>
+      {/* /////////////////////Line1/////////////////////// */}
       <div
         style={{
           marginTop: "50px",
@@ -25,28 +30,8 @@ const ConfigurationAdd = () => {
         }}
         className="card flex justify-content-center"
       >
-        {/* /////////////////////Line1/////////////////////// */}
-        <span
-          className="p-float-label"
-          style={{ flex: "1", marginRight: "10px" }}
-        >
-          <InputText
-            id="username1"
-            style={{ width: "80%" }}
-            className="p-inputtext-sm custom-input"
-            max={50}
-          />
-          <label htmlFor="username1">Name</label>
-        </span>
-        <span className="p-float-label" style={{ flex: "1" }}>
-          <InputText
-            id="username2"
-            style={{ width: "80%" }}
-            className="p-inputtext-sm custom-input"
-            max={50}
-          />
-          <label htmlFor="username2">Description</label>
-        </span>
+        <CustomInputText id="username1" label="Name" />
+        <CustomInputText id="username2" label="Description" />
       </div>
       {/* /////////////////////Line2/////////////////////// */}
       <div
@@ -57,33 +42,25 @@ const ConfigurationAdd = () => {
         }}
         className="card flex justify-content-center"
       >
-        <span className="p-float-label" style={{ flex: "1" }}>
-          <Dropdown
-            inputId="dd-city"
-            value={selectedCity}
-            onChange={(e) => setSelectedCity(e.value)}
-            options={cities}
-            optionLabel="name"
-            className="p-dropdown-sm w-90 md:w-14rem drop-down"
-            filter
-          />
-          <label htmlFor="dd-city">Program Template</label>
-        </span>
-        <Button label="..." className="p-button-sm" />
+        <CustomDropdown
+          id="dd-city1"
+          value={selectedCity}
+          onChange={(e: any) => setSelectedCity(e.value)}
+          options={cities}
+          optionLabel="name"
+          label="Program Template"
+        />
+        <CustomButton label="..." className="button-small" />
         <div style={{ marginRight: "90px" }}></div>
-        <span className="p-float-label" style={{ flex: "1" }}>
-          <Dropdown
-            inputId="dd-city"
-            value={selectedCity}
-            onChange={(e) => setSelectedCity(e.value)}
-            options={cities}
-            optionLabel="name"
-            className="p-dropdown-sm w-90 md:w-14rem drop-down"
-            filter
-          />
-          <label htmlFor="dd-city">Default Ribbon</label>
-        </span>
-        <Button label="..." className="p-button-sm" />
+        <CustomDropdown
+          id="dd-city1"
+          value={selectedCity}
+          onChange={(e: any) => setSelectedCity(e.value)}
+          options={cities}
+          optionLabel="name"
+          label="Program Template"
+        />
+        <CustomButton label="..." className="button-small" />
         <div style={{ marginRight: "90px" }}></div>
       </div>
       {/* /////////////////////Line3/////////////////////// */}
@@ -95,33 +72,25 @@ const ConfigurationAdd = () => {
         }}
         className="card flex justify-content-center"
       >
-        <span className="p-float-label" style={{ flex: "1" }}>
-          <Dropdown
-            inputId="dd-city"
-            value={selectedCity}
-            onChange={(e) => setSelectedCity(e.value)}
-            options={cities}
-            optionLabel="name"
-            className="p-dropdown-sm w-90 md:w-14rem drop-down"
-            filter
-          />
-          <label htmlFor="dd-city">Lesson Learned Form Template</label>
-        </span>
-        <Button label="..." className="p-button-sm" />
+        <CustomDropdown
+          id="dd-city1"
+          value={selectedCity}
+          onChange={(e: any) => setSelectedCity(e.value)}
+          options={cities}
+          optionLabel="name"
+          label="Program Template"
+        />
+        <CustomButton label="..." className="button-small" />
         <div style={{ marginRight: "90px" }}></div>
-        <span className="p-float-label" style={{ flex: "1" }}>
-          <Dropdown
-            inputId="dd-city"
-            value={selectedCity}
-            onChange={(e) => setSelectedCity(e.value)}
-            options={cities}
-            optionLabel="name"
-            className="p-dropdown-sm w-90 md:w-14rem drop-down"
-            filter
-          />
-          <label htmlFor="dd-city">Lesson Learned AF Template</label>
-        </span>
-        <Button label="..." className="p-button-sm" />
+        <CustomDropdown
+          id="dd-city1"
+          value={selectedCity}
+          onChange={(e: any) => setSelectedCity(e.value)}
+          options={cities}
+          optionLabel="name"
+          label="Program Template"
+        />
+        <CustomButton label="..." className="button-small" />
         <div style={{ marginRight: "90px" }}></div>
       </div>
       {/* /////////////////////Line4/////////////////////// */}
@@ -133,34 +102,37 @@ const ConfigurationAdd = () => {
         }}
         className="card flex justify-content-center"
       >
-        <span className="p-float-label" style={{ flex: "1" }}>
-          <Dropdown
-            inputId="dd-city"
-            value={selectedCity}
-            onChange={(e) => setSelectedCity(e.value)}
-            options={cities}
-            optionLabel="name"
-            className="p-dropdown-sm w-90 md:w-14rem drop-down"
-            filter
-          />
-          <label htmlFor="dd-city">Comment Form Tempate</label>
-        </span>
-        <Button label="..." size="small" />
+        <CustomDropdown
+          id="dd-city1"
+          value={selectedCity}
+          onChange={(e: any) => setSelectedCity(e.value)}
+          options={cities}
+          optionLabel="name"
+          label="Program Template"
+        />
+        <CustomButton label="..." className="button-small" />
         <div style={{ marginRight: "90px" }}></div>
-        <span className="p-float-label" style={{ flex: "1" }}>
-          <Dropdown
-            inputId="dd-city"
-            value={selectedCity}
-            onChange={(e) => setSelectedCity(e.value)}
-            options={cities}
-            optionLabel="name"
-            className="p-dropdown-sm w-90 md:w-14rem drop-down"
-            filter
-          />
-          <label htmlFor="dd-city">Procedure Form Template</label>
-        </span>
-        <Button label="..." size="small" />
+        <CustomDropdown
+          id="dd-city1"
+          value={selectedCity}
+          onChange={(e: any) => setSelectedCity(e.value)}
+          options={cities}
+          optionLabel="name"
+          label="Program Template"
+        />
+        <CustomButton label="..." className="button-small" />
         <div style={{ marginRight: "90px" }}></div>
+      </div>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", marginTop: "40px", marginRight: "50px" }}>
+          <Box />
+          <Box />
+        </div>
+        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", marginTop: "40px", marginRight: "50px" }}>
+          <Box />
+          <div style={{ background: '#fff', width: '38%', height: '100px', position: 'relative' }}>
+          </div>
+        </div>
       </div>
     </>
   );
