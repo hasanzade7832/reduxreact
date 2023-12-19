@@ -5,7 +5,7 @@ import "primereact/resources/primereact.min.css"; // ثبت استایل‌ها�
 import "primeicons/primeicons.css"; // ثبت آیکون‌های PrimeIcons
 import "../../assets/styles/global.css";
 
-const CustomComponent = ({ dialogData }) => {
+const CustomComponent = ({ dialogData, titleBox }) => {
   return (
     <>
       <div
@@ -28,11 +28,12 @@ const CustomComponent = ({ dialogData }) => {
           onClick={dialogData}
           color="black"
         />
+        <span style={{ margin: "10px" }}>{titleBox}</span>
         <hr
           style={{
             position: "absolute",
             width: "100%",
-            marginTop: "30px",
+            marginTop: "10px",
           }}
         />
       </div>

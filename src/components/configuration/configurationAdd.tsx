@@ -144,8 +144,8 @@ const ConfigurationAdd = () => {
             marginRight: "50px",
           }}
         >
-          <Box dialogData={showDialog} />
-          <Box dialogData={showDialog} />
+          <Box dialogData={showDialog} titleBox={"Default Action Buttons"}/>
+          <Box dialogData={showDialog} titleBox={"Letter Action Buttons"}/>
         </div>
         <div
           style={{
@@ -156,7 +156,7 @@ const ConfigurationAdd = () => {
             marginRight: "50px",
           }}
         >
-          <Box dialogData={showDialog} />
+          <Box dialogData={showDialog} titleBox={"Meeting Action Buttons"}/>
           <div
             style={{
               background: "#fff",
@@ -172,6 +172,8 @@ const ConfigurationAdd = () => {
         visible={dialogVisible}
         onHide={hideDialog}
         header="Add Configuration"
+        resizable={true} 
+        maximizable={true}
       >
         <ContentBoxDialog />
       </Dialog>

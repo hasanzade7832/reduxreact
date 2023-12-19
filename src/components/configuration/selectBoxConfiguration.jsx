@@ -1,7 +1,9 @@
+import TableBOx from "../configuration/tableBoxConfiguration"
+
 const selectBox = () => {
   return (
     <>
-      <h1>heloo slectbox</h1>
+      <TableBOx/>
     </>
   );
 };
