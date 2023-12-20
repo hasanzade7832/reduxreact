@@ -64,13 +64,15 @@ function MainComponent() {
           <SplitterPanel className="flex align-items-center justify-content-center">
             <TableDynamic />
           </SplitterPanel>
-          <SplitterPanel className="flex align-items-center justify-content-center">
+          <SplitterPanel
+            className="flex align-items-center justify-content-center"
+            style={{ overflow: "auto" }}
+          >
             <div className="w-full h-full">
-
-            {shouldDisplayAddConfiguration && <AddConfiguration />}
-            {shouldDisplayEditConfiguration && <EditConfiguration />}
-            {shouldDisplayAddCommands && <AddCommands />}
-            {shouldDisplayEditCommands && <EditCommands />}
+              {shouldDisplayAddConfiguration && <AddConfiguration />}
+              {shouldDisplayEditConfiguration && <EditConfiguration />}
+              {shouldDisplayAddCommands && <AddCommands />}
+              {shouldDisplayEditCommands && <EditCommands />}
             </div>
           </SplitterPanel>
         </Splitter>

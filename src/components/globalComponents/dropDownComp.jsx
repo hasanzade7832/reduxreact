@@ -2,7 +2,14 @@
 import React from "react";
 import { Dropdown } from "primereact/dropdown";
 
-const CustomDropdown = ({ id, value, onChange, options, optionLabel, label }) => {
+const CustomDropdown = ({
+  id,
+  value,
+  onChange,
+  options,
+  optionLabel,
+  label,
+}) => {
   return (
     <span className="p-float-label" style={{ flex: "1" }}>
       <Dropdown
@@ -11,10 +18,13 @@ const CustomDropdown = ({ id, value, onChange, options, optionLabel, label }) =>
         onChange={onChange}
         options={options}
         optionLabel={optionLabel}
-        className="w-90 md:w-14rem drop-down drop-small"
+        className="drop-down drop-small"
         filter
+        style={{ width: "80%" }}
       />
-      <label htmlFor={id} style={{ marginTop: "-20px" }}>{label}</label>
+      <label htmlFor={id} style={{ marginTop: "-20px" }}>
+        {label}
+      </label>
     </span>
   );
 };

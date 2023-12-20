@@ -33,140 +33,138 @@ const ConfigurationAdd = () => {
   return (
     <>
       {/* /////////////////////Line1/////////////////////// */}
-      <div
-        style={{
-          marginTop: "50px",
-          display: "flex",
-          marginLeft: "50px",
-        }}
-        className="card flex justify-content-center"
-      >
-        <CustomInputText id="username1" label="Name" />
-        <CustomInputText id="username2" label="Description" />
+      <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
+        <div className="col-5">
+          <CustomInputText id="username1" label="Name" />
+        </div>
+        <div className="col-1"></div>
+        <div className="col-5">
+          <CustomInputText id="username2" label="Description" />
+        </div>
       </div>
       {/* /////////////////////Line2/////////////////////// */}
-      <div
-        style={{
-          marginTop: "50px",
-          display: "flex",
-          marginLeft: "50px",
-        }}
-        className="card flex justify-content-center"
-      >
-        <CustomDropdown
-          id="dd-city1"
-          value={selectedCity}
-          onChange={(e: any) => setSelectedCity(e.value)}
-          options={cities}
-          optionLabel="name"
-          label="Program Template"
-        />
-        <CustomButton label="..." className="button-small" />
-        <div style={{ marginRight: "90px" }}></div>
-        <CustomDropdown
-          id="dd-city1"
-          value={selectedCity}
-          onChange={(e: any) => setSelectedCity(e.value)}
-          options={cities}
-          optionLabel="name"
-          label="Program Template"
-        />
-        <CustomButton label="..." className="button-small" />
-        <div style={{ marginRight: "90px" }}></div>
+      <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
+        <div className="flex col-5">
+          <CustomDropdown
+            id="dd-city1"
+            value={selectedCity}
+            onChange={(e: any) => setSelectedCity(e.value)}
+            options={cities}
+            optionLabel="name"
+            label="Program Template"
+          />
+          <CustomButton label="..." className="button-small" />
+        </div>
+        <div className="col-1"></div>
+        <div className="flex col-5">
+          <CustomDropdown
+            id="dd-city1"
+            value={selectedCity}
+            onChange={(e: any) => setSelectedCity(e.value)}
+            options={cities}
+            optionLabel="name"
+            label="Program Template"
+          />
+          <CustomButton label="..." className="button-small" />
+        </div>
       </div>
       {/* /////////////////////Line3/////////////////////// */}
-      <div
-        style={{
-          marginTop: "50px",
-          display: "flex",
-          marginLeft: "50px",
-        }}
-        className="card flex justify-content-center"
-      >
-        <CustomDropdown
-          id="dd-city1"
-          value={selectedCity}
-          onChange={(e: any) => setSelectedCity(e.value)}
-          options={cities}
-          optionLabel="name"
-          label="Program Template"
-        />
-        <CustomButton label="..." className="button-small" />
-        <div style={{ marginRight: "90px" }}></div>
-        <CustomDropdown
-          id="dd-city1"
-          value={selectedCity}
-          onChange={(e: any) => setSelectedCity(e.value)}
-          options={cities}
-          optionLabel="name"
-          label="Program Template"
-        />
-        <CustomButton label="..." className="button-small" />
-        <div style={{ marginRight: "90px" }}></div>
+      <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
+        <div className="flex col-5">
+          <CustomDropdown
+            id="dd-city1"
+            value={selectedCity}
+            onChange={(e: any) => setSelectedCity(e.value)}
+            options={cities}
+            optionLabel="name"
+            label="Program Template"
+          />
+          <CustomButton label="..." className="button-small" />
+        </div>
+        <div className="col-1"></div>
+        <div className="flex col-5">
+          <CustomDropdown
+            id="dd-city1"
+            value={selectedCity}
+            onChange={(e: any) => setSelectedCity(e.value)}
+            options={cities}
+            optionLabel="name"
+            label="Program Template"
+          />
+          <CustomButton label="..." className="button-small" />
+        </div>
       </div>
       {/* /////////////////////Line4/////////////////////// */}
-      <div
-        style={{
-          marginTop: "50px",
-          display: "flex",
-          marginLeft: "50px",
-        }}
-        className="card flex justify-content-center"
-      >
-        <CustomDropdown
-          id="dd-city1"
-          value={selectedCity}
-          onChange={(e: any) => setSelectedCity(e.value)}
-          options={cities}
-          optionLabel="name"
-          label="Program Template"
-        />
-        <CustomButton label="..." className="button-small" />
-        <div style={{ marginRight: "90px" }}></div>
-        <CustomDropdown
-          id="dd-city1"
-          value={selectedCity}
-          onChange={(e: any) => setSelectedCity(e.value)}
-          options={cities}
-          optionLabel="name"
-          label="Program Template"
-        />
-        <CustomButton label="..." className="button-small" />
-        <div style={{ marginRight: "90px" }}></div>
+      <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
+        <div className="flex col-5">
+          <CustomDropdown
+            id="dd-city1"
+            value={selectedCity}
+            onChange={(e: any) => setSelectedCity(e.value)}
+            options={cities}
+            optionLabel="name"
+            label="Program Template"
+          />
+          <CustomButton label="..." className="button-small" />
+        </div>
+        <div className="col-1"></div>
+        <div className="flex col-5">
+          <CustomDropdown
+            id="dd-city1"
+            value={selectedCity}
+            onChange={(e: any) => setSelectedCity(e.value)}
+            options={cities}
+            optionLabel="name"
+            label="Program Template"
+          />
+          <CustomButton label="..." className="button-small" />
+        </div>
       </div>
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-around",
-            marginTop: "40px",
-            marginRight: "50px",
-          }}
-        >
+      {/* /////////////////////Line5/////////////////////// */}
+      <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
+        <div className="flex col-5">
+          <CustomDropdown
+            id="dd-city1"
+            value={selectedCity}
+            onChange={(e: any) => setSelectedCity(e.value)}
+            options={cities}
+            optionLabel="name"
+            label="Program Template"
+          />
+          <CustomButton label="..." className="button-small" />
+        </div>
+        <div className="col-1"></div>
+        <div className="flex col-5">
+          <CustomDropdown
+            id="dd-city1"
+            value={selectedCity}
+            onChange={(e: any) => setSelectedCity(e.value)}
+            options={cities}
+            optionLabel="name"
+            label="Program Template"
+          />
+          <CustomButton label="..." className="button-small" />
+        </div>
+      </div>
+      {/* /////////////////////Line6/////////////////////// */}
+      <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
+        <div className="col-5">
           <Box dialogData={showDialog} titleBox={"Default Action Buttons"} />
+        </div>
+        <div className="col-1"></div>
+        <div className="col-5">
           <Box dialogData={showDialog} titleBox={"Letter Action Buttons"} />
         </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-around",
-            marginTop: "40px",
-            marginRight: "50px",
-          }}
-        >
-          <Box dialogData={showDialog} titleBox={"Meeting Action Buttons"} />
-          <div
-            style={{
-              background: "#fff",
-              width: "38%",
-              height: "100px",
-              position: "relative",
-            }}
-          ></div>
-        </div>
       </div>
+      {/* /////////////////////Line7/////////////////////// */}
+      <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
+        <div className="col-5">
+          <Box dialogData={showDialog} titleBox={"Meeting Action Buttons"} />
+        </div>
+        <div className="col-1"></div>
+        <div className="col-5"></div>
+      </div>
+      {/* /////////////////////Dialog/////////////////////// */}
       <Dialog
         style={{ width: "50vw" }}
         visible={dialogVisible}

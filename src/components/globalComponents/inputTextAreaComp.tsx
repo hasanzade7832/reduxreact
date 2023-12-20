@@ -1,6 +1,6 @@
 // CustomInputText.tsx
 import React, { FC } from "react";
-import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
 
 interface CustomInputTextProps {
   id: string;
@@ -10,7 +10,7 @@ interface CustomInputTextProps {
 const CustomInputText: FC<CustomInputTextProps> = ({ id, label }) => {
   return (
     <span className="p-float-label" style={{ flex: "1", marginRight: "10px" }}>
-      <InputText id={id} style={{ width: "80%" }} className="custom-input" />
+      <InputTextarea id={id} style={{ width: "80%" }} />
       <label htmlFor={id}>{label}</label>
     </span>
   );

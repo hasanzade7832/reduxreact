@@ -11,7 +11,6 @@ const CustomComponent = ({ dialogData, titleBox }) => {
       <div
         style={{
           background: "#C8C9CE",
-          width: "38%",
           height: "100px",
           position: "relative",
         }}
