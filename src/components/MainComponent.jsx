@@ -65,10 +65,13 @@ function MainComponent() {
             <TableDynamic />
           </SplitterPanel>
           <SplitterPanel className="flex align-items-center justify-content-center">
+            <div className="w-full h-full">
+
             {shouldDisplayAddConfiguration && <AddConfiguration />}
             {shouldDisplayEditConfiguration && <EditConfiguration />}
             {shouldDisplayAddCommands && <AddCommands />}
             {shouldDisplayEditCommands && <EditCommands />}
+            </div>
           </SplitterPanel>
         </Splitter>
       )}

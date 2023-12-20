@@ -2,6 +2,10 @@ body{
   overflow: hidden;
 }
 
+input {
+  box-sizing: border-box;
+}
+
 .sub-tabs-container {
     display: flex;
     flex-wrap: wrap;

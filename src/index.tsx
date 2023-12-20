@@ -6,6 +6,7 @@ import "../src/assets/styles/global.css";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import "primeicons/primeicons.css";
+import "../src/App.scss"
 
 let root: ReactDOM.Root | null = null;
 
@@ -24,6 +25,7 @@ root!.render(
         <Route path="/home" element={<Home />} />
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
+        {/* <Route path="/test" element={<Test />} /> */}
       </Routes>
     </BrowserRouter>
   </Provider>
