@@ -71,6 +71,7 @@ p-tabview-nav-content{
 .button-medium{
   padding: 15px;
   height: 4vh;
+  width: 100%;
 }
 
 .button-large{

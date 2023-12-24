@@ -20,7 +20,7 @@ const CustomDropdown = ({
         optionLabel={optionLabel}
         className="drop-down drop-small"
         filter
-        style={{ width: "80%" }}
+        style={{ width: "100%" }}
       />
       <label htmlFor={id} style={{ marginTop: "-20px" }}>
         {label}

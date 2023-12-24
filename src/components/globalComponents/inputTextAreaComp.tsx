@@ -10,7 +10,7 @@ interface CustomInputTextProps {
 const CustomInputText: FC<CustomInputTextProps> = ({ id, label }) => {
   return (
     <span className="p-float-label" style={{ flex: "1", marginRight: "10px" }}>
-      <InputTextarea id={id} style={{ width: "80%" }} />
+      <InputTextarea id={id} style={{ width: "100%" }} />
       <label htmlFor={id}>{label}</label>
     </span>
   );

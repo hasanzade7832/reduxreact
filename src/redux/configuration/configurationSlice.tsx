@@ -66,7 +66,6 @@ const configurationSlice = createSlice({
     builder.addCase(fetchPrugTemplate.fulfilled, (state, action) => {
       state.dataPrugTemplate = action.payload;
     });
-
     // builder.addCase(fetchConfiguration.rejected, (state, action) => {
     //   state.error = true;
     // });

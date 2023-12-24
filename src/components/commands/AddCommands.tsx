@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CustomInputText from "../globalComponents/inputCom";
 import CustomTextArea from "../globalComponents/inputTextAreaComp";
 import CustomDropdown from "../globalComponents/dropDownComp";
+import AddBar from "../globalComponents/addBar";
 import "../../../src/App.scss";
 
 const CommandsAdd = () => {
@@ -13,42 +14,44 @@ const CommandsAdd = () => {
     { name: "Istanbul", code: "IST" },
     { name: "Paris", code: "PRS" },
   ];
+
+  const addCommand = () => {
+    console.log("addCommand");
+  };
+
   return (
     <>
+      <div>
+        <AddBar onClick={addCommand} />
+      </div>
       {/* ///////////////////////////LINE1///////////////////////////// */}
       <div className="grid" style={{ marginLeft: "20px", marginTop: "20px" }}>
         <div className="col-5">
-          <div>
-            <CustomInputText label="Name" id="Name" />
-          </div>
+          <div>{/* <CustomInputText label="Name" /> */}</div>
         </div>
         <div className="col-1"></div>
         <div className="col-5">
-          <CustomInputText label="Description" id="Description" />
+          {/* <CustomInputText label="Description" /> */}
         </div>
       </div>
       {/* ///////////////////////////LINE2///////////////////////////// */}
       <div className="grid" style={{ marginLeft: "20px", marginTop: "20px" }}>
         <div className="col-5">
-          <div>
-            <CustomInputText label="Name" id="Name" />
-          </div>
+          <div>{/* <CustomInputText label="Name" /> */}</div>
         </div>
         <div className="col-1"></div>
         <div className="col-5">
-          <CustomInputText label="Description" id="Description" />
+          {/* <CustomInputText label="Description" /> */}
         </div>
       </div>
       {/* ///////////////////////////LINE3///////////////////////////// */}
       <div className="grid" style={{ marginLeft: "20px", marginTop: "20px" }}>
         <div className="col-5">
-          <div>
-            <CustomInputText label="Name" id="Name" />
-          </div>
+          <div>{/* <CustomInputText label="Name" /> */}</div>
         </div>
         <div className="col-1"></div>
         <div className="col-5">
-          <CustomInputText label="Description" id="Description" />
+          {/* <CustomInputText label="Description" /> */}
         </div>
       </div>
       {/* ///////////////////////////LINE4///////////////////////////// */}
@@ -60,7 +63,7 @@ const CommandsAdd = () => {
         </div>
         <div className="col-1"></div>
         <div className="col-5">
-          <CustomInputText label="Description" id="Description" />
+          {/* <CustomInputText label="Description" /> */}
         </div>
       </div>
       {/* ///////////////////////////LINE5///////////////////////////// */}

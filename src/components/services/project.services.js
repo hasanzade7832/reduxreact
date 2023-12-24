@@ -10,6 +10,9 @@ class projectService {
   async getAllSetting() {
     return await httpClient.post(ApiConst.getAllSetting);
   }
+  async insertSetting(data) {
+    return await httpClient.post(ApiConst.insertSetting, data);
+  }
   async getAllMenu() {
     return await httpClient.post(ApiConst.getAllMenu);
   }
@@ -19,6 +22,9 @@ class projectService {
 
   async getAllCommand() {
     return await httpClient.post(ApiConst.getAllCommand);
+  }
+  async getAllProgramTemplate() {
+    return await httpClient.post(ApiConst.getAllProgramTemplate);
   }
 }
 export default new projectService();

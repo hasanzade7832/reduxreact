@@ -3,6 +3,7 @@ import { mainSlice } from "./mainSlice";
 import configurationSlice from "./configuration/configurationSlice";
 import { loginSlice } from "./Login/loginSlice";
 import commandsSlice from "./commands/commandsSlice";
+import programTemplateSlice from "./programtemplate/programtemplateSlice";
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     dataLogin: loginSlice.reducer,
     loginSuccess: loginSlice.reducer,
     dataCommands: commandsSlice.reducer,
+    dataProgramTemplate: programTemplateSlice.reducer,
   },
 });
 
