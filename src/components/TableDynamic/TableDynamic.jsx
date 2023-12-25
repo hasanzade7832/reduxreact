@@ -4,7 +4,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import {
   fetchConfiguration,
-  fetchAllMenu,
+  fetchAllRibbon,
   fetchPrugTemplate,
 } from "../../redux/configuration/configurationSlice";
 import { fetchCommands } from "../../redux/commands/commandsSlice";
@@ -64,8 +64,8 @@ const TableDynamic = () => {
     (state) => state.dataConfiguration.fieldColumn
   );
 
-  const dataMenuForTable = useSelector(
-    (state) => state.dataConfiguration.dataMenu
+  const dataRibbonForTable = useSelector(
+    (state) => state.dataConfiguration.dataRibbon
   );
 
   const dataPrugTemplate = useSelector(
@@ -84,7 +84,7 @@ const TableDynamic = () => {
   useEffect(() => {
     if (subTabName === "Configuration") {
       dispatch(fetchConfiguration());
-      dispatch(fetchAllMenu());
+      dispatch(fetchAllRibbon());
       dispatch(fetchPrugTemplate());
     } else if (subTabName === "Commands") {
       dispatch(fetchCommands());
@@ -137,7 +137,7 @@ const TableDynamic = () => {
             (item) => item.ID === rowData.FirstIDProgramTemplate
           );
           const data2 =
-            foundItems.length > 0 ? foundItems[0].Name : "Not Found";
+            foundItems.length > 0 ? foundItems[0].Name : "";
           return <span>{data2}</span>;
         }}
       />,
@@ -146,11 +146,11 @@ const TableDynamic = () => {
         field="data2"
         header="Default Ribbon"
         body={(rowData) => {
-          const foundItems = dataMenuForTable.filter(
+          const foundItems = dataRibbonForTable.filter(
             (item) => item.ID === rowData.SelMenuIDForMain
           );
           const data2 =
-            foundItems.length > 0 ? foundItems[0].Name : "Not Found";
+            foundItems.length > 0 ? foundItems[0].Name : "";
 
           return <span>{data2}</span>;
         }}

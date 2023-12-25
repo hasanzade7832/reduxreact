@@ -7,4 +7,6 @@ export const ApiConst = Object.freeze({
   getAllFirstPrugTemplate: "api/ProgramTemplate/GetAll",
   getAllCommand: "api/Command/GetAll",
   getAllProgramTemplate: "api/ProgramTemplate/GetAll",
+  getAllWfTemplate: "api/WFTemplate/GetAll",
+  getAllEntityType: "api/EntityType/GetAllComplete",
 });

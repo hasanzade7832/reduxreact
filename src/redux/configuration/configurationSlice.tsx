@@ -15,7 +15,7 @@ export const fetchConfiguration = createAsyncThunk(
   }
 );
 
-export const fetchAllMenu = createAsyncThunk("fetchAllMenu", async () => {
+export const fetchAllRibbon = createAsyncThunk("fetchAllRibbon", async () => {
   try {
     const response = await projectServices.getAllMenu();
     return response.data;
@@ -38,13 +38,41 @@ export const fetchPrugTemplate = createAsyncThunk(
   }
 );
 
+export const fetchWfTemplate= createAsyncThunk(
+  "fetchWfTemplate",
+  async () => {
+    try {
+      const response = await projectServices.getAllWfTemplate();
+      return response.data;
+    } catch (error) {
+      console.error("Hata:", error);
+      throw error;
+    }
+  }
+);
+
+export const fetchEntityType= createAsyncThunk(
+  "fetchEntityType",
+  async () => {
+    try {
+      const response = await projectServices.getAllEntityType();
+      return response.data;
+    } catch (error) {
+      console.error("Hata:", error);
+      throw error;
+    }
+  }
+);
+
 const configurationSlice = createSlice({
   name: "Configuration",
   initialState: {
     isLoading: false,
     dataConfiguration: [],
-    dataMenu: [],
+    dataRibbon: [],
     dataPrugTemplate: [],
+    dataWfTemplate:[],
+    dataEntityType:[],
     error: false,
     headersString: "",
     fieldColumn: "",
@@ -60,11 +88,17 @@ const configurationSlice = createSlice({
       state.headersString = "Name|Description";
       state.fieldColumn = "Name|Description";
     });
-    builder.addCase(fetchAllMenu.fulfilled, (state, action) => {
-      state.dataMenu = action.payload;
+    builder.addCase(fetchAllRibbon.fulfilled, (state, action) => {
+      state.dataRibbon = action.payload;
     });
     builder.addCase(fetchPrugTemplate.fulfilled, (state, action) => {
       state.dataPrugTemplate = action.payload;
+    });
+    builder.addCase(fetchEntityType.fulfilled, (state, action) => {
+      state.dataEntityType = action.payload;
+    });
+    builder.addCase(fetchWfTemplate.fulfilled, (state, action) => {
+      state.dataWfTemplate = action.payload;
     });
     // builder.addCase(fetchConfiguration.rejected, (state, action) => {
     //   state.error = true;

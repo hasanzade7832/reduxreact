@@ -8,13 +8,18 @@ import "../../assets/styles/configurations.css";
 import { Dialog } from "primereact/dialog";
 import ContentBoxDialog from "./selectBoxConfiguration";
 import projectServices from "../services/project.services";
-import { fetchConfiguration } from "../../redux/configuration/configurationSlice";
+import { fetchConfiguration , fetchAllRibbon , fetchWfTemplate , fetchEntityType} from "../../redux/configuration/configurationSlice";
 import { fetchProgramTemplate } from "../../redux/programtemplate/programtemplateSlice";
 import AddBar from "../globalComponents/addBar";
 
 const ConfigurationAdd = () => {
   const [dialogVisible, setDialogVisible] = useState(false);
   const [selectedProgramTemplate, setSelectedProgramTemplate] = useState(null);
+  const [selectedDefaultRibbon, setselectedDefaultRibbon] = useState(null);
+  const [selectedFormTemplate, setSelectedFormTemplate] = useState(null);
+  const [selectedWfTemplate, setSelectedWfTemplate] = useState(null);
+  const [selectedTaskComment, setSelectedTaskComment] = useState(null);
+  const [selectedProcedureForm, setSelectedProcedureForm] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -26,7 +31,7 @@ const ConfigurationAdd = () => {
     LetterBtns: "",
     MeetingBtns: "",
     DefaultBtn: "",
-    EnityTypeIDForLessonLearn: null,
+    EnityTypeIDForLessonLearn:null,
     EnityTypeIDForProcesure: null,
     WFTemplateIDForLessonLearn: null,
     FirstIDProgramTemplate: null,
@@ -36,11 +41,6 @@ const ConfigurationAdd = () => {
     Description: "",
   });
 
-  const [selectedCity, setSelectedCity] = useState();
-
-  // useEffect(() => {
-  //   setSelectedCity(formData.FirstIDProgramTemplate);
-  // }, [formData.FirstIDProgramTemplate]);
 
   const cities = [
     { name: "New York", code: "NY" },
@@ -54,8 +54,19 @@ const ConfigurationAdd = () => {
     (state) => state.dataProgramTemplate.dataProgramTemplate
   );
 
+  const dataRibbon = useSelector((state) => state.dataRibbon.dataRibbon);
+  console.log("dataRibbon", dataRibbon);
+
+  const dataFormTemplate = useSelector((state)=>state.dataEntityType.dataEntityType);
+  console.log("dataFormTemplate",dataFormTemplate);
+
+  const dataWfTemplate = useSelector((state)=>state.dataWfTemplate.dataWfTemplate)
+
   useEffect(() => {
     dispatch(fetchProgramTemplate());
+    dispatch(fetchAllRibbon());
+    dispatch(fetchWfTemplate());
+    dispatch(fetchEntityType());
   }, []);
 
   const showDialog = () => {
@@ -86,9 +97,20 @@ const ConfigurationAdd = () => {
           (programTemplate) => programTemplate.Name === selectedProgramTemplate
         ).ID;
 
+        const selectedRibbonId = dataRibbon.find((ribbon) => ribbon.Name === selectedDefaultRibbon).ID;
+
+        const selectedFormTemplateId = dataFormTemplate.find((formTemplate)=>formTemplate.Name === selectedFormTemplateId).ID;
+
+        const selectedWfTemplateId = dataWfTemplate.find((wfTemplate)=>wfTemplate.Name === selectedWfTemplate).ID;
+
+
         formData.FirstIDProgramTemplate = selectedProgramTemplateID;
+        formData.SelMenuIDForMain = selectedRibbonId;
+        formData.EnityTypeIDForLessonLearn = selectedFormTemplateId;
+        formData.WFTemplateIDForLessonLearn = selectedWfTemplateId;
+        
       })
-      .catch(() => {});
+      .catch(() => { });
   };
 
   return (
@@ -129,27 +151,88 @@ const ConfigurationAdd = () => {
               setFormData({ ...formData, FirstIDProgramTemplate: e.value.ID });
             }}
           />
+          <CustomButton label="..." className="button-small" />
         </div>
-        <div className="col-1"></div>
-        <div className="col-5"></div>
+        <div className="flex col-1">
+        </div>
+        <div className="flex col-5">
+          <CustomDropdown
+            id="ID"
+            value={selectedDefaultRibbon}
+            options={dataRibbon}
+            optionLabel="Name"
+            label="Default Ribbon"
+            onChange={(e) => {
+              setselectedDefaultRibbon(e.value);
+              setFormData({ ...formData, SelMenuIDForMain: e.value.ID });
+            }}
+          />
+          <CustomButton label="..." className="button-small" />
+        </div>
       </div>
       {/* /////////////////////Line3/////////////////////// */}
       <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
         <div className="flex col-5">
+          <CustomDropdown
+            id="ID"
+            value={selectedFormTemplate}
+            options={dataFormTemplate}
+            optionLabel="Name"
+            label="Lessons Learned Form Template"
+            onChange={(e) => {
+              setSelectedFormTemplate(e.value);
+              setFormData({ ...formData, EnityTypeIDForLessonLearn: e.value.ID });
+            }}
+          />
           <CustomButton label="..." className="button-small" />
         </div>
-        <div className="col-1"></div>
+        <div className="flex col-1">
+        </div>
         <div className="flex col-5">
+          <CustomDropdown
+            id="ID"
+            value={selectedWfTemplate}
+            options={dataWfTemplate}
+            optionLabel="Name"
+            label="Lessons Learned Af Template"
+            onChange={(e) => {
+              setSelectedWfTemplate(e.value);
+              setFormData({ ...formData, WFTemplateIDForLessonLearn: e.value.ID });
+            }}
+          />
           <CustomButton label="..." className="button-small" />
         </div>
       </div>
       {/* /////////////////////Line4/////////////////////// */}
       <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
         <div className="flex col-5">
+        <CustomDropdown
+            id="ID"
+            value={selectedTaskComment}
+            options={dataFormTemplate}
+            optionLabel="Name"
+            label="Comment Form Template"
+            onChange={(e) => {
+              setSelectedTaskComment(e.value);
+              setFormData({ ...formData, EnityTypeIDForTaskCommnet: e.value.ID });
+            }}
+          />
           <CustomButton label="..." className="button-small" />
         </div>
-        <div className="col-1"></div>
+        <div className="flex col-1">
+        </div>
         <div className="flex col-5">
+        <CustomDropdown
+            id="ID"
+            value={selectedProcedureForm}
+            options={dataFormTemplate}
+            optionLabel="Name"
+            label="procedure Form Template"
+            onChange={(e) => {
+              setSelectedProcedureForm(e.value);
+              setFormData({ ...formData, EnityTypeIDForProcesure: e.value.ID });
+            }}
+          />
           <CustomButton label="..." className="button-small" />
         </div>
       </div>

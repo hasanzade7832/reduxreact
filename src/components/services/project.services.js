@@ -26,5 +26,11 @@ class projectService {
   async getAllProgramTemplate() {
     return await httpClient.post(ApiConst.getAllProgramTemplate);
   }
+  async getAllWfTemplate() {
+    return await httpClient.post(ApiConst.getAllWfTemplate);
+  }
+  async getAllEntityType() {
+    return await httpClient.post(ApiConst.getAllEntityType);
+  }
 }
 export default new projectService();
