@@ -14,10 +14,13 @@ export const store = configureStore({
     resetSubTab: mainSlice.reducer,
     isAddClicked: mainSlice.reducer,
     isEditClicked: mainSlice.reducer,
+    isVisibleBox:mainSlice.reducer,
+    selectedNameDoubleBox:mainSlice.reducer, 
     dataConfiguration: configurationSlice.reducer,
     dataRibbon:configurationSlice.reducer,
     dataWfTemplate:configurationSlice.reducer,
     dataEntityType:configurationSlice.reducer,
+    dataAfBtn:configurationSlice.reducer,
     dataLogin: loginSlice.reducer,
     loginSuccess: loginSlice.reducer,
     dataCommands: commandsSlice.reducer,
@@ -53,5 +56,11 @@ export type RootState = {
   isEditClicked: {
     isEditClicked: Boolean;
   };
+  isVisibleBox:{
+    isVisibleBox:Boolean;
+  };
+  selectedNameDoubleBox:{
+    selectedNameDoubleBox:string[];
+  }
 };
 export type AppDispatch = typeof store.dispatch;

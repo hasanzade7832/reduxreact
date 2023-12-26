@@ -200,7 +200,9 @@ const TableDynamic = () => {
         <div>Do you sure want to delete?</div>
       </Dialog>
 
+      <div>
       <h3>{subTabName}</h3>
+      </div>
       <div style={{ textAlign: "right", marginTop: "10px" }}>
         <Button
           icon="pi pi-plus"
@@ -228,6 +230,7 @@ const TableDynamic = () => {
           onClick={() => handleDelete(selectedRow)}
         />
       </div>
+      <div>
       <DataTable
         scrollable
         scrollHeight="80vh"
@@ -250,10 +253,10 @@ const TableDynamic = () => {
             header={header}
           ></Column>
         ))}
-        {/* configuration */}
-        {/* Conditionally render the last two columns for subTabName === "Configuration" */}
+        {/* Conditionally render */}
         {additionalColumns}
       </DataTable>
+      </div>
     </div>
   );
 };

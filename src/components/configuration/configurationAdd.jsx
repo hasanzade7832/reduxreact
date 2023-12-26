@@ -10,6 +10,7 @@ import ContentBoxDialog from "./selectBoxConfiguration";
 import projectServices from "../services/project.services";
 import { fetchConfiguration , fetchAllRibbon , fetchWfTemplate , fetchEntityType} from "../../redux/configuration/configurationSlice";
 import { fetchProgramTemplate } from "../../redux/programtemplate/programtemplateSlice";
+import {mainSlice} from "../../redux/mainSlice"
 import AddBar from "../globalComponents/addBar";
 
 const ConfigurationAdd = () => {
@@ -71,6 +72,7 @@ const ConfigurationAdd = () => {
 
   const showDialog = () => {
     setDialogVisible(true);
+    dispatch(mainSlice.actions.setIsVisibleBox(true));
   };
 
   const hideDialog = () => {
@@ -112,6 +114,14 @@ const ConfigurationAdd = () => {
       })
       .catch(() => { });
   };
+  
+  const isVisibleBox = useSelector(
+    (state) => state.isVisibleBox.isVisibleBox
+  );
+
+  const selectedNames = useSelector((state)=>state.selectedNameDoubleBox.selectedNameDoubleBox);
+  console.log("selectedNames",typeof(selectedNames))
+
 
   return (
     <>
@@ -240,23 +250,24 @@ const ConfigurationAdd = () => {
       {/* /////////////////////Line5/////////////////////// */}
       <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
         <div className="col-5">
-          <Box dialogData={showDialog} titleBox={"Default Action Buttons"} />
+          <Box dialogData={showDialog} titleBox={"Default Action Buttons"} selectedNames={selectedNames}/>
         </div>
         <div className="col-1"></div>
         <div className="col-5">
-          <Box dialogData={showDialog} titleBox={"Letter Action Buttons"} />
+          <Box dialogData={showDialog} titleBox={"Letter Action Buttons"} selectedNames={selectedNames}/>
         </div>
       </div>
       {/* /////////////////////Line6/////////////////////// */}
       <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
         <div className="col-5">
-          <Box dialogData={showDialog} titleBox={"Meeting Action Buttons"} />
+          <Box dialogData={showDialog} titleBox={"Meeting Action Buttons"} selectedNames={selectedNames}/>
         </div>
         <div className="col-1"></div>
         <div className="col-5"></div>
       </div>
       {/* /////////////////////Dialog/////////////////////// */}
-      <Dialog
+      {isVisibleBox &&
+        <Dialog
         style={{ width: "50vw" }}
         visible={dialogVisible}
         onHide={hideDialog}
@@ -266,6 +277,8 @@ const ConfigurationAdd = () => {
       >
         <ContentBoxDialog />
       </Dialog>
+      }
+      
     </>
   );
 };

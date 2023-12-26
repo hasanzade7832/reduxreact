@@ -32,5 +32,26 @@ class projectService {
   async getAllEntityType() {
     return await httpClient.post(ApiConst.getAllEntityType);
   }
+  async getAllAfBtn() {
+    return await httpClient.post(ApiConst.getAllAfBtn);
+  }
+  async insertAfBtn(data) {
+    return await httpClient.post(ApiConst.insertAfBtn,data);
+  }
+
 }
+
+// const handleApi = async (api, bool) => {
+//   setTimeout(() => {
+    
+//   }, 1000);
+
+//   setInterval
+//   try {
+//     const myApi = await api
+//     return myApi.data
+//   } catch (e) {
+//     throw e
+//   }
+// }
 export default new projectService();

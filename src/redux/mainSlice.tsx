@@ -8,6 +8,8 @@ interface MainState {
   valueMainTab: number;
   isAddClicked: Boolean;
   isEditClicked: Boolean;
+  isVisibleBox:Boolean;
+  selectedNameDoubleBox:string[];
 }
 
 const initialState: MainState = {
@@ -18,6 +20,8 @@ const initialState: MainState = {
   valueMainTab: 0,
   isAddClicked: false,
   isEditClicked: false,
+  isVisibleBox:true,
+  selectedNameDoubleBox:[]
 };
 
 export const mainSlice = createSlice({
@@ -44,6 +48,12 @@ export const mainSlice = createSlice({
     },
     setIsEditClicked: (state, action: PayloadAction<Boolean>) => {
       state.isEditClicked = action.payload;
+    },
+    setIsVisibleBox: (state, action: PayloadAction<Boolean>) => {
+      state.isVisibleBox = action.payload;
+    },
+    setSelectedNameDoubleBox: (state, action: PayloadAction<Array<string>>) => {
+      state.selectedNameDoubleBox = action.payload;
     },
   },
 });

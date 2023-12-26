@@ -9,4 +9,6 @@ export const ApiConst = Object.freeze({
   getAllProgramTemplate: "api/ProgramTemplate/GetAll",
   getAllWfTemplate: "api/WFTemplate/GetAll",
   getAllEntityType: "api/EntityType/GetAllComplete",
+  getAllAfBtn:"api/AFBtn/GetAll",
+  insertAfBtn:"api/AFBtn/Insert"
 });

@@ -14,7 +14,7 @@ export const fetchConfiguration = createAsyncThunk(
     }
   }
 );
-
+// export const fetchConfiguration = createAsyncThunk("fetchConfiguration",projectServices.getAllMenu())
 export const fetchAllRibbon = createAsyncThunk("fetchAllRibbon", async () => {
   try {
     const response = await projectServices.getAllMenu();
@@ -64,6 +64,19 @@ export const fetchEntityType= createAsyncThunk(
   }
 );
 
+export const fetchAfBtn= createAsyncThunk(
+  "fetchAfBtn",
+  async () => {
+    try {
+      const response = await projectServices.getAllAfBtn();
+      return response.data;
+    } catch (error) {
+      console.error("Hata:", error);
+      throw error;
+    }
+  }
+);
+
 const configurationSlice = createSlice({
   name: "Configuration",
   initialState: {
@@ -73,6 +86,7 @@ const configurationSlice = createSlice({
     dataPrugTemplate: [],
     dataWfTemplate:[],
     dataEntityType:[],
+    dataAfBtn:[],
     error: false,
     headersString: "",
     fieldColumn: "",
@@ -99,6 +113,9 @@ const configurationSlice = createSlice({
     });
     builder.addCase(fetchWfTemplate.fulfilled, (state, action) => {
       state.dataWfTemplate = action.payload;
+    });
+    builder.addCase(fetchAfBtn.fulfilled, (state, action) => {
+      state.dataAfBtn = action.payload;
     });
     // builder.addCase(fetchConfiguration.rejected, (state, action) => {
     //   state.error = true;

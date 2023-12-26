@@ -4,8 +4,10 @@ import "primereact/resources/themes/saga-blue/theme.css"; // ثبت تم PrimeRe
 import "primereact/resources/primereact.min.css"; // ثبت استایل‌های PrimeReact
 import "primeicons/primeicons.css"; // ثبت آیکون‌های PrimeIcons
 import "../../assets/styles/global.css";
+import { useSelector } from "react-redux";
 
-const CustomComponent = ({ dialogData, titleBox }) => {
+const CustomComponent = ({ dialogData, titleBox ,selectedNames }) => {
+  console.log("aaaaaaaaaaaaa",selectedNames)
   return (
     <>
       <div
@@ -35,6 +37,15 @@ const CustomComponent = ({ dialogData, titleBox }) => {
             marginTop: "10px",
           }}
         />
+        <div style={{ marginTop: "10px" }}>
+        {Array.isArray(selectedNames) && selectedNames.length > 0 ? (
+          selectedNames.map((name, index) => (
+            <span key={index}>{name}</span>
+          ))
+        ) : (
+          <span>No selected names</span>
+        )}
+      </div>
       </div>
     </>
   );
