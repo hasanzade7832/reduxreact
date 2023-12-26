@@ -6,15 +6,18 @@ import "primeicons/primeicons.css"; // ثبت آیکون‌های PrimeIcons
 import "../../assets/styles/global.css";
 import { useSelector } from "react-redux";
 
-const CustomComponent = ({ dialogData, titleBox ,selectedNames }) => {
-  console.log("aaaaaaaaaaaaa",selectedNames)
+const CustomComponent = ({ dialogData, titleBox, selectedNames }) => {
+  console.log("aaaaaaaaaaaaa", selectedNames);
   return (
     <>
       <div
         style={{
           background: "#C8C9CE",
-          height: "100px",
+          height: "300px",
           position: "relative",
+          maxHeight: "200px",
+          overflowY: "auto",
+          overflowX: "auto",
         }}
       >
         <Button
@@ -37,15 +40,17 @@ const CustomComponent = ({ dialogData, titleBox ,selectedNames }) => {
             marginTop: "10px",
           }}
         />
-        <div style={{ marginTop: "10px" }}>
-        {Array.isArray(selectedNames) && selectedNames.length > 0 ? (
-          selectedNames.map((name, index) => (
-            <span key={index}>{name}</span>
-          ))
-        ) : (
-          <span>No selected names</span>
-        )}
-      </div>
+        <div style={{ marginTop: "20px" }}>
+          {Array.isArray(selectedNames) && selectedNames.length > 0 ? (
+            selectedNames.map((name, index) => (
+              <div style={{ padding: "2px", margin: "5px" }} key={index}>
+                {name}
+              </div>
+            ))
+          ) : (
+            <span> </span>
+          )}
+        </div>
       </div>
     </>
   );

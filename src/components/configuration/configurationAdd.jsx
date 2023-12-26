@@ -8,9 +8,14 @@ import "../../assets/styles/configurations.css";
 import { Dialog } from "primereact/dialog";
 import ContentBoxDialog from "./selectBoxConfiguration";
 import projectServices from "../services/project.services";
-import { fetchConfiguration , fetchAllRibbon , fetchWfTemplate , fetchEntityType} from "../../redux/configuration/configurationSlice";
+import {
+  fetchConfiguration,
+  fetchAllRibbon,
+  fetchWfTemplate,
+  fetchEntityType,
+} from "../../redux/configuration/configurationSlice";
 import { fetchProgramTemplate } from "../../redux/programtemplate/programtemplateSlice";
-import {mainSlice} from "../../redux/mainSlice"
+import { mainSlice } from "../../redux/mainSlice";
 import AddBar from "../globalComponents/addBar";
 
 const ConfigurationAdd = () => {
@@ -32,7 +37,7 @@ const ConfigurationAdd = () => {
     LetterBtns: "",
     MeetingBtns: "",
     DefaultBtn: "",
-    EnityTypeIDForLessonLearn:null,
+    EnityTypeIDForLessonLearn: null,
     EnityTypeIDForProcesure: null,
     WFTemplateIDForLessonLearn: null,
     FirstIDProgramTemplate: null,
@@ -42,15 +47,6 @@ const ConfigurationAdd = () => {
     Description: "",
   });
 
-
-  const cities = [
-    { name: "New York", code: "NY" },
-    { name: "Rome", code: "RM" },
-    { name: "London", code: "LDN" },
-    { name: "Istanbul", code: "IST" },
-    { name: "Paris", code: "PRS" },
-  ];
-
   const dataProgram = useSelector(
     (state) => state.dataProgramTemplate.dataProgramTemplate
   );
@@ -58,10 +54,14 @@ const ConfigurationAdd = () => {
   const dataRibbon = useSelector((state) => state.dataRibbon.dataRibbon);
   console.log("dataRibbon", dataRibbon);
 
-  const dataFormTemplate = useSelector((state)=>state.dataEntityType.dataEntityType);
-  console.log("dataFormTemplate",dataFormTemplate);
+  const dataFormTemplate = useSelector(
+    (state) => state.dataEntityType.dataEntityType
+  );
+  console.log("dataFormTemplate", dataFormTemplate);
 
-  const dataWfTemplate = useSelector((state)=>state.dataWfTemplate.dataWfTemplate)
+  const dataWfTemplate = useSelector(
+    (state) => state.dataWfTemplate.dataWfTemplate
+  );
 
   useEffect(() => {
     dispatch(fetchProgramTemplate());
@@ -99,29 +99,40 @@ const ConfigurationAdd = () => {
           (programTemplate) => programTemplate.Name === selectedProgramTemplate
         ).ID;
 
-        const selectedRibbonId = dataRibbon.find((ribbon) => ribbon.Name === selectedDefaultRibbon).ID;
+        const selectedRibbonId = dataRibbon.find(
+          (ribbon) => ribbon.Name === selectedDefaultRibbon
+        ).ID;
 
-        const selectedFormTemplateId = dataFormTemplate.find((formTemplate)=>formTemplate.Name === selectedFormTemplateId).ID;
+        const selectedFormTemplateId = dataFormTemplate.find(
+          (formTemplate) => formTemplate.Name === selectedFormTemplateId
+        ).ID;
 
-        const selectedWfTemplateId = dataWfTemplate.find((wfTemplate)=>wfTemplate.Name === selectedWfTemplate).ID;
-
+        const selectedWfTemplateId = dataWfTemplate.find(
+          (wfTemplate) => wfTemplate.Name === selectedWfTemplate
+        ).ID;
 
         formData.FirstIDProgramTemplate = selectedProgramTemplateID;
         formData.SelMenuIDForMain = selectedRibbonId;
         formData.EnityTypeIDForLessonLearn = selectedFormTemplateId;
         formData.WFTemplateIDForLessonLearn = selectedWfTemplateId;
-        
       })
-      .catch(() => { });
+      .catch(() => {});
   };
-  
-  const isVisibleBox = useSelector(
-    (state) => state.isVisibleBox.isVisibleBox
+
+  const isVisibleBox = useSelector((state) => state.isVisibleBox.isVisibleBox);
+
+  const selectedNamesDefaultButtons = useSelector(
+    (state) => state.selectedNameDoubleBox.selectedNameDoubleBox
   );
 
-  const selectedNames = useSelector((state)=>state.selectedNameDoubleBox.selectedNameDoubleBox);
-  console.log("selectedNames",typeof(selectedNames))
+  const selectedNamesLetterButtons = useSelector(
+    (state) => state.selectedNameDoubleBox.selectedNameDoubleBox
+  );
 
+  const selectedNamesMeetingsButtons = useSelector(
+    (state) => state.selectedNameDoubleBox.selectedNameDoubleBox
+  );
+  console.log("selectedNames", typeof selectedNames);
 
   return (
     <>
@@ -163,8 +174,7 @@ const ConfigurationAdd = () => {
           />
           <CustomButton label="..." className="button-small" />
         </div>
-        <div className="flex col-1">
-        </div>
+        <div className="flex col-1"></div>
         <div className="flex col-5">
           <CustomDropdown
             id="ID"
@@ -191,13 +201,15 @@ const ConfigurationAdd = () => {
             label="Lessons Learned Form Template"
             onChange={(e) => {
               setSelectedFormTemplate(e.value);
-              setFormData({ ...formData, EnityTypeIDForLessonLearn: e.value.ID });
+              setFormData({
+                ...formData,
+                EnityTypeIDForLessonLearn: e.value.ID,
+              });
             }}
           />
           <CustomButton label="..." className="button-small" />
         </div>
-        <div className="flex col-1">
-        </div>
+        <div className="flex col-1"></div>
         <div className="flex col-5">
           <CustomDropdown
             id="ID"
@@ -207,7 +219,10 @@ const ConfigurationAdd = () => {
             label="Lessons Learned Af Template"
             onChange={(e) => {
               setSelectedWfTemplate(e.value);
-              setFormData({ ...formData, WFTemplateIDForLessonLearn: e.value.ID });
+              setFormData({
+                ...formData,
+                WFTemplateIDForLessonLearn: e.value.ID,
+              });
             }}
           />
           <CustomButton label="..." className="button-small" />
@@ -216,7 +231,7 @@ const ConfigurationAdd = () => {
       {/* /////////////////////Line4/////////////////////// */}
       <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
         <div className="flex col-5">
-        <CustomDropdown
+          <CustomDropdown
             id="ID"
             value={selectedTaskComment}
             options={dataFormTemplate}
@@ -224,15 +239,17 @@ const ConfigurationAdd = () => {
             label="Comment Form Template"
             onChange={(e) => {
               setSelectedTaskComment(e.value);
-              setFormData({ ...formData, EnityTypeIDForTaskCommnet: e.value.ID });
+              setFormData({
+                ...formData,
+                EnityTypeIDForTaskCommnet: e.value.ID,
+              });
             }}
           />
           <CustomButton label="..." className="button-small" />
         </div>
-        <div className="flex col-1">
-        </div>
+        <div className="flex col-1"></div>
         <div className="flex col-5">
-        <CustomDropdown
+          <CustomDropdown
             id="ID"
             value={selectedProcedureForm}
             options={dataFormTemplate}
@@ -250,35 +267,46 @@ const ConfigurationAdd = () => {
       {/* /////////////////////Line5/////////////////////// */}
       <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
         <div className="col-5">
-          <Box dialogData={showDialog} titleBox={"Default Action Buttons"} selectedNames={selectedNames}/>
+          <Box
+            dialogData={showDialog}
+            titleBox={"Default Action Buttons"}
+            selectedNames={selectedNamesDefaultButtons}
+          />
         </div>
         <div className="col-1"></div>
         <div className="col-5">
-          <Box dialogData={showDialog} titleBox={"Letter Action Buttons"} selectedNames={selectedNames}/>
+          <Box
+            dialogData={showDialog}
+            titleBox={"Letter Action Buttons"}
+            selectedNames={selectedNamesLetterButtons}
+          />
         </div>
       </div>
       {/* /////////////////////Line6/////////////////////// */}
       <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
         <div className="col-5">
-          <Box dialogData={showDialog} titleBox={"Meeting Action Buttons"} selectedNames={selectedNames}/>
+          <Box
+            dialogData={showDialog}
+            titleBox={"Meeting Action Buttons"}
+            selectedNames={selectedNamesMeetingsButtons}
+          />
         </div>
         <div className="col-1"></div>
         <div className="col-5"></div>
       </div>
       {/* /////////////////////Dialog/////////////////////// */}
-      {isVisibleBox &&
+      {isVisibleBox && (
         <Dialog
-        style={{ width: "50vw" }}
-        visible={dialogVisible}
-        onHide={hideDialog}
-        header="Add Configuration"
-        resizable={true}
-        maximizable={true}
-      >
-        <ContentBoxDialog />
-      </Dialog>
-      }
-      
+          style={{ width: "50vw" }}
+          visible={dialogVisible}
+          onHide={hideDialog}
+          header="Add Configuration"
+          resizable={true}
+          maximizable={true}
+        >
+          <ContentBoxDialog />
+        </Dialog>
+      )}
     </>
   );
 };

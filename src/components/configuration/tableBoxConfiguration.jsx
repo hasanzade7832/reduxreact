@@ -12,7 +12,6 @@ import projectServices from "../services/project.services";
 const TableDynamic = () => {
   const [dataTable, setDataTable] = useState([]);
 
-
   const dispatch = useDispatch();
 
   const [selectedRow, setSelectedRow] = useState(null);
@@ -35,32 +34,30 @@ const TableDynamic = () => {
     IconImageId: null,
   });
 
-  const dataAfBtns = useSelector((state) => state.selectedNameDoubleBox.selectedNameDoubleBox);
+  const dataAfBtns = useSelector(
+    (state) => state.selectedNameDoubleBox.selectedNameDoubleBox
+  );
   const handleRowDblClick = (event) => {
     const selectedName = event.data.Name;
-    if (!selectedNames.includes(selectedName)) {
-      console.log("dataaaaaaaaa", dataAfBtns)
-      setSelectedNames((data) => {
-        const newNames = [selectedName].push(dataAfBtn);
-        console.log("preeeeeeee", newNames);
-        dispatch(mainSlice.actions.setSelectedNameDoubleBox(newNames));
-        return newNames;
-      });
+
+    const newDataAfBtns = [...dataAfBtns];
+
+    if (!newDataAfBtns.includes(selectedName)) {
+      newDataAfBtns.push(selectedName);
+      console.log("newDataAfBtns", newDataAfBtns);
+      dispatch(mainSlice.actions.setSelectedNameDoubleBox(newDataAfBtns));
     }
 
     setSelectedRow(event.data);
     dispatch(mainSlice.actions.setIsVisibleBox(false));
   };
 
-
-
-
   const dataAfBtn = useSelector((state) => state.dataAfBtn.dataAfBtn);
   console.log("dataAfBtn", dataAfBtn);
 
   useEffect(() => {
     dispatch(fetchAfBtn());
-  }, [])
+  }, []);
 
   const mapWfcommandToLabel = (wfcommand) => {
     switch (wfcommand) {
@@ -83,16 +80,14 @@ const TableDynamic = () => {
   };
 
   const addAfBtn = () => {
-    console.log("ADDDDDDDDD")
-    console.log("formDataAfBtn", formDataAfBtn)
     projectServices
       .insertAfBtn(formDataAfBtn)
       .then((res) => {
-        console.log("AddRes", res.data)
+        console.log("AddRes", res.data);
         dispatch(fetchAfBtn());
       })
-      .catch(() => { });
-  }
+      .catch(() => {});
+  };
 
   return (
     <>
@@ -114,11 +109,14 @@ const TableDynamic = () => {
           ></Column>
           <Column field="StateText" header="State Text"></Column>
           <Column field="Order" header="Order"></Column>
-
         </DataTable>
       </div>
       <div style={{ display: "flex", marginTop: "50px" }}>
-        <InputCustopm label="Name" value={formDataAfBtn.Name} onChange={handleNameChange} />
+        <InputCustopm
+          label="Name"
+          value={formDataAfBtn.Name}
+          onChange={handleNameChange}
+        />
         <InputCustopm label="State Text" />
       </div>
       <div style={{ display: "flex", marginTop: "30px" }}>
@@ -179,7 +177,11 @@ const TableDynamic = () => {
           <CustomButton label="Design" className="p-button-secondary" />
         </div>
         <div style={{ marginLeft: "5px" }}>
-          <CustomButton label="Add" className="p-button-secondary" onClick={addAfBtn} />
+          <CustomButton
+            label="Add"
+            className="p-button-secondary"
+            onClick={addAfBtn}
+          />
         </div>
         <div style={{ marginLeft: "5px" }}>
           <CustomButton label="Delete" className="p-button-secondary" />
