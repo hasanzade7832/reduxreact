@@ -33,43 +33,49 @@ const TableDynamic = () => {
     IconImageId: null,
   });
 
-  const dataDefaultButton = useSelector(
-    (state) => state.selectedNameDefaultButton.selectedNameDefaultButton
-  );
+  const dataDefaultButton = useSelector((state) => state.selectedNameDefaultButton.selectedNameDefaultButton);
+  const dataLetterButton = useSelector((state) => state.selectedNameLetterButton.selectedNameLetterButton);
+  const dataMeetingButton = useSelector((state) => state.selectedNameMeetingButton.selectedNameMeetingButton);
 
-  const dataLetterButton = useSelector(
-    (state) => state.selectedNameLetterButton.selectedNameLetterButton
-  );
-
-  const dataMeetingButton = useSelector(
-    (state) => state.selectedNameMeetingButton.selectedNameMeetingButton
-  );
+  const IdsDefaultButton = useSelector((state) => state.selectedIdDefaultButton.selectedIdDefaultButton);
+  const IdsLetterButton = useSelector((state)=>state.selectedIdLetterButton.selectedIdLetterButton);
+  const IdsMeetingsButton =  useSelector((state) => state.selectedIdMeetingButton.selectedIdMeetingButton);
 
   const nameBox = useSelector((state)=>state.selectedBoxName.selectedBoxName);
 
   const handleRowDblClick = (event) => {
+
+    console.log("doubleRow",event.data.ID);
+
     const selectedName = event.data.Name;
+    const selectedId = event.data.ID;
 
     const newDataDefaultButton = [...dataDefaultButton];
     const newDataLetterButton = [...dataLetterButton];
     const newDataMeetingButton = [...dataMeetingButton];
+    const newSelectedIdDefault = [...IdsDefaultButton];
+    const newSelectedIdLetter = [...IdsLetterButton];
+    const newSelectedIdMeeting = [...IdsMeetingsButton];
 
     if (!newDataDefaultButton.includes(selectedName) && nameBox == "DefaultButton") {
       newDataDefaultButton.push(selectedName);
-      console.log("newDataDefaultButton", newDataDefaultButton);
+      newSelectedIdDefault.push(selectedId);
       dispatch(mainSlice.actions.setSelectedNameDefaultButton(newDataDefaultButton));
+      dispatch(mainSlice.actions.setelectedIdDefaultButton(newSelectedIdDefault));
     }
 
     if (!newDataLetterButton.includes(selectedName)  && nameBox == "LetterButton") {
       newDataLetterButton.push(selectedName);
-      console.log("newDataLetterButton", newDataLetterButton);
+      newSelectedIdLetter.push(selectedId);
       dispatch(mainSlice.actions.setselectedNameLetterButton(newDataLetterButton));
+      dispatch(mainSlice.actions.setSelectedIdLetterButton(newSelectedIdLetter));
     }
 
     if (!newDataMeetingButton.includes(selectedName)  && nameBox == "MeetingButton") {
       newDataMeetingButton.push(selectedName);
-      console.log("newDataMeetingButton", newDataMeetingButton);
+      newSelectedIdMeeting.push(selectedId);
       dispatch(mainSlice.actions.setSelectedNameMeetingButton(newDataMeetingButton));
+      dispatch(mainSlice.actions.setSelectedIdMeetingButton(newSelectedIdMeeting));
     }
 
     setSelectedRow(event.data);
@@ -77,7 +83,6 @@ const TableDynamic = () => {
   };
 
   const dataAfBtn = useSelector((state) => state.dataAfBtn.dataAfBtn);
-  console.log("dataAfBtn", dataAfBtn);
 
   useEffect(() => {
     dispatch(fetchAfBtn());

@@ -103,26 +103,40 @@ const ConfigurationAdd = () => {
     });
   };
 
+  const isVisibleBox = useSelector((state) => state.isVisibleBox.isVisibleBox);
+
+  const selectedNamesDefaultButtons = useSelector((state) => state.selectedNameDefaultButton.selectedNameDefaultButton);
+  const selectedIdDefaultButton = useSelector((state) => state.selectedIdDefaultButton.selectedIdDefaultButton);
+
+  const selectedNamesLetterButtons = useSelector((state) => state.selectedNameLetterButton.selectedNameLetterButton);
+  const selectedIdLetterButtons = useSelector((state)=>state.selectedIdLetterButton.selectedIdLetterButton);
+
+  const selectedNamesMeetingsButtons = useSelector((state) => state.selectedNameMeetingButton.selectedNameMeetingButton);
+  const selectedIdMeetingsButton =  useSelector((state) => state.selectedIdMeetingButton.selectedIdMeetingButton);
+
   const addConfiguration = () => {
+
+    const defaultBtnValues = selectedIdDefaultButton.join('|');
+    const letterBtnValues = selectedIdLetterButtons.join("|");
+    const meetingBtnValues = selectedIdMeetingsButton.join("|");
+
+    formData.DefaultBtn = defaultBtnValues;
+    formData.LetterBtns = letterBtnValues;
+    formData.MeetingBtns = meetingBtnValues;
+
+    console.log("formData",formData);
+
     projectServices
       .insertSetting(formData)
       .then((res) => {
         dispatch(fetchConfiguration());
-        const selectedProgramTemplateID = dataProgram.find(
-          (programTemplate) => programTemplate.Name === selectedProgramTemplate
-        ).ID;
+        const selectedProgramTemplateID = dataProgram.find((programTemplate) => programTemplate.Name === selectedProgramTemplate).ID;
 
-        const selectedRibbonId = dataRibbon.find(
-          (ribbon) => ribbon.Name === selectedDefaultRibbon
-        ).ID;
+        const selectedRibbonId = dataRibbon.find((ribbon) => ribbon.Name === selectedDefaultRibbon).ID;
 
-        const selectedFormTemplateId = dataFormTemplate.find(
-          (formTemplate) => formTemplate.Name === selectedFormTemplateId
-        ).ID;
+        const selectedFormTemplateId = dataFormTemplate.find((formTemplate) => formTemplate.Name === selectedFormTemplateId).ID;
 
-        const selectedWfTemplateId = dataWfTemplate.find(
-          (wfTemplate) => wfTemplate.Name === selectedWfTemplate
-        ).ID;
+        const selectedWfTemplateId = dataWfTemplate.find((wfTemplate) => wfTemplate.Name === selectedWfTemplate).ID;
 
         formData.FirstIDProgramTemplate = selectedProgramTemplateID;
         formData.SelMenuIDForMain = selectedRibbonId;
@@ -131,20 +145,6 @@ const ConfigurationAdd = () => {
       })
       .catch(() => { });
   };
-
-  const isVisibleBox = useSelector((state) => state.isVisibleBox.isVisibleBox);
-
-  const selectedNamesDefaultButtons = useSelector(
-    (state) => state.selectedNameDefaultButton.selectedNameDefaultButton
-  );
-
-  const selectedNamesLetterButtons = useSelector(
-    (state) => state.selectedNameLetterButton.selectedNameLetterButton
-  );
-
-  const selectedNamesMeetingsButtons = useSelector(
-    (state) => state.selectedNameMeetingButton.selectedNameMeetingButton
-  );
 
   return (
     <>

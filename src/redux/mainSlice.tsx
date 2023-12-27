@@ -12,7 +12,10 @@ interface MainState {
   selectedBoxName:string;
   selectedNameDefaultButton:string[];
   selectedNameLetterButton:string[];
-  selectedNameMeetingButton:string[]
+  selectedNameMeetingButton:string[];
+  selectedIdDefaultButton:string[];
+  selectedIdLetterButton:string[];
+  selectedIdMeetingButton:string[]
 }
 
 const initialState: MainState = {
@@ -27,7 +30,10 @@ const initialState: MainState = {
   selectedBoxName:"",
   selectedNameDefaultButton:[],
   selectedNameLetterButton:[],
-  selectedNameMeetingButton:[]
+  selectedNameMeetingButton:[],
+  selectedIdDefaultButton:[],
+  selectedIdLetterButton:[],
+  selectedIdMeetingButton:[]
 };
 
 export const mainSlice = createSlice({
@@ -70,6 +76,15 @@ export const mainSlice = createSlice({
     },
     setSelectedNameMeetingButton: (state, action: PayloadAction<Array<string>>) => {
       state.selectedNameMeetingButton = action.payload;
+    },
+    setelectedIdDefaultButton: (state, action: PayloadAction<Array<string>>) => {
+      state.selectedIdDefaultButton = action.payload;
+    },
+    setSelectedIdLetterButton: (state, action: PayloadAction<Array<string>>) => {
+      state.selectedIdLetterButton = action.payload;
+    },
+    setSelectedIdMeetingButton: (state, action: PayloadAction<Array<string>>) => {
+      state.selectedIdMeetingButton = action.payload;
     },
   },
 });

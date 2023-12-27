@@ -19,6 +19,9 @@ export const store = configureStore({
     selectedNameDefaultButton:mainSlice.reducer, 
     selectedNameLetterButton:mainSlice.reducer,
     selectedNameMeetingButton:mainSlice.reducer,
+    selectedIdDefaultButton:mainSlice.reducer,
+    selectedIdLetterButton:mainSlice.reducer,
+    selectedIdMeetingButton:mainSlice.reducer,
     dataConfiguration: configurationSlice.reducer,
     dataRibbon:configurationSlice.reducer,
     dataWfTemplate:configurationSlice.reducer,
@@ -73,6 +76,15 @@ export type RootState = {
   };
   selectedNameMeetingButton:{
     selectedNameMeetingButton:string[];
+  };
+  selectedIdDefaultButton:{
+    selectedIdDefaultButton:string[];
+  };
+  selectedIdLetterButton:{
+    selectedIdLetterButton:string[];
+  };
+  selectedIdMeetingButton:{
+    selectedIdMeetingButton:string[];
   };
 
 };
