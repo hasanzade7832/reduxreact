@@ -17,9 +17,19 @@ import {
 import { fetchProgramTemplate } from "../../redux/programtemplate/programtemplateSlice";
 import { mainSlice } from "../../redux/mainSlice";
 import AddBar from "../globalComponents/addBar";
+import TableProgramTemplate from "./tableProgramTemplate";
+import TableDeafultRibbonfrom from "./tableDefaultRibbon";
+import TableAfTemplate from "./tableAfTemplate";
+import TableFormTemplate from "./tableFormTemplate";
 
 const ConfigurationAdd = () => {
   const [dialogVisible, setDialogVisible] = useState(false);
+  const [dialogProgramTemplate, setDialogProgramTemplate] = useState(false);
+  const [dialogDefaultRibbon, setDefaultRibbon] = useState(false);
+  const [dialogAfTemplate, setDialogAfTemplate] = useState(false);
+  const [dialogLessonForm, setDialogForm] = useState(false);
+  const [dialogCommentForm, setDialogCommentForm] = useState(false);
+  const [dialogProcedureForm, setDialogProcedureForm] = useState(false);
   const [selectedProgramTemplate, setSelectedProgramTemplate] = useState(null);
   const [selectedDefaultRibbon, setselectedDefaultRibbon] = useState(null);
   const [selectedFormTemplate, setSelectedFormTemplate] = useState(null);
@@ -52,12 +62,10 @@ const ConfigurationAdd = () => {
   );
 
   const dataRibbon = useSelector((state) => state.dataRibbon.dataRibbon);
-  console.log("dataRibbon", dataRibbon);
 
   const dataFormTemplate = useSelector(
     (state) => state.dataEntityType.dataEntityType
   );
-  console.log("dataFormTemplate", dataFormTemplate);
 
   const dataWfTemplate = useSelector(
     (state) => state.dataWfTemplate.dataWfTemplate
@@ -73,23 +81,29 @@ const ConfigurationAdd = () => {
   const showDialogDefaultButton = () => {
     setDialogVisible(true);
     dispatch(mainSlice.actions.setIsVisibleBox(true));
-    dispatch(mainSlice.actions.setSelectedBoxName("DefaultButton"))
+    dispatch(mainSlice.actions.setSelectedBoxName("DefaultButton"));
   };
 
   const showDialogLetterButton = () => {
     setDialogVisible(true);
     dispatch(mainSlice.actions.setIsVisibleBox(true));
-    dispatch(mainSlice.actions.setSelectedBoxName("LetterButton"))
+    dispatch(mainSlice.actions.setSelectedBoxName("LetterButton"));
   };
 
-  const showDialogMeetingButton = () =>{
+  const showDialogMeetingButton = () => {
     setDialogVisible(true);
     dispatch(mainSlice.actions.setIsVisibleBox(true));
-    dispatch(mainSlice.actions.setSelectedBoxName("MeetingButton"))
-  }
+    dispatch(mainSlice.actions.setSelectedBoxName("MeetingButton"));
+  };
 
   const hideDialog = () => {
     setDialogVisible(false);
+    setDialogProgramTemplate(false);
+    setDefaultRibbon(false);
+    setDialogAfTemplate(false);
+    setDialogForm(false);
+    setDialogCommentForm(false);
+    setDialogProcedureForm(false);
   };
 
   const handleChange = (fieldName, value) => {
@@ -105,18 +119,29 @@ const ConfigurationAdd = () => {
 
   const isVisibleBox = useSelector((state) => state.isVisibleBox.isVisibleBox);
 
-  const selectedNamesDefaultButtons = useSelector((state) => state.selectedNameDefaultButton.selectedNameDefaultButton);
-  const selectedIdDefaultButton = useSelector((state) => state.selectedIdDefaultButton.selectedIdDefaultButton);
+  const selectedNamesDefaultButtons = useSelector(
+    (state) => state.selectedNameDefaultButton.selectedNameDefaultButton
+  );
+  const selectedIdDefaultButton = useSelector(
+    (state) => state.selectedIdDefaultButton.selectedIdDefaultButton
+  );
 
-  const selectedNamesLetterButtons = useSelector((state) => state.selectedNameLetterButton.selectedNameLetterButton);
-  const selectedIdLetterButtons = useSelector((state)=>state.selectedIdLetterButton.selectedIdLetterButton);
+  const selectedNamesLetterButtons = useSelector(
+    (state) => state.selectedNameLetterButton.selectedNameLetterButton
+  );
+  const selectedIdLetterButtons = useSelector(
+    (state) => state.selectedIdLetterButton.selectedIdLetterButton
+  );
 
-  const selectedNamesMeetingsButtons = useSelector((state) => state.selectedNameMeetingButton.selectedNameMeetingButton);
-  const selectedIdMeetingsButton =  useSelector((state) => state.selectedIdMeetingButton.selectedIdMeetingButton);
+  const selectedNamesMeetingsButtons = useSelector(
+    (state) => state.selectedNameMeetingButton.selectedNameMeetingButton
+  );
+  const selectedIdMeetingsButton = useSelector(
+    (state) => state.selectedIdMeetingButton.selectedIdMeetingButton
+  );
 
   const addConfiguration = () => {
-
-    const defaultBtnValues = selectedIdDefaultButton.join('|');
+    const defaultBtnValues = selectedIdDefaultButton.join("|");
     const letterBtnValues = selectedIdLetterButtons.join("|");
     const meetingBtnValues = selectedIdMeetingsButton.join("|");
 
@@ -124,26 +149,58 @@ const ConfigurationAdd = () => {
     formData.LetterBtns = letterBtnValues;
     formData.MeetingBtns = meetingBtnValues;
 
-    console.log("formData",formData);
+    console.log("formData", formData);
 
     projectServices
       .insertSetting(formData)
       .then((res) => {
         dispatch(fetchConfiguration());
-        const selectedProgramTemplateID = dataProgram.find((programTemplate) => programTemplate.Name === selectedProgramTemplate).ID;
+        const selectedProgramTemplateID = dataProgram.find(
+          (programTemplate) => programTemplate.Name === selectedProgramTemplate
+        ).ID;
 
-        const selectedRibbonId = dataRibbon.find((ribbon) => ribbon.Name === selectedDefaultRibbon).ID;
+        const selectedRibbonId = dataRibbon.find(
+          (ribbon) => ribbon.Name === selectedDefaultRibbon
+        ).ID;
 
-        const selectedFormTemplateId = dataFormTemplate.find((formTemplate) => formTemplate.Name === selectedFormTemplateId).ID;
+        const selectedFormTemplateId = dataFormTemplate.find(
+          (formTemplate) => formTemplate.Name === selectedFormTemplateId
+        ).ID;
 
-        const selectedWfTemplateId = dataWfTemplate.find((wfTemplate) => wfTemplate.Name === selectedWfTemplate).ID;
+        const selectedWfTemplateId = dataWfTemplate.find(
+          (wfTemplate) => wfTemplate.Name === selectedWfTemplate
+        ).ID;
 
         formData.FirstIDProgramTemplate = selectedProgramTemplateID;
         formData.SelMenuIDForMain = selectedRibbonId;
         formData.EnityTypeIDForLessonLearn = selectedFormTemplateId;
         formData.WFTemplateIDForLessonLearn = selectedWfTemplateId;
       })
-      .catch(() => { });
+      .catch(() => {});
+  };
+
+  const funcDialogProgramTemplate = () => {
+    setDialogProgramTemplate(true);
+  };
+
+  const funcDialogDefaultRibbon = () => {
+    setDefaultRibbon(true);
+  };
+
+  const funcDialogAfTemplate = () => {
+    setDialogAfTemplate(true);
+  };
+
+  const funcDialogLessonForms = () => {
+    setDialogForm(true);
+  };
+
+  const funcDialogCommentForm = () => {
+    setDialogCommentForm(true);
+  };
+
+  const funcDialogProcedureForm = () => {
+    setDialogProcedureForm(true);
   };
 
   return (
@@ -184,7 +241,22 @@ const ConfigurationAdd = () => {
               setFormData({ ...formData, FirstIDProgramTemplate: e.value.ID });
             }}
           />
-          <CustomButton label="..." className="button-small" />
+          <CustomButton
+            label="..."
+            className="button-small"
+            onClick={funcDialogProgramTemplate}
+          />
+          {dialogProgramTemplate && (
+            <Dialog
+              style={{ width: "50vw" }}
+              visible={dialogProgramTemplate}
+              onHide={hideDialog}
+              resizable={true}
+              maximizable={true}
+            >
+              <TableProgramTemplate />
+            </Dialog>
+          )}
         </div>
         <div className="flex col-1"></div>
         <div className="flex col-5">
@@ -199,7 +271,22 @@ const ConfigurationAdd = () => {
               setFormData({ ...formData, SelMenuIDForMain: e.value.ID });
             }}
           />
-          <CustomButton label="..." className="button-small" />
+          <CustomButton
+            label="..."
+            className="button-small"
+            onClick={funcDialogDefaultRibbon}
+          />
+          {dialogDefaultRibbon && (
+            <Dialog
+              style={{ width: "50vw" }}
+              visible={dialogDefaultRibbon}
+              onHide={hideDialog}
+              resizable={true}
+              maximizable={true}
+            >
+              <TableDeafultRibbonfrom />
+            </Dialog>
+          )}
         </div>
       </div>
       {/* /////////////////////Line3/////////////////////// */}
@@ -219,7 +306,22 @@ const ConfigurationAdd = () => {
               });
             }}
           />
-          <CustomButton label="..." className="button-small" />
+          <CustomButton
+            label="..."
+            className="button-small"
+            onClick={funcDialogLessonForms}
+          />
+          {dialogLessonForm && (
+            <Dialog
+              style={{ width: "50vw" }}
+              visible={dialogLessonForm}
+              onHide={hideDialog}
+              resizable={true}
+              maximizable={true}
+            >
+              <TableFormTemplate />
+            </Dialog>
+          )}
         </div>
         <div className="flex col-1"></div>
         <div className="flex col-5">
@@ -237,7 +339,22 @@ const ConfigurationAdd = () => {
               });
             }}
           />
-          <CustomButton label="..." className="button-small" />
+          <CustomButton
+            label="..."
+            className="button-small"
+            onClick={funcDialogAfTemplate}
+          />
+          {dialogAfTemplate && (
+            <Dialog
+              style={{ width: "50vw" }}
+              visible={dialogAfTemplate}
+              onHide={hideDialog}
+              resizable={true}
+              maximizable={true}
+            >
+              <TableAfTemplate />
+            </Dialog>
+          )}
         </div>
       </div>
       {/* /////////////////////Line4/////////////////////// */}
@@ -257,7 +374,22 @@ const ConfigurationAdd = () => {
               });
             }}
           />
-          <CustomButton label="..." className="button-small" />
+          <CustomButton
+            label="..."
+            className="button-small"
+            onClick={funcDialogCommentForm}
+          />
+          {dialogCommentForm && (
+            <Dialog
+              style={{ width: "50vw" }}
+              visible={dialogCommentForm}
+              onHide={hideDialog}
+              resizable={true}
+              maximizable={true}
+            >
+              <TableFormTemplate />
+            </Dialog>
+          )}
         </div>
         <div className="flex col-1"></div>
         <div className="flex col-5">
@@ -272,7 +404,22 @@ const ConfigurationAdd = () => {
               setFormData({ ...formData, EnityTypeIDForProcesure: e.value.ID });
             }}
           />
-          <CustomButton label="..." className="button-small" />
+          <CustomButton
+            label="..."
+            className="button-small"
+            onClick={funcDialogProcedureForm}
+          />
+          {dialogProcedureForm && (
+            <Dialog
+              style={{ width: "50vw" }}
+              visible={dialogProcedureForm}
+              onHide={hideDialog}
+              resizable={true}
+              maximizable={true}
+            >
+              <TableFormTemplate />
+            </Dialog>
+          )}
         </div>
       </div>
 
@@ -300,7 +447,7 @@ const ConfigurationAdd = () => {
           <Box
             dialogData={showDialogMeetingButton}
             titleBox={"Meeting Action Buttons"}
-          selectedNames={selectedNamesMeetingsButtons}
+            selectedNames={selectedNamesMeetingsButtons}
           />
         </div>
         <div className="col-1"></div>
@@ -312,7 +459,6 @@ const ConfigurationAdd = () => {
           style={{ width: "50vw" }}
           visible={dialogVisible}
           onHide={hideDialog}
-          header="Add Configuration"
           resizable={true}
           maximizable={true}
         >
