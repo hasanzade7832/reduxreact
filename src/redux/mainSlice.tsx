@@ -9,7 +9,10 @@ interface MainState {
   isAddClicked: Boolean;
   isEditClicked: Boolean;
   isVisibleBox:Boolean;
-  selectedNameDoubleBox:string[];
+  selectedBoxName:string;
+  selectedNameDefaultButton:string[];
+  selectedNameLetterButton:string[];
+  selectedNameMeetingButton:string[]
 }
 
 const initialState: MainState = {
@@ -21,7 +24,10 @@ const initialState: MainState = {
   isAddClicked: false,
   isEditClicked: false,
   isVisibleBox:true,
-  selectedNameDoubleBox:[]
+  selectedBoxName:"",
+  selectedNameDefaultButton:[],
+  selectedNameLetterButton:[],
+  selectedNameMeetingButton:[]
 };
 
 export const mainSlice = createSlice({
@@ -52,8 +58,18 @@ export const mainSlice = createSlice({
     setIsVisibleBox: (state, action: PayloadAction<Boolean>) => {
       state.isVisibleBox = action.payload;
     },
-    setSelectedNameDoubleBox: (state, action: PayloadAction<Array<string>>) => {
-      state.selectedNameDoubleBox = action.payload;
+
+    setSelectedBoxName: (state, action: PayloadAction<string>) => {
+      state.selectedBoxName = action.payload;
+    },
+    setSelectedNameDefaultButton: (state, action: PayloadAction<Array<string>>) => {
+      state.selectedNameDefaultButton = action.payload;
+    },
+    setselectedNameLetterButton: (state, action: PayloadAction<Array<string>>) => {
+      state.selectedNameLetterButton = action.payload;
+    },
+    setSelectedNameMeetingButton: (state, action: PayloadAction<Array<string>>) => {
+      state.selectedNameMeetingButton = action.payload;
     },
   },
 });

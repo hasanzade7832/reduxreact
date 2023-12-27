@@ -70,10 +70,23 @@ const ConfigurationAdd = () => {
     dispatch(fetchEntityType());
   }, []);
 
-  const showDialog = () => {
+  const showDialogDefaultButton = () => {
     setDialogVisible(true);
     dispatch(mainSlice.actions.setIsVisibleBox(true));
+    dispatch(mainSlice.actions.setSelectedBoxName("DefaultButton"))
   };
+
+  const showDialogLetterButton = () => {
+    setDialogVisible(true);
+    dispatch(mainSlice.actions.setIsVisibleBox(true));
+    dispatch(mainSlice.actions.setSelectedBoxName("LetterButton"))
+  };
+
+  const showDialogMeetingButton = () =>{
+    setDialogVisible(true);
+    dispatch(mainSlice.actions.setIsVisibleBox(true));
+    dispatch(mainSlice.actions.setSelectedBoxName("MeetingButton"))
+  }
 
   const hideDialog = () => {
     setDialogVisible(false);
@@ -116,23 +129,22 @@ const ConfigurationAdd = () => {
         formData.EnityTypeIDForLessonLearn = selectedFormTemplateId;
         formData.WFTemplateIDForLessonLearn = selectedWfTemplateId;
       })
-      .catch(() => {});
+      .catch(() => { });
   };
 
   const isVisibleBox = useSelector((state) => state.isVisibleBox.isVisibleBox);
 
   const selectedNamesDefaultButtons = useSelector(
-    (state) => state.selectedNameDoubleBox.selectedNameDoubleBox
+    (state) => state.selectedNameDefaultButton.selectedNameDefaultButton
   );
 
   const selectedNamesLetterButtons = useSelector(
-    (state) => state.selectedNameDoubleBox.selectedNameDoubleBox
+    (state) => state.selectedNameLetterButton.selectedNameLetterButton
   );
 
   const selectedNamesMeetingsButtons = useSelector(
-    (state) => state.selectedNameDoubleBox.selectedNameDoubleBox
+    (state) => state.selectedNameMeetingButton.selectedNameMeetingButton
   );
-  console.log("selectedNames", typeof selectedNames);
 
   return (
     <>
@@ -268,7 +280,7 @@ const ConfigurationAdd = () => {
       <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
         <div className="col-5">
           <Box
-            dialogData={showDialog}
+            dialogData={showDialogDefaultButton}
             titleBox={"Default Action Buttons"}
             selectedNames={selectedNamesDefaultButtons}
           />
@@ -276,7 +288,7 @@ const ConfigurationAdd = () => {
         <div className="col-1"></div>
         <div className="col-5">
           <Box
-            dialogData={showDialog}
+            dialogData={showDialogLetterButton}
             titleBox={"Letter Action Buttons"}
             selectedNames={selectedNamesLetterButtons}
           />
@@ -286,9 +298,9 @@ const ConfigurationAdd = () => {
       <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
         <div className="col-5">
           <Box
-            dialogData={showDialog}
+            dialogData={showDialogMeetingButton}
             titleBox={"Meeting Action Buttons"}
-            selectedNames={selectedNamesMeetingsButtons}
+          selectedNames={selectedNamesMeetingsButtons}
           />
         </div>
         <div className="col-1"></div>

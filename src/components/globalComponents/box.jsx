@@ -13,7 +13,7 @@ const CustomComponent = ({ dialogData, titleBox, selectedNames }) => {
       <div
         style={{
           background: "#C8C9CE",
-          height: "300px",
+          height: "150px",
           position: "relative",
           maxHeight: "200px",
           overflowY: "auto",

@@ -15,7 +15,10 @@ export const store = configureStore({
     isAddClicked: mainSlice.reducer,
     isEditClicked: mainSlice.reducer,
     isVisibleBox:mainSlice.reducer,
-    selectedNameDoubleBox:mainSlice.reducer, 
+    selectedBoxName:mainSlice.reducer,
+    selectedNameDefaultButton:mainSlice.reducer, 
+    selectedNameLetterButton:mainSlice.reducer,
+    selectedNameMeetingButton:mainSlice.reducer,
     dataConfiguration: configurationSlice.reducer,
     dataRibbon:configurationSlice.reducer,
     dataWfTemplate:configurationSlice.reducer,
@@ -59,8 +62,18 @@ export type RootState = {
   isVisibleBox:{
     isVisibleBox:Boolean;
   };
-  selectedNameDoubleBox:{
-    selectedNameDoubleBox:string[];
+  selectedBoxName:{
+    selectedBoxName:string;
   }
+  selectedNameDefaultButton:{
+    selectedNameDefaultButton:string[];
+  };
+  selectedNameLetterButton:{
+    selectedNameLetterButton:string[];
+  };
+  selectedNameMeetingButton:{
+    selectedNameMeetingButton:string[];
+  };
+
 };
 export type AppDispatch = typeof store.dispatch;

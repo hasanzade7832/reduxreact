@@ -62,7 +62,7 @@ function MainComponent() {
       {splitterShow && (
         <Splitter>
           <SplitterPanel>
-            <div className="flex align-items-center justify-content-center">
+            <div style={{width:"100%"}} className="flex align-items-center justify-content-center">
             <TableDynamic />
             </div>
           </SplitterPanel>

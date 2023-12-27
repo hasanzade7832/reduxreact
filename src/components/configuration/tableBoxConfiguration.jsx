@@ -10,12 +10,11 @@ import { mainSlice } from "../../redux/mainSlice";
 import projectServices from "../services/project.services";
 
 const TableDynamic = () => {
-  const [dataTable, setDataTable] = useState([]);
 
   const dispatch = useDispatch();
 
   const [selectedRow, setSelectedRow] = useState(null);
-  const [selectedNames, setSelectedNames] = useState([]);
+  
 
   const [ingredient, setIngredient] = useState("");
   const [ingredient1, setIngredient1] = useState("");
@@ -34,18 +33,43 @@ const TableDynamic = () => {
     IconImageId: null,
   });
 
-  const dataAfBtns = useSelector(
-    (state) => state.selectedNameDoubleBox.selectedNameDoubleBox
+  const dataDefaultButton = useSelector(
+    (state) => state.selectedNameDefaultButton.selectedNameDefaultButton
   );
+
+  const dataLetterButton = useSelector(
+    (state) => state.selectedNameLetterButton.selectedNameLetterButton
+  );
+
+  const dataMeetingButton = useSelector(
+    (state) => state.selectedNameMeetingButton.selectedNameMeetingButton
+  );
+
+  const nameBox = useSelector((state)=>state.selectedBoxName.selectedBoxName);
+
   const handleRowDblClick = (event) => {
     const selectedName = event.data.Name;
 
-    const newDataAfBtns = [...dataAfBtns];
+    const newDataDefaultButton = [...dataDefaultButton];
+    const newDataLetterButton = [...dataLetterButton];
+    const newDataMeetingButton = [...dataMeetingButton];
 
-    if (!newDataAfBtns.includes(selectedName)) {
-      newDataAfBtns.push(selectedName);
-      console.log("newDataAfBtns", newDataAfBtns);
-      dispatch(mainSlice.actions.setSelectedNameDoubleBox(newDataAfBtns));
+    if (!newDataDefaultButton.includes(selectedName) && nameBox == "DefaultButton") {
+      newDataDefaultButton.push(selectedName);
+      console.log("newDataDefaultButton", newDataDefaultButton);
+      dispatch(mainSlice.actions.setSelectedNameDefaultButton(newDataDefaultButton));
+    }
+
+    if (!newDataLetterButton.includes(selectedName)  && nameBox == "LetterButton") {
+      newDataLetterButton.push(selectedName);
+      console.log("newDataLetterButton", newDataLetterButton);
+      dispatch(mainSlice.actions.setselectedNameLetterButton(newDataLetterButton));
+    }
+
+    if (!newDataMeetingButton.includes(selectedName)  && nameBox == "MeetingButton") {
+      newDataMeetingButton.push(selectedName);
+      console.log("newDataMeetingButton", newDataMeetingButton);
+      dispatch(mainSlice.actions.setSelectedNameMeetingButton(newDataMeetingButton));
     }
 
     setSelectedRow(event.data);
