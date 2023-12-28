@@ -70,6 +70,10 @@ const ConfigurationAdd = () => {
     (state) => state.nameOfSelectedRow.nameOfSelectedRow
   );
 
+  const defaultRibbonSelectedRow = useSelector(
+    (state) => state.defaultRibbonSelectedRow.defaultRibbonSelectedRow
+  );
+
   const nameOfDialogTable = useSelector(
     (state) => state.nameofDialogTable.nameofDialogTable
   );
@@ -153,13 +157,9 @@ const ConfigurationAdd = () => {
     formData.LetterBtns = letterBtnValues;
     formData.MeetingBtns = meetingBtnValues;
 
-    if (nameOfDialogTable === "programTemplate") {
-      formData.FirstIDProgramTemplate = nameOfSelectedRow.ID;
-    }
+    formData.FirstIDProgramTemplate = nameOfSelectedRow.ID;
 
-    if (nameOfDialogTable === "defaultRibbon") {
-      formData.SelMenuIDForMain = nameOfSelectedRow.ID;
-    }
+    formData.SelMenuIDForMain = defaultRibbonSelectedRow.ID;
 
     console.log("formData", formData);
 
@@ -246,14 +246,14 @@ const ConfigurationAdd = () => {
         <div className="flex col-1"></div>
         <div className="flex col-5">
           <DropdownComponentwithButton
-            value={nameOfSelectedRow}
+            value={defaultRibbonSelectedRow}
             options={dataRibbon}
             optionLabel="Name"
             label="Default Ribbon"
             onChange={(e) => {
               const selectedValue = e.value ? e.value.ID : null;
               handleChange("SelMenuIDForMain", selectedValue);
-              dispatch(mainSlice.actions.setNameOfSelectedRow(e.value));
+              dispatch(mainSlice.actions.setDefaultRibbonSelectedRow(e.value));
             }}
             onButtonClick={funcDialogDefaultRibbon}
             showDialog={dialogDefaultRibbon}
