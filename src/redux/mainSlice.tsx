@@ -17,8 +17,10 @@ interface MainState {
   selectedIdLetterButton: string[];
   selectedIdMeetingButton: string[];
   nameofDialogTable: string;
-  nameOfSelectedRow: string;
+  programTemplateSelectedRow: string;
   defaultRibbonSelectedRow: string;
+  showDialogProgramTemplate: Boolean;
+  showDialogDefaultRibbon: Boolean;
 }
 
 const initialState: MainState = {
@@ -38,8 +40,10 @@ const initialState: MainState = {
   selectedIdLetterButton: [],
   selectedIdMeetingButton: [],
   nameofDialogTable: "",
-  nameOfSelectedRow: "",
+  programTemplateSelectedRow: "",
   defaultRibbonSelectedRow: "",
+  showDialogProgramTemplate: false,
+  showDialogDefaultRibbon: false,
 };
 
 export const mainSlice = createSlice({
@@ -113,11 +117,17 @@ export const mainSlice = createSlice({
     setNameofDialogTable: (state, action: PayloadAction<string>) => {
       state.nameofDialogTable = action.payload;
     },
-    setNameOfSelectedRow: (state, action: PayloadAction<string>) => {
-      state.nameOfSelectedRow = action.payload;
+    setprogramTemplateSelectedRow: (state, action: PayloadAction<string>) => {
+      state.programTemplateSelectedRow = action.payload;
     },
     setDefaultRibbonSelectedRow: (state, action: PayloadAction<string>) => {
       state.defaultRibbonSelectedRow = action.payload;
+    },
+    setshowDialogProgramTemplate: (state, action: PayloadAction<Boolean>) => {
+      state.showDialogProgramTemplate = action.payload;
+    },
+    setShowDialogDefaultRibbon: (state, action: PayloadAction<Boolean>) => {
+      state.showDialogDefaultRibbon = action.payload;
     },
   },
 });

@@ -26,6 +26,7 @@ const TableComponent = () => {
     if (selectedRow) {
       console.log("selectedRow1", selectedRow);
       dispatch(mainSlice.actions.setDefaultRibbonSelectedRow(selectedRow));
+      dispatch(mainSlice.actions.setShowDialogDefaultRibbon(false));
     }
   };
 

@@ -19,8 +19,8 @@ import DropdownComponentwithButton from "../globalComponents/dropDownWithButton"
 
 const ConfigurationAdd = () => {
   const [dialogVisible, setDialogVisible] = useState(false);
-  const [dialogProgramTemplate, setDialogProgramTemplate] = useState(false);
-  const [dialogDefaultRibbon, setDefaultRibbon] = useState(false);
+  // const [dialogProgramTemplate, setDialogProgramTemplate] = useState(false);
+  // const [dialogDefaultRibbon, setDefaultRibbon] = useState(false);
   const [dialogAfTemplate, setDialogAfTemplate] = useState(false);
   const [dialogLessonForm, setDialogForm] = useState(false);
   const [dialogCommentForm, setDialogCommentForm] = useState(false);
@@ -66,8 +66,8 @@ const ConfigurationAdd = () => {
     (state) => state.dataWfTemplate.dataWfTemplate
   );
 
-  const nameOfSelectedRow = useSelector(
-    (state) => state.nameOfSelectedRow.nameOfSelectedRow
+  const programTemplateSelectedRow = useSelector(
+    (state) => state.programTemplateSelectedRow.programTemplateSelectedRow
   );
 
   const defaultRibbonSelectedRow = useSelector(
@@ -106,8 +106,8 @@ const ConfigurationAdd = () => {
 
   const hideDialog = () => {
     setDialogVisible(false);
-    setDialogProgramTemplate(false);
-    setDefaultRibbon(false);
+    dispatch(mainSlice.actions.setshowDialogProgramTemplate(false));
+    dispatch(mainSlice.actions.setShowDialogDefaultRibbon(false));
     setDialogAfTemplate(false);
     setDialogForm(false);
     setDialogCommentForm(false);
@@ -157,7 +157,7 @@ const ConfigurationAdd = () => {
     formData.LetterBtns = letterBtnValues;
     formData.MeetingBtns = meetingBtnValues;
 
-    formData.FirstIDProgramTemplate = nameOfSelectedRow.ID;
+    formData.FirstIDProgramTemplate = programTemplateSelectedRow.ID;
 
     formData.SelMenuIDForMain = defaultRibbonSelectedRow.ID;
 
@@ -171,13 +171,21 @@ const ConfigurationAdd = () => {
       .catch(() => {});
   };
 
+  const dialogProgramTemplate = useSelector(
+    (state) => state.showDialogProgramTemplate.showDialogProgramTemplate
+  );
+
+  const dialogDefaultRibbon = useSelector(
+    (state) => state.showDialogDefaultRibbon.showDialogDefaultRibbon
+  );
+
   const funcDialogProgramTemplate = () => {
-    setDialogProgramTemplate(true);
+    dispatch(mainSlice.actions.setshowDialogProgramTemplate(true));
     dispatch(mainSlice.actions.setNameofDialogTable("programTemplate"));
   };
 
   const funcDialogDefaultRibbon = () => {
-    setDefaultRibbon(true);
+    dispatch(mainSlice.actions.setShowDialogDefaultRibbon(true));
     dispatch(mainSlice.actions.setNameofDialogTable("defaultRibbon"));
   };
 
@@ -229,14 +237,16 @@ const ConfigurationAdd = () => {
       <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
         <div className="flex col-5">
           <DropdownComponentwithButton
-            value={nameOfSelectedRow}
+            value={programTemplateSelectedRow}
             options={dataProgram}
             optionLabel="Name"
             label="Program Template"
             onChange={(e) => {
               const selectedValue = e.value ? e.value.ID : null;
               handleChange("FirstIDProgramTemplate", selectedValue);
-              dispatch(mainSlice.actions.setNameOfSelectedRow(e.value));
+              dispatch(
+                mainSlice.actions.setprogramTemplateSelectedRow(e.value)
+              );
             }}
             onButtonClick={funcDialogProgramTemplate}
             showDialog={dialogProgramTemplate}
