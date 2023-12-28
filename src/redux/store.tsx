@@ -23,6 +23,7 @@ export const store = configureStore({
     selectedIdLetterButton: mainSlice.reducer,
     selectedIdMeetingButton: mainSlice.reducer,
     nameofDialogTable: mainSlice.reducer,
+    nameOfSelectedRow: mainSlice.reducer,
     dataConfiguration: configurationSlice.reducer,
     dataRibbon: configurationSlice.reducer,
     dataWfTemplate: configurationSlice.reducer,
@@ -89,6 +90,9 @@ export type RootState = {
   };
   nameofDialogTable: {
     nameofDialogTable: string;
+  };
+  nameOfSelectedRow: {
+    nameOfSelectedRow: string;
   };
 };
 export type AppDispatch = typeof store.dispatch;

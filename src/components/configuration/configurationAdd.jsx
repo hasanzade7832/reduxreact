@@ -66,6 +66,15 @@ const ConfigurationAdd = () => {
     (state) => state.dataWfTemplate.dataWfTemplate
   );
 
+  const nameOfSelectedRow = useSelector(
+    (state) => state.nameOfSelectedRow.nameOfSelectedRow
+  );
+
+  const nameOfDialogTable = useSelector(
+    (state) => state.nameofDialogTable.nameofDialogTable
+  );
+  console.log("nameOfDialogTable", nameOfDialogTable);
+
   useEffect(() => {
     dispatch(fetchProgramTemplate());
     dispatch(fetchAllRibbon());
@@ -144,32 +153,20 @@ const ConfigurationAdd = () => {
     formData.LetterBtns = letterBtnValues;
     formData.MeetingBtns = meetingBtnValues;
 
+    if (nameOfDialogTable === "programTemplate") {
+      formData.FirstIDProgramTemplate = nameOfSelectedRow.ID;
+    }
+
+    if (nameOfDialogTable === "defaultRibbon") {
+      formData.SelMenuIDForMain = nameOfSelectedRow.ID;
+    }
+
     console.log("formData", formData);
 
     projectServices
       .insertSetting(formData)
       .then((res) => {
         dispatch(fetchConfiguration());
-        const selectedProgramTemplateID = dataProgram.find(
-          (programTemplate) => programTemplate.Name === selectedProgramTemplate
-        ).ID;
-
-        const selectedRibbonId = dataRibbon.find(
-          (ribbon) => ribbon.Name === selectedDefaultRibbon
-        ).ID;
-
-        const selectedFormTemplateId = dataFormTemplate.find(
-          (formTemplate) => formTemplate.Name === selectedFormTemplateId
-        ).ID;
-
-        const selectedWfTemplateId = dataWfTemplate.find(
-          (wfTemplate) => wfTemplate.Name === selectedWfTemplate
-        ).ID;
-
-        formData.FirstIDProgramTemplate = selectedProgramTemplateID;
-        formData.SelMenuIDForMain = selectedRibbonId;
-        formData.EnityTypeIDForLessonLearn = selectedFormTemplateId;
-        formData.WFTemplateIDForLessonLearn = selectedWfTemplateId;
       })
       .catch(() => {});
   };
@@ -232,13 +229,14 @@ const ConfigurationAdd = () => {
       <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
         <div className="flex col-5">
           <DropdownComponentwithButton
-            value={selectedProgramTemplate}
+            value={nameOfSelectedRow}
             options={dataProgram}
             optionLabel="Name"
             label="Program Template"
             onChange={(e) => {
-              setSelectedProgramTemplate(e.value);
-              setFormData({ ...formData, FirstIDProgramTemplate: e.value.ID });
+              const selectedValue = e.value ? e.value.ID : null;
+              handleChange("FirstIDProgramTemplate", selectedValue);
+              dispatch(mainSlice.actions.setNameOfSelectedRow(e.value));
             }}
             onButtonClick={funcDialogProgramTemplate}
             showDialog={dialogProgramTemplate}
@@ -248,13 +246,14 @@ const ConfigurationAdd = () => {
         <div className="flex col-1"></div>
         <div className="flex col-5">
           <DropdownComponentwithButton
-            value={selectedDefaultRibbon}
+            value={nameOfSelectedRow}
             options={dataRibbon}
             optionLabel="Name"
             label="Default Ribbon"
             onChange={(e) => {
-              setselectedDefaultRibbon(e.value);
-              setFormData({ ...formData, SelMenuIDForMain: e.value.ID });
+              const selectedValue = e.value ? e.value.ID : null;
+              handleChange("SelMenuIDForMain", selectedValue);
+              dispatch(mainSlice.actions.setNameOfSelectedRow(e.value));
             }}
             onButtonClick={funcDialogDefaultRibbon}
             showDialog={dialogDefaultRibbon}
@@ -373,7 +372,6 @@ const ConfigurationAdd = () => {
       {/* /////////////////////Dialog/////////////////////// */}
       {isVisibleBox && (
         <Dialog
-          style={{ width: "50vw" }}
           visible={dialogVisible}
           onHide={hideDialog}
           resizable={true}

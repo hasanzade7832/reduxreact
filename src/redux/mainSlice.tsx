@@ -17,6 +17,7 @@ interface MainState {
   selectedIdLetterButton: string[];
   selectedIdMeetingButton: string[];
   nameofDialogTable: string;
+  nameOfSelectedRow: string;
 }
 
 const initialState: MainState = {
@@ -36,6 +37,7 @@ const initialState: MainState = {
   selectedIdLetterButton: [],
   selectedIdMeetingButton: [],
   nameofDialogTable: "",
+  nameOfSelectedRow: "",
 };
 
 export const mainSlice = createSlice({
@@ -108,6 +110,9 @@ export const mainSlice = createSlice({
     },
     setNameofDialogTable: (state, action: PayloadAction<string>) => {
       state.nameofDialogTable = action.payload;
+    },
+    setNameOfSelectedRow: (state, action: PayloadAction<string>) => {
+      state.nameOfSelectedRow = action.payload;
     },
   },
 });
