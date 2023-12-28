@@ -14,19 +14,20 @@ export const store = configureStore({
     resetSubTab: mainSlice.reducer,
     isAddClicked: mainSlice.reducer,
     isEditClicked: mainSlice.reducer,
-    isVisibleBox:mainSlice.reducer,
-    selectedBoxName:mainSlice.reducer,
-    selectedNameDefaultButton:mainSlice.reducer, 
-    selectedNameLetterButton:mainSlice.reducer,
-    selectedNameMeetingButton:mainSlice.reducer,
-    selectedIdDefaultButton:mainSlice.reducer,
-    selectedIdLetterButton:mainSlice.reducer,
-    selectedIdMeetingButton:mainSlice.reducer,
+    isVisibleBox: mainSlice.reducer,
+    selectedBoxName: mainSlice.reducer,
+    selectedNameDefaultButton: mainSlice.reducer,
+    selectedNameLetterButton: mainSlice.reducer,
+    selectedNameMeetingButton: mainSlice.reducer,
+    selectedIdDefaultButton: mainSlice.reducer,
+    selectedIdLetterButton: mainSlice.reducer,
+    selectedIdMeetingButton: mainSlice.reducer,
+    nameofDialogTable: mainSlice.reducer,
     dataConfiguration: configurationSlice.reducer,
-    dataRibbon:configurationSlice.reducer,
-    dataWfTemplate:configurationSlice.reducer,
-    dataEntityType:configurationSlice.reducer,
-    dataAfBtn:configurationSlice.reducer,
+    dataRibbon: configurationSlice.reducer,
+    dataWfTemplate: configurationSlice.reducer,
+    dataEntityType: configurationSlice.reducer,
+    dataAfBtn: configurationSlice.reducer,
     dataLogin: loginSlice.reducer,
     loginSuccess: loginSlice.reducer,
     dataCommands: commandsSlice.reducer,
@@ -62,30 +63,32 @@ export type RootState = {
   isEditClicked: {
     isEditClicked: Boolean;
   };
-  isVisibleBox:{
-    isVisibleBox:Boolean;
+  isVisibleBox: {
+    isVisibleBox: Boolean;
   };
-  selectedBoxName:{
-    selectedBoxName:string;
-  }
-  selectedNameDefaultButton:{
-    selectedNameDefaultButton:string[];
+  selectedBoxName: {
+    selectedBoxName: string;
   };
-  selectedNameLetterButton:{
-    selectedNameLetterButton:string[];
+  selectedNameDefaultButton: {
+    selectedNameDefaultButton: string[];
   };
-  selectedNameMeetingButton:{
-    selectedNameMeetingButton:string[];
+  selectedNameLetterButton: {
+    selectedNameLetterButton: string[];
   };
-  selectedIdDefaultButton:{
-    selectedIdDefaultButton:string[];
+  selectedNameMeetingButton: {
+    selectedNameMeetingButton: string[];
   };
-  selectedIdLetterButton:{
-    selectedIdLetterButton:string[];
+  selectedIdDefaultButton: {
+    selectedIdDefaultButton: string[];
   };
-  selectedIdMeetingButton:{
-    selectedIdMeetingButton:string[];
+  selectedIdLetterButton: {
+    selectedIdLetterButton: string[];
   };
-
+  selectedIdMeetingButton: {
+    selectedIdMeetingButton: string[];
+  };
+  nameofDialogTable: {
+    nameofDialogTable: string;
+  };
 };
 export type AppDispatch = typeof store.dispatch;

@@ -8,14 +8,15 @@ interface MainState {
   valueMainTab: number;
   isAddClicked: Boolean;
   isEditClicked: Boolean;
-  isVisibleBox:Boolean;
-  selectedBoxName:string;
-  selectedNameDefaultButton:string[];
-  selectedNameLetterButton:string[];
-  selectedNameMeetingButton:string[];
-  selectedIdDefaultButton:string[];
-  selectedIdLetterButton:string[];
-  selectedIdMeetingButton:string[]
+  isVisibleBox: Boolean;
+  selectedBoxName: string;
+  selectedNameDefaultButton: string[];
+  selectedNameLetterButton: string[];
+  selectedNameMeetingButton: string[];
+  selectedIdDefaultButton: string[];
+  selectedIdLetterButton: string[];
+  selectedIdMeetingButton: string[];
+  nameofDialogTable: string;
 }
 
 const initialState: MainState = {
@@ -26,14 +27,15 @@ const initialState: MainState = {
   valueMainTab: 0,
   isAddClicked: false,
   isEditClicked: false,
-  isVisibleBox:true,
-  selectedBoxName:"",
-  selectedNameDefaultButton:[],
-  selectedNameLetterButton:[],
-  selectedNameMeetingButton:[],
-  selectedIdDefaultButton:[],
-  selectedIdLetterButton:[],
-  selectedIdMeetingButton:[]
+  isVisibleBox: true,
+  selectedBoxName: "",
+  selectedNameDefaultButton: [],
+  selectedNameLetterButton: [],
+  selectedNameMeetingButton: [],
+  selectedIdDefaultButton: [],
+  selectedIdLetterButton: [],
+  selectedIdMeetingButton: [],
+  nameofDialogTable: "",
 };
 
 export const mainSlice = createSlice({
@@ -68,23 +70,44 @@ export const mainSlice = createSlice({
     setSelectedBoxName: (state, action: PayloadAction<string>) => {
       state.selectedBoxName = action.payload;
     },
-    setSelectedNameDefaultButton: (state, action: PayloadAction<Array<string>>) => {
+    setSelectedNameDefaultButton: (
+      state,
+      action: PayloadAction<Array<string>>
+    ) => {
       state.selectedNameDefaultButton = action.payload;
     },
-    setselectedNameLetterButton: (state, action: PayloadAction<Array<string>>) => {
+    setselectedNameLetterButton: (
+      state,
+      action: PayloadAction<Array<string>>
+    ) => {
       state.selectedNameLetterButton = action.payload;
     },
-    setSelectedNameMeetingButton: (state, action: PayloadAction<Array<string>>) => {
+    setSelectedNameMeetingButton: (
+      state,
+      action: PayloadAction<Array<string>>
+    ) => {
       state.selectedNameMeetingButton = action.payload;
     },
-    setelectedIdDefaultButton: (state, action: PayloadAction<Array<string>>) => {
+    setelectedIdDefaultButton: (
+      state,
+      action: PayloadAction<Array<string>>
+    ) => {
       state.selectedIdDefaultButton = action.payload;
     },
-    setSelectedIdLetterButton: (state, action: PayloadAction<Array<string>>) => {
+    setSelectedIdLetterButton: (
+      state,
+      action: PayloadAction<Array<string>>
+    ) => {
       state.selectedIdLetterButton = action.payload;
     },
-    setSelectedIdMeetingButton: (state, action: PayloadAction<Array<string>>) => {
+    setSelectedIdMeetingButton: (
+      state,
+      action: PayloadAction<Array<string>>
+    ) => {
       state.selectedIdMeetingButton = action.payload;
+    },
+    setNameofDialogTable: (state, action: PayloadAction<string>) => {
+      state.nameofDialogTable = action.payload;
     },
   },
 });

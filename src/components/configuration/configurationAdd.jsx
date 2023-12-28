@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import CustomInputText from "../globalComponents/inputCom";
-import CustomDropdown from "../globalComponents/dropDownComp";
-import CustomButton from "../globalComponents/buttonComp";
 import Box from "../globalComponents/box";
 import "../../assets/styles/configurations.css";
 import { Dialog } from "primereact/dialog";
@@ -17,10 +15,7 @@ import {
 import { fetchProgramTemplate } from "../../redux/programtemplate/programtemplateSlice";
 import { mainSlice } from "../../redux/mainSlice";
 import AddBar from "../globalComponents/addBar";
-import TableProgramTemplate from "./tableProgramTemplate";
-import TableDeafultRibbonfrom from "./tableDefaultRibbon";
-import TableAfTemplate from "./tableAfTemplate";
-import TableFormTemplate from "./tableFormTemplate";
+import DropdownComponentwithButton from "../globalComponents/dropDownWithButton";
 
 const ConfigurationAdd = () => {
   const [dialogVisible, setDialogVisible] = useState(false);
@@ -181,26 +176,32 @@ const ConfigurationAdd = () => {
 
   const funcDialogProgramTemplate = () => {
     setDialogProgramTemplate(true);
+    dispatch(mainSlice.actions.setNameofDialogTable("programTemplate"));
   };
 
   const funcDialogDefaultRibbon = () => {
     setDefaultRibbon(true);
+    dispatch(mainSlice.actions.setNameofDialogTable("defaultRibbon"));
   };
 
   const funcDialogAfTemplate = () => {
     setDialogAfTemplate(true);
+    dispatch(mainSlice.actions.setNameofDialogTable("afTemplate"));
   };
 
   const funcDialogLessonForms = () => {
     setDialogForm(true);
+    dispatch(mainSlice.actions.setNameofDialogTable("lessonForms"));
   };
 
   const funcDialogCommentForm = () => {
     setDialogCommentForm(true);
+    dispatch(mainSlice.actions.setNameofDialogTable("lessonForms"));
   };
 
   const funcDialogProcedureForm = () => {
     setDialogProcedureForm(true);
+    dispatch(mainSlice.actions.setNameofDialogTable("lessonForms"));
   };
 
   return (
@@ -230,8 +231,7 @@ const ConfigurationAdd = () => {
       {/* /////////////////////Line2/////////////////////// */}
       <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
         <div className="flex col-5">
-          <CustomDropdown
-            id="ID"
+          <DropdownComponentwithButton
             value={selectedProgramTemplate}
             options={dataProgram}
             optionLabel="Name"
@@ -240,28 +240,14 @@ const ConfigurationAdd = () => {
               setSelectedProgramTemplate(e.value);
               setFormData({ ...formData, FirstIDProgramTemplate: e.value.ID });
             }}
+            onButtonClick={funcDialogProgramTemplate}
+            showDialog={dialogProgramTemplate}
+            hideDialog={hideDialog}
           />
-          <CustomButton
-            label="..."
-            className="button-small"
-            onClick={funcDialogProgramTemplate}
-          />
-          {dialogProgramTemplate && (
-            <Dialog
-              style={{ width: "50vw" }}
-              visible={dialogProgramTemplate}
-              onHide={hideDialog}
-              resizable={true}
-              maximizable={true}
-            >
-              <TableProgramTemplate />
-            </Dialog>
-          )}
         </div>
         <div className="flex col-1"></div>
         <div className="flex col-5">
-          <CustomDropdown
-            id="ID"
+          <DropdownComponentwithButton
             value={selectedDefaultRibbon}
             options={dataRibbon}
             optionLabel="Name"
@@ -270,30 +256,16 @@ const ConfigurationAdd = () => {
               setselectedDefaultRibbon(e.value);
               setFormData({ ...formData, SelMenuIDForMain: e.value.ID });
             }}
+            onButtonClick={funcDialogDefaultRibbon}
+            showDialog={dialogDefaultRibbon}
+            hideDialog={hideDialog}
           />
-          <CustomButton
-            label="..."
-            className="button-small"
-            onClick={funcDialogDefaultRibbon}
-          />
-          {dialogDefaultRibbon && (
-            <Dialog
-              style={{ width: "50vw" }}
-              visible={dialogDefaultRibbon}
-              onHide={hideDialog}
-              resizable={true}
-              maximizable={true}
-            >
-              <TableDeafultRibbonfrom />
-            </Dialog>
-          )}
         </div>
       </div>
       {/* /////////////////////Line3/////////////////////// */}
       <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
         <div className="flex col-5">
-          <CustomDropdown
-            id="ID"
+          <DropdownComponentwithButton
             value={selectedFormTemplate}
             options={dataFormTemplate}
             optionLabel="Name"
@@ -305,28 +277,14 @@ const ConfigurationAdd = () => {
                 EnityTypeIDForLessonLearn: e.value.ID,
               });
             }}
+            onButtonClick={funcDialogLessonForms}
+            showDialog={dialogLessonForm}
+            hideDialog={hideDialog}
           />
-          <CustomButton
-            label="..."
-            className="button-small"
-            onClick={funcDialogLessonForms}
-          />
-          {dialogLessonForm && (
-            <Dialog
-              style={{ width: "50vw" }}
-              visible={dialogLessonForm}
-              onHide={hideDialog}
-              resizable={true}
-              maximizable={true}
-            >
-              <TableFormTemplate />
-            </Dialog>
-          )}
         </div>
         <div className="flex col-1"></div>
         <div className="flex col-5">
-          <CustomDropdown
-            id="ID"
+          <DropdownComponentwithButton
             value={selectedWfTemplate}
             options={dataWfTemplate}
             optionLabel="Name"
@@ -338,30 +296,16 @@ const ConfigurationAdd = () => {
                 WFTemplateIDForLessonLearn: e.value.ID,
               });
             }}
+            onButtonClick={funcDialogAfTemplate}
+            showDialog={dialogAfTemplate}
+            hideDialog={hideDialog}
           />
-          <CustomButton
-            label="..."
-            className="button-small"
-            onClick={funcDialogAfTemplate}
-          />
-          {dialogAfTemplate && (
-            <Dialog
-              style={{ width: "50vw" }}
-              visible={dialogAfTemplate}
-              onHide={hideDialog}
-              resizable={true}
-              maximizable={true}
-            >
-              <TableAfTemplate />
-            </Dialog>
-          )}
         </div>
       </div>
       {/* /////////////////////Line4/////////////////////// */}
       <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
         <div className="flex col-5">
-          <CustomDropdown
-            id="ID"
+          <DropdownComponentwithButton
             value={selectedTaskComment}
             options={dataFormTemplate}
             optionLabel="Name"
@@ -373,28 +317,14 @@ const ConfigurationAdd = () => {
                 EnityTypeIDForTaskCommnet: e.value.ID,
               });
             }}
+            onButtonClick={funcDialogCommentForm}
+            showDialog={dialogCommentForm}
+            hideDialog={hideDialog}
           />
-          <CustomButton
-            label="..."
-            className="button-small"
-            onClick={funcDialogCommentForm}
-          />
-          {dialogCommentForm && (
-            <Dialog
-              style={{ width: "50vw" }}
-              visible={dialogCommentForm}
-              onHide={hideDialog}
-              resizable={true}
-              maximizable={true}
-            >
-              <TableFormTemplate />
-            </Dialog>
-          )}
         </div>
         <div className="flex col-1"></div>
         <div className="flex col-5">
-          <CustomDropdown
-            id="ID"
+          <DropdownComponentwithButton
             value={selectedProcedureForm}
             options={dataFormTemplate}
             optionLabel="Name"
@@ -403,23 +333,10 @@ const ConfigurationAdd = () => {
               setSelectedProcedureForm(e.value);
               setFormData({ ...formData, EnityTypeIDForProcesure: e.value.ID });
             }}
+            onButtonClick={funcDialogProcedureForm}
+            showDialog={dialogProcedureForm}
+            hideDialog={hideDialog}
           />
-          <CustomButton
-            label="..."
-            className="button-small"
-            onClick={funcDialogProcedureForm}
-          />
-          {dialogProcedureForm && (
-            <Dialog
-              style={{ width: "50vw" }}
-              visible={dialogProcedureForm}
-              onHide={hideDialog}
-              resizable={true}
-              maximizable={true}
-            >
-              <TableFormTemplate />
-            </Dialog>
-          )}
         </div>
       </div>
 
