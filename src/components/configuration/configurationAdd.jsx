@@ -22,6 +22,8 @@ const ConfigurationAdd = () => {
 
   const dispatch = useDispatch();
 
+  ////////////////object main data for add////////////////////////////////////////
+
   const [formData, setFormData] = useState({
     ID: 0,
     LastModified: null,
@@ -86,7 +88,7 @@ const ConfigurationAdd = () => {
   );
   console.log("nameOfDialogTable", nameOfDialogTable);
 
-  ///////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////Get main data//////////////////////////////////////////////////////////
 
   useEffect(() => {
     dispatch(fetchProgramTemplate());
@@ -94,6 +96,8 @@ const ConfigurationAdd = () => {
     dispatch(fetchWfTemplate());
     dispatch(fetchEntityType());
   }, []);
+
+  ///////////////////////////Dialo Functions/////////////////////////////////////////////////////////
 
   const showDialogDefaultButton = () => {
     setDialogVisible(true);
@@ -123,6 +127,8 @@ const ConfigurationAdd = () => {
     dispatch(mainSlice.actions.setProcedureFormSelectedRow(false));
   };
 
+  ////////////////////handle change datas//////////////////////////////////////////////
+
   const handleChange = (fieldName, value) => {
     setFormData((prevFormData) => {
       const updatedFormData = {
@@ -133,6 +139,8 @@ const ConfigurationAdd = () => {
       return updatedFormData;
     });
   };
+
+  ///////////////////////BOX DATAS/////////////////////////////////////////////////////
 
   const isVisibleBox = useSelector((state) => state.isVisibleBox.isVisibleBox);
 
@@ -156,6 +164,8 @@ const ConfigurationAdd = () => {
   const selectedIdMeetingsButton = useSelector(
     (state) => state.selectedIdMeetingButton.selectedIdMeetingButton
   );
+
+  //////////////ADD FUNCTION/////////////////////////////////////////////////////
 
   const addConfiguration = () => {
     const defaultBtnValues = selectedIdDefaultButton.join("|");
@@ -237,6 +247,7 @@ const ConfigurationAdd = () => {
     dispatch(mainSlice.actions.setShowDialogProcedureForm(true));
     dispatch(mainSlice.actions.setNameofDialogTable("procedureForm"));
   };
+  /////////////////////////////////////////////////////////////////
 
   return (
     <>
