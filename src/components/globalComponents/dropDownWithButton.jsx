@@ -6,6 +6,8 @@ import TableProgramTemplate from "../configuration/tableProgramTemplate";
 import TableDefaultRibbon from "../configuration/tableDefaultRibbon";
 import TableFormTemplate from "../configuration/tableFormTemplate";
 import TableAfTemplate from "../configuration/tableAfTemplate";
+import TableCommentForm from "../configuration/tableCommentForm";
+import TableProcedureForm from "../configuration/tableProcedureForm";
 
 const CustomDropdownComponent = ({
   value,
@@ -49,6 +51,8 @@ const CustomDropdownComponent = ({
           {nameOfDialogTable == "defaultRibbon" && <TableDefaultRibbon />}
           {nameOfDialogTable == "lessonForms" && <TableFormTemplate />}
           {nameOfDialogTable == "afTemplate" && <TableAfTemplate />}
+          {nameOfDialogTable == "commentForm" && <TableCommentForm />}
+          {nameOfDialogTable == "procedureForm" && <TableProcedureForm />}
         </Dialog>
       )}
     </>

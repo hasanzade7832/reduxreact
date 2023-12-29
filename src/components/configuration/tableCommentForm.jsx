@@ -1,3 +1,4 @@
+// TableComponent.jsx
 import { useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -11,35 +12,35 @@ import { mainSlice } from "../../redux/mainSlice";
 const TableComponent = () => {
   const [selectedRow, setSelectedRow] = useState(null);
 
-  const dataRibbon = useSelector((state) => state.dataRibbon.dataRibbon);
+  const dataFormTemplate = useSelector(
+    (state) => state.dataEntityType.dataEntityType
+  );
 
   const dispatch = useDispatch();
 
-  console.log("program", dataRibbon);
+  console.log("program", dataFormTemplate);
 
   const handleSelectionChange = (e) => {
     setSelectedRow(e.value);
-    console.log("selectedRow", e.value.ID);
   };
 
   const handleSelect = () => {
     if (selectedRow) {
-      console.log("selectedRow1", selectedRow);
-      dispatch(mainSlice.actions.setDefaultRibbonSelectedRow(selectedRow));
-      dispatch(mainSlice.actions.setShowDialogDefaultRibbon(false));
+      dispatch(mainSlice.actions.setCommentFormSelectedRow(selectedRow));
+      dispatch(mainSlice.actions.setShowDialogCommentForm(false));
     }
   };
 
   const handleDoubleClick = () => {
-    dispatch(mainSlice.actions.setDefaultRibbonSelectedRow(selectedRow));
-    dispatch(mainSlice.actions.setShowDialogDefaultRibbon(false));
+    dispatch(mainSlice.actions.setCommentFormSelectedRow(selectedRow));
+    dispatch(mainSlice.actions.setShowDialogCommentForm(false));
   };
 
   return (
     <>
       <div>
         <DataTable
-          value={dataRibbon}
+          value={dataFormTemplate}
           showGridlines
           selectionMode="single"
           selection={selectedRow}
@@ -47,6 +48,9 @@ const TableComponent = () => {
           onRowDoubleClick={handleDoubleClick}
         >
           <Column field="Name" header="Name" />
+          <Column field="IsDoc" header="IsDoc" />
+          <Column field="EntityCateAName" header="CatA" />
+          <Column field="EntityCateBName" header="CatB" />
         </DataTable>
       </div>
       <div

@@ -19,8 +19,16 @@ interface MainState {
   nameofDialogTable: string;
   programTemplateSelectedRow: string;
   defaultRibbonSelectedRow: string;
+  formTemplateSelectedRow: string;
+  afTemplateSelectedRow: string;
+  commentFormSelectedRow: string;
+  procedureFormSelectedRow: string;
   showDialogProgramTemplate: Boolean;
   showDialogDefaultRibbon: Boolean;
+  showDialogFormTemplate: Boolean;
+  showDialogAfTemplate: Boolean;
+  showDialogCommentForm: Boolean;
+  showDialogProcedureForm: Boolean;
 }
 
 const initialState: MainState = {
@@ -42,8 +50,16 @@ const initialState: MainState = {
   nameofDialogTable: "",
   programTemplateSelectedRow: "",
   defaultRibbonSelectedRow: "",
+  formTemplateSelectedRow: "",
+  afTemplateSelectedRow: "",
+  commentFormSelectedRow: "",
+  procedureFormSelectedRow: "",
   showDialogProgramTemplate: false,
   showDialogDefaultRibbon: false,
+  showDialogFormTemplate: false,
+  showDialogAfTemplate: false,
+  showDialogCommentForm: false,
+  showDialogProcedureForm: false,
 };
 
 export const mainSlice = createSlice({
@@ -123,11 +139,35 @@ export const mainSlice = createSlice({
     setDefaultRibbonSelectedRow: (state, action: PayloadAction<string>) => {
       state.defaultRibbonSelectedRow = action.payload;
     },
+    setFormTemplateSelectedRow: (state, action: PayloadAction<string>) => {
+      state.formTemplateSelectedRow = action.payload;
+    },
+    setAfTemplateSelectedRow: (state, action: PayloadAction<string>) => {
+      state.afTemplateSelectedRow = action.payload;
+    },
+    setCommentFormSelectedRow: (state, action: PayloadAction<string>) => {
+      state.commentFormSelectedRow = action.payload;
+    },
+    setProcedureFormSelectedRow: (state, action: PayloadAction<string>) => {
+      state.procedureFormSelectedRow = action.payload;
+    },
     setshowDialogProgramTemplate: (state, action: PayloadAction<Boolean>) => {
       state.showDialogProgramTemplate = action.payload;
     },
     setShowDialogDefaultRibbon: (state, action: PayloadAction<Boolean>) => {
       state.showDialogDefaultRibbon = action.payload;
+    },
+    setShowDialogFormTemplate: (state, action: PayloadAction<Boolean>) => {
+      state.showDialogFormTemplate = action.payload;
+    },
+    setShowDialogAfTemplate: (state, action: PayloadAction<Boolean>) => {
+      state.showDialogFormTemplate = action.payload;
+    },
+    setShowDialogCommentForm: (state, action: PayloadAction<Boolean>) => {
+      state.showDialogCommentForm = action.payload;
+    },
+    setShowDialogProcedureForm: (state, action: PayloadAction<Boolean>) => {
+      state.showDialogProcedureForm = action.payload;
     },
   },
 });

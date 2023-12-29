@@ -25,8 +25,16 @@ export const store = configureStore({
     nameofDialogTable: mainSlice.reducer,
     programTemplateSelectedRow: mainSlice.reducer,
     defaultRibbonSelectedRow: mainSlice.reducer,
+    formTemplateSelectedRow: mainSlice.reducer,
+    afTemplateSelectedRow: mainSlice.reducer,
+    commentFormSelectedRow: mainSlice.reducer,
+    procedureFormSelectedRow: mainSlice.reducer,
     showDialogProgramTemplate: mainSlice.reducer,
     showDialogDefaultRibbon: mainSlice.reducer,
+    showDialogFormTemplate: mainSlice.reducer,
+    showDialogAfTemplate: mainSlice.reducer,
+    showDialogCommentForm: mainSlice.reducer,
+    showDialogProcedureForm: mainSlice.reducer,
     dataConfiguration: configurationSlice.reducer,
     dataRibbon: configurationSlice.reducer,
     dataWfTemplate: configurationSlice.reducer,
@@ -100,11 +108,35 @@ export type RootState = {
   defaultRibbonSelectedRow: {
     defaultRibbonSelectedRow: string;
   };
+  formTemplateSelectedRow: {
+    formTemplateSelectedRow: string;
+  };
+  afTemplateSelectedRow: {
+    afTemplateSelectedRow: string;
+  };
+  commentFormSelectedRow: {
+    commentFormSelectedRow: string;
+  };
+  procedureFormSelectedRow: {
+    procedureFormSelectedRow: string;
+  };
   showDialogProgramTemplate: {
     showDialogProgramTemplate: Boolean;
   };
   showDialogDefaultRibbon: {
     showDialogDefaultRibbon: Boolean;
+  };
+  showDialogFormTemplate: {
+    showDialogFormTemplate: Boolean;
+  };
+  showDialogAfTemplate: {
+    showDialogAfTemplate: Boolean;
+  };
+  showDialogCommentForm: {
+    showDialogCommentForm: Boolean;
+  };
+  showDialogProcedureForm: {
+    showDialogProcedureForm: Boolean;
   };
 };
 export type AppDispatch = typeof store.dispatch;

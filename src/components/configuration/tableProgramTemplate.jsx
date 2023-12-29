@@ -22,15 +22,18 @@ const TableComponent = () => {
 
   const handleSelectionChange = (e) => {
     setSelectedRow(e.value);
-    console.log("selectedRow", e.value.ID);
   };
 
   const handleSelect = () => {
     if (selectedRow) {
-      console.log("selectedRow1", selectedRow);
       dispatch(mainSlice.actions.setprogramTemplateSelectedRow(selectedRow));
       dispatch(mainSlice.actions.setshowDialogProgramTemplate(false));
     }
+  };
+
+  const handleDoubleClick = () => {
+    dispatch(mainSlice.actions.setprogramTemplateSelectedRow(selectedRow));
+    dispatch(mainSlice.actions.setshowDialogProgramTemplate(false));
   };
 
   return (
@@ -42,6 +45,7 @@ const TableComponent = () => {
           selectionMode="single"
           selection={selectedRow}
           onSelectionChange={handleSelectionChange}
+          onRowDoubleClick={handleDoubleClick}
         >
           <Column field="Name" header="Name" />
         </DataTable>

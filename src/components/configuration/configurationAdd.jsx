@@ -19,18 +19,6 @@ import DropdownComponentwithButton from "../globalComponents/dropDownWithButton"
 
 const ConfigurationAdd = () => {
   const [dialogVisible, setDialogVisible] = useState(false);
-  // const [dialogProgramTemplate, setDialogProgramTemplate] = useState(false);
-  // const [dialogDefaultRibbon, setDefaultRibbon] = useState(false);
-  const [dialogAfTemplate, setDialogAfTemplate] = useState(false);
-  const [dialogLessonForm, setDialogForm] = useState(false);
-  const [dialogCommentForm, setDialogCommentForm] = useState(false);
-  const [dialogProcedureForm, setDialogProcedureForm] = useState(false);
-  const [selectedProgramTemplate, setSelectedProgramTemplate] = useState(null);
-  const [selectedDefaultRibbon, setselectedDefaultRibbon] = useState(null);
-  const [selectedFormTemplate, setSelectedFormTemplate] = useState(null);
-  const [selectedWfTemplate, setSelectedWfTemplate] = useState(null);
-  const [selectedTaskComment, setSelectedTaskComment] = useState(null);
-  const [selectedProcedureForm, setSelectedProcedureForm] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -52,6 +40,7 @@ const ConfigurationAdd = () => {
     Description: "",
   });
 
+  /////////////////////MAIN DATA//////////////////////////////////////////
   const dataProgram = useSelector(
     (state) => state.dataProgramTemplate.dataProgramTemplate
   );
@@ -66,6 +55,8 @@ const ConfigurationAdd = () => {
     (state) => state.dataWfTemplate.dataWfTemplate
   );
 
+  /////////////////////SELECTED ROW DATA///////////////////////////////////////////////////
+
   const programTemplateSelectedRow = useSelector(
     (state) => state.programTemplateSelectedRow.programTemplateSelectedRow
   );
@@ -74,10 +65,28 @@ const ConfigurationAdd = () => {
     (state) => state.defaultRibbonSelectedRow.defaultRibbonSelectedRow
   );
 
+  const formTemplateSelectedRow = useSelector(
+    (state) => state.formTemplateSelectedRow.formTemplateSelectedRow
+  );
+
+  const afTemplateSelectedRow = useSelector(
+    (state) => state.afTemplateSelectedRow.afTemplateSelectedRow
+  );
+
+  const commentFormSelectedRow = useSelector(
+    (state) => state.commentFormSelectedRow.commentFormSelectedRow
+  );
+
+  const procedureFormSelectedRow = useSelector(
+    (state) => state.procedureFormSelectedRow.procedureFormSelectedRow
+  );
+
   const nameOfDialogTable = useSelector(
     (state) => state.nameofDialogTable.nameofDialogTable
   );
   console.log("nameOfDialogTable", nameOfDialogTable);
+
+  ///////////////////////////////////////////////////////////////////////////////////////
 
   useEffect(() => {
     dispatch(fetchProgramTemplate());
@@ -108,10 +117,10 @@ const ConfigurationAdd = () => {
     setDialogVisible(false);
     dispatch(mainSlice.actions.setshowDialogProgramTemplate(false));
     dispatch(mainSlice.actions.setShowDialogDefaultRibbon(false));
-    setDialogAfTemplate(false);
-    setDialogForm(false);
-    setDialogCommentForm(false);
-    setDialogProcedureForm(false);
+    dispatch(mainSlice.actions.setShowDialogFormTemplate(false));
+    dispatch(mainSlice.actions.setShowDialogAfTemplate(false));
+    dispatch(mainSlice.actions.setShowDialogCommentForm(false));
+    dispatch(mainSlice.actions.setProcedureFormSelectedRow(false));
   };
 
   const handleChange = (fieldName, value) => {
@@ -156,10 +165,12 @@ const ConfigurationAdd = () => {
     formData.DefaultBtn = defaultBtnValues;
     formData.LetterBtns = letterBtnValues;
     formData.MeetingBtns = meetingBtnValues;
-
     formData.FirstIDProgramTemplate = programTemplateSelectedRow.ID;
-
     formData.SelMenuIDForMain = defaultRibbonSelectedRow.ID;
+    formData.EnityTypeIDForLessonLearn = formTemplateSelectedRow.ID;
+    formData.WFTemplateIDForLessonLearn = afTemplateSelectedRow.ID;
+    formData.EnityTypeIDForTaskCommnet = commentFormSelectedRow.ID;
+    formData.EnityTypeIDForProcesure = procedureFormSelectedRow.ID;
 
     console.log("formData", formData);
 
@@ -171,12 +182,30 @@ const ConfigurationAdd = () => {
       .catch(() => {});
   };
 
+  //////////////////////Dialog Data/////////////////////////////////////////////
+
   const dialogProgramTemplate = useSelector(
     (state) => state.showDialogProgramTemplate.showDialogProgramTemplate
   );
 
   const dialogDefaultRibbon = useSelector(
     (state) => state.showDialogDefaultRibbon.showDialogDefaultRibbon
+  );
+
+  const dialogFormTemplate = useSelector(
+    (state) => state.showDialogFormTemplate.showDialogFormTemplate
+  );
+
+  const dialogAfTemplate = useSelector(
+    (state) => state.showDialogAfTemplate.showDialogAfTemplate
+  );
+
+  const dialogCommentForm = useSelector(
+    (state) => state.showDialogCommentForm.showDialogCommentForm
+  );
+
+  const dialogProcedureForm = useSelector(
+    (state) => state.showDialogProcedureForm.showDialogProcedureForm
   );
 
   const funcDialogProgramTemplate = () => {
@@ -190,23 +219,23 @@ const ConfigurationAdd = () => {
   };
 
   const funcDialogAfTemplate = () => {
-    setDialogAfTemplate(true);
+    dispatch(mainSlice.actions.setShowDialogAfTemplate(true));
     dispatch(mainSlice.actions.setNameofDialogTable("afTemplate"));
   };
 
   const funcDialogLessonForms = () => {
-    setDialogForm(true);
+    dispatch(mainSlice.actions.setShowDialogFormTemplate(true));
     dispatch(mainSlice.actions.setNameofDialogTable("lessonForms"));
   };
 
   const funcDialogCommentForm = () => {
-    setDialogCommentForm(true);
-    dispatch(mainSlice.actions.setNameofDialogTable("lessonForms"));
+    dispatch(mainSlice.actions.setShowDialogCommentForm(true));
+    dispatch(mainSlice.actions.setNameofDialogTable("commentForm"));
   };
 
   const funcDialogProcedureForm = () => {
-    setDialogProcedureForm(true);
-    dispatch(mainSlice.actions.setNameofDialogTable("lessonForms"));
+    dispatch(mainSlice.actions.setShowDialogProcedureForm(true));
+    dispatch(mainSlice.actions.setNameofDialogTable("procedureForm"));
   };
 
   return (
@@ -275,35 +304,31 @@ const ConfigurationAdd = () => {
       <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
         <div className="flex col-5">
           <DropdownComponentwithButton
-            value={selectedFormTemplate}
+            value={formTemplateSelectedRow}
             options={dataFormTemplate}
             optionLabel="Name"
             label="Lessons Learned Form Template"
             onChange={(e) => {
-              setSelectedFormTemplate(e.value);
-              setFormData({
-                ...formData,
-                EnityTypeIDForLessonLearn: e.value.ID,
-              });
+              const selectedValue = e.value ? e.value.ID : null;
+              handleChange("EnityTypeIDForLessonLearn", selectedValue);
+              dispatch(mainSlice.actions.setFormTemplateSelectedRow(e.value));
             }}
             onButtonClick={funcDialogLessonForms}
-            showDialog={dialogLessonForm}
+            showDialog={dialogFormTemplate}
             hideDialog={hideDialog}
           />
         </div>
         <div className="flex col-1"></div>
         <div className="flex col-5">
           <DropdownComponentwithButton
-            value={selectedWfTemplate}
+            value={afTemplateSelectedRow}
             options={dataWfTemplate}
             optionLabel="Name"
             label="Lessons Learned Af Template"
             onChange={(e) => {
-              setSelectedWfTemplate(e.value);
-              setFormData({
-                ...formData,
-                WFTemplateIDForLessonLearn: e.value.ID,
-              });
+              const selectedValue = e.value ? e.value.ID : null;
+              handleChange("EnityTypeIDForLessonLearn", selectedValue);
+              dispatch(mainSlice.actions.setAfTemplateSelectedRow(e.value));
             }}
             onButtonClick={funcDialogAfTemplate}
             showDialog={dialogAfTemplate}
@@ -315,16 +340,14 @@ const ConfigurationAdd = () => {
       <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
         <div className="flex col-5">
           <DropdownComponentwithButton
-            value={selectedTaskComment}
+            value={commentFormSelectedRow}
             options={dataFormTemplate}
             optionLabel="Name"
             label="Comment Form Template"
             onChange={(e) => {
-              setSelectedTaskComment(e.value);
-              setFormData({
-                ...formData,
-                EnityTypeIDForTaskCommnet: e.value.ID,
-              });
+              const selectedValue = e.value ? e.value.ID : null;
+              handleChange("EnityTypeIDForTaskCommnet", selectedValue);
+              dispatch(mainSlice.actions.setCommentFormSelectedRow(e.value));
             }}
             onButtonClick={funcDialogCommentForm}
             showDialog={dialogCommentForm}
@@ -334,13 +357,14 @@ const ConfigurationAdd = () => {
         <div className="flex col-1"></div>
         <div className="flex col-5">
           <DropdownComponentwithButton
-            value={selectedProcedureForm}
+            value={procedureFormSelectedRow}
             options={dataFormTemplate}
             optionLabel="Name"
             label="procedure Form Template"
             onChange={(e) => {
-              setSelectedProcedureForm(e.value);
-              setFormData({ ...formData, EnityTypeIDForProcesure: e.value.ID });
+              const selectedValue = e.value ? e.value.ID : null;
+              handleChange("EnityTypeIDForProcesure", selectedValue);
+              dispatch(mainSlice.actions.setProcedureFormSelectedRow(e.value));
             }}
             onButtonClick={funcDialogProcedureForm}
             showDialog={dialogProcedureForm}
