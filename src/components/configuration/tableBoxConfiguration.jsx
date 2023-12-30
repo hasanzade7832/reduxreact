@@ -14,10 +14,10 @@ const TableDynamic = () => {
   const dispatch = useDispatch();
 
   const [selectedRow, setSelectedRow] = useState(null);
-  
 
-  const [ingredient, setIngredient] = useState("");
-  const [ingredient1, setIngredient1] = useState("");
+
+  const [ingredient, setIngredient] = useState(1);
+  const [ingredient1, setIngredient1] = useState(1);
 
   const [formDataAfBtn, setFormDataAfBtn] = useState({
     IsVisible: true,
@@ -28,8 +28,8 @@ const TableDynamic = () => {
     Tooltip: "",
     StateText: "",
     Order: 0,
-    WFStateForDeemed: 0,
-    WFCommand: 0,
+    WFStateForDeemed: 1,
+    WFCommand: 1,
     IconImageId: null,
   });
 
@@ -38,14 +38,14 @@ const TableDynamic = () => {
   const dataMeetingButton = useSelector((state) => state.selectedNameMeetingButton.selectedNameMeetingButton);
 
   const IdsDefaultButton = useSelector((state) => state.selectedIdDefaultButton.selectedIdDefaultButton);
-  const IdsLetterButton = useSelector((state)=>state.selectedIdLetterButton.selectedIdLetterButton);
-  const IdsMeetingsButton =  useSelector((state) => state.selectedIdMeetingButton.selectedIdMeetingButton);
+  const IdsLetterButton = useSelector((state) => state.selectedIdLetterButton.selectedIdLetterButton);
+  const IdsMeetingsButton = useSelector((state) => state.selectedIdMeetingButton.selectedIdMeetingButton);
 
-  const nameBox = useSelector((state)=>state.selectedBoxName.selectedBoxName);
+  const nameBox = useSelector((state) => state.selectedBoxName.selectedBoxName);
 
   const handleRowDblClick = (event) => {
 
-    console.log("doubleRow",event.data.ID);
+    console.log("doubleRow", event.data.ID);
 
     const selectedName = event.data.Name;
     const selectedId = event.data.ID;
@@ -64,14 +64,14 @@ const TableDynamic = () => {
       dispatch(mainSlice.actions.setelectedIdDefaultButton(newSelectedIdDefault));
     }
 
-    if (!newDataLetterButton.includes(selectedName)  && nameBox == "LetterButton") {
+    if (!newDataLetterButton.includes(selectedName) && nameBox == "LetterButton") {
       newDataLetterButton.push(selectedName);
       newSelectedIdLetter.push(selectedId);
       dispatch(mainSlice.actions.setselectedNameLetterButton(newDataLetterButton));
       dispatch(mainSlice.actions.setSelectedIdLetterButton(newSelectedIdLetter));
     }
 
-    if (!newDataMeetingButton.includes(selectedName)  && nameBox == "MeetingButton") {
+    if (!newDataMeetingButton.includes(selectedName) && nameBox == "MeetingButton") {
       newDataMeetingButton.push(selectedName);
       newSelectedIdMeeting.push(selectedId);
       dispatch(mainSlice.actions.setSelectedNameMeetingButton(newDataMeetingButton));
@@ -88,12 +88,14 @@ const TableDynamic = () => {
     dispatch(fetchAfBtn());
   }, []);
 
-  const mapWfcommandToLabel = (wfcommand) => {
-    switch (wfcommand) {
+  const mapWfcommandToLabel = (WFCommand) => {
+    switch (WFCommand) {
       case 1:
         return "Accept";
       case 2:
         return "Reject";
+      case 3:
+        return "Close";
       case 0:
         return "Unknown";
       default:
@@ -101,11 +103,16 @@ const TableDynamic = () => {
     }
   };
 
-  const handleNameChange = (e) => {
-    setFormDataAfBtn((prevData) => ({
-      ...prevData,
-      Name: e.target.value,
-    }));
+
+  const handleNameChange = (fieldName, value) => {
+    setFormDataAfBtn((prevFormDataAfBtn) => {
+    
+      const updatedFormDataAfBtn = {
+        ...prevFormDataAfBtn,
+        [fieldName]: value,
+      };
+      return updatedFormDataAfBtn;
+    });
   };
 
   const addAfBtn = () => {
@@ -115,7 +122,7 @@ const TableDynamic = () => {
         console.log("AddRes", res.data);
         dispatch(fetchAfBtn());
       })
-      .catch(() => {});
+      .catch(() => { });
   };
 
   return (
@@ -144,48 +151,88 @@ const TableDynamic = () => {
         <InputCustopm
           label="Name"
           value={formDataAfBtn.Name}
-          onChange={handleNameChange}
-        />
-        <InputCustopm label="State Text" />
-      </div>
-      <div style={{ display: "flex", marginTop: "30px" }}>
-        <div style={{ width: "50%" }}>
-          <InputCustopm label="ToolTip" />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            width: "50%",
+          onChange={(e) => {
+            handleNameChange("Name", e.target.value);
           }}
-        >
-          <CustomRadioButtons
-            value={ingredient}
-            onChange={(e) => setIngredient(e.value)}
-            checked={ingredient}
-            options={[
-              { value: "Cheese", label: "Accept" },
-              { value: "Mushroom", label: "Reject" },
-              { value: "Pepper", label: "Close" },
-            ]}
+        />
+        <InputCustopm
+          label="State Text"
+          value={formDataAfBtn.StateText}
+          onChange={(e) => {
+            handleNameChange("StateText", e.target.value);
+          }} />
+      </div>
+      <div style={{ display: "flex", marginTop: "30px" }}>
+        <div style={{ width: "50%" }}>
+          <InputCustopm label="ToolTip"
+            onChange={(e) => {
+              handleNameChange("ToolTip", e.target.value);
+            }}
           />
+        </div>
+        <div style={{ marginTop: "-10px" }}>
+          <div>
+            <span style={{ marginLeft: "10px", fontWeight: "bold" }}>State:</span>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              width: "50%",
+              marginTop: "10px"
+            }}
+          >
+            <CustomRadioButtons
+              value={ingredient}
+              onChange={(e) =>{
+                setIngredient(e.target.value)
+                handleNameChange("WFStateForDeemed", e.target.value)
+              }
+              }
+              checked={ingredient}
+              options={[
+                { value: 1, label: "Accept" },
+                { value: 2, label: "Reject" },
+                { value: 3, label: "Close" },
+              ]}
+            />
+          </div>
         </div>
       </div>
       <div style={{ display: "flex", marginTop: "30px" }}>
         <div style={{ width: "50%" }}>
-          <InputCustopm label="Order" className="p-inputtext-sm" />
-        </div>
-        <div style={{ display: "flex", alignItems: "center", width: "50%" }}>
-          <CustomRadioButtons
-            value={ingredient1}
-            onChange={(e) => setIngredient1(e.value)}
-            checked={ingredient1}
-            options={[
-              { value: "Cheese", label: "Accept" },
-              { value: "Mushroom", label: "Reject" },
-              { value: "Pepper", label: "Close" },
-            ]}
+          <InputCustopm label="Order" type="number"
+            onChange={(e) => {
+              handleNameChange("Order", e.target.value);
+            }}
           />
+        </div>
+        <div style={{ marginTop: "-10px" }}>
+          <div>
+            <span style={{ marginLeft: "10px", fontWeight: "bold" }}>Command:</span>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              width: "50%",
+              marginTop: "10px"
+            }}
+          >
+            <CustomRadioButtons
+              value={ingredient1}
+              onChange={(e) => {
+                setIngredient1(e.target.value);
+                handleNameChange("WFCommand", e.target.value);
+              }}
+              checked={ingredient1}
+              options={[
+                { value: 1, label: "Accept" },
+                { value: 2, label: "Reject" },
+                { value: 3, label: "Close" },
+              ]}
+            />
+          </div>
         </div>
       </div>
       <div style={{ display: "flex", marginTop: "60px" }}>
