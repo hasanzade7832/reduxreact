@@ -4,10 +4,13 @@ import { Column } from "primereact/column";
 import InputCustopm from "../globalComponents/inputCom";
 import CustomRadioButtons from "../globalComponents/RadioButtonComp";
 import CustomButton from "../globalComponents/buttonComp";
+import { FileUpload } from "primereact/fileupload";
+import { Image } from 'primereact/image';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAfBtn } from "../../redux/configuration/configurationSlice";
 import { mainSlice } from "../../redux/mainSlice";
 import projectServices from "../services/project.services";
+import fileServices from "../services/file.services";
 
 const TableDynamic = () => {
 
@@ -106,7 +109,7 @@ const TableDynamic = () => {
 
   const handleNameChange = (fieldName, value) => {
     setFormDataAfBtn((prevFormDataAfBtn) => {
-    
+
       const updatedFormDataAfBtn = {
         ...prevFormDataAfBtn,
         [fieldName]: value,
@@ -114,6 +117,11 @@ const TableDynamic = () => {
       return updatedFormDataAfBtn;
     });
   };
+
+  const handleFileUpload = (event) => {
+
+  };
+
 
   const addAfBtn = () => {
     projectServices
@@ -184,7 +192,7 @@ const TableDynamic = () => {
           >
             <CustomRadioButtons
               value={ingredient}
-              onChange={(e) =>{
+              onChange={(e) => {
                 setIngredient(e.target.value)
                 handleNameChange("WFStateForDeemed", e.target.value)
               }
@@ -245,7 +253,22 @@ const TableDynamic = () => {
           }}
         >
           <span>image:</span>
-          <CustomButton label="..." className="p-button-secondary" />
+          <FileUpload
+            mode="basic"
+            chooseLabel="Choose"
+            uploadLabel="Upload"
+            cancelLabel="Cancel"
+            customUpload
+            uploadHandler={(e) => handleFileUpload(e)}
+            className="p-button-secondary"
+          />
+
+          <div className="card flex justify-content-center" style={{ marginLeft: "20px" }}>
+            <Image src="https://primefaces.org/cdn/primereact/images/galleria/galleria7.jpg" alt="Image" width="100" />
+          </div>
+
+          {/* <CustomButton label="..." className="p-button-secondary" /> */}
+          <image />
         </div>
       </div>
       <div style={{ display: "flex", marginTop: "20px" }}>

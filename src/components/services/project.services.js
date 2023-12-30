@@ -4,6 +4,18 @@ class projectService {
   async webLogin(loginModel) {
     return await httpClient.post(ApiConst.webLogin, loginModel);
   }
+  async getFile(gid) {
+    return await httpClient.post(ApiConst.getFile, { gid });
+  }
+  async download(data) {
+    return await httpClient.post(ApiConst.download, data);
+  }
+  async upload() {
+    return await httpClient.post(ApiConst.upload);
+  }
+  async insert(gid) {
+    return await httpClient.post(ApiConst.insert, { gid });
+  }
   async getAllCompany() {
     return await httpClient.post(ApiConst.getAllCompany);
   }
@@ -41,17 +53,5 @@ class projectService {
 
 }
 
-// const handleApi = async (api, bool) => {
-//   setTimeout(() => {
-    
-//   }, 1000);
 
-//   setInterval
-//   try {
-//     const myApi = await api
-//     return myApi.data
-//   } catch (e) {
-//     throw e
-//   }
-// }
 export default new projectService();
