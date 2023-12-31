@@ -16,6 +16,7 @@ import { Dialog } from "primereact/dialog"; // Add this import
 const TableDynamic = () => {
   const dispatch = useDispatch();
   const [selectedRow, setSelectedRow] = useState(null);
+  const [selectedRowForAdd, setSelectedRowForAdd] = useState(null);
 
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
@@ -43,14 +44,6 @@ const TableDynamic = () => {
 
   ///////////////////////All data to need this table dynamic////////////////////////////////////////////////
   const subTabName = useSelector((state) => state.subTabName.selectedSubTab);
-
-  const isAddClicked = useSelector((state) => state.isAddClicked.isAddClicked);
-  console.log("AAADDDDDD", isAddClicked);
-
-  const isEditClicked = useSelector(
-    (state) => state.isEditClicked.isEditClicked
-  );
-  console.log("Edittttttttt", isEditClicked);
 
   const dataConfiguration = useSelector(
     (state) => state.dataConfiguration.dataConfiguration
@@ -158,7 +151,8 @@ const TableDynamic = () => {
     );
   }
 
-  const isEditDisabled = selectedRow === null;
+  const isEditDisabled = selectedRow === null
+
 
   //////////////////////////////////////////////////////////////////////////////////////
 
@@ -211,6 +205,8 @@ const TableDynamic = () => {
           onClick={() => {
             dispatch(mainSlice.actions.setIsAddClicked(true));
             dispatch(mainSlice.actions.setIsEditClicked(false));
+            dispatch(mainSlice.actions.setSelectedRowData(null));
+            setSelectedRow(null)
           }}
         />
         <Button
@@ -239,11 +235,12 @@ const TableDynamic = () => {
         selectionMode="single"
         selection={selectedRow}
         onSelectionChange={(e) => {
+          console.log("eeeeeeee",e)
           setSelectedRow(e.value);
+          dispatch(mainSlice.actions.setIsEditClicked(true));
+          dispatch(mainSlice.actions.setSelectedRowData(e.value));
         }}
         onRowDoubleClick={() => {
-          dispatch(mainSlice.actions.setIsEditClicked(true));
-          dispatch(mainSlice.actions.setIsAddClicked(false));
         }}
       >
         {headersString.split("|").map((header, index) => (
