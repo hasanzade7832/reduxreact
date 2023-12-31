@@ -44,19 +44,14 @@ function MainComponent() {
   const selectedRowData = useSelector(
     (state) => state.selectedRowData.selectedRowData
   );
-  console.log("actionType",selectedRowData)
+  console.log("yyyyyyyyyyyyyyyyyy",selectedRowData)
 
   const shouldDisplayAddConfiguration =
-   (isAddClicked ) && subTabName === "Configuration"
+   (isAddClicked) && subTabName === "Configuration"
   const shouldDisplayEditConfiguration =
    (isEditClicked ) && subTabName === "Configuration";
   const shouldDisplayAddCommands = (isAddClicked) && subTabName === "Commands";
   const shouldDisplayEditCommands = (isEditClicked || selectedRowData) && subTabName === "Commands";
-
-  useEffect(() => {
-    dispatch(mainSlice.actions.setIsAddClicked(false));
-    dispatch(mainSlice.actions.setIsEditClicked(false));
-  }, [subTabName, dispatch]);
 
   return (
     <>
@@ -72,10 +67,10 @@ function MainComponent() {
             style={{ overflow: "auto" }}
           >
             <div className="w-full h-full">
-              {(shouldDisplayAddConfiguration && selectedRowData==null)&& <AddConfiguration />}
-              {(shouldDisplayEditConfiguration && selectedRowData!==null) && <EditConfiguration />}
-              {shouldDisplayAddCommands && <AddCommands />}
-              {(shouldDisplayEditCommands) && <EditCommands />}
+              {(shouldDisplayAddConfiguration ) && <AddConfiguration />}
+              {/* {(shouldDisplayEditConfiguration && selectedRowData!==null) && <EditConfiguration />} */}
+              {/* {shouldDisplayAddCommands && <AddCommands />} */}
+              {/* {(shouldDisplayEditCommands) && <EditCommands />} */}
             </div>
           </SplitterPanel>
         </Splitter>
