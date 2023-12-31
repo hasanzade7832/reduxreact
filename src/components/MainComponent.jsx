@@ -10,20 +10,15 @@ import EditCommands from "../components/commands/EditCommands";
 import { mainSlice } from "../redux/mainSlice";
 
 function MainComponent() {
-
   const dispatch = useDispatch();
 
-  const isAddClicked = useSelector(
-    (state) => state.isAddClicked.isAddClicked
-  );
+  const isAddClicked = useSelector((state) => state.isAddClicked.isAddClicked);
 
   const isEditClicked = useSelector(
     (state) => state.isEditClicked.isEditClicked
   );
 
-  let subTabName = useSelector(
-    (state) => state.subTabName.selectedSubTab
-  );
+  let subTabName = useSelector((state) => state.subTabName.selectedSubTab);
 
   let splitterShow = useSelector(
     (state) => state.displaySplitter.valueSplitterShow
@@ -44,22 +39,22 @@ function MainComponent() {
   const selectedRowData = useSelector(
     (state) => state.selectedRowData.selectedRowData
   );
-  console.log("yyyyyyyyyyyyyyyyyy",selectedRowData)
+  console.log("selectedRowData", selectedRowData);
 
   const shouldDisplayAddConfiguration =
-   (isAddClicked) && subTabName === "Configuration"
-  const shouldDisplayEditConfiguration =
-   (isEditClicked ) && subTabName === "Configuration";
-  const shouldDisplayAddCommands = (isAddClicked) && subTabName === "Commands";
-  const shouldDisplayEditCommands = (isEditClicked || selectedRowData) && subTabName === "Commands";
+    (isAddClicked || selectedRowData !== null) &&
+    subTabName === "Configuration";
 
   return (
     <>
       {splitterShow && (
         <Splitter>
           <SplitterPanel>
-            <div style={{width:"100%"}} className="flex align-items-center justify-content-center">
-            <TableDynamic />
+            <div
+              style={{ width: "100%" }}
+              className="flex align-items-center justify-content-center"
+            >
+              <TableDynamic />
             </div>
           </SplitterPanel>
           <SplitterPanel
@@ -67,8 +62,8 @@ function MainComponent() {
             style={{ overflow: "auto" }}
           >
             <div className="w-full h-full">
-              {(shouldDisplayAddConfiguration ) && <AddConfiguration />}
-              {/* {(shouldDisplayEditConfiguration && selectedRowData!==null) && <EditConfiguration />} */}
+              {shouldDisplayAddConfiguration && <AddConfiguration />}
+              {/* {(shouldDisplayEditConfiguration && selectedRowData!==null) && <EditConfiguration />}*/}
               {/* {shouldDisplayAddCommands && <AddCommands />} */}
               {/* {(shouldDisplayEditCommands) && <EditCommands />} */}
             </div>

@@ -26,7 +26,7 @@ export const store = configureStore({
     programTemplateSelectedRow: mainSlice.reducer,
     defaultRibbonSelectedRow: mainSlice.reducer,
     formTemplateSelectedRow: mainSlice.reducer,
-    selectedRowData:mainSlice.reducer,
+    selectedRowData: mainSlice.reducer,
     afTemplateSelectedRow: mainSlice.reducer,
     commentFormSelectedRow: mainSlice.reducer,
     procedureFormSelectedRow: mainSlice.reducer,
@@ -139,8 +139,8 @@ export type RootState = {
   showDialogProcedureForm: {
     showDialogProcedureForm: Boolean;
   };
-  selectedRowData:{
-    selectedRowData:Object
-  }
+  selectedRowData: {
+    selectedRowData: null;
+  };
 };
 export type AppDispatch = typeof store.dispatch;

@@ -29,7 +29,7 @@ interface MainState {
   showDialogAfTemplate: Boolean;
   showDialogCommentForm: Boolean;
   showDialogProcedureForm: Boolean;
-  selectedRowData:Object;
+  selectedRowData: null;
 }
 
 const initialState: MainState = {
@@ -61,7 +61,7 @@ const initialState: MainState = {
   showDialogAfTemplate: false,
   showDialogCommentForm: false,
   showDialogProcedureForm: false,
-  selectedRowData:{}
+  selectedRowData: null,
 };
 
 export const mainSlice = createSlice({
@@ -171,7 +171,7 @@ export const mainSlice = createSlice({
     setShowDialogProcedureForm: (state, action: PayloadAction<Boolean>) => {
       state.showDialogProcedureForm = action.payload;
     },
-    setSelectedRowData: (state, action: PayloadAction<Object>) => {
+    setSelectedRowData: (state, action: PayloadAction<null>) => {
       state.selectedRowData = action.payload;
     },
   },
