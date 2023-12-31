@@ -33,7 +33,7 @@ const ConfigurationAdd = () => {
     ID: 0,
     LastModified: null,
     ModifiedById: null,
-    Name:selectedRowData!=null ? selectedRowData.Name :"",
+    Name:selectedRowData ? selectedRowData.Name :"",
     LetterBtns: "",
     MeetingBtns: "",
     DefaultBtn: "",
