@@ -129,8 +129,7 @@ const TableDynamic = () => {
           const foundItems = dataPrugTemplate.filter(
             (item) => item.ID === rowData.FirstIDProgramTemplate
           );
-          const data2 =
-            foundItems.length > 0 ? foundItems[0].Name : "";
+          const data2 = foundItems.length > 0 ? foundItems[0].Name : "";
           return <span>{data2}</span>;
         }}
       />,
@@ -142,8 +141,7 @@ const TableDynamic = () => {
           const foundItems = dataRibbonForTable.filter(
             (item) => item.ID === rowData.SelMenuIDForMain
           );
-          const data2 =
-            foundItems.length > 0 ? foundItems[0].Name : "";
+          const data2 = foundItems.length > 0 ? foundItems[0].Name : "";
 
           return <span>{data2}</span>;
         }}
@@ -151,8 +149,7 @@ const TableDynamic = () => {
     );
   }
 
-  const isEditDisabled = selectedRow === null
-
+  const isEditDisabled = selectedRow === null;
 
   //////////////////////////////////////////////////////////////////////////////////////
 
@@ -195,7 +192,7 @@ const TableDynamic = () => {
       </Dialog>
 
       <div>
-      <h3>{subTabName}</h3>
+        <h3>{subTabName}</h3>
       </div>
       <div style={{ textAlign: "right", marginTop: "10px" }}>
         <Button
@@ -204,8 +201,9 @@ const TableDynamic = () => {
           className="p-button-rounded p-button-success "
           onClick={() => {
             dispatch(mainSlice.actions.setIsAddClicked(true));
-            dispatch(mainSlice.actions.setIsEditClicked(false));
-            setSelectedRow(null)
+            // dispatch(mainSlice.actions.setIsEditClicked(false));
+            dispatch(mainSlice.actions.setHandleAddComponent(true));
+            setSelectedRow(null);
           }}
         />
         <Button
@@ -226,32 +224,32 @@ const TableDynamic = () => {
         />
       </div>
       <div>
-      <DataTable
-        scrollable
-        scrollHeight="80vh"
-        value={data}
-        showGridlines
-        selectionMode="single"
-        selection={selectedRow}
-        onSelectionChange={(e) => {
-          console.log("eeeeeeee",e)
-          setSelectedRow(e.value);
-          dispatch(mainSlice.actions.setIsEditClicked(true));  
-          dispatch(mainSlice.actions.setSelectedRowData(e.value));        
-        }}
-        onRowDoubleClick={() => {
-        }}
-      >
-        {headersString.split("|").map((header, index) => (
-          <Column
-            key={header}
-            field={columnsArray[index]}
-            header={header}
-          ></Column>
-        ))}
-        {/* Conditionally render */}
-        {additionalColumns}
-      </DataTable>
+        <DataTable
+          scrollable
+          scrollHeight="80vh"
+          value={data}
+          showGridlines
+          selectionMode="single"
+          selection={selectedRow}
+          onSelectionChange={(e) => {
+            console.log("eeeeeeee", e);
+            setSelectedRow(e.value);
+            dispatch(mainSlice.actions.setIsEditClicked(true));
+            dispatch(mainSlice.actions.setSelectedRowData(e.value));
+            dispatch(mainSlice.actions.setHandleAddComponent(true));
+          }}
+          onRowDoubleClick={() => {}}
+        >
+          {headersString.split("|").map((header, index) => (
+            <Column
+              key={header}
+              field={columnsArray[index]}
+              header={header}
+            ></Column>
+          ))}
+          {/* Conditionally render */}
+          {additionalColumns}
+        </DataTable>
       </div>
     </div>
   );

@@ -13,6 +13,7 @@ export const store = configureStore({
     mainTab: mainSlice.reducer,
     resetSubTab: mainSlice.reducer,
     isAddClicked: mainSlice.reducer,
+    handleAddComponent: mainSlice.reducer,
     isEditClicked: mainSlice.reducer,
     isVisibleBox: mainSlice.reducer,
     selectedBoxName: mainSlice.reducer,
@@ -72,6 +73,9 @@ export type RootState = {
   };
   isAddClicked: {
     isAddClicked: Boolean;
+  };
+  handleAddComponent: {
+    handleAddComponent: Boolean;
   };
   isEditClicked: {
     isEditClicked: Boolean;

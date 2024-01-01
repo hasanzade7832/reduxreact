@@ -23,7 +23,6 @@ const ConfigurationAdd = () => {
   const dispatch = useDispatch();
   ////////////////object main data for add////////////////////////////////////////
 
-
   const [formData, setFormData] = useState({
     ID: 0,
     LastModified: null,
@@ -43,16 +42,24 @@ const ConfigurationAdd = () => {
   });
 
   const isAddClicked = useSelector((state) => state.isAddClicked.isAddClicked);
-  const selectedRow = useSelector((state) => state.selectedRowData.selectedRowData);
+  console.log("AAAAAAAAADDDDDDDDD", isAddClicked);
+  const selectedRow = useSelector(
+    (state) => state.selectedRowData.selectedRowData
+  );
 
   useEffect(() => {
-    if (selectedRow) {
+    if (isAddClicked) {
       setFormData((prevFormData) => ({
         ...prevFormData,
-        Name: selectedRow.Name || "",
+        Name: "",
+      }));
+    } else if (selectedRow) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        Name: selectedRow.Name,
       }));
     }
-  }, [selectedRow,isAddClicked]);
+  }, [selectedRow, isAddClicked]);
 
   /////////////////////MAIN DATA//////////////////////////////////////////
   const dataProgram = useSelector(

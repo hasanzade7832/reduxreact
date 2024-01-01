@@ -13,6 +13,9 @@ function MainComponent() {
   const dispatch = useDispatch();
 
   const isAddClicked = useSelector((state) => state.isAddClicked.isAddClicked);
+  const handleAddComponent = useSelector(
+    (state) => state.handleAddComponent.handleAddComponent
+  );
 
   const isEditClicked = useSelector(
     (state) => state.isEditClicked.isEditClicked
@@ -36,15 +39,18 @@ function MainComponent() {
     }
   });
 
-  const selectedRowData = useSelector((state) => state.selectedRowData.selectedRowData);
+  const selectedRowData = useSelector(
+    (state) => state.selectedRowData.selectedRowData
+  );
 
   useEffect(() => {
-    if (selectedRowData ) {
-      dispatch(mainSlice.actions.setIsAddClicked(true));
+    if (selectedRowData) {
+      dispatch(mainSlice.actions.setHandleAddComponent(true));
     }
-  }, [selectedRowData, dispatch]);
+  }, [selectedRowData]);
 
-  const shouldDisplayAddConfiguration = isAddClicked && subTabName === "Configuration";
+  const shouldDisplayAddConfiguration =
+    handleAddComponent && subTabName === "Configuration";
 
   return (
     <>

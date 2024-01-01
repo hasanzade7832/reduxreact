@@ -7,6 +7,7 @@ interface MainState {
   valueResetSubTab: string;
   valueMainTab: number;
   isAddClicked: Boolean;
+  handleAddComponent: Boolean;
   isEditClicked: Boolean;
   isVisibleBox: Boolean;
   selectedBoxName: string;
@@ -39,6 +40,7 @@ const initialState: MainState = {
   valueResetSubTab: "",
   valueMainTab: 0,
   isAddClicked: false,
+  handleAddComponent: false,
   isEditClicked: false,
   isVisibleBox: true,
   selectedBoxName: "",
@@ -85,6 +87,9 @@ export const mainSlice = createSlice({
     },
     setIsAddClicked: (state, action: PayloadAction<Boolean>) => {
       state.isAddClicked = action.payload;
+    },
+    setHandleAddComponent: (state, action: PayloadAction<Boolean>) => {
+      state.handleAddComponent = action.payload;
     },
     setIsEditClicked: (state, action: PayloadAction<Boolean>) => {
       state.isEditClicked = action.payload;
