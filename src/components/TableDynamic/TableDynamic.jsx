@@ -205,7 +205,6 @@ const TableDynamic = () => {
           onClick={() => {
             dispatch(mainSlice.actions.setIsAddClicked(true));
             dispatch(mainSlice.actions.setIsEditClicked(false));
-            dispatch(mainSlice.actions.setSelectedRowData(null));
             setSelectedRow(null)
           }}
         />
@@ -237,8 +236,8 @@ const TableDynamic = () => {
         onSelectionChange={(e) => {
           console.log("eeeeeeee",e)
           setSelectedRow(e.value);
-          dispatch(mainSlice.actions.setIsEditClicked(true));
-          dispatch(mainSlice.actions.setSelectedRowData(e.value));
+          dispatch(mainSlice.actions.setIsEditClicked(true));  
+          dispatch(mainSlice.actions.setSelectedRowData(e.value));        
         }}
         onRowDoubleClick={() => {
         }}

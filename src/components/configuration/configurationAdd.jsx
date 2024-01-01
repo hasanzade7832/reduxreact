@@ -21,19 +21,14 @@ const ConfigurationAdd = () => {
   const [dialogVisible, setDialogVisible] = useState(false);
 
   const dispatch = useDispatch();
-
   ////////////////object main data for add////////////////////////////////////////
 
-  const selectedRowData = useSelector(
-    (state) => state.selectedRowData.selectedRowData
-  );
-  console.log("actionType", selectedRowData);
 
   const [formData, setFormData] = useState({
     ID: 0,
     LastModified: null,
     ModifiedById: null,
-    Name: selectedRowData ? selectedRowData.Name : "",
+    Name: "",
     LetterBtns: "",
     MeetingBtns: "",
     DefaultBtn: "",
@@ -46,6 +41,18 @@ const ConfigurationAdd = () => {
     IsVisible: true,
     Description: "",
   });
+
+  const isAddClicked = useSelector((state) => state.isAddClicked.isAddClicked);
+  const selectedRow = useSelector((state) => state.selectedRowData.selectedRowData);
+
+  useEffect(() => {
+    if (selectedRow) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        Name: selectedRow.Name || "",
+      }));
+    }
+  }, [selectedRow,isAddClicked]);
 
   /////////////////////MAIN DATA//////////////////////////////////////////
   const dataProgram = useSelector(
@@ -135,26 +142,11 @@ const ConfigurationAdd = () => {
   ////////////////////handle change datas//////////////////////////////////////////////
 
   const handleChange = (fieldName, value) => {
-    setFormData((prevFormData) => {
-      const updatedFormData = {
-        ...prevFormData,
-        [fieldName]: value,
-      };
-
-      return updatedFormData;
-    });
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [fieldName]: value,
+    }));
   };
-
-  // useEffect(() => {
-  //   // اگر selectedRowData مقدار داشته باشد، Name آن را در formData قرار دهید
-  //   if (selectedRowData) {
-  //     setFormData((prevFormData) => ({
-  //       ...prevFormData,
-  //       Name: selectedRowData.Name,
-  //       // سایر فیلدها...
-  //     }));
-  //   }
-  // }, [selectedRowData]);
 
   ///////////////////////BOX DATAS/////////////////////////////////////////////////////
 
@@ -267,8 +259,6 @@ const ConfigurationAdd = () => {
 
   return (
     <>
-      {/* {selectedRowData == null ? (
-        <> */}
       {/* ////////////////////////Add Line//////////////////*/}
       <div>
         <AddBar onClick={addConfiguration} />
@@ -433,11 +423,6 @@ const ConfigurationAdd = () => {
         <div className="col-5"></div>
       </div>
       {/* /////////////////////Dialog/////////////////////// */}
-
-      {/* </>
-      ) : (
-        <div>hello edit</div>
-      )} */}
 
       {isVisibleBox && (
         <Dialog

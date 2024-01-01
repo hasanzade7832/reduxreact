@@ -36,14 +36,15 @@ function MainComponent() {
     }
   });
 
-  const selectedRowData = useSelector(
-    (state) => state.selectedRowData.selectedRowData
-  );
-  console.log("selectedRowData", selectedRowData);
+  const selectedRowData = useSelector((state) => state.selectedRowData.selectedRowData);
 
-  const shouldDisplayAddConfiguration =
-    (isAddClicked || selectedRowData !== null) &&
-    subTabName === "Configuration";
+  useEffect(() => {
+    if (selectedRowData ) {
+      dispatch(mainSlice.actions.setIsAddClicked(true));
+    }
+  }, [selectedRowData, dispatch]);
+
+  const shouldDisplayAddConfiguration = isAddClicked && subTabName === "Configuration";
 
   return (
     <>
@@ -63,9 +64,6 @@ function MainComponent() {
           >
             <div className="w-full h-full">
               {shouldDisplayAddConfiguration && <AddConfiguration />}
-              {/* {(shouldDisplayEditConfiguration && selectedRowData!==null) && <EditConfiguration />}*/}
-              {/* {shouldDisplayAddCommands && <AddCommands />} */}
-              {/* {(shouldDisplayEditCommands) && <EditCommands />} */}
             </div>
           </SplitterPanel>
         </Splitter>
