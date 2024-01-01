@@ -4,22 +4,11 @@ import { Splitter, SplitterPanel } from "primereact/splitter";
 import { useSelector, useDispatch } from "react-redux";
 import tabData from "../utils/tabData";
 import AddConfiguration from "../components/configuration/configurationAdd";
-import EditConfiguration from "../components/configuration/configurationEdit";
 import AddCommands from "../components/commands/AddCommands";
-import EditCommands from "../components/commands/EditCommands";
 import { mainSlice } from "../redux/mainSlice";
 
 function MainComponent() {
   const dispatch = useDispatch();
-
-  const isAddClicked = useSelector((state) => state.isAddClicked.isAddClicked);
-  const handleAddComponent = useSelector(
-    (state) => state.handleAddComponent.handleAddComponent
-  );
-
-  const isEditClicked = useSelector(
-    (state) => state.isEditClicked.isEditClicked
-  );
 
   let subTabName = useSelector((state) => state.subTabName.selectedSubTab);
 
@@ -48,7 +37,6 @@ function MainComponent() {
   useEffect(() => {
     if (selectedRowData) {
       dispatch(mainSlice.actions.setHandleAddComponent(true));
-      // dispatch(mainSlice.actions.setIsAddClicked(false));
     }
   }, [selectedRowData, dispatch]);
 
