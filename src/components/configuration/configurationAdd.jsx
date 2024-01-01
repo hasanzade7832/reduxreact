@@ -59,7 +59,7 @@ const ConfigurationAdd = () => {
         Name: selectedRow.Name,
       }));
     }
-  }, [selectedRow, isAddClicked]);
+  }, [isAddClicked, selectedRow]);
 
   /////////////////////MAIN DATA//////////////////////////////////////////
   const dataProgram = useSelector(

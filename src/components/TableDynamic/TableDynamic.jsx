@@ -234,7 +234,7 @@ const TableDynamic = () => {
           onSelectionChange={(e) => {
             console.log("eeeeeeee", e);
             setSelectedRow(e.value);
-            dispatch(mainSlice.actions.setIsEditClicked(true));
+            dispatch(mainSlice.actions.setIsAddClicked(false));
             dispatch(mainSlice.actions.setSelectedRowData(e.value));
             dispatch(mainSlice.actions.setHandleAddComponent(true));
           }}

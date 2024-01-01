@@ -46,6 +46,7 @@ function MainComponent() {
   useEffect(() => {
     if (selectedRowData) {
       dispatch(mainSlice.actions.setHandleAddComponent(true));
+      // dispatch(mainSlice.actions.setIsAddClicked(false));
     }
   }, [selectedRowData]);
 
