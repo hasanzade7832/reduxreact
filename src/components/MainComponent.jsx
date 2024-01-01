@@ -1,5 +1,5 @@
 import TableDynamic from "./TableDynamic/TableDynamic";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Splitter, SplitterPanel } from "primereact/splitter";
 import { useSelector, useDispatch } from "react-redux";
 import tabData from "../utils/tabData";
@@ -22,6 +22,8 @@ function MainComponent() {
   );
 
   let subTabName = useSelector((state) => state.subTabName.selectedSubTab);
+
+  const prevSubTabName = usePrevious(subTabName);
 
   let splitterShow = useSelector(
     (state) => state.displaySplitter.valueSplitterShow
@@ -48,10 +50,12 @@ function MainComponent() {
       dispatch(mainSlice.actions.setHandleAddComponent(true));
       // dispatch(mainSlice.actions.setIsAddClicked(false));
     }
-  }, [selectedRowData]);
+  }, [selectedRowData, dispatch]);
 
   const shouldDisplayAddConfiguration =
-    handleAddComponent && subTabName === "Configuration";
+    handleAddComponent &&
+    subTabName === "Configuration" &&
+    subTabName === prevSubTabName;
 
   return (
     <>
@@ -77,6 +81,16 @@ function MainComponent() {
       )}
     </>
   );
+}
+
+//وقتی زیرتبها عوض میشن قسمتهای add  , edit بسته میشن
+
+function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
 }
 
 export default MainComponent;

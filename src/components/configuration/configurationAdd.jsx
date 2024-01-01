@@ -42,6 +42,10 @@ const ConfigurationAdd = () => {
   });
 
   const isAddClicked = useSelector((state) => state.isAddClicked.isAddClicked);
+
+  let subTabName = useSelector((state) => state.subTabName.selectedSubTab);
+  console.log("subTabName", subTabName);
+
   console.log("AAAAAAAAADDDDDDDDD", isAddClicked);
   const selectedRow = useSelector(
     (state) => state.selectedRowData.selectedRowData
@@ -59,7 +63,7 @@ const ConfigurationAdd = () => {
         Name: selectedRow.Name,
       }));
     }
-  }, [isAddClicked, selectedRow]);
+  }, [isAddClicked, selectedRow, subTabName]);
 
   /////////////////////MAIN DATA//////////////////////////////////////////
   const dataProgram = useSelector(
