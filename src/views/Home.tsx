@@ -41,6 +41,8 @@ const MyTabs = () => {
     showA();
   }, []);
 
+  
+
   return (
     <>
       <Toast ref={toast} />
@@ -57,7 +59,7 @@ const MyTabs = () => {
           }}
         >
           {tabData.map((tab, tabIndex) => (
-            <TabPanel key={tabIndex} header={tab.tabName}>
+            <TabPanel key={tabIndex} header={tab.tabName} style={{fontWeight:"bold"}}>
               {tab.subTabs && (
                 <div style={{ display: "flex" }}>
                   {tab.subTabs.map((subTab, subTabIndex) => (

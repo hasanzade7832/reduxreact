@@ -33,6 +33,9 @@ function MainComponent() {
   const selectedRowData = useSelector(
     (state) => state.selectedRowData.selectedRowData
   );
+  
+  const handleAddComponent = useSelector((state)=>state.handleAddComponent.handleAddComponent);
+
 
   useEffect(() => {
     if (selectedRowData) {

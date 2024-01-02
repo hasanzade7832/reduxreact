@@ -84,7 +84,7 @@ const TableDynamic = () => {
     }
   }, [subTabName]);
 
-  useEffect(() => {}, [dataCommands]);
+  useEffect(() => { }, [dataCommands]);
 
   /////////////////////////DATA FOR TABLE//////////////////////////////////////////////////////////////////////
 
@@ -192,42 +192,32 @@ const TableDynamic = () => {
       </Dialog>
 
       <div>
-        <h3>{subTabName}</h3>
+        <span style={{ fontWeight: "bold" }}>{subTabName}</span>
       </div>
-      <div style={{ textAlign: "right", marginTop: "10px" }}>
-        <Button
-          icon="pi pi-plus"
-          size="small"
-          className="p-button-rounded p-button-success "
+      <div style={{ textAlign: "right", marginTop: "20px"}}>
+        <i className="pi pi-plus-circle"
+          style={{ cursor: "pointer", color: "#0E4F26", fontSize: '1.3rem',marginRight:"10px" }}
           onClick={() => {
             dispatch(mainSlice.actions.setIsAddClicked(true));
-            // dispatch(mainSlice.actions.setIsEditClicked(false));
             dispatch(mainSlice.actions.setHandleAddComponent(true));
             setSelectedRow(null);
           }}
-        />
-        <Button
-          icon="pi pi-pencil"
-          size="small"
-          className="p-button-rounded p-button-warning "
-          onClick={() => {
-            dispatch(mainSlice.actions.setIsEditClicked(true));
-            dispatch(mainSlice.actions.setIsAddClicked(false));
-          }}
+        ></i>
+        <i className="pi pi-file-edit"
+          style={{ cursor: "pointer", color: "#EAB308", fontSize: '1.3rem',marginRight:"10px" }}
           disabled={isEditDisabled}
-        />
-        <Button
-          icon="pi pi-trash"
-          size="small"
-          className="p-button-rounded p-button-danger "
-          onClick={() => handleDelete(selectedRow)}
-        />
+        ></i>
+        <i className="pi pi-trash"
+          style={{ cursor: "pointer", color: "#D9342B", fontSize: '1.3rem' ,marginRight:"5px"}}
+          disabled={isEditDisabled}
+        ></i>
       </div>
-      <div>
+      <div style={{marginTop:"10px"}}>
         <DataTable
           scrollable
           scrollHeight="80vh"
           value={data}
+          size="small"
           showGridlines
           selectionMode="single"
           selection={selectedRow}
@@ -238,7 +228,7 @@ const TableDynamic = () => {
             dispatch(mainSlice.actions.setSelectedRowData(e.value));
             dispatch(mainSlice.actions.setHandleAddComponent(true));
           }}
-          onRowDoubleClick={() => {}}
+          onRowDoubleClick={() => { }}
         >
           {headersString.split("|").map((header, index) => (
             <Column
