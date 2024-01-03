@@ -11,21 +11,22 @@ const CustomDropdown = ({
   label,
 }) => {
   return (
-    <span className="p-float-label" style={{ flex: "1" }}>
+    // <span className="p-float-label" style={{ flex: "1" }}>
       <Dropdown
         inputId={id}
         value={value}
         onChange={onChange}
         options={options}
         optionLabel={optionLabel}
-        className="drop-down drop-small"
+        className="drop-down"
         filter
         style={{ width: "100%" }}
+        placeholder="Select a City"
       />
-      <label htmlFor={id} style={{ marginTop: "-20px",fontSize:"0.8rem"}}>
+      /* <label htmlFor={id} style={{fontSize:"0.8rem"}}>
         {label}
-      </label>
-    </span>
+      // </label> */
+    // </span>
   );
 };
 
