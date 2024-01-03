@@ -22,7 +22,7 @@ const CustomDropdown = ({
         filter
         style={{ width: "100%" }}
       />
-      <label htmlFor={id} style={{ marginTop: "-20px" }}>
+      <label htmlFor={id} style={{ marginTop: "-20px",fontSize:"0.8rem"}}>
         {label}
       </label>
     </span>

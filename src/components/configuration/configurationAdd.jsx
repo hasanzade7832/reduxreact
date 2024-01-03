@@ -23,6 +23,7 @@ const ConfigurationAdd = () => {
   const dispatch = useDispatch();
   ////////////////object main data for add////////////////////////////////////////
 
+
   const [formData, setFormData] = useState({
     ID: 0,
     LastModified: null,
@@ -42,28 +43,16 @@ const ConfigurationAdd = () => {
   });
 
   const isAddClicked = useSelector((state) => state.isAddClicked.isAddClicked);
-
-  let subTabName = useSelector((state) => state.subTabName.selectedSubTab);
-  console.log("subTabName", subTabName);
-
-  console.log("AAAAAAAAADDDDDDDDD", isAddClicked);
-  const selectedRow = useSelector(
-    (state) => state.selectedRowData.selectedRowData
-  );
+  const selectedRow = useSelector((state) => state.selectedRowData.selectedRowData);
 
   useEffect(() => {
-    if (isAddClicked) {
+    if (selectedRow) {
       setFormData((prevFormData) => ({
         ...prevFormData,
-        Name: "",
-      }));
-    } else if (selectedRow) {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        Name: selectedRow.Name,
+        Name: selectedRow.Name || "",
       }));
     }
-  }, [isAddClicked, selectedRow, subTabName]);
+  }, [selectedRow,isAddClicked]);
 
   /////////////////////MAIN DATA//////////////////////////////////////////
   const dataProgram = useSelector(
@@ -147,7 +136,7 @@ const ConfigurationAdd = () => {
     dispatch(mainSlice.actions.setShowDialogFormTemplate(false));
     dispatch(mainSlice.actions.setShowDialogAfTemplate(false));
     dispatch(mainSlice.actions.setShowDialogCommentForm(false));
-    dispatch(mainSlice.actions.setProcedureFormSelectedRow(false));
+    dispatch(mainSlice.actions.setShowDialogProcedureForm(false));
   };
 
   ////////////////////handle change datas//////////////////////////////////////////////
@@ -404,7 +393,7 @@ const ConfigurationAdd = () => {
       </div>
 
       {/* /////////////////////Line5/////////////////////// */}
-      <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
+      <div className="grid" style={{ marginLeft: "20px", marginTop: "30px" }}>
         <div className="col-5">
           <Box
             dialogData={showDialogDefaultButton}

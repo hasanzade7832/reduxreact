@@ -8,7 +8,7 @@ import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import { useSelector, useDispatch } from "react-redux";
-import CustomButton from "../globalComponents/buttonComp";
+import { Button } from "primereact/button";
 import { mainSlice } from "../../redux/mainSlice";
 
 const TableComponent = () => {
@@ -37,9 +37,12 @@ const TableComponent = () => {
   };
 
   return (
-    <>
-      <div style={{ position: "relative" }}>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <div>
         <DataTable
+          scrollable
+          scrollHeight="30vh"
+          size="small"
           value={dataProgram}
           showGridlines
           selectionMode="single"
@@ -50,19 +53,12 @@ const TableComponent = () => {
           <Column field="Name" header="Name" />
         </DataTable>
       </div>
-      <div
-        style={{
-          position: "absolute",
-          bottom: "10px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          textAlign: "center",
-          width: "100%",
-        }}
-      >
-        <CustomButton label="select" onClick={handleSelect} />
+      <div style={{ textAlign: "center", marginTop: "20px" }}>
+        <Button  size="small" onClick={handleSelect}>
+          <span>Select</span>
+        </Button>
       </div>
-    </>
+    </div>
   );
 };
 

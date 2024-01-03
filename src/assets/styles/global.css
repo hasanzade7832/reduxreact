@@ -53,19 +53,10 @@ p-tabview-nav-content{
   background-color: #ff5733;
 }
 
-.custom-tabview {
-  /* height: 15vh;  */
-}
-
-.main-component-wrapper {
-  /* flex: 1; 
-  height:85vh;
-  overflow-y: auto; */
-}
 
 .button-small{
-  padding: 10px;
-  height: 3vh;
+  height: 2.5vh;
+  width: 3%;
 }
 
 .button-medium{
@@ -79,12 +70,8 @@ p-tabview-nav-content{
   height: 6vh;
 }
 
-.drop-small{
-  height: 3vh;
-}
-
 span.p-dropdown-label.p-inputtext {
-  margin-top: -10px;
+  margin-top: -25px;
 }
 
 /* tab styles */
@@ -102,6 +89,7 @@ div#pr_id_1_content_1 {
   color: black;
 }
 
+/* tabs */
 ul.p-tabview-nav {
   background-color: #F97316;
 }

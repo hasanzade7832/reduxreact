@@ -8,6 +8,7 @@ import TableFormTemplate from "../configuration/tableFormTemplate";
 import TableAfTemplate from "../configuration/tableAfTemplate";
 import TableCommentForm from "../configuration/tableCommentForm";
 import TableProcedureForm from "../configuration/tableProcedureForm";
+import "../../assets/styles/global.css";
 
 const CustomDropdownComponent = ({
   value,
@@ -25,7 +26,7 @@ const CustomDropdownComponent = ({
   console.log("nameOfDialogTable", nameOfDialogTable);
 
   return (
-    <>
+    <> 
       <CustomDropdown
         id="ID"
         value={value}
@@ -41,7 +42,7 @@ const CustomDropdownComponent = ({
       />
       {showDialog && (
         <Dialog
-          style={{ width: "50vw" }}
+          style={{ width: "30vw" }}
           visible={showDialog}
           onHide={hideDialog}
           resizable={true}

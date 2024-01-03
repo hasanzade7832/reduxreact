@@ -137,6 +137,7 @@ const TableDynamic = () => {
     <>
       <div>
         <DataTable
+          size="small"
           scrollable
           scrollHeight="30vh"
           showGridlines

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import CustomButton from "../globalComponents/buttonComp";
+import { Button } from "primereact/button";
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
@@ -40,6 +40,9 @@ const TableComponent = () => {
     <>
       <div>
         <DataTable
+          scrollable
+          scrollHeight="30vh"
+          size="small"
           value={dataFormTemplate}
           showGridlines
           selectionMode="single"
@@ -53,17 +56,10 @@ const TableComponent = () => {
           <Column field="EntityCateBName" header="CatB" />
         </DataTable>
       </div>
-      <div
-        style={{
-          position: "absolute",
-          bottom: "10px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          textAlign: "center",
-          width: "100%",
-        }}
-      >
-        <CustomButton label="select" onClick={handleSelect} />
+      <div style={{ textAlign: "center", marginTop: "20px" }}>
+        <Button onClick={handleSelect} >
+        <span>Select</span>
+        </Button>
       </div>
     </>
   );

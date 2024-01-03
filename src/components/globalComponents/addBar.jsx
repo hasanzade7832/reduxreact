@@ -15,7 +15,7 @@ const SaveComponent = ({ onClick }) => {
             backgroundColor: "#188A42",
           }}
         />
-        <hr />
+        <hr style={{marginTop:"-5px"}}/>
       </div>
     </div>
   );
