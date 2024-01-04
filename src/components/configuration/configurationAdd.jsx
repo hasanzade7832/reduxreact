@@ -23,7 +23,6 @@ const ConfigurationAdd = () => {
   const dispatch = useDispatch();
   ////////////////object main data for add////////////////////////////////////////
 
-
   const [formData, setFormData] = useState({
     ID: 0,
     LastModified: null,
@@ -43,16 +42,24 @@ const ConfigurationAdd = () => {
   });
 
   const isAddClicked = useSelector((state) => state.isAddClicked.isAddClicked);
-  const selectedRow = useSelector((state) => state.selectedRowData.selectedRowData);
+  const selectedRow = useSelector(
+    (state) => state.selectedRowData.selectedRowData
+  );
+  let subTabName = useSelector((state) => state.subTabName.selectedSubTab);
 
   useEffect(() => {
-    if (selectedRow) {
+    if (isAddClicked) {
       setFormData((prevFormData) => ({
         ...prevFormData,
-        Name: selectedRow.Name || "",
+        Name: "",
+      }));
+    } else if (selectedRow) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        Name: selectedRow.Name,
       }));
     }
-  }, [selectedRow,isAddClicked]);
+  }, [isAddClicked, selectedRow, subTabName]);
 
   /////////////////////MAIN DATA//////////////////////////////////////////
   const dataProgram = useSelector(
