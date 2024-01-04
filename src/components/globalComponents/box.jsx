@@ -16,6 +16,7 @@ const CustomComponent = ({ dialogData, titleBox, selectedNames }) => {
           maxHeight: "200px",
           overflowY: "auto",
           overflowX: "auto",
+          width: "100%",
         }}
       >
         <Button
@@ -26,13 +27,15 @@ const CustomComponent = ({ dialogData, titleBox, selectedNames }) => {
             top: "0px",
             right: "0px",
             backgroundColor: "#FF1D18",
-            padding:"5px",
-            height:"20%"
+            padding: "5px",
+            height: "20%",
           }}
           onClick={dialogData}
           color="black"
         />
-        <span style={{ margin: "10px" ,fontSize:"0.8rem",color:"black"}}>{titleBox}</span>
+        <span style={{ margin: "10px", fontSize: "0.8rem", color: "black" }}>
+          {titleBox}
+        </span>
         <hr
           style={{
             position: "absolute",

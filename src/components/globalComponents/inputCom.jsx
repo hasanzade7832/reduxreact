@@ -10,7 +10,7 @@ const CustomInputText = ({ label, value, onChange }) => {
         style={{ width: "100%" }}
         className="custom-input p-inputtext-sm"
       />
-      <label style={{fontSize:"0.8rem"}}>{label}</label>
+      <label style={{ fontSize: "0.8rem" }}>{label}</label>
     </span>
   );
 };
