@@ -11,7 +11,7 @@ const CustomDropdown = ({
   label,
 }) => {
   return (
-    // <span className="p-float-label" style={{ flex: "1" }}>
+    <span className="p-float-label" style={{ flex: "1" }}>
       <Dropdown
         inputId={id}
         value={value}
@@ -21,12 +21,12 @@ const CustomDropdown = ({
         className="drop-down"
         filter
         style={{ width: "100%" }}
-        placeholder="Select a City"
+        placeholder=""
       />
-      /* <label htmlFor={id} style={{fontSize:"0.8rem"}}>
+      <label htmlFor={id} style={{ fontSize: "0.8rem" }}>
         {label}
-      // </label> */
-    // </span>
+      </label>
+    </span>
   );
 };
 

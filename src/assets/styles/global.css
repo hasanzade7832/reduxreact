@@ -70,9 +70,9 @@ p-tabview-nav-content{
   height: 6vh;
 }
 
-span.p-dropdown-label.p-inputtext {
+/* span.p-dropdown-label.p-inputtext {
   margin-top: -25px;
-}
+} */
 
 /* tab styles */
 span.p-tabview-title {
