@@ -26,20 +26,26 @@ const CustomDropdownComponent = ({
   console.log("nameOfDialogTable", nameOfDialogTable);
 
   return (
-    <> 
-      <CustomDropdown
-        id="ID"
-        value={value}
-        options={options}
-        optionLabel={optionLabel}
-        label={label}
-        onChange={onChange}
-      />
-      <CustomButton
-        label="..."
-        className="button-small"
-        onClick={onButtonClick}
-      />
+    <>
+      <div className="grid">
+        <div className="col-10" style={{ width: "90%" }}>
+          <CustomDropdown
+            id="ID"
+            value={value}
+            options={options}
+            optionLabel={optionLabel}
+            label={label}
+            onChange={onChange}
+          />
+        </div>
+        <div className="col-2" style={{ marginTop: "20px", width: "10%" }}>
+          <CustomButton
+            label="..."
+            className="button-small"
+            onClick={onButtonClick}
+          />
+        </div>
+      </div>
       {showDialog && (
         <Dialog
           style={{ width: "30vw" }}

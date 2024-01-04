@@ -55,8 +55,13 @@ p-tabview-nav-content{
 
 
 .button-small{
-  height: 2.5vh;
-  width: 3%;
+  /* height: 2.5vh;
+  width: 3%; */
+  background-color: #FF1D18 ;
+  padding: 10px;
+  height: 15%;
+  width:5%;
+ 
 }
 
 .button-medium{

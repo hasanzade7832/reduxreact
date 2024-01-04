@@ -271,7 +271,7 @@ const ConfigurationAdd = () => {
         <AddBar onClick={addConfiguration} />
       </div>
       {/* /////////////////////Line1/////////////////////// */}
-      <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
+      <div className="grid" style={{ marginLeft: "20px", marginTop: "20px" }}>
         <div className="col-5">
           <CustomInputText
             value={formData.Name}
@@ -289,8 +289,8 @@ const ConfigurationAdd = () => {
         </div>
       </div>
       {/* /////////////////////Line2/////////////////////// */}
-      <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
-        <div className="flex col-5">
+      <div className="grid" style={{ marginLeft: "20px", marginTop: "20px" }}>
+        <div className="col-5">
           <DropdownComponentwithButton
             value={programTemplateSelectedRow}
             options={dataProgram}
@@ -308,8 +308,8 @@ const ConfigurationAdd = () => {
             hideDialog={hideDialog}
           />
         </div>
-        <div className="flex col-1"></div>
-        <div className="flex col-5">
+        <div className="col-1"></div>
+        <div className="col-5">
           <DropdownComponentwithButton
             value={defaultRibbonSelectedRow}
             options={dataRibbon}
@@ -327,8 +327,8 @@ const ConfigurationAdd = () => {
         </div>
       </div>
       {/* /////////////////////Line3/////////////////////// */}
-      <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
-        <div className="flex col-5">
+      <div className="grid" style={{ marginLeft: "20px", marginTop: "5px" }}>
+        <div className="col-5">
           <DropdownComponentwithButton
             value={formTemplateSelectedRow}
             options={dataFormTemplate}
@@ -344,8 +344,8 @@ const ConfigurationAdd = () => {
             hideDialog={hideDialog}
           />
         </div>
-        <div className="flex col-1"></div>
-        <div className="flex col-5">
+        <div className="col-1"></div>
+        <div className="col-5">
           <DropdownComponentwithButton
             value={afTemplateSelectedRow}
             options={dataWfTemplate}
@@ -363,8 +363,8 @@ const ConfigurationAdd = () => {
         </div>
       </div>
       {/* /////////////////////Line4/////////////////////// */}
-      <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
-        <div className="flex col-5">
+      <div className="grid" style={{ marginLeft: "20px", marginTop: "5px" }}>
+        <div className="col-5">
           <DropdownComponentwithButton
             value={commentFormSelectedRow}
             options={dataFormTemplate}
@@ -380,8 +380,8 @@ const ConfigurationAdd = () => {
             hideDialog={hideDialog}
           />
         </div>
-        <div className="flex col-1"></div>
-        <div className="flex col-5">
+        <div className="col-1"></div>
+        <div className="col-5">
           <DropdownComponentwithButton
             value={procedureFormSelectedRow}
             options={dataFormTemplate}
@@ -400,7 +400,7 @@ const ConfigurationAdd = () => {
       </div>
 
       {/* /////////////////////Line5/////////////////////// */}
-      <div className="grid" style={{ marginLeft: "20px", marginTop: "30px" }}>
+      <div className="grid" style={{ marginLeft: "20px" }}>
         <div className="col-5">
           <Box
             dialogData={showDialogDefaultButton}
@@ -418,7 +418,7 @@ const ConfigurationAdd = () => {
         </div>
       </div>
       {/* /////////////////////Line6/////////////////////// */}
-      <div className="grid" style={{ marginLeft: "20px", marginTop: "50px" }}>
+      <div className="grid" style={{ marginLeft: "20px", marginTop: "5px" }}>
         <div className="col-5">
           <Box
             dialogData={showDialogMeetingButton}
