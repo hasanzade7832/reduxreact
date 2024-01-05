@@ -44,9 +44,9 @@
   /* overflow-x: scroll !important; */
 }
 
-/* .p-dropdown-item {
- overflow: none;
-} */
+.p-dropdown-item {
+ white-space: inherit;
+}
 
 
   
