@@ -47,6 +47,12 @@ const ConfigurationAdd = () => {
   );
   let subTabName = useSelector((state) => state.subTabName.selectedSubTab);
 
+  const handleAddComponent = useSelector(
+    (state) => state.handleAddComponent.handleAddComponent
+  );
+
+  console.log("handleAddComponent", handleAddComponent);
+
   useEffect(() => {
     if (isAddClicked) {
       setFormData((prevFormData) => ({

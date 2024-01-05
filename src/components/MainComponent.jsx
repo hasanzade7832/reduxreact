@@ -38,11 +38,24 @@ function MainComponent() {
     (state) => state.handleAddComponent.handleAddComponent
   );
 
+  const isAddClicked = useSelector((state) => state.isAddClicked.isAddClicked);
+
+  console.log("handleAddComponent", handleAddComponent);
+  console.log("isAddClicked", isAddClicked);
+  console.log("subTabName", subTabName);
+  console.log("prevSubTabName", prevSubTabName);
+
+  useEffect(() => {
+    // وقتی subTabName تغییر کرد، اقدام انجام شود
+    dispatch(mainSlice.actions.setHandleAddComponent(false));
+    dispatch(mainSlice.actions.setIsAddClicked(false));
+  }, [subTabName]);
+
   useEffect(() => {
     if (selectedRowData) {
       dispatch(mainSlice.actions.setHandleAddComponent(true));
     }
-  }, [selectedRowData, dispatch]);
+  }, [selectedRowData]);
 
   const shouldDisplayAddConfiguration =
     handleAddComponent &&

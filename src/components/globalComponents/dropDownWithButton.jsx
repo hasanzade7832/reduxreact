@@ -27,7 +27,7 @@ const CustomDropdownComponent = ({
 
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "space-around" }}>
+      <div style={{ display: "flex" }}>
         <div style={{ width: "90%" }}>
           <CustomDropdown
             id="ID"
