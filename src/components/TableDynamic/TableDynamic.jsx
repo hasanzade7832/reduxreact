@@ -16,8 +16,7 @@ import { Dialog } from "primereact/dialog"; // Add this import
 const TableDynamic = () => {
   const dispatch = useDispatch();
   const [selectedRow, setSelectedRow] = useState(null);
-  const [selectedRowForAdd, setSelectedRowForAdd] = useState(null);
-
+  const [isEditDisabled,setIsEditDisabled] = useState(true);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
   const handleDelete = (rowData) => {
@@ -84,7 +83,13 @@ const TableDynamic = () => {
     }
   }, [subTabName]);
 
-  useEffect(() => {}, [dataCommands]);
+  useEffect(() => { }, [dataCommands]);
+
+  useEffect(() => {
+    // وقتی subTabName تغییر کرد، اقدام انجام شود
+    setSelectedRow(null);
+    setIsEditDisabled(true);
+  }, [subTabName]);
 
   /////////////////////////DATA FOR TABLE//////////////////////////////////////////////////////////////////////
 
@@ -149,8 +154,12 @@ const TableDynamic = () => {
     );
   }
 
-  const isEditDisabled = selectedRow === null;
 
+  const handleRowClick = (event) => {
+    setSelectedRow(event.data); // ذخیره ردیف انتخاب شده
+    setIsEditDisabled(false); // فعال کردن ویرایش
+  };
+  
   //////////////////////////////////////////////////////////////////////////////////////
 
   return (
@@ -195,41 +204,49 @@ const TableDynamic = () => {
         <span style={{ fontWeight: "bold" }}>{subTabName}</span>
       </div>
       <div style={{ textAlign: "right", marginTop: "20px" }}>
-        <i
-          className="pi pi-plus-circle"
-          style={{
-            cursor: "pointer",
-            color: "#0E4F26",
-            fontSize: "1.3rem",
-            marginRight: "10px",
-          }}
-          onClick={() => {
-            dispatch(mainSlice.actions.setIsAddClicked(true));
-            dispatch(mainSlice.actions.setHandleAddComponent(true));
-            setSelectedRow(null);
-            console.log("adddd");
-          }}
-        ></i>
-        <i
-          className="pi pi-file-edit"
-          style={{
-            cursor: "pointer",
-            color: "#EAB308",
-            fontSize: "1.3rem",
-            marginRight: "10px",
-          }}
+        <Button style={{ backgroundColor: "white", marginRight: "10px" }} severity="success">
+          <i
+            className="pi pi-plus"
+            style={{
+              cursor: "pointer",
+              color: "#0E4F26",
+              fontSize: "0.8rem",
+            }}
+            size="small"
+            onClick={() => {
+              dispatch(mainSlice.actions.setIsAddClicked(true));
+              dispatch(mainSlice.actions.setHandleAddComponent(true));
+              setSelectedRow(null);
+              console.log("adddd");
+            }}
+          ></i>
+        </Button>
+
+        <Button disabled={isEditDisabled} style={{ backgroundColor: "white", marginRight: "10px" }} severity="warning">
+          <i
+            className="pi pi-file-edit"
+            style={{
+              cursor: "pointer",
+              color: "#EAB308",
+              fontSize: "1rem",
+            }}
+          ></i>
+        </Button>
+        <Button
           disabled={isEditDisabled}
-        ></i>
-        <i
-          className="pi pi-trash"
-          style={{
-            cursor: "pointer",
-            color: "#D9342B",
-            fontSize: "1.3rem",
-            marginRight: "5px",
-          }}
-          disabled={isEditDisabled}
-        ></i>
+          // text
+          style={{ backgroundColor: "white", marginRight: "10px" }}
+          severity="danger"
+        >
+          <i
+            className="pi pi-trash"
+            style={{
+              cursor: "pointer",
+              color: "#D9342B",
+              fontSize: "1rem",
+            }}
+          ></i>
+        </Button>
       </div>
       <div style={{ marginTop: "10px" }}>
         <DataTable
@@ -247,7 +264,7 @@ const TableDynamic = () => {
             dispatch(mainSlice.actions.setSelectedRowData(e.value));
             dispatch(mainSlice.actions.setHandleAddComponent(true));
           }}
-          onRowDoubleClick={() => {}}
+          onRowClick={(event) => handleRowClick(event)}
         >
           {headersString.split("|").map((header, index) => (
             <Column

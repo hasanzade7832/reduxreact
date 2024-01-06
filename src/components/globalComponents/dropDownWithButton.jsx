@@ -38,7 +38,7 @@ const CustomDropdownComponent = ({
             onChange={onChange}
           />
         </div>
-        <div style={{ width: "10%", marginTop: "10px" }}>
+        <div style={{ width: "10%", marginTop: "10px"}}>
           <CustomButton
             label="..."
             className="button-small"

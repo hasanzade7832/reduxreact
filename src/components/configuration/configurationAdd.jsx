@@ -406,7 +406,7 @@ const ConfigurationAdd = () => {
       </div>
 
       {/* /////////////////////Line5/////////////////////// */}
-      <div className="grid" style={{ marginLeft: "20px" }}>
+      <div className="grid" style={{ marginLeft: "20px" ,marginTop:"5px"}}>
         <div className="col-5">
           <Box
             dialogData={showDialogDefaultButton}
