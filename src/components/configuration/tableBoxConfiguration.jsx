@@ -5,7 +5,7 @@ import InputCustopm from "../globalComponents/inputCom";
 import CustomRadioButtons from "../globalComponents/RadioButtonComp";
 import CustomButton from "../globalComponents/buttonComp";
 import { FileUpload } from "primereact/fileupload";
-import { Image } from 'primereact/image';
+import { Image } from "primereact/image";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAfBtn } from "../../redux/configuration/configurationSlice";
 import { mainSlice } from "../../redux/mainSlice";
@@ -13,11 +13,9 @@ import projectServices from "../services/project.services";
 import fileServices from "../services/file.services";
 
 const TableDynamic = () => {
-
   const dispatch = useDispatch();
 
   const [selectedRow, setSelectedRow] = useState(null);
-
 
   const [ingredient, setIngredient] = useState(1);
   const [ingredient1, setIngredient1] = useState(1);
@@ -36,18 +34,29 @@ const TableDynamic = () => {
     IconImageId: null,
   });
 
-  const dataDefaultButton = useSelector((state) => state.selectedNameDefaultButton.selectedNameDefaultButton);
-  const dataLetterButton = useSelector((state) => state.selectedNameLetterButton.selectedNameLetterButton);
-  const dataMeetingButton = useSelector((state) => state.selectedNameMeetingButton.selectedNameMeetingButton);
+  const dataDefaultButton = useSelector(
+    (state) => state.selectedNameDefaultButton.selectedNameDefaultButton
+  );
+  const dataLetterButton = useSelector(
+    (state) => state.selectedNameLetterButton.selectedNameLetterButton
+  );
+  const dataMeetingButton = useSelector(
+    (state) => state.selectedNameMeetingButton.selectedNameMeetingButton
+  );
 
-  const IdsDefaultButton = useSelector((state) => state.selectedIdDefaultButton.selectedIdDefaultButton);
-  const IdsLetterButton = useSelector((state) => state.selectedIdLetterButton.selectedIdLetterButton);
-  const IdsMeetingsButton = useSelector((state) => state.selectedIdMeetingButton.selectedIdMeetingButton);
+  const IdsDefaultButton = useSelector(
+    (state) => state.selectedIdDefaultButton.selectedIdDefaultButton
+  );
+  const IdsLetterButton = useSelector(
+    (state) => state.selectedIdLetterButton.selectedIdLetterButton
+  );
+  const IdsMeetingsButton = useSelector(
+    (state) => state.selectedIdMeetingButton.selectedIdMeetingButton
+  );
 
   const nameBox = useSelector((state) => state.selectedBoxName.selectedBoxName);
 
   const handleRowDblClick = (event) => {
-
     console.log("doubleRow", event.data.ID);
 
     const selectedName = event.data.Name;
@@ -60,25 +69,46 @@ const TableDynamic = () => {
     const newSelectedIdLetter = [...IdsLetterButton];
     const newSelectedIdMeeting = [...IdsMeetingsButton];
 
-    if (!newDataDefaultButton.includes(selectedName) && nameBox == "DefaultButton") {
+    if (
+      !newDataDefaultButton.includes(selectedName) &&
+      nameBox == "DefaultButton"
+    ) {
       newDataDefaultButton.push(selectedName);
       newSelectedIdDefault.push(selectedId);
-      dispatch(mainSlice.actions.setSelectedNameDefaultButton(newDataDefaultButton));
-      dispatch(mainSlice.actions.setelectedIdDefaultButton(newSelectedIdDefault));
+      dispatch(
+        mainSlice.actions.setSelectedNameDefaultButton(newDataDefaultButton)
+      );
+      dispatch(
+        mainSlice.actions.setelectedIdDefaultButton(newSelectedIdDefault)
+      );
     }
 
-    if (!newDataLetterButton.includes(selectedName) && nameBox == "LetterButton") {
+    if (
+      !newDataLetterButton.includes(selectedName) &&
+      nameBox == "LetterButton"
+    ) {
       newDataLetterButton.push(selectedName);
       newSelectedIdLetter.push(selectedId);
-      dispatch(mainSlice.actions.setselectedNameLetterButton(newDataLetterButton));
-      dispatch(mainSlice.actions.setSelectedIdLetterButton(newSelectedIdLetter));
+      dispatch(
+        mainSlice.actions.setselectedNameLetterButton(newDataLetterButton)
+      );
+      dispatch(
+        mainSlice.actions.setSelectedIdLetterButton(newSelectedIdLetter)
+      );
     }
 
-    if (!newDataMeetingButton.includes(selectedName) && nameBox == "MeetingButton") {
+    if (
+      !newDataMeetingButton.includes(selectedName) &&
+      nameBox == "MeetingButton"
+    ) {
       newDataMeetingButton.push(selectedName);
       newSelectedIdMeeting.push(selectedId);
-      dispatch(mainSlice.actions.setSelectedNameMeetingButton(newDataMeetingButton));
-      dispatch(mainSlice.actions.setSelectedIdMeetingButton(newSelectedIdMeeting));
+      dispatch(
+        mainSlice.actions.setSelectedNameMeetingButton(newDataMeetingButton)
+      );
+      dispatch(
+        mainSlice.actions.setSelectedIdMeetingButton(newSelectedIdMeeting)
+      );
     }
 
     setSelectedRow(event.data);
@@ -106,10 +136,8 @@ const TableDynamic = () => {
     }
   };
 
-
   const handleNameChange = (fieldName, value) => {
     setFormDataAfBtn((prevFormDataAfBtn) => {
-
       const updatedFormDataAfBtn = {
         ...prevFormDataAfBtn,
         [fieldName]: value,
@@ -118,10 +146,7 @@ const TableDynamic = () => {
     });
   };
 
-  const handleFileUpload = (event) => {
-
-  };
-
+  const handleFileUpload = (event) => {};
 
   const addAfBtn = () => {
     projectServices
@@ -130,7 +155,7 @@ const TableDynamic = () => {
         console.log("AddRes", res.data);
         dispatch(fetchAfBtn());
       })
-      .catch(() => { });
+      .catch(() => {});
   };
 
   return (
@@ -169,11 +194,13 @@ const TableDynamic = () => {
           value={formDataAfBtn.StateText}
           onChange={(e) => {
             handleNameChange("StateText", e.target.value);
-          }} />
+          }}
+        />
       </div>
       <div style={{ display: "flex", marginTop: "30px" }}>
         <div style={{ width: "50%" }}>
-          <InputCustopm label="ToolTip"
+          <InputCustopm
+            label="ToolTip"
             onChange={(e) => {
               handleNameChange("ToolTip", e.target.value);
             }}
@@ -181,23 +208,24 @@ const TableDynamic = () => {
         </div>
         <div style={{ marginTop: "-10px" }}>
           <div>
-            <span style={{ marginLeft: "10px", fontWeight: "bold" }}>State:</span>
+            <span style={{ marginLeft: "10px", fontWeight: "bold" }}>
+              State:
+            </span>
           </div>
           <div
             style={{
               display: "flex",
               alignItems: "center",
               width: "50%",
-              marginTop: "10px"
+              marginTop: "10px",
             }}
           >
             <CustomRadioButtons
               value={ingredient}
               onChange={(e) => {
-                setIngredient(e.target.value)
-                handleNameChange("WFStateForDeemed", e.target.value)
-              }
-              }
+                setIngredient(e.target.value);
+                handleNameChange("WFStateForDeemed", e.target.value);
+              }}
               checked={ingredient}
               options={[
                 { value: 1, label: "Accept" },
@@ -210,7 +238,9 @@ const TableDynamic = () => {
       </div>
       <div style={{ display: "flex", marginTop: "30px" }}>
         <div style={{ width: "50%" }}>
-          <InputCustopm label="Order" type="number"
+          <InputCustopm
+            label="Order"
+            type="number"
             onChange={(e) => {
               handleNameChange("Order", e.target.value);
             }}
@@ -218,14 +248,16 @@ const TableDynamic = () => {
         </div>
         <div style={{ marginTop: "-10px" }}>
           <div>
-            <span style={{ marginLeft: "10px", fontWeight: "bold" }}>Command:</span>
+            <span style={{ marginLeft: "10px", fontWeight: "bold" }}>
+              Command:
+            </span>
           </div>
           <div
             style={{
               display: "flex",
               alignItems: "center",
               width: "50%",
-              marginTop: "10px"
+              marginTop: "10px",
             }}
           >
             <CustomRadioButtons
@@ -264,8 +296,15 @@ const TableDynamic = () => {
             className="p-button-secondary"
           />
 
-          <div className="card flex justify-content-center" style={{ marginLeft: "20px" }}>
-            <Image src="https://primefaces.org/cdn/primereact/images/galleria/galleria7.jpg" alt="Image" width="100" />
+          <div
+            className="card flex justify-content-center"
+            style={{ marginLeft: "20px" }}
+          >
+            <Image
+              src="https://primefaces.org/cdn/primereact/images/galleria/galleria7.jpg"
+              alt="Image"
+              width="100"
+            />
           </div>
 
           {/* <CustomButton label="..." className="p-button-secondary" /> */}

@@ -168,6 +168,9 @@ const ConfigurationAdd = () => {
   const selectedNamesDefaultButtons = useSelector(
     (state) => state.selectedNameDefaultButton.selectedNameDefaultButton
   );
+
+  console.log("selectedNamesDefaultButtons", selectedNamesDefaultButtons);
+
   const selectedIdDefaultButton = useSelector(
     (state) => state.selectedIdDefaultButton.selectedIdDefaultButton
   );
@@ -406,7 +409,7 @@ const ConfigurationAdd = () => {
       </div>
 
       {/* /////////////////////Line5/////////////////////// */}
-      <div className="grid" style={{ marginLeft: "20px" ,marginTop:"5px"}}>
+      <div className="grid" style={{ marginLeft: "20px", marginTop: "5px" }}>
         <div className="col-5">
           <Box
             dialogData={showDialogDefaultButton}

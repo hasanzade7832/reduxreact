@@ -43,7 +43,7 @@ const CustomComponent = ({ dialogData, titleBox, selectedNames }) => {
             marginTop: "1px",
           }}
         />
-        <div style={{ marginTop: "20px" }}>
+        <div>
           {Array.isArray(selectedNames) && selectedNames.length > 0 ? (
             selectedNames.map((name, index) => (
               <div style={{ padding: "2px", margin: "5px" }} key={index}>
