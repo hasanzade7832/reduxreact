@@ -1,11 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "primereact/button";
-import "primereact/resources/themes/saga-blue/theme.css"; // ثبت تم PrimeReact
-import "primereact/resources/primereact.min.css"; // ثبت استایل‌های PrimeReact
-import "primeicons/primeicons.css"; // ثبت آیکون‌های PrimeIcons
+import "primereact/resources/themes/saga-blue/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
 import "../../assets/styles/global.css";
+import { configurationSlice } from "../../redux/configuration/configurationSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const CustomComponent = ({ dialogData, titleBox, selectedNames }) => {
+
+  const dispatch = useDispatch();
+  const selected = useSelector(
+    (state) => state.selectedNames.selectedNames
+  );
+  console.log("AAAAAAAAAAAAAAAAAAAAAAAAAA", selected);
+
+  const [updatedNames, setUpdatedNames] = useState([]);
+
+  useEffect(() => {
+    setUpdatedNames(selectedNames);
+  }, [selectedNames]);
+
+  useEffect(() => {
+    console.log("updatedNames changed:", updatedNames);
+    // اینجا می‌توانید هر کاری که نیاز دارید با updatedNames انجام دهید
+    // dispatch(configurationSlice.actions.setSelectedNames(updatedNames));
+  }, [updatedNames,dispatch]);
+
+  const handleDoubleClick = (index) => {
+    const updatedNamesCopy = [...updatedNames];
+    updatedNamesCopy.splice(index, 1);
+    setUpdatedNames(updatedNamesCopy);
+  };
+
+
   return (
     <>
       <div
@@ -44,9 +72,13 @@ const CustomComponent = ({ dialogData, titleBox, selectedNames }) => {
           }}
         />
         <div>
-          {Array.isArray(selectedNames) && selectedNames.length > 0 ? (
-            selectedNames.map((name, index) => (
-              <div style={{ padding: "2px", margin: "5px" }} key={index}>
+          {Array.isArray(updatedNames) && updatedNames.length ? (
+            updatedNames.map((name, index) => (
+              <div
+                onDoubleClick={() => handleDoubleClick(index)}
+                style={{ padding: "2px", margin: "5px", cursor: "pointer" }}
+                key={index}
+              >
                 {name}
               </div>
             ))
@@ -54,6 +86,7 @@ const CustomComponent = ({ dialogData, titleBox, selectedNames }) => {
             <span> </span>
           )}
         </div>
+
       </div>
     </>
   );

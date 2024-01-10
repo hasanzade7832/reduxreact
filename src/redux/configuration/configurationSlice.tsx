@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk,PayloadAction } from "@reduxjs/toolkit";
 
 import projectServices from "../../components/services/project.services";
 
@@ -90,8 +90,13 @@ const configurationSlice = createSlice({
     error: false,
     headersString: "",
     fieldColumn: "",
+    selectedNames: [] as string[],
   },
-  reducers: {},
+  reducers: {
+    setSelectedName: (state, action: PayloadAction<string[]>) => {
+      state.selectedNames = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     // builder.addCase(fetchConfiguration.pending, (state, action) => {
     //   state.isLoading = true;
