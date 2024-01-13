@@ -43,6 +43,7 @@ export const store = configureStore({
     dataEntityType: configurationSlice.reducer,
     dataAfBtn: configurationSlice.reducer,
     selectedNames:configurationSlice.reducer,
+    selectedId:configurationSlice.reducer,
     dataLogin: loginSlice.reducer,
     loginSuccess: loginSlice.reducer,
     dataCommands: commandsSlice.reducer,
@@ -149,6 +150,9 @@ export type RootState = {
   };
   selectedNames:{
     selectedNames:string;
+  }
+  selectedId:{
+    selectedId:string;
   }
 };
 export type AppDispatch = typeof store.dispatch;

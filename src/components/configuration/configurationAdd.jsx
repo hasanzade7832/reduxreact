@@ -169,11 +169,11 @@ const ConfigurationAdd = () => {
     (state) => state.selectedNameDefaultButton.selectedNameDefaultButton
   );
 
-  console.log("selectedNamesDefaultButtons", selectedNamesDefaultButtons);
-
   const selectedIdDefaultButton = useSelector(
     (state) => state.selectedIdDefaultButton.selectedIdDefaultButton
   );
+
+  console.log("YYYYYYYYYYYYY",selectedIdDefaultButton)
 
   const selectedNamesLetterButtons = useSelector(
     (state) => state.selectedNameLetterButton.selectedNameLetterButton
@@ -190,9 +190,22 @@ const ConfigurationAdd = () => {
   );
 
   //////////////ADD FUNCTION/////////////////////////////////////////////////////
+  const selected = useSelector(
+    (state) => state.selectedNames.selectedNames
+  );
+
+  useEffect(() => {
+    console.log("selected", selected);
+  }, [selected]);
+
+  const selectedId = useSelector((state)=>state.selectedId.selectedId);
+
+  useEffect(() => {
+    console.log("ggggggggggggg", selectedId);
+  }, [selectedId]);
 
   const addConfiguration = () => {
-    const defaultBtnValues = selectedIdDefaultButton.join("|");
+    const defaultBtnValues = selectedId.join("|");
     const letterBtnValues = selectedIdLetterButtons.join("|");
     const meetingBtnValues = selectedIdMeetingsButton.join("|");
 
@@ -415,6 +428,7 @@ const ConfigurationAdd = () => {
             dialogData={showDialogDefaultButton}
             titleBox={"Default Action Buttons"}
             selectedNames={selectedNamesDefaultButtons}
+            selectedId={selectedIdDefaultButton}
           />
         </div>
         <div className="col-1"></div>

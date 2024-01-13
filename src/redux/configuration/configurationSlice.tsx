@@ -91,10 +91,14 @@ const configurationSlice = createSlice({
     headersString: "",
     fieldColumn: "",
     selectedNames: [] as string[],
+    selectedId: [] as string[],
   },
   reducers: {
-    setSelectedName: (state, action: PayloadAction<string[]>) => {
+    setSelectedNames: (state, action: PayloadAction<string[]>) => {
       state.selectedNames = action.payload;
+    },
+    setSelectedId: (state, action: PayloadAction<string[]>) => {
+      state.selectedId = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -128,5 +132,10 @@ const configurationSlice = createSlice({
     // state.columnTitle = "title|body";
   },
 });
+
+export const {
+  setSelectedNames,
+  setSelectedId
+} = configurationSlice.actions;
 
 export default configurationSlice;

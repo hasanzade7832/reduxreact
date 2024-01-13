@@ -4,35 +4,48 @@ import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import "../../assets/styles/global.css";
-import { configurationSlice } from "../../redux/configuration/configurationSlice";
-import { useDispatch, useSelector } from "react-redux";
+import configurationSlice from "../../redux/configuration/configurationSlice";
+import { useDispatch } from "react-redux";
 
-const CustomComponent = ({ dialogData, titleBox, selectedNames }) => {
+const CustomComponent = ({ dialogData, titleBox, selectedNames, selectedId }) => {
 
   const dispatch = useDispatch();
-  const selected = useSelector(
-    (state) => state.selectedNames.selectedNames
-  );
-  console.log("AAAAAAAAAAAAAAAAAAAAAAAAAA", selected);
 
   const [updatedNames, setUpdatedNames] = useState([]);
+  const [updatedId, setUpdatedId] = useState([]);
 
   useEffect(() => {
     setUpdatedNames(selectedNames);
   }, [selectedNames]);
 
   useEffect(() => {
+    dispatch(configurationSlice.actions.setSelectedNames(updatedNames));
+  }, [updatedNames, dispatch]);
+  
+  useEffect(() => {
     console.log("updatedNames changed:", updatedNames);
-    // اینجا می‌توانید هر کاری که نیاز دارید با updatedNames انجام دهید
-    // dispatch(configurationSlice.actions.setSelectedNames(updatedNames));
   }, [updatedNames,dispatch]);
+
+  useEffect(() => {
+    setUpdatedId(selectedId);
+  }, [selectedId]);
+
+  useEffect(() => {
+    dispatch(configurationSlice.actions.setSelectedId(updatedId));
+  }, [updatedNames, dispatch]);
+
+  useEffect(() => {
+    console.log("updatedId changed:", updatedId);
+  }, [updatedId,dispatch]);
 
   const handleDoubleClick = (index) => {
     const updatedNamesCopy = [...updatedNames];
+    const updatedIdsCopy = [...updatedId];
     updatedNamesCopy.splice(index, 1);
+    updatedIdsCopy.splice(index,1);
     setUpdatedNames(updatedNamesCopy);
+    setUpdatedId(updatedIdsCopy);
   };
-
 
   return (
     <>
@@ -86,7 +99,6 @@ const CustomComponent = ({ dialogData, titleBox, selectedNames }) => {
             <span> </span>
           )}
         </div>
-
       </div>
     </>
   );
