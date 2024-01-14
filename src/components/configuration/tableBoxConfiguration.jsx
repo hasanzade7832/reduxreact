@@ -57,7 +57,7 @@ const TableDynamic = () => {
   const nameBox = useSelector((state) => state.selectedBoxName.selectedBoxName);
 
   const handleRowDblClick = (event) => {
-    console.log("doubleRow", event.data.ID);
+    //console.log("doubleRow", event.data.ID);
 
     const selectedName = event.data.Name;
     const selectedId = event.data.ID;
@@ -152,7 +152,7 @@ const TableDynamic = () => {
     projectServices
       .insertAfBtn(formDataAfBtn)
       .then((res) => {
-        console.log("AddRes", res.data);
+        //console.log("AddRes", res.data);
         dispatch(fetchAfBtn());
       })
       .catch(() => {});

@@ -15,16 +15,16 @@ const TableComponent = () => {
 
   const dispatch = useDispatch();
 
-  console.log("program", dataRibbon);
+  //console.log("program", dataRibbon);
 
   const handleSelectionChange = (e) => {
     setSelectedRow(e.value);
-    console.log("selectedRow", e.value.ID);
+    //console.log("selectedRow", e.value.ID);
   };
 
   const handleSelect = () => {
     if (selectedRow) {
-      console.log("selectedRow1", selectedRow);
+      //console.log("selectedRow1", selectedRow);
       dispatch(mainSlice.actions.setDefaultRibbonSelectedRow(selectedRow));
       dispatch(mainSlice.actions.setShowDialogDefaultRibbon(false));
     }

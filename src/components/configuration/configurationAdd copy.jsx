@@ -105,7 +105,7 @@ const ConfigurationAdd = () => {
   const nameOfDialogTable = useSelector(
     (state) => state.nameofDialogTable.nameofDialogTable
   );
-  console.log("nameOfDialogTable", nameOfDialogTable);
+  //console.log("nameOfDialogTable", nameOfDialogTable);
 
   /////////////////////////////Get main data//////////////////////////////////////////////////////////
 
@@ -197,7 +197,7 @@ const ConfigurationAdd = () => {
     formData.EnityTypeIDForTaskCommnet = commentFormSelectedRow.ID;
     formData.EnityTypeIDForProcesure = procedureFormSelectedRow.ID;
 
-    console.log("formData", formData);
+    //console.log("formData", formData);
 
     projectServices
       .insertSetting(formData)

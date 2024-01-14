@@ -23,7 +23,7 @@ const CustomComponent = ({ dialogData, titleBox, selectedNames, selectedId }) =>
   }, [updatedNames, dispatch]);
   
   useEffect(() => {
-    console.log("updatedNames changed:", updatedNames);
+    //console.log("updatedNames changed:", updatedNames);
   }, [updatedNames,dispatch]);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const CustomComponent = ({ dialogData, titleBox, selectedNames, selectedId }) =>
   }, [updatedNames, dispatch]);
 
   useEffect(() => {
-    console.log("updatedId changed:", updatedId);
+    //console.log("updatedId changed:", updatedId);
   }, [updatedId,dispatch]);
 
   const handleDoubleClick = (index) => {

@@ -15,7 +15,7 @@ const TableComponent = () => {
 
   const dispatch = useDispatch();
 
-  console.log("program", dataFormTemplate);
+  //console.log("program", dataFormTemplate);
 
   const handleSelectionChange = (e) => {
     setSelectedRow(e.value);

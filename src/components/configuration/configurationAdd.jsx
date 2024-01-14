@@ -51,7 +51,7 @@ const ConfigurationAdd = () => {
     (state) => state.handleAddComponent.handleAddComponent
   );
 
-  console.log("handleAddComponent", handleAddComponent);
+  //console.log("handleAddComponent", handleAddComponent);
 
   useEffect(() => {
     if (isAddClicked) {
@@ -111,7 +111,7 @@ const ConfigurationAdd = () => {
   const nameOfDialogTable = useSelector(
     (state) => state.nameofDialogTable.nameofDialogTable
   );
-  console.log("nameOfDialogTable", nameOfDialogTable);
+  //console.log("nameOfDialogTable", nameOfDialogTable);
 
   /////////////////////////////Get main data//////////////////////////////////////////////////////////
 
@@ -173,7 +173,7 @@ const ConfigurationAdd = () => {
     (state) => state.selectedIdDefaultButton.selectedIdDefaultButton
   );
 
-  console.log("YYYYYYYYYYYYY",selectedIdDefaultButton)
+  //console.log("YYYYYYYYYYYYY",selectedIdDefaultButton)
 
   const selectedNamesLetterButtons = useSelector(
     (state) => state.selectedNameLetterButton.selectedNameLetterButton
@@ -195,13 +195,13 @@ const ConfigurationAdd = () => {
   );
 
   useEffect(() => {
-    console.log("selected", selected);
+    //console.log("selected", selected);
   }, [selected]);
 
   const selectedId = useSelector((state)=>state.selectedId.selectedId);
 
   useEffect(() => {
-    console.log("ggggggggggggg", selectedId);
+    //console.log("ggggggggggggg", selectedId);
   }, [selectedId]);
 
   const addConfiguration = () => {
@@ -219,7 +219,7 @@ const ConfigurationAdd = () => {
     formData.EnityTypeIDForTaskCommnet = commentFormSelectedRow.ID;
     formData.EnityTypeIDForProcesure = procedureFormSelectedRow.ID;
 
-    console.log("formData", formData);
+    //console.log("formData", formData);
 
     projectServices
       .insertSetting(formData)
