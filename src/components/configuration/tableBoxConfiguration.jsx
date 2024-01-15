@@ -11,6 +11,7 @@ import { fetchAfBtn } from "../../redux/configuration/configurationSlice";
 import { mainSlice } from "../../redux/mainSlice";
 import projectServices from "../services/project.services";
 import fileServices from "../services/file.services";
+import configurationSlice from "../../redux/configuration/configurationSlice";
 
 const TableDynamic = () => {
   const dispatch = useDispatch();
@@ -55,6 +56,9 @@ const TableDynamic = () => {
   );
 
   const nameBox = useSelector((state) => state.selectedBoxName.selectedBoxName);
+  
+  const nameSelected = useSelector((state)=>state.selectedNames.selectedNames);
+  // console.log("nameSelected",nameSelected);
 
   const handleRowDblClick = (event) => {
     //console.log("doubleRow", event.data.ID);
@@ -75,6 +79,8 @@ const TableDynamic = () => {
     ) {
       newDataDefaultButton.push(selectedName);
       newSelectedIdDefault.push(selectedId);
+      dispatch(configurationSlice.actions.setSelectedNames(newDataDefaultButton));
+      dispatch(configurationSlice.actions.setSelectedId(newSelectedIdDefault));
       dispatch(
         mainSlice.actions.setSelectedNameDefaultButton(newDataDefaultButton)
       );
@@ -146,7 +152,7 @@ const TableDynamic = () => {
     });
   };
 
-  const handleFileUpload = (event) => {};
+  const handleFileUpload = (event) => { };
 
   const addAfBtn = () => {
     projectServices
@@ -155,7 +161,7 @@ const TableDynamic = () => {
         //console.log("AddRes", res.data);
         dispatch(fetchAfBtn());
       })
-      .catch(() => {});
+      .catch(() => { });
   };
 
   return (

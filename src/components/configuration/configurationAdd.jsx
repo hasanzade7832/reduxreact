@@ -169,6 +169,9 @@ const ConfigurationAdd = () => {
     (state) => state.selectedNameDefaultButton.selectedNameDefaultButton
   );
 
+  const nameSelected = useSelector((state)=>state.selectedNames.selectedNames);
+  console.log("nameSelected",nameSelected);
+
   const selectedIdDefaultButton = useSelector(
     (state) => state.selectedIdDefaultButton.selectedIdDefaultButton
   );
@@ -198,7 +201,7 @@ const ConfigurationAdd = () => {
     //console.log("selected", selected);
   }, [selected]);
 
-  const selectedId = useSelector((state)=>state.selectedId.selectedId);
+  const selectedId = useSelector((state)=>state.selectedIdDefaultButton.selectedIdDefaultButton);
 
   useEffect(() => {
     //console.log("ggggggggggggg", selectedId);

@@ -5,9 +5,12 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import "../../assets/styles/global.css";
 import configurationSlice from "../../redux/configuration/configurationSlice";
-import { useDispatch } from "react-redux";
+import {mainSlice} from "../../redux/mainSlice";
+import { useDispatch ,useSelector} from "react-redux";
 
 const CustomComponent = ({ dialogData, titleBox, selectedNames, selectedId }) => {
+
+  console.log("BBBBBBBBBB",selectedNames);
 
   const dispatch = useDispatch();
 
@@ -23,7 +26,6 @@ const CustomComponent = ({ dialogData, titleBox, selectedNames, selectedId }) =>
   }, [updatedNames, dispatch]);
   
   useEffect(() => {
-    //console.log("updatedNames changed:", updatedNames);
   }, [updatedNames,dispatch]);
 
   useEffect(() => {
@@ -35,17 +37,23 @@ const CustomComponent = ({ dialogData, titleBox, selectedNames, selectedId }) =>
   }, [updatedNames, dispatch]);
 
   useEffect(() => {
-    //console.log("updatedId changed:", updatedId);
   }, [updatedId,dispatch]);
 
   const handleDoubleClick = (index) => {
+    
     const updatedNamesCopy = [...updatedNames];
     const updatedIdsCopy = [...updatedId];
     updatedNamesCopy.splice(index, 1);
-    updatedIdsCopy.splice(index,1);
+    updatedIdsCopy.splice(index, 1);
     setUpdatedNames(updatedNamesCopy);
     setUpdatedId(updatedIdsCopy);
+    console.log("updatedNamesCopy",updatedNamesCopy);
+    dispatch(mainSlice.actions.setSelectedNameDefaultButton(updatedNamesCopy));
+    dispatch(mainSlice.actions.setelectedIdDefaultButton(updatedIdsCopy));
+    // dispatch(configurationSlice.actions.setSelectedNames(updatedNamesCopy));
+    // dispatch(configurationSlice.actions.setSelectedId(updatedIdsCopy));
   };
+  
 
   return (
     <>
