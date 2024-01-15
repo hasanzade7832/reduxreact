@@ -440,6 +440,7 @@ const ConfigurationAdd = () => {
             dialogData={showDialogLetterButton}
             titleBox={"Letter Action Buttons"}
             selectedNames={selectedNamesLetterButtons}
+            selectedId={selectedIdLetterButtons}
           />
         </div>
       </div>
@@ -450,6 +451,7 @@ const ConfigurationAdd = () => {
             dialogData={showDialogMeetingButton}
             titleBox={"Meeting Action Buttons"}
             selectedNames={selectedNamesMeetingsButtons}
+            selectedId={selectedIdMeetingsButton}
           />
         </div>
         <div className="col-1"></div>

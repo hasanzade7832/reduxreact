@@ -5,55 +5,71 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import "../../assets/styles/global.css";
 import configurationSlice from "../../redux/configuration/configurationSlice";
-import {mainSlice} from "../../redux/mainSlice";
-import { useDispatch ,useSelector} from "react-redux";
+import { mainSlice } from "../../redux/mainSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const CustomComponent = ({ dialogData, titleBox, selectedNames, selectedId }) => {
 
-  console.log("BBBBBBBBBB",selectedNames);
+  console.log("BBBBBBBBBB", dialogData);
 
   const dispatch = useDispatch();
 
   const [updatedNames, setUpdatedNames] = useState([]);
   const [updatedId, setUpdatedId] = useState([]);
+  const [updatedId1, setUpdatedId1] = useState([]);
 
   useEffect(() => {
     setUpdatedNames(selectedNames);
   }, [selectedNames]);
 
-  useEffect(() => {
-    dispatch(configurationSlice.actions.setSelectedNames(updatedNames));
-  }, [updatedNames, dispatch]);
-  
-  useEffect(() => {
-  }, [updatedNames,dispatch]);
+  const dataDefaultButton = useSelector(
+    (state) => state.selectedNameDefaultButton.selectedNameDefaultButton
+  );
 
-  useEffect(() => {
-    setUpdatedId(selectedId);
-  }, [selectedId]);
+  const IdsDefaultButton = useSelector(
+    (state) => state.selectedIdDefaultButton.selectedIdDefaultButton
+  );
 
-  useEffect(() => {
-    dispatch(configurationSlice.actions.setSelectedId(updatedId));
-  }, [updatedNames, dispatch]);
+  const dataLetterButton = useSelector(
+    (state) => state.selectedNameLetterButton.selectedNameLetterButton
+  );
 
-  useEffect(() => {
-  }, [updatedId,dispatch]);
+  const IdsLetterButton = useSelector(
+    (state) => state.selectedIdLetterButton.selectedIdLetterButton
+  );
 
-  const handleDoubleClick = (index) => {
-    
-    const updatedNamesCopy = [...updatedNames];
-    const updatedIdsCopy = [...updatedId];
-    updatedNamesCopy.splice(index, 1);
-    updatedIdsCopy.splice(index, 1);
-    setUpdatedNames(updatedNamesCopy);
-    setUpdatedId(updatedIdsCopy);
-    console.log("updatedNamesCopy",updatedNamesCopy);
-    dispatch(mainSlice.actions.setSelectedNameDefaultButton(updatedNamesCopy));
-    dispatch(mainSlice.actions.setelectedIdDefaultButton(updatedIdsCopy));
-    // dispatch(configurationSlice.actions.setSelectedNames(updatedNamesCopy));
-    // dispatch(configurationSlice.actions.setSelectedId(updatedIdsCopy));
+  const boxName = useSelector((state) => state.selectedBoxName.selectedBoxName);
+
+  const handleDoubleClick = (index, boxName) => {
+
+    console.log("XXXXXXXXXX", boxName);
+
+    // if (boxName == "DefaultButton") {
+    //   alert("default")
+    //   const updatedNamesCopy = [...dataDefaultButton];
+    //   const updatedIdsCopy = [...IdsDefaultButton];
+    //   updatedNamesCopy.splice(index, 1);
+    //   updatedIdsCopy.splice(index, 1);
+    //   setUpdatedNames(updatedNamesCopy);
+    //   setUpdatedId(updatedIdsCopy);
+
+    //   dispatch(mainSlice.actions.setSelectedNameDefaultButton(updatedNamesCopy));
+    //   dispatch(mainSlice.actions.setelectedIdDefaultButton(updatedIdsCopy));
+    // } else if (boxName == "LetterButton") {
+    //   alert("letter")
+    //   const updatedNamesCopy1 = [...dataLetterButton];
+    //   const updatedIdsCopy1 = [...IdsLetterButton];
+    //   updatedNamesCopy1.splice(index, 1);
+    //   updatedIdsCopy1.splice(index, 1);
+    //   setUpdatedNames(updatedNamesCopy1);
+    //   setUpdatedId(updatedIdsCopy1);
+    //   console.log("letttteeeeer", updatedNamesCopy1);
+    //   dispatch(mainSlice.actions.setselectedNameLetterButton(updatedNamesCopy1));
+    //   dispatch(mainSlice.actions.setSelectedIdLetterButton(updatedIdsCopy1));
+    // }
+
   };
-  
+
 
   return (
     <>
@@ -96,7 +112,7 @@ const CustomComponent = ({ dialogData, titleBox, selectedNames, selectedId }) =>
           {Array.isArray(updatedNames) && updatedNames.length ? (
             updatedNames.map((name, index) => (
               <div
-                onDoubleClick={() => handleDoubleClick(index)}
+                onDoubleClick={() => handleDoubleClick(index, boxName)}
                 style={{ padding: "2px", margin: "5px", cursor: "pointer" }}
                 key={index}
               >
