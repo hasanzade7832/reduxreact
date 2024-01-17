@@ -8,10 +8,12 @@ import configurationSlice from "../../redux/configuration/configurationSlice";
 import { mainSlice } from "../../redux/mainSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const CustomComponent = ({ dialogData, titleBox, selectedNames, selectedId }) => {
-
-  console.log("BBBBBBBBBB", dialogData);
-
+const CustomComponent = ({
+  dialogData,
+  titleBox,
+  selectedNames,
+  selectedId,
+}) => {
   const dispatch = useDispatch();
 
   const [updatedNames, setUpdatedNames] = useState([]);
@@ -41,35 +43,28 @@ const CustomComponent = ({ dialogData, titleBox, selectedNames, selectedId }) =>
   const boxName = useSelector((state) => state.selectedBoxName.selectedBoxName);
 
   const handleDoubleClick = (index, boxName) => {
+    const updatedNamesCopy = [...dataDefaultButton];
+    const updatedIdsCopy = [...IdsDefaultButton];
+    updatedNamesCopy.splice(index, 1);
+    updatedIdsCopy.splice(index, 1);
+    setUpdatedNames(updatedNamesCopy);
+    setUpdatedId(updatedIdsCopy);
+    dispatch(mainSlice.actions.setSelectedNameDefaultButton(updatedNamesCopy));
+    dispatch(mainSlice.actions.setelectedIdDefaultButton(updatedIdsCopy));
 
-    console.log("XXXXXXXXXX", boxName);
+    const updatedNamesLetterCopy = [...dataLetterButton];
+    const updatedIdsLetterCopy = [...IdsLetterButton];
+    updatedNamesLetterCopy.splice(index, 1);
+    updatedIdsLetterCopy.splice(index, 1);
 
-    // if (boxName == "DefaultButton") {
-    //   alert("default")
-    //   const updatedNamesCopy = [...dataDefaultButton];
-    //   const updatedIdsCopy = [...IdsDefaultButton];
-    //   updatedNamesCopy.splice(index, 1);
-    //   updatedIdsCopy.splice(index, 1);
-    //   setUpdatedNames(updatedNamesCopy);
-    //   setUpdatedId(updatedIdsCopy);
+    setUpdatedNames(updatedNamesLetterCopy);
+    setUpdatedId1(updatedIdsLetterCopy);
 
-    //   dispatch(mainSlice.actions.setSelectedNameDefaultButton(updatedNamesCopy));
-    //   dispatch(mainSlice.actions.setelectedIdDefaultButton(updatedIdsCopy));
-    // } else if (boxName == "LetterButton") {
-    //   alert("letter")
-    //   const updatedNamesCopy1 = [...dataLetterButton];
-    //   const updatedIdsCopy1 = [...IdsLetterButton];
-    //   updatedNamesCopy1.splice(index, 1);
-    //   updatedIdsCopy1.splice(index, 1);
-    //   setUpdatedNames(updatedNamesCopy1);
-    //   setUpdatedId(updatedIdsCopy1);
-    //   console.log("letttteeeeer", updatedNamesCopy1);
-    //   dispatch(mainSlice.actions.setselectedNameLetterButton(updatedNamesCopy1));
-    //   dispatch(mainSlice.actions.setSelectedIdLetterButton(updatedIdsCopy1));
-    // }
-
+    dispatch(
+      mainSlice.actions.setselectedNameLetterButton(updatedNamesLetterCopy)
+    );
+    dispatch(mainSlice.actions.setSelectedIdLetterButton(updatedIdsLetterCopy));
   };
-
 
   return (
     <>
