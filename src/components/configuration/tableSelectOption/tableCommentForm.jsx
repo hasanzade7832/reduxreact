@@ -7,7 +7,7 @@ import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import { useSelector, useDispatch } from "react-redux";
-import { mainSlice } from "../../redux/mainSlice";
+import { mainSlice } from "../../../redux/mainSlice";
 
 const TableComponent = () => {
   const [selectedRow, setSelectedRow] = useState(null);
@@ -57,8 +57,8 @@ const TableComponent = () => {
         </DataTable>
       </div>
       <div style={{ textAlign: "center", marginTop: "20px" }}>
-        <Button onClick={handleSelect} >
-        <span>Select</span>
+        <Button onClick={handleSelect}>
+          <span>Select</span>
         </Button>
       </div>
     </>

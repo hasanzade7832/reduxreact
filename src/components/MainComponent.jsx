@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { Splitter, SplitterPanel } from "primereact/splitter";
 import { useSelector, useDispatch } from "react-redux";
 import tabData from "../utils/tabData";
-import AddConfiguration from "../components/configuration/configurationAdd";
+import AddConfiguration from "./configuration/Add-Edit/configurationAdd";
 import AddCommands from "../components/commands/AddCommands";
 import { mainSlice } from "../redux/mainSlice";
 

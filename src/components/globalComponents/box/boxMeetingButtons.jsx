@@ -3,9 +3,8 @@ import { Button } from "primereact/button";
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
-import "../../assets/styles/global.css";
-import configurationSlice from "../../redux/configuration/configurationSlice";
-import { mainSlice } from "../../redux/mainSlice";
+import "../../../assets/styles/global.css";
+import { mainSlice } from "../../../redux/mainSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const CustomComponent = ({
@@ -18,52 +17,33 @@ const CustomComponent = ({
 
   const [updatedNames, setUpdatedNames] = useState([]);
   const [updatedId, setUpdatedId] = useState([]);
-  const [updatedId1, setUpdatedId1] = useState([]);
 
   useEffect(() => {
     setUpdatedNames(selectedNames);
-  }, [selectedNames]);
+    setUpdatedId(selectedId);
+  }, [selectedNames, updatedId]);
 
-  const dataDefaultButton = useSelector(
-    (state) => state.selectedNameDefaultButton.selectedNameDefaultButton
-  );
-
-  const IdsDefaultButton = useSelector(
-    (state) => state.selectedIdDefaultButton.selectedIdDefaultButton
-  );
-
-  const dataLetterButton = useSelector(
+  const dataMeetingButton = useSelector(
     (state) => state.selectedNameLetterButton.selectedNameLetterButton
   );
 
-  const IdsLetterButton = useSelector(
+  const IdsMeetingButton = useSelector(
     (state) => state.selectedIdLetterButton.selectedIdLetterButton
   );
 
-  const boxName = useSelector((state) => state.selectedBoxName.selectedBoxName);
-
-  const handleDoubleClick = (index, boxName) => {
-    const updatedNamesCopy = [...dataDefaultButton];
-    const updatedIdsCopy = [...IdsDefaultButton];
-    updatedNamesCopy.splice(index, 1);
-    updatedIdsCopy.splice(index, 1);
-    setUpdatedNames(updatedNamesCopy);
-    setUpdatedId(updatedIdsCopy);
-    dispatch(mainSlice.actions.setSelectedNameDefaultButton(updatedNamesCopy));
-    dispatch(mainSlice.actions.setelectedIdDefaultButton(updatedIdsCopy));
-
-    const updatedNamesLetterCopy = [...dataLetterButton];
-    const updatedIdsLetterCopy = [...IdsLetterButton];
-    updatedNamesLetterCopy.splice(index, 1);
-    updatedIdsLetterCopy.splice(index, 1);
-
-    setUpdatedNames(updatedNamesLetterCopy);
-    setUpdatedId1(updatedIdsLetterCopy);
-
+  const handleDoubleClick = (index) => {
+    const updatedNamesMeetingCopy = [...dataMeetingButton];
+    const updatedIdsMeetingCopy = [...IdsMeetingButton];
+    updatedNamesMeetingCopy.splice(index, 1);
+    updatedIdsMeetingCopy.splice(index, 1);
+    setUpdatedNames(updatedNamesMeetingCopy);
+    setUpdatedId(updatedIdsMeetingCopy);
     dispatch(
-      mainSlice.actions.setselectedNameLetterButton(updatedNamesLetterCopy)
+      mainSlice.actions.setSelectedNameMeetingButton(updatedNamesMeetingCopy)
     );
-    dispatch(mainSlice.actions.setSelectedIdLetterButton(updatedIdsLetterCopy));
+    dispatch(
+      mainSlice.actions.setSelectedIdMeetingButton(updatedIdsMeetingCopy)
+    );
   };
 
   return (
@@ -107,7 +87,7 @@ const CustomComponent = ({
           {Array.isArray(updatedNames) && updatedNames.length ? (
             updatedNames.map((name, index) => (
               <div
-                onDoubleClick={() => handleDoubleClick(index, boxName)}
+                onDoubleClick={() => handleDoubleClick(index)}
                 style={{ padding: "2px", margin: "5px", cursor: "pointer" }}
                 key={index}
               >

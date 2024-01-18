@@ -1,48 +1,51 @@
+// TableComponent.jsx
+
+import React from "react";
 import { useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { Button } from "primereact/button";
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import { useSelector, useDispatch } from "react-redux";
-import { mainSlice } from "../../redux/mainSlice";
+import { Button } from "primereact/button";
+import { mainSlice } from "../../../redux/mainSlice";
 
-const TableComponent = () => {
+const TableComponent = ({ value }) => {
   const [selectedRow, setSelectedRow] = useState(null);
-
-  const dataRibbon = useSelector((state) => state.dataRibbon.dataRibbon);
 
   const dispatch = useDispatch();
 
-  //console.log("program", dataRibbon);
+  const dataProgram = useSelector(
+    (state) => state.dataProgramTemplate.dataProgramTemplate
+  );
 
   const handleSelectionChange = (e) => {
     setSelectedRow(e.value);
-    //console.log("selectedRow", e.value.ID);
   };
 
   const handleSelect = () => {
     if (selectedRow) {
-      //console.log("selectedRow1", selectedRow);
-      dispatch(mainSlice.actions.setDefaultRibbonSelectedRow(selectedRow));
-      dispatch(mainSlice.actions.setShowDialogDefaultRibbon(false));
+      dispatch(mainSlice.actions.setprogramTemplateSelectedRow(selectedRow));
+      dispatch(mainSlice.actions.setshowDialogProgramTemplate(false));
     }
   };
 
   const handleDoubleClick = () => {
-    dispatch(mainSlice.actions.setDefaultRibbonSelectedRow(selectedRow));
-    dispatch(mainSlice.actions.setShowDialogDefaultRibbon(false));
+    dispatch(mainSlice.actions.setprogramTemplateSelectedRow(selectedRow));
+    dispatch(mainSlice.actions.setshowDialogProgramTemplate(false));
   };
 
   return (
-    <>
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
       <div>
         <DataTable
           scrollable
           scrollHeight="30vh"
           size="small"
-          value={dataRibbon}
+          value={dataProgram}
           showGridlines
           selectionMode="single"
           selection={selectedRow}
@@ -53,11 +56,11 @@ const TableComponent = () => {
         </DataTable>
       </div>
       <div style={{ textAlign: "center", marginTop: "20px" }}>
-        <Button onClick={handleSelect} >
-        <span>Select</span>
+        <Button size="small" onClick={handleSelect}>
+          <span>Select</span>
         </Button>
       </div>
-    </>
+    </div>
   );
 };
 

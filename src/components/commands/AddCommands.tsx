@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import CustomInputText from "../globalComponents/inputCom";
-import CustomTextArea from "../globalComponents/inputTextAreaComp";
-import CustomDropdown from "../globalComponents/dropDownComp";
-import AddBar from "../globalComponents/addBar";
+import CustomInputText from "../globalComponents/main/inputCom";
+import CustomTextArea from "../globalComponents/main/inputTextAreaComp";
+import CustomDropdown from "../globalComponents/main/dropDownComp";
+import AddBar from "../globalComponents/main/addBar";
 import "../../../src/App.scss";
 
 const CommandsAdd = () => {

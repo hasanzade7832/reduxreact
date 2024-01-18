@@ -1,9 +1,9 @@
-import TableBOx from "../configuration/tableBoxConfiguration"
+import TableBOx from "./tableBoxConfiguration";
 
 const selectBox = () => {
   return (
     <>
-      <TableBOx/>
+      <TableBOx />
     </>
   );
 };

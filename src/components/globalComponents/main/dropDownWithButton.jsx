@@ -2,13 +2,13 @@ import CustomDropdown from "./dropDownComp";
 import CustomButton from "./buttonComp";
 import { Dialog } from "primereact/dialog";
 import { useSelector } from "react-redux";
-import TableProgramTemplate from "../configuration/tableProgramTemplate";
-import TableDefaultRibbon from "../configuration/tableDefaultRibbon";
-import TableFormTemplate from "../configuration/tableFormTemplate";
-import TableAfTemplate from "../configuration/tableAfTemplate";
-import TableCommentForm from "../configuration/tableCommentForm";
-import TableProcedureForm from "../configuration/tableProcedureForm";
-import "../../assets/styles/global.css";
+import TableProgramTemplate from "../../configuration/tableSelectOption/tableProgramTemplate";
+import TableDefaultRibbon from "../../configuration/tableSelectOption/tableDefaultRibbon";
+import TableFormTemplate from "../../configuration/tableSelectOption/tableFormTemplate";
+import TableAfTemplate from "../../configuration/tableSelectOption/tableAfTemplate";
+import TableCommentForm from "../../configuration/tableSelectOption/tableCommentForm";
+import TableProcedureForm from "../../configuration/tableSelectOption/tableProcedureForm";
+import "../../../assets/styles/global.css";
 
 const CustomDropdownComponent = ({
   value,
@@ -38,7 +38,7 @@ const CustomDropdownComponent = ({
             onChange={onChange}
           />
         </div>
-        <div style={{ width: "10%", marginTop: "10px"}}>
+        <div style={{ width: "10%", marginTop: "10px" }}>
           <CustomButton
             label="..."
             className="button-small"

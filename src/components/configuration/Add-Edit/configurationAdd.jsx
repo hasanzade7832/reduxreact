@@ -1,21 +1,23 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import CustomInputText from "../globalComponents/inputCom";
-import Box from "../globalComponents/box";
-import "../../assets/styles/configurations.css";
+import CustomInputText from "../../globalComponents/main/inputCom";
+import BoxDefaultButton from "../../globalComponents/box/boxDefaultButton";
+import BoxLetterButton from "../../globalComponents/box/boxLetterButton";
+import BoxMeetingButton from "../../globalComponents/box/boxMeetingButtons";
+import "../../../assets/styles/configurations.css";
 import { Dialog } from "primereact/dialog";
-import ContentBoxDialog from "./selectBoxConfiguration";
-import projectServices from "../services/project.services";
+import ContentBoxDialog from "../tableBox/selectBoxConfiguration";
+import projectServices from "../../services/project.services";
 import {
   fetchConfiguration,
   fetchAllRibbon,
   fetchWfTemplate,
   fetchEntityType,
-} from "../../redux/configuration/configurationSlice";
-import { fetchProgramTemplate } from "../../redux/programtemplate/programtemplateSlice";
-import { mainSlice } from "../../redux/mainSlice";
-import AddBar from "../globalComponents/addBar";
-import DropdownComponentwithButton from "../globalComponents/dropDownWithButton";
+} from "../../../redux/configuration/configurationSlice";
+import { fetchProgramTemplate } from "../../../redux/programtemplate/programtemplateSlice";
+import { mainSlice } from "../../../redux/mainSlice";
+import AddBar from "../../globalComponents/main/addBar";
+import DropdownComponentwithButton from "../../globalComponents/main/dropDownWithButton";
 
 const ConfigurationAdd = () => {
   const [dialogVisible, setDialogVisible] = useState(false);
@@ -169,8 +171,10 @@ const ConfigurationAdd = () => {
     (state) => state.selectedNameDefaultButton.selectedNameDefaultButton
   );
 
-  const nameSelected = useSelector((state)=>state.selectedNames.selectedNames);
-  console.log("nameSelected",nameSelected);
+  const nameSelected = useSelector(
+    (state) => state.selectedNames.selectedNames
+  );
+  console.log("nameSelected", nameSelected);
 
   const selectedIdDefaultButton = useSelector(
     (state) => state.selectedIdDefaultButton.selectedIdDefaultButton
@@ -193,15 +197,15 @@ const ConfigurationAdd = () => {
   );
 
   //////////////ADD FUNCTION/////////////////////////////////////////////////////
-  const selected = useSelector(
-    (state) => state.selectedNames.selectedNames
-  );
+  const selected = useSelector((state) => state.selectedNames.selectedNames);
 
   useEffect(() => {
     //console.log("selected", selected);
   }, [selected]);
 
-  const selectedId = useSelector((state)=>state.selectedIdDefaultButton.selectedIdDefaultButton);
+  const selectedId = useSelector(
+    (state) => state.selectedIdDefaultButton.selectedIdDefaultButton
+  );
 
   useEffect(() => {
     //console.log("ggggggggggggg", selectedId);
@@ -427,7 +431,7 @@ const ConfigurationAdd = () => {
       {/* /////////////////////Line5/////////////////////// */}
       <div className="grid" style={{ marginLeft: "20px", marginTop: "5px" }}>
         <div className="col-5">
-          <Box
+          <BoxDefaultButton
             dialogData={showDialogDefaultButton}
             titleBox={"Default Action Buttons"}
             selectedNames={selectedNamesDefaultButtons}
@@ -436,7 +440,7 @@ const ConfigurationAdd = () => {
         </div>
         <div className="col-1"></div>
         <div className="col-5">
-          <Box
+          <BoxLetterButton
             dialogData={showDialogLetterButton}
             titleBox={"Letter Action Buttons"}
             selectedNames={selectedNamesLetterButtons}
@@ -447,7 +451,7 @@ const ConfigurationAdd = () => {
       {/* /////////////////////Line6/////////////////////// */}
       <div className="grid" style={{ marginLeft: "20px", marginTop: "5px" }}>
         <div className="col-5">
-          <Box
+          <BoxMeetingButton
             dialogData={showDialogMeetingButton}
             titleBox={"Meeting Action Buttons"}
             selectedNames={selectedNamesMeetingsButtons}

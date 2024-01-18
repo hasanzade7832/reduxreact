@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import InputCustopm from "../globalComponents/inputCom";
-import CustomRadioButtons from "../globalComponents/RadioButtonComp";
-import CustomButton from "../globalComponents/buttonComp";
+import InputCustopm from "../../globalComponents/main/inputCom";
+import CustomRadioButtons from "../../globalComponents/main/RadioButtonComp";
+import CustomButton from "../../globalComponents/main/buttonComp";
 import { FileUpload } from "primereact/fileupload";
 import { Image } from "primereact/image";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAfBtn } from "../../redux/configuration/configurationSlice";
-import { mainSlice } from "../../redux/mainSlice";
-import projectServices from "../services/project.services";
-import fileServices from "../services/file.services";
-import configurationSlice from "../../redux/configuration/configurationSlice";
+import { fetchAfBtn } from "../../../redux/configuration/configurationSlice";
+import { mainSlice } from "../../../redux/mainSlice";
+import projectServices from "../../services/project.services";
+import fileServices from "../../services/file.services";
+import configurationSlice from "../../../redux/configuration/configurationSlice";
 
 const TableDynamic = () => {
   const dispatch = useDispatch();
@@ -56,8 +56,10 @@ const TableDynamic = () => {
   );
 
   const nameBox = useSelector((state) => state.selectedBoxName.selectedBoxName);
-  
-  const nameSelected = useSelector((state)=>state.selectedNames.selectedNames);
+
+  const nameSelected = useSelector(
+    (state) => state.selectedNames.selectedNames
+  );
   // console.log("nameSelected",nameSelected);
 
   const handleRowDblClick = (event) => {
@@ -79,17 +81,14 @@ const TableDynamic = () => {
     ) {
       newDataDefaultButton.push(selectedName);
       newSelectedIdDefault.push(selectedId);
-      dispatch(configurationSlice.actions.setSelectedNames(newDataDefaultButton));
-      dispatch(configurationSlice.actions.setSelectedId(newSelectedIdDefault));
+
       dispatch(
         mainSlice.actions.setSelectedNameDefaultButton(newDataDefaultButton)
       );
       dispatch(
         mainSlice.actions.setelectedIdDefaultButton(newSelectedIdDefault)
       );
-    }
-
-    if (
+    } else if (
       !newDataLetterButton.includes(selectedName) &&
       nameBox == "LetterButton"
     ) {
@@ -101,9 +100,7 @@ const TableDynamic = () => {
       dispatch(
         mainSlice.actions.setSelectedIdLetterButton(newSelectedIdLetter)
       );
-    }
-
-    if (
+    } else if (
       !newDataMeetingButton.includes(selectedName) &&
       nameBox == "MeetingButton"
     ) {
@@ -152,7 +149,7 @@ const TableDynamic = () => {
     });
   };
 
-  const handleFileUpload = (event) => { };
+  const handleFileUpload = (event) => {};
 
   const addAfBtn = () => {
     projectServices
@@ -161,7 +158,7 @@ const TableDynamic = () => {
         //console.log("AddRes", res.data);
         dispatch(fetchAfBtn());
       })
-      .catch(() => { });
+      .catch(() => {});
   };
 
   return (
