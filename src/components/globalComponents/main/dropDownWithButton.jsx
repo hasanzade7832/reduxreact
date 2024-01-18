@@ -27,8 +27,8 @@ const CustomDropdownComponent = ({
 
   return (
     <>
-      <div style={{ display: "flex" }}>
-        <div style={{ width: "90%" }}>
+      <div style={{ display: "flex", justifyContent: "space-around" }}>
+        <div style={{ width: "100%" }}>
           <CustomDropdown
             id="ID"
             value={value}
@@ -38,7 +38,7 @@ const CustomDropdownComponent = ({
             onChange={onChange}
           />
         </div>
-        <div style={{ width: "10%", marginTop: "10px" }}>
+        <div style={{ marginTop: "10px" }}>
           <CustomButton
             label="..."
             className="button-small"
