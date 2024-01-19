@@ -25,6 +25,7 @@ export const store = configureStore({
     selectedIdMeetingButton: mainSlice.reducer,
     nameofDialogTable: mainSlice.reducer,
     programTemplateSelectedRow: mainSlice.reducer,
+    programTemplateSelectedRowEdit: mainSlice.reducer,
     defaultRibbonSelectedRow: mainSlice.reducer,
     formTemplateSelectedRow: mainSlice.reducer,
     selectedRowData: mainSlice.reducer,
@@ -42,8 +43,8 @@ export const store = configureStore({
     dataWfTemplate: configurationSlice.reducer,
     dataEntityType: configurationSlice.reducer,
     dataAfBtn: configurationSlice.reducer,
-    selectedNames:configurationSlice.reducer,
-    selectedId:configurationSlice.reducer,
+    selectedNames: configurationSlice.reducer,
+    selectedId: configurationSlice.reducer,
     dataLogin: loginSlice.reducer,
     loginSuccess: loginSlice.reducer,
     dataCommands: commandsSlice.reducer,
@@ -148,11 +149,14 @@ export type RootState = {
   selectedRowData: {
     selectedRowData: null;
   };
-  selectedNames:{
-    selectedNames:string;
-  }
-  selectedId:{
-    selectedId:string;
-  }
+  selectedNames: {
+    selectedNames: string;
+  };
+  selectedId: {
+    selectedId: string;
+  };
+  programTemplateSelectedRowEdit: {
+    programTemplateSelectedRowEdit: string;
+  };
 };
 export type AppDispatch = typeof store.dispatch;

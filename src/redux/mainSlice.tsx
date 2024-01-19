@@ -19,6 +19,7 @@ interface MainState {
   selectedIdMeetingButton: string[];
   nameofDialogTable: string;
   programTemplateSelectedRow: string;
+  programTemplateSelectedRowEdit: string;
   defaultRibbonSelectedRow: string;
   formTemplateSelectedRow: string;
   afTemplateSelectedRow: string;
@@ -52,6 +53,7 @@ const initialState: MainState = {
   selectedIdMeetingButton: [],
   nameofDialogTable: "",
   programTemplateSelectedRow: "",
+  programTemplateSelectedRowEdit: "",
   defaultRibbonSelectedRow: "",
   formTemplateSelectedRow: "",
   afTemplateSelectedRow: "",
@@ -142,6 +144,12 @@ export const mainSlice = createSlice({
     },
     setprogramTemplateSelectedRow: (state, action: PayloadAction<string>) => {
       state.programTemplateSelectedRow = action.payload;
+    },
+    setProgramTemplateSelectedRowEdit: (
+      state,
+      action: PayloadAction<string>
+    ) => {
+      state.programTemplateSelectedRowEdit = action.payload;
     },
     setDefaultRibbonSelectedRow: (state, action: PayloadAction<string>) => {
       state.defaultRibbonSelectedRow = action.payload;
