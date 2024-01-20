@@ -63,7 +63,6 @@ const ConfigurationAdd = () => {
     (state) => state.dataWfTemplate.dataWfTemplate
   );
 
-
   const dataFormTemplate = useSelector(
     (state) => state.dataEntityType.dataEntityType
   );
@@ -169,6 +168,7 @@ const ConfigurationAdd = () => {
       dispatch(mainSlice.actions.setProcedureFormSelectedRowEdit(procedureTemplateSelected));
 
       //af template
+      
       const foundItemAfTemplate = dataWfTemplate.find(
         (item) => item.ID === selectedRow.WFTemplateIDForLessonLearn
       );
@@ -187,7 +187,7 @@ const ConfigurationAdd = () => {
         WFTemplateIDForLessonLearn:afTemplateSelectedRowEdit
       }));
     }
-  }, [isAddClicked, selectedRow, subTabName]);
+  }, [isAddClicked, selectedRow, subTabName,dataPrugTemplate,dataRibbon,dataFormTemplate,dataWfTemplate]);
 
   
 
