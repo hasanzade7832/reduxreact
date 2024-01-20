@@ -59,6 +59,10 @@ const ConfigurationAdd = () => {
     (state) => state.dataRibbon.dataRibbon
   );
 
+  const dataFormTemplate = useSelector(
+    (state) => state.dataEntityType.dataEntityType
+  );
+
   const programTemplateSelectedRow = useSelector(
     (state) => state.programTemplateSelectedRow.programTemplateSelectedRow
   );
@@ -76,7 +80,15 @@ const ConfigurationAdd = () => {
     (state) => state.defaultRibbonSelectedRowEdit.defaultRibbonSelectedRowEdit
   );
 
-  console.log("defaultRibbonSelectedRowEdit",defaultRibbonSelectedRowEdit);
+  const formTemplateSelectedRow = useSelector(
+    (state) => state.formTemplateSelectedRow.formTemplateSelectedRow
+  );
+
+  const formTemplateSelectedRowEdit = useSelector(
+    (state) => state.formTemplateSelectedRowEdit.formTemplateSelectedRowEdit
+  );
+
+
 
 
   useEffect(() => {
@@ -87,6 +99,7 @@ const ConfigurationAdd = () => {
         Description: "",
         FirstIDProgramTemplate:dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit()),
         SelMenuIDForMain:dispatch(mainSlice.actions.setDefaultRibbonSelectedRowEdit()),
+        EnityTypeIDForLessonLearn:dispatch(mainSlice.actions.setFormTemplateSelectedRowEdit()),
       }));
     } else if (selectedRow) {
       //programTemplate
@@ -104,15 +117,26 @@ const ConfigurationAdd = () => {
       console.log("dataRibbonSelected",dataRibbonSelected);
       dispatch(mainSlice.actions.setDefaultRibbonSelectedRowEdit(dataRibbonSelected));
 
+      //form template
+      const foundItemFormTemplate = dataFormTemplate.find(
+        (item) => item.ID === selectedRow.EnityTypeIDForLessonLearn
+      );
+      const formTemplateSelected = foundItemFormTemplate ? foundItemFormTemplate : null;
+      console.log("dataRibbonSelected",dataRibbonSelected);
+      dispatch(mainSlice.actions.setFormTemplateSelectedRowEdit(formTemplateSelected));
+
+
+
       setFormData((prevFormData) => ({
         ...prevFormData,
         Name: selectedRow.Name,
         Description: selectedRow.Description,
         FirstIDProgramTemplate: programTemplateSelectedRowEdit,
-        SelMenuIDForMain:defaultRibbonSelectedRowEdit
+        SelMenuIDForMain:defaultRibbonSelectedRowEdit,
+        EnityTypeIDForLessonLearn:formTemplateSelectedRowEdit
       }));
     }
-  }, [isAddClicked, selectedRow, subTabName, programTemplateSelectedRowEdit ,defaultRibbonSelectedRowEdit]);
+  }, [isAddClicked, selectedRow, subTabName, programTemplateSelectedRowEdit ,defaultRibbonSelectedRowEdit,formTemplateSelectedRowEdit]);
 
   
 
@@ -130,20 +154,13 @@ const ConfigurationAdd = () => {
     (state) => state.dataProgramTemplate.dataProgramTemplate
   );
 
-  const dataFormTemplate = useSelector(
-    (state) => state.dataEntityType.dataEntityType
-  );
-
   const dataWfTemplate = useSelector(
     (state) => state.dataWfTemplate.dataWfTemplate
   );
 
   /////////////////////SELECTED ROW DATA///////////////////////////////////////////////////
 
-  const formTemplateSelectedRow = useSelector(
-    (state) => state.formTemplateSelectedRow.formTemplateSelectedRow
-  );
-
+  
   const afTemplateSelectedRow = useSelector(
     (state) => state.afTemplateSelectedRow.afTemplateSelectedRow
   );
@@ -156,9 +173,6 @@ const ConfigurationAdd = () => {
     (state) => state.procedureFormSelectedRow.procedureFormSelectedRow
   );
 
-  const nameOfDialogTable = useSelector(
-    (state) => state.nameofDialogTable.nameofDialogTable
-  );
 
   /////////////////////////////Get main data//////////////////////////////////////////////////////////
 
@@ -270,6 +284,8 @@ const ConfigurationAdd = () => {
       dispatch(mainSlice.actions.setprogramTemplateSelectedRow())
       dispatch(mainSlice.actions.setDefaultRibbonSelectedRowEdit())
       dispatch(mainSlice.actions.setDefaultRibbonSelectedRow())
+      dispatch(mainSlice.actions.setFormTemplateSelectedRowEdit())
+      dispatch(mainSlice.actions.setFormTemplateSelectedRow())
       setFormData((prevFormData) => ({
         ...prevFormData,
         Name: "",
@@ -406,7 +422,7 @@ const ConfigurationAdd = () => {
       <div className="grid" style={{ marginLeft: "20px", marginTop: "5px" }}>
         <div className="col-5">
           <DropdownComponentwithButton
-            value={formTemplateSelectedRow}
+            value={formTemplateSelectedRow?formTemplateSelectedRow:formTemplateSelectedRowEdit}
             options={dataFormTemplate}
             optionLabel="Name"
             label="Lessons Learned Form Template"
