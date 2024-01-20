@@ -88,9 +88,16 @@ const ConfigurationAdd = () => {
     (state) => state.formTemplateSelectedRowEdit.formTemplateSelectedRowEdit
   );
 
+  const commentFormSelectedRow = useSelector(
+    (state) => state.commentFormSelectedRow.commentFormSelectedRow
+  );
 
+  const commentFormSelectedRowEdit = useSelector(
+    (state) => state.commentFormSelectedRowEdit.commentFormSelectedRowEdit
+  );
 
-
+  console.log("comment",commentFormSelectedRowEdit);
+  
   useEffect(() => {
     if (isAddClicked) {
       setFormData((prevFormData) => ({
@@ -100,6 +107,7 @@ const ConfigurationAdd = () => {
         FirstIDProgramTemplate:dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit()),
         SelMenuIDForMain:dispatch(mainSlice.actions.setDefaultRibbonSelectedRowEdit()),
         EnityTypeIDForLessonLearn:dispatch(mainSlice.actions.setFormTemplateSelectedRowEdit()),
+        EnityTypeIDForTaskCommnet:dispatch(mainSlice.actions.setCommentFormSelectedRowEdit())
       }));
     } else if (selectedRow) {
       //programTemplate
@@ -114,7 +122,6 @@ const ConfigurationAdd = () => {
         (item) => item.ID === selectedRow.SelMenuIDForMain
       );
       const dataRibbonSelected = foundItemRibbon ? foundItemRibbon : null;
-      console.log("dataRibbonSelected",dataRibbonSelected);
       dispatch(mainSlice.actions.setDefaultRibbonSelectedRowEdit(dataRibbonSelected));
 
       //form template
@@ -122,10 +129,15 @@ const ConfigurationAdd = () => {
         (item) => item.ID === selectedRow.EnityTypeIDForLessonLearn
       );
       const formTemplateSelected = foundItemFormTemplate ? foundItemFormTemplate : null;
-      console.log("dataRibbonSelected",dataRibbonSelected);
       dispatch(mainSlice.actions.setFormTemplateSelectedRowEdit(formTemplateSelected));
 
-
+      //comment form
+      const foundItemComment = dataFormTemplate.find(
+        (item) => item.ID === selectedRow.EnityTypeIDForTaskCommnet
+      );
+      const commentTemplateSelected = foundItemComment ? foundItemComment : null;
+      
+      dispatch(mainSlice.actions.setCommentFormSelectedRowEdit(commentTemplateSelected));
 
       setFormData((prevFormData) => ({
         ...prevFormData,
@@ -133,10 +145,11 @@ const ConfigurationAdd = () => {
         Description: selectedRow.Description,
         FirstIDProgramTemplate: programTemplateSelectedRowEdit,
         SelMenuIDForMain:defaultRibbonSelectedRowEdit,
-        EnityTypeIDForLessonLearn:formTemplateSelectedRowEdit
+        EnityTypeIDForLessonLearn:formTemplateSelectedRowEdit,
+        EnityTypeIDForTaskCommnet:commentFormSelectedRowEdit
       }));
     }
-  }, [isAddClicked, selectedRow, subTabName, programTemplateSelectedRowEdit ,defaultRibbonSelectedRowEdit,formTemplateSelectedRowEdit]);
+  }, [isAddClicked, selectedRow, subTabName, programTemplateSelectedRowEdit ,defaultRibbonSelectedRowEdit,formTemplateSelectedRowEdit,commentFormSelectedRowEdit]);
 
   
 
@@ -165,9 +178,7 @@ const ConfigurationAdd = () => {
     (state) => state.afTemplateSelectedRow.afTemplateSelectedRow
   );
 
-  const commentFormSelectedRow = useSelector(
-    (state) => state.commentFormSelectedRow.commentFormSelectedRow
-  );
+  
 
   const procedureFormSelectedRow = useSelector(
     (state) => state.procedureFormSelectedRow.procedureFormSelectedRow
@@ -286,6 +297,8 @@ const ConfigurationAdd = () => {
       dispatch(mainSlice.actions.setDefaultRibbonSelectedRow())
       dispatch(mainSlice.actions.setFormTemplateSelectedRowEdit())
       dispatch(mainSlice.actions.setFormTemplateSelectedRow())
+      dispatch(mainSlice.actions.setCommentFormSelectedRowEdit())
+      dispatch(mainSlice.actions.setCommentFormSelectedRow())
       setFormData((prevFormData) => ({
         ...prevFormData,
         Name: "",
@@ -458,7 +471,7 @@ const ConfigurationAdd = () => {
       <div className="grid" style={{ marginLeft: "20px", marginTop: "5px" }}>
         <div className="col-5">
           <DropdownComponentwithButton
-            value={commentFormSelectedRow}
+            value={commentFormSelectedRow?commentFormSelectedRow:commentFormSelectedRowEdit}
             options={dataFormTemplate}
             optionLabel="Name"
             label="Comment Form Template"

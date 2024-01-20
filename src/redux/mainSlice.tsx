@@ -26,6 +26,7 @@ interface MainState {
   formTemplateSelectedRowEdit:string;
   afTemplateSelectedRow: string;
   commentFormSelectedRow: string;
+  commentFormSelectedRowEdit: string;
   procedureFormSelectedRow: string;
   showDialogProgramTemplate: Boolean;
   showDialogDefaultRibbon: Boolean;
@@ -62,6 +63,7 @@ const initialState: MainState = {
   formTemplateSelectedRowEdit: "",
   afTemplateSelectedRow: "",
   commentFormSelectedRow: "",
+  commentFormSelectedRowEdit:"",
   procedureFormSelectedRow: "",
   showDialogProgramTemplate: false,
   showDialogDefaultRibbon: false,
@@ -172,6 +174,9 @@ export const mainSlice = createSlice({
     },
     setCommentFormSelectedRow: (state, action: PayloadAction<string>) => {
       state.commentFormSelectedRow = action.payload;
+    },
+    setCommentFormSelectedRowEdit: (state, action: PayloadAction<string>) => {
+      state.commentFormSelectedRowEdit = action.payload;
     },
     setProcedureFormSelectedRow: (state, action: PayloadAction<string>) => {
       state.procedureFormSelectedRow = action.payload;
