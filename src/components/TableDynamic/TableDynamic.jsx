@@ -11,7 +11,7 @@ import { fetchCommands } from "../../redux/commands/commandsSlice";
 import { Button } from "primereact/button";
 import { mainSlice } from "../../redux/mainSlice";
 import { Toast } from "primereact/toast";
-import { Dialog } from "primereact/dialog"; // Add this import
+import { Dialog } from "primereact/dialog";
 
 const TableDynamic = () => {
   const dispatch = useDispatch();

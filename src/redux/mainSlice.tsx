@@ -21,7 +21,9 @@ interface MainState {
   programTemplateSelectedRow: string;
   programTemplateSelectedRowEdit: string;
   defaultRibbonSelectedRow: string;
+  defaultRibbonSelectedRowEdit:string;
   formTemplateSelectedRow: string;
+  formTemplateSelectedRowEdit:string;
   afTemplateSelectedRow: string;
   commentFormSelectedRow: string;
   procedureFormSelectedRow: string;
@@ -55,7 +57,9 @@ const initialState: MainState = {
   programTemplateSelectedRow: "",
   programTemplateSelectedRowEdit: "",
   defaultRibbonSelectedRow: "",
+  defaultRibbonSelectedRowEdit:"",
   formTemplateSelectedRow: "",
+  formTemplateSelectedRowEdit: "",
   afTemplateSelectedRow: "",
   commentFormSelectedRow: "",
   procedureFormSelectedRow: "",
@@ -154,8 +158,14 @@ export const mainSlice = createSlice({
     setDefaultRibbonSelectedRow: (state, action: PayloadAction<string>) => {
       state.defaultRibbonSelectedRow = action.payload;
     },
+    setDefaultRibbonSelectedRowEdit: (state, action: PayloadAction<string>) => {
+      state.defaultRibbonSelectedRowEdit = action.payload;
+    },
     setFormTemplateSelectedRow: (state, action: PayloadAction<string>) => {
       state.formTemplateSelectedRow = action.payload;
+    },
+    setFormTemplateSelectedRowEdit: (state, action: PayloadAction<string>) => {
+      state.formTemplateSelectedRowEdit = action.payload;
     },
     setAfTemplateSelectedRow: (state, action: PayloadAction<string>) => {
       state.afTemplateSelectedRow = action.payload;

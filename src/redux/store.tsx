@@ -27,6 +27,8 @@ export const store = configureStore({
     programTemplateSelectedRow: mainSlice.reducer,
     programTemplateSelectedRowEdit: mainSlice.reducer,
     defaultRibbonSelectedRow: mainSlice.reducer,
+    defaultRibbonSelectedRowEdit: mainSlice.reducer,
+    formTemplateSelectedRowEdit:mainSlice.reducer,
     formTemplateSelectedRow: mainSlice.reducer,
     selectedRowData: mainSlice.reducer,
     afTemplateSelectedRow: mainSlice.reducer,
@@ -158,5 +160,11 @@ export type RootState = {
   programTemplateSelectedRowEdit: {
     programTemplateSelectedRowEdit: string;
   };
+  defaultRibbonSelectedRowEdit:{
+    defaultRibbonSelectedRowEdit:string;
+  };
+  formTemplateSelectedRowEdit:{
+    formTemplateSelectedRowEdit:string;
+  }
 };
 export type AppDispatch = typeof store.dispatch;

@@ -55,7 +55,9 @@ const ConfigurationAdd = () => {
     (state) => state.dataConfiguration.dataPrugTemplate
   );
 
-  // console.log("dataPrugTemplate", dataPrugTemplate)
+  const dataRibbon = useSelector(
+    (state) => state.dataRibbon.dataRibbon
+  );
 
   const programTemplateSelectedRow = useSelector(
     (state) => state.programTemplateSelectedRow.programTemplateSelectedRow
@@ -66,6 +68,17 @@ const ConfigurationAdd = () => {
       state.programTemplateSelectedRowEdit.programTemplateSelectedRowEdit
   );
 
+  const defaultRibbonSelectedRow = useSelector(
+    (state) => state.defaultRibbonSelectedRow.defaultRibbonSelectedRow
+  );
+
+  const defaultRibbonSelectedRowEdit = useSelector(
+    (state) => state.defaultRibbonSelectedRowEdit.defaultRibbonSelectedRowEdit
+  );
+
+  console.log("defaultRibbonSelectedRowEdit",defaultRibbonSelectedRowEdit);
+
+
   useEffect(() => {
     if (isAddClicked) {
       setFormData((prevFormData) => ({
@@ -73,28 +86,33 @@ const ConfigurationAdd = () => {
         Name: "",
         Description: "",
         FirstIDProgramTemplate:dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit()),
+        SelMenuIDForMain:dispatch(mainSlice.actions.setDefaultRibbonSelectedRowEdit()),
       }));
     } else if (selectedRow) {
-      console.log(selectedRow, dataPrugTemplate)
-      const foundItems = dataPrugTemplate.find(
+      //programTemplate
+      const foundItemProgram = dataPrugTemplate.find(
         (item) => item.ID === selectedRow.FirstIDProgramTemplate
       );
-      const data2 = foundItems ? foundItems : null;
-      console.log("data2", data2)
-      // if (!data2) return
-      // vmodel.value = data2
-      dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit(data2));
-      // dispatch(mainSlice.actions.setprogramTemplateSelectedRow(data2));
-      console.log("vaaaaaaaay", programTemplateSelectedRowEdit);
+      const dataProgramSelected = foundItemProgram ? foundItemProgram : null;
+      dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit(dataProgramSelected));
+
+      // defaultRibbon
+      const foundItemRibbon = dataRibbon.find(
+        (item) => item.ID === selectedRow.SelMenuIDForMain
+      );
+      const dataRibbonSelected = foundItemRibbon ? foundItemRibbon : null;
+      console.log("dataRibbonSelected",dataRibbonSelected);
+      dispatch(mainSlice.actions.setDefaultRibbonSelectedRowEdit(dataRibbonSelected));
 
       setFormData((prevFormData) => ({
         ...prevFormData,
         Name: selectedRow.Name,
         Description: selectedRow.Description,
         FirstIDProgramTemplate: programTemplateSelectedRowEdit,
+        SelMenuIDForMain:defaultRibbonSelectedRowEdit
       }));
     }
-  }, [isAddClicked, selectedRow, subTabName, programTemplateSelectedRowEdit]);
+  }, [isAddClicked, selectedRow, subTabName, programTemplateSelectedRowEdit ,defaultRibbonSelectedRowEdit]);
 
   
 
@@ -112,8 +130,6 @@ const ConfigurationAdd = () => {
     (state) => state.dataProgramTemplate.dataProgramTemplate
   );
 
-  const dataRibbon = useSelector((state) => state.dataRibbon.dataRibbon);
-
   const dataFormTemplate = useSelector(
     (state) => state.dataEntityType.dataEntityType
   );
@@ -123,10 +139,6 @@ const ConfigurationAdd = () => {
   );
 
   /////////////////////SELECTED ROW DATA///////////////////////////////////////////////////
-
-  const defaultRibbonSelectedRow = useSelector(
-    (state) => state.defaultRibbonSelectedRow.defaultRibbonSelectedRow
-  );
 
   const formTemplateSelectedRow = useSelector(
     (state) => state.formTemplateSelectedRow.formTemplateSelectedRow
@@ -147,7 +159,6 @@ const ConfigurationAdd = () => {
   const nameOfDialogTable = useSelector(
     (state) => state.nameofDialogTable.nameofDialogTable
   );
-  //console.log("nameOfDialogTable", nameOfDialogTable);
 
   /////////////////////////////Get main data//////////////////////////////////////////////////////////
 
@@ -226,7 +237,6 @@ const ConfigurationAdd = () => {
   const selected = useSelector((state) => state.selectedNames.selectedNames);
 
   useEffect(() => {
-    //console.log("selected", selected);
   }, [selected]);
 
   const selectedId = useSelector(
@@ -234,7 +244,6 @@ const ConfigurationAdd = () => {
   );
 
   useEffect(() => {
-    //console.log("ggggggggggggg", selectedId);
   }, [selectedId]);
 
   const addConfiguration = () => {
@@ -259,6 +268,8 @@ const ConfigurationAdd = () => {
       dispatch(fetchConfiguration());
       dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit())
       dispatch(mainSlice.actions.setprogramTemplateSelectedRow())
+      dispatch(mainSlice.actions.setDefaultRibbonSelectedRowEdit())
+      dispatch(mainSlice.actions.setDefaultRibbonSelectedRow())
       setFormData((prevFormData) => ({
         ...prevFormData,
         Name: "",
@@ -376,7 +387,7 @@ const ConfigurationAdd = () => {
         <div className="col-1"></div>
         <div className="col-5">
           <DropdownComponentwithButton
-            value={defaultRibbonSelectedRow}
+            value={defaultRibbonSelectedRow?defaultRibbonSelectedRow:defaultRibbonSelectedRowEdit}
             options={dataRibbon}
             optionLabel="Name"
             label="Default Ribbon"
