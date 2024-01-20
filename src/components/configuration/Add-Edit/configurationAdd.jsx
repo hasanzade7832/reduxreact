@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { Dropdown } from 'primereact/dropdown';
+
 import { useSelector, useDispatch } from "react-redux";
 import CustomInputText from "../../globalComponents/main/inputCom";
 import BoxDefaultButton from "../../globalComponents/box/boxDefaultButton";
@@ -53,6 +55,8 @@ const ConfigurationAdd = () => {
     (state) => state.dataConfiguration.dataPrugTemplate
   );
 
+  // console.log("dataPrugTemplate", dataPrugTemplate)
+
   const programTemplateSelectedRow = useSelector(
     (state) => state.programTemplateSelectedRow.programTemplateSelectedRow
   );
@@ -68,24 +72,40 @@ const ConfigurationAdd = () => {
         ...prevFormData,
         Name: "",
         Description: "",
-        FirstIDProgramTemplate: null,
+        FirstIDProgramTemplate:dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit()),
       }));
     } else if (selectedRow) {
-      const foundItems = dataPrugTemplate.filter(
+      console.log(selectedRow, dataPrugTemplate)
+      const foundItems = dataPrugTemplate.find(
         (item) => item.ID === selectedRow.FirstIDProgramTemplate
       );
-      const data2 = foundItems.length > 0 ? foundItems[0].Name : "";
+      const data2 = foundItems ? foundItems : null;
+      console.log("data2", data2)
+      // if (!data2) return
+      // vmodel.value = data2
       dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit(data2));
+      // dispatch(mainSlice.actions.setprogramTemplateSelectedRow(data2));
       console.log("vaaaaaaaay", programTemplateSelectedRowEdit);
 
       setFormData((prevFormData) => ({
         ...prevFormData,
         Name: selectedRow.Name,
         Description: selectedRow.Description,
-        FirstIDProgramTemplate: selectedRow.FirstIDProgramTemplate,
+        FirstIDProgramTemplate: programTemplateSelectedRowEdit,
       }));
     }
   }, [isAddClicked, selectedRow, subTabName, programTemplateSelectedRowEdit]);
+
+  
+
+  ////////////////////handle change datas//////////////////////////////////////////////
+
+  const handleChange = (fieldName, value) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [fieldName]: value,
+    }));
+  };
 
   /////////////////////MAIN DATA//////////////////////////////////////////
   const dataProgram = useSelector(
@@ -168,15 +188,7 @@ const ConfigurationAdd = () => {
     dispatch(mainSlice.actions.setShowDialogProcedureForm(false));
   };
 
-  ////////////////////handle change datas//////////////////////////////////////////////
-
-  const handleChange = (fieldName, value) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [fieldName]: value,
-    }));
-  };
-
+  
   ///////////////////////BOX DATAS/////////////////////////////////////////////////////
 
   const isVisibleBox = useSelector((state) => state.isVisibleBox.isVisibleBox);
@@ -188,7 +200,7 @@ const ConfigurationAdd = () => {
   const nameSelected = useSelector(
     (state) => state.selectedNames.selectedNames
   );
-  console.log("nameSelected", nameSelected);
+  // console.log("nameSelected", nameSelected);
 
   const selectedIdDefaultButton = useSelector(
     (state) => state.selectedIdDefaultButton.selectedIdDefaultButton
@@ -233,22 +245,28 @@ const ConfigurationAdd = () => {
     formData.DefaultBtn = defaultBtnValues;
     formData.LetterBtns = letterBtnValues;
     formData.MeetingBtns = meetingBtnValues;
-    formData.FirstIDProgramTemplate = programTemplateSelectedRowEdit.ID;
+    formData.FirstIDProgramTemplate = programTemplateSelectedRow.ID;
     formData.SelMenuIDForMain = defaultRibbonSelectedRow.ID;
     formData.EnityTypeIDForLessonLearn = formTemplateSelectedRow.ID;
     formData.WFTemplateIDForLessonLearn = afTemplateSelectedRow.ID;
     formData.EnityTypeIDForTaskCommnet = commentFormSelectedRow.ID;
     formData.EnityTypeIDForProcesure = procedureFormSelectedRow.ID;
-
-    //console.log("formData", formData);
+    
 
     projectServices
-      .insertSetting(formData)
-      .then((res) => {
-        dispatch(fetchConfiguration());
-      })
-      .catch(() => {});
-  };
+    .insertSetting(formData)
+    .then((res) => {
+      dispatch(fetchConfiguration());
+      dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit())
+      dispatch(mainSlice.actions.setprogramTemplateSelectedRow())
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        Name: "",
+        Description:"",
+      }));
+    })
+    .catch(() => {});
+};
 
   //////////////////////Dialog Data/////////////////////////////////////////////
 
