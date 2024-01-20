@@ -59,6 +59,11 @@ const ConfigurationAdd = () => {
     (state) => state.dataRibbon.dataRibbon
   );
 
+  const dataWfTemplate = useSelector(
+    (state) => state.dataWfTemplate.dataWfTemplate
+  );
+
+
   const dataFormTemplate = useSelector(
     (state) => state.dataEntityType.dataEntityType
   );
@@ -96,8 +101,24 @@ const ConfigurationAdd = () => {
     (state) => state.commentFormSelectedRowEdit.commentFormSelectedRowEdit
   );
 
-  console.log("comment",commentFormSelectedRowEdit);
-  
+  const procedureFormSelectedRow = useSelector(
+    (state) => state.procedureFormSelectedRow.procedureFormSelectedRow
+  );
+
+  const procedureFormSelectedRowEdit = useSelector(
+    (state) => state.procedureFormSelectedRowEdit.procedureFormSelectedRowEdit
+  );
+
+  const afTemplateSelectedRow = useSelector(
+    (state) => state.afTemplateSelectedRow.afTemplateSelectedRow
+  );
+
+  const afTemplateSelectedRowEdit = useSelector(
+    (state) => state.afTemplateSelectedRowEdit.afTemplateSelectedRowEdit
+  );
+
+  console.log("afTemplateSelectedRowEdit",afTemplateSelectedRowEdit);
+
   useEffect(() => {
     if (isAddClicked) {
       setFormData((prevFormData) => ({
@@ -107,7 +128,9 @@ const ConfigurationAdd = () => {
         FirstIDProgramTemplate:dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit()),
         SelMenuIDForMain:dispatch(mainSlice.actions.setDefaultRibbonSelectedRowEdit()),
         EnityTypeIDForLessonLearn:dispatch(mainSlice.actions.setFormTemplateSelectedRowEdit()),
-        EnityTypeIDForTaskCommnet:dispatch(mainSlice.actions.setCommentFormSelectedRowEdit())
+        EnityTypeIDForTaskCommnet:dispatch(mainSlice.actions.setCommentFormSelectedRowEdit()),
+        EnityTypeIDForProcesure:dispatch(mainSlice.actions.setProcedureFormSelectedRowEdit()),
+        WFTemplateIDForLessonLearn:dispatch(mainSlice.actions.setAfTemplateSelectedRowEdit())
       }));
     } else if (selectedRow) {
       //programTemplate
@@ -136,8 +159,21 @@ const ConfigurationAdd = () => {
         (item) => item.ID === selectedRow.EnityTypeIDForTaskCommnet
       );
       const commentTemplateSelected = foundItemComment ? foundItemComment : null;
-      
       dispatch(mainSlice.actions.setCommentFormSelectedRowEdit(commentTemplateSelected));
+
+      //procedure form
+      const foundItemProcedure = dataFormTemplate.find(
+        (item) => item.ID === selectedRow.EnityTypeIDForProcesure
+      );
+      const procedureTemplateSelected = foundItemProcedure ? foundItemProcedure : null;
+      dispatch(mainSlice.actions.setProcedureFormSelectedRowEdit(procedureTemplateSelected));
+
+      //af template
+      const foundItemAfTemplate = dataWfTemplate.find(
+        (item) => item.ID === selectedRow.WFTemplateIDForLessonLearn
+      );
+      const afTemplateSelected = foundItemAfTemplate ? foundItemAfTemplate : null;
+      dispatch(mainSlice.actions.setAfTemplateSelectedRowEdit(afTemplateSelected));
 
       setFormData((prevFormData) => ({
         ...prevFormData,
@@ -146,10 +182,12 @@ const ConfigurationAdd = () => {
         FirstIDProgramTemplate: programTemplateSelectedRowEdit,
         SelMenuIDForMain:defaultRibbonSelectedRowEdit,
         EnityTypeIDForLessonLearn:formTemplateSelectedRowEdit,
-        EnityTypeIDForTaskCommnet:commentFormSelectedRowEdit
+        EnityTypeIDForTaskCommnet:commentFormSelectedRowEdit,
+        EnityTypeIDForProcesure:procedureFormSelectedRowEdit,
+        WFTemplateIDForLessonLearn:afTemplateSelectedRowEdit
       }));
     }
-  }, [isAddClicked, selectedRow, subTabName, programTemplateSelectedRowEdit ,defaultRibbonSelectedRowEdit,formTemplateSelectedRowEdit,commentFormSelectedRowEdit]);
+  }, [isAddClicked, selectedRow, subTabName]);
 
   
 
@@ -167,22 +205,10 @@ const ConfigurationAdd = () => {
     (state) => state.dataProgramTemplate.dataProgramTemplate
   );
 
-  const dataWfTemplate = useSelector(
-    (state) => state.dataWfTemplate.dataWfTemplate
-  );
-
+  
   /////////////////////SELECTED ROW DATA///////////////////////////////////////////////////
 
   
-  const afTemplateSelectedRow = useSelector(
-    (state) => state.afTemplateSelectedRow.afTemplateSelectedRow
-  );
-
-  
-
-  const procedureFormSelectedRow = useSelector(
-    (state) => state.procedureFormSelectedRow.procedureFormSelectedRow
-  );
 
 
   /////////////////////////////Get main data//////////////////////////////////////////////////////////
@@ -232,11 +258,6 @@ const ConfigurationAdd = () => {
   const selectedNamesDefaultButtons = useSelector(
     (state) => state.selectedNameDefaultButton.selectedNameDefaultButton
   );
-
-  const nameSelected = useSelector(
-    (state) => state.selectedNames.selectedNames
-  );
-  // console.log("nameSelected", nameSelected);
 
   const selectedIdDefaultButton = useSelector(
     (state) => state.selectedIdDefaultButton.selectedIdDefaultButton
@@ -299,6 +320,10 @@ const ConfigurationAdd = () => {
       dispatch(mainSlice.actions.setFormTemplateSelectedRow())
       dispatch(mainSlice.actions.setCommentFormSelectedRowEdit())
       dispatch(mainSlice.actions.setCommentFormSelectedRow())
+      dispatch(mainSlice.actions.setProcedureFormSelectedRowEdit())
+      dispatch(mainSlice.actions.setProcedureFormSelectedRow())
+      dispatch(mainSlice.actions.setAfTemplateSelectedRowEdit())
+      dispatch(mainSlice.actions.setAfTemplateSelectedRow())
       setFormData((prevFormData) => ({
         ...prevFormData,
         Name: "",
@@ -416,7 +441,7 @@ const ConfigurationAdd = () => {
         <div className="col-1"></div>
         <div className="col-5">
           <DropdownComponentwithButton
-            value={defaultRibbonSelectedRow?defaultRibbonSelectedRow:defaultRibbonSelectedRowEdit}
+            value={defaultRibbonSelectedRow ? defaultRibbonSelectedRow : defaultRibbonSelectedRowEdit}
             options={dataRibbon}
             optionLabel="Name"
             label="Default Ribbon"
@@ -435,7 +460,7 @@ const ConfigurationAdd = () => {
       <div className="grid" style={{ marginLeft: "20px", marginTop: "5px" }}>
         <div className="col-5">
           <DropdownComponentwithButton
-            value={formTemplateSelectedRow?formTemplateSelectedRow:formTemplateSelectedRowEdit}
+            value={formTemplateSelectedRow ? formTemplateSelectedRow : formTemplateSelectedRowEdit}
             options={dataFormTemplate}
             optionLabel="Name"
             label="Lessons Learned Form Template"
@@ -452,13 +477,13 @@ const ConfigurationAdd = () => {
         <div className="col-1"></div>
         <div className="col-5">
           <DropdownComponentwithButton
-            value={afTemplateSelectedRow}
+            value={afTemplateSelectedRow ? afTemplateSelectedRow : afTemplateSelectedRowEdit}
             options={dataWfTemplate}
             optionLabel="Name"
             label="Lessons Learned Af Template"
             onChange={(e) => {
               const selectedValue = e.value ? e.value.ID : null;
-              handleChange("EnityTypeIDForLessonLearn", selectedValue);
+              handleChange("WFTemplateIDForLessonLearn", selectedValue);
               dispatch(mainSlice.actions.setAfTemplateSelectedRow(e.value));
             }}
             onButtonClick={funcDialogAfTemplate}
@@ -471,7 +496,7 @@ const ConfigurationAdd = () => {
       <div className="grid" style={{ marginLeft: "20px", marginTop: "5px" }}>
         <div className="col-5">
           <DropdownComponentwithButton
-            value={commentFormSelectedRow?commentFormSelectedRow:commentFormSelectedRowEdit}
+            value={commentFormSelectedRow ? commentFormSelectedRow : commentFormSelectedRowEdit}
             options={dataFormTemplate}
             optionLabel="Name"
             label="Comment Form Template"
@@ -488,7 +513,7 @@ const ConfigurationAdd = () => {
         <div className="col-1"></div>
         <div className="col-5">
           <DropdownComponentwithButton
-            value={procedureFormSelectedRow}
+            value={procedureFormSelectedRow ?procedureFormSelectedRow : procedureFormSelectedRowEdit}
             options={dataFormTemplate}
             optionLabel="Name"
             label="procedure Form Template"

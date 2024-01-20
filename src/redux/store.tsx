@@ -32,9 +32,11 @@ export const store = configureStore({
     formTemplateSelectedRowEdit:mainSlice.reducer,
     selectedRowData: mainSlice.reducer,
     afTemplateSelectedRow: mainSlice.reducer,
+    afTemplateSelectedRowEdit:mainSlice.reducer,
     commentFormSelectedRow: mainSlice.reducer,
     commentFormSelectedRowEdit: mainSlice.reducer,
     procedureFormSelectedRow: mainSlice.reducer,
+    procedureFormSelectedRowEdit: mainSlice.reducer,
     showDialogProgramTemplate: mainSlice.reducer,
     showDialogDefaultRibbon: mainSlice.reducer,
     showDialogFormTemplate: mainSlice.reducer,
@@ -125,6 +127,9 @@ export type RootState = {
   afTemplateSelectedRow: {
     afTemplateSelectedRow: string;
   };
+  afTemplateSelectedRowEdit:{
+    afTemplateSelectedRowEdit:string;
+  }
   commentFormSelectedRow: {
     commentFormSelectedRow: string;
   };
@@ -134,6 +139,9 @@ export type RootState = {
   procedureFormSelectedRow: {
     procedureFormSelectedRow: string;
   };
+  procedureFormSelectedRowEdit:{
+    procedureFormSelectedRowEdit:string;
+  }
   showDialogProgramTemplate: {
     showDialogProgramTemplate: Boolean;
   };

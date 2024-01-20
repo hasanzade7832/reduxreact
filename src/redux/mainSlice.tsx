@@ -25,9 +25,11 @@ interface MainState {
   formTemplateSelectedRow: string;
   formTemplateSelectedRowEdit:string;
   afTemplateSelectedRow: string;
+  afTemplateSelectedRowEdit: string;
   commentFormSelectedRow: string;
   commentFormSelectedRowEdit: string;
   procedureFormSelectedRow: string;
+  procedureFormSelectedRowEdit: string;
   showDialogProgramTemplate: Boolean;
   showDialogDefaultRibbon: Boolean;
   showDialogFormTemplate: Boolean;
@@ -62,9 +64,11 @@ const initialState: MainState = {
   formTemplateSelectedRow: "",
   formTemplateSelectedRowEdit: "",
   afTemplateSelectedRow: "",
+  afTemplateSelectedRowEdit:"",
   commentFormSelectedRow: "",
   commentFormSelectedRowEdit:"",
   procedureFormSelectedRow: "",
+  procedureFormSelectedRowEdit:"",
   showDialogProgramTemplate: false,
   showDialogDefaultRibbon: false,
   showDialogFormTemplate: false,
@@ -172,6 +176,9 @@ export const mainSlice = createSlice({
     setAfTemplateSelectedRow: (state, action: PayloadAction<string>) => {
       state.afTemplateSelectedRow = action.payload;
     },
+    setAfTemplateSelectedRowEdit: (state, action: PayloadAction<string>) => {
+      state.afTemplateSelectedRowEdit = action.payload;
+    },
     setCommentFormSelectedRow: (state, action: PayloadAction<string>) => {
       state.commentFormSelectedRow = action.payload;
     },
@@ -180,6 +187,9 @@ export const mainSlice = createSlice({
     },
     setProcedureFormSelectedRow: (state, action: PayloadAction<string>) => {
       state.procedureFormSelectedRow = action.payload;
+    },
+    setProcedureFormSelectedRowEdit: (state, action: PayloadAction<string>) => {
+      state.procedureFormSelectedRowEdit = action.payload;
     },
     setshowDialogProgramTemplate: (state, action: PayloadAction<Boolean>) => {
       state.showDialogProgramTemplate = action.payload;
