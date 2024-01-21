@@ -18,6 +18,8 @@ const CustomComponent = ({
   const [updatedNames, setUpdatedNames] = useState([]);
   const [updatedId, setUpdatedId] = useState([]);
 
+  console.log("selectedNames",selectedNames);
+
   useEffect(() => {
     setUpdatedNames(selectedNames);
     setUpdatedId(selectedId);
@@ -32,16 +34,17 @@ const CustomComponent = ({
   );
 
   let selectedNameDefaultButtonEdit = useSelector((state) => state.selectedNameDefaultButtonEdit.selectedNameDefaultButtonEdit);
+  console.log("selectedNameDefaultButtonEdit",selectedNameDefaultButtonEdit);
   
   const handleDoubleClick = (index) => {
-    const updatedNamesCopy = [...dataDefaultButton];
-    const updatedIdsCopy = [...IdsDefaultButton];
-    updatedNamesCopy.splice(index, 1);
-    updatedIdsCopy.splice(index, 1);
-    setUpdatedNames(updatedNamesCopy);
-    setUpdatedId(updatedIdsCopy);
-    dispatch(mainSlice.actions.setSelectedNameDefaultButton(updatedNamesCopy));
-    dispatch(mainSlice.actions.setelectedIdDefaultButton(updatedIdsCopy));
+    // const updatedNamesCopy = [...dataDefaultButton];
+    // const updatedIdsCopy = [...IdsDefaultButton];
+    // updatedNamesCopy.splice(index, 1);
+    // updatedIdsCopy.splice(index, 1);
+    // setUpdatedNames(updatedNamesCopy);
+    // setUpdatedId(updatedIdsCopy);
+    // dispatch(mainSlice.actions.setSelectedNameDefaultButton(updatedNamesCopy));
+    // dispatch(mainSlice.actions.setelectedIdDefaultButton(updatedIdsCopy));
   };
 
   return (
@@ -83,7 +86,7 @@ const CustomComponent = ({
         />
         <div>
           {Array.isArray(updatedNames) && updatedNames.length ? (
-            updatedNames?.map((name, index) => (
+            updatedNames.map((name, index) => (
               <div
                 onDoubleClick={() => handleDoubleClick(index)}
                 style={{ padding: "2px", margin: "5px", cursor: "pointer" }}
@@ -93,7 +96,7 @@ const CustomComponent = ({
               </div>
             ))
           ) : (
-            selectedNameDefaultButtonEdit?.map((name, index) => (
+            selectedNameDefaultButtonEdit.map((name, index) => (
               <div
                 onDoubleClick={() => handleDoubleClick(index)}
                 style={{ padding: "2px", margin: "5px", cursor: "pointer" }}
