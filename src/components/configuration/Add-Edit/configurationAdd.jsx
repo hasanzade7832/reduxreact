@@ -190,7 +190,6 @@ const ConfigurationAdd = () => {
       const resultArray = selectedArray.split("|");
       resultArray.pop();
 
-      
       const matchingNames = [];
       
       resultArray.forEach(resultId => {
@@ -323,8 +322,6 @@ const ConfigurationAdd = () => {
   useEffect(() => {
   }, [selectedId]);
 
-  let selectedNameDefaultButtonEdit = useSelector((state) => state.selectedNameDefaultButtonEdit.selectedNameDefaultButtonEdit);
-
  
   const addConfiguration = () => {
     const defaultBtnValues = selectedId.join("|");
@@ -359,7 +356,7 @@ const ConfigurationAdd = () => {
         dispatch(mainSlice.actions.setProcedureFormSelectedRow())
         dispatch(mainSlice.actions.setAfTemplateSelectedRowEdit())
         dispatch(mainSlice.actions.setAfTemplateSelectedRow())
-        dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit())
+        dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit([]))
         dispatch(mainSlice.actions.setSelectedNameDefaultButton())
         setFormData((prevFormData) => ({
           ...prevFormData,
