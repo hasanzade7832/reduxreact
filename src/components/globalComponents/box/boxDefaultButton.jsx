@@ -37,14 +37,14 @@ const CustomComponent = ({
   console.log("selectedNameDefaultButtonEdit",selectedNameDefaultButtonEdit);
   
   const handleDoubleClick = (index) => {
-    // const updatedNamesCopy = [...dataDefaultButton];
-    // const updatedIdsCopy = [...IdsDefaultButton];
-    // updatedNamesCopy.splice(index, 1);
-    // updatedIdsCopy.splice(index, 1);
-    // setUpdatedNames(updatedNamesCopy);
-    // setUpdatedId(updatedIdsCopy);
-    // dispatch(mainSlice.actions.setSelectedNameDefaultButton(updatedNamesCopy));
-    // dispatch(mainSlice.actions.setelectedIdDefaultButton(updatedIdsCopy));
+    const updatedNamesCopy = [...dataDefaultButton];
+    const updatedIdsCopy = [...IdsDefaultButton];
+    updatedNamesCopy.splice(index, 1);
+    updatedIdsCopy.splice(index, 1);
+    setUpdatedNames(updatedNamesCopy);
+    setUpdatedId(updatedIdsCopy);
+    dispatch(mainSlice.actions.setSelectedNameDefaultButton(updatedNamesCopy));
+    dispatch(mainSlice.actions.setelectedIdDefaultButton(updatedIdsCopy));
   };
 
   return (
