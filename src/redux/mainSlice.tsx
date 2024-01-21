@@ -12,6 +12,7 @@ interface MainState {
   isVisibleBox: Boolean;
   selectedBoxName: string;
   selectedNameDefaultButton: string[];
+  selectedNameDefaultButtonEdit:string[];
   selectedNameLetterButton: string[];
   selectedNameMeetingButton: string[];
   selectedIdDefaultButton: string[];
@@ -51,6 +52,7 @@ const initialState: MainState = {
   isVisibleBox: true,
   selectedBoxName: "",
   selectedNameDefaultButton: [],
+  selectedNameDefaultButtonEdit: [],
   selectedNameLetterButton: [],
   selectedNameMeetingButton: [],
   selectedIdDefaultButton: [],
@@ -118,6 +120,13 @@ export const mainSlice = createSlice({
       action: PayloadAction<Array<string>>
     ) => {
       state.selectedNameDefaultButton = action.payload;
+    },
+    setSelectedNameDefaultButtonEdit: (
+      state,
+      action: PayloadAction<Array<string>>
+    ) => {
+      state.selectedNameDefaultButtonEdit = action.payload;
+      console.log("action",action.payload)
     },
     setselectedNameLetterButton: (
       state,

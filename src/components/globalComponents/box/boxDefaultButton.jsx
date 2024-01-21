@@ -31,6 +31,8 @@ const CustomComponent = ({
     (state) => state.selectedIdDefaultButton.selectedIdDefaultButton
   );
 
+  let selectedNameDefaultButtonEdit = useSelector((state) => state.selectedNameDefaultButtonEdit.selectedNameDefaultButtonEdit);
+  
   const handleDoubleClick = (index) => {
     const updatedNamesCopy = [...dataDefaultButton];
     const updatedIdsCopy = [...IdsDefaultButton];
@@ -91,7 +93,15 @@ const CustomComponent = ({
               </div>
             ))
           ) : (
-            <span> </span>
+            selectedNameDefaultButtonEdit.map((name, index) => (
+              <div
+                onDoubleClick={() => handleDoubleClick(index)}
+                style={{ padding: "2px", margin: "5px", cursor: "pointer" }}
+                key={index}
+              >
+                {name}
+              </div>
+            ))
           )}
         </div>
       </div>

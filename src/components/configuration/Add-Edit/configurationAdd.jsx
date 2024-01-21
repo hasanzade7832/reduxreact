@@ -15,6 +15,7 @@ import {
   fetchAllRibbon,
   fetchWfTemplate,
   fetchEntityType,
+  fetchAfBtn
 } from "../../../redux/configuration/configurationSlice";
 import { fetchProgramTemplate } from "../../../redux/programtemplate/programtemplateSlice";
 import { mainSlice } from "../../../redux/mainSlice";
@@ -49,6 +50,10 @@ const ConfigurationAdd = () => {
   const selectedRow = useSelector(
     (state) => state.selectedRowData.selectedRowData
   );
+
+  console.log("rrrrrrrrr", selectedRow);
+
+
   let subTabName = useSelector((state) => state.subTabName.selectedSubTab);
 
   const dataPrugTemplate = useSelector(
@@ -116,7 +121,11 @@ const ConfigurationAdd = () => {
     (state) => state.afTemplateSelectedRowEdit.afTemplateSelectedRowEdit
   );
 
-  console.log("afTemplateSelectedRowEdit",afTemplateSelectedRowEdit);
+  console.log("afTemplateSelectedRowEdit", afTemplateSelectedRowEdit);
+
+  const dataAfBtn = useSelector((state) => state.dataAfBtn.dataAfBtn);
+
+
 
   useEffect(() => {
     if (isAddClicked) {
@@ -124,14 +133,16 @@ const ConfigurationAdd = () => {
         ...prevFormData,
         Name: "",
         Description: "",
-        FirstIDProgramTemplate:dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit()),
-        SelMenuIDForMain:dispatch(mainSlice.actions.setDefaultRibbonSelectedRowEdit()),
-        EnityTypeIDForLessonLearn:dispatch(mainSlice.actions.setFormTemplateSelectedRowEdit()),
-        EnityTypeIDForTaskCommnet:dispatch(mainSlice.actions.setCommentFormSelectedRowEdit()),
-        EnityTypeIDForProcesure:dispatch(mainSlice.actions.setProcedureFormSelectedRowEdit()),
-        WFTemplateIDForLessonLearn:dispatch(mainSlice.actions.setAfTemplateSelectedRowEdit())
+        FirstIDProgramTemplate: dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit()),
+        SelMenuIDForMain: dispatch(mainSlice.actions.setDefaultRibbonSelectedRowEdit()),
+        EnityTypeIDForLessonLearn: dispatch(mainSlice.actions.setFormTemplateSelectedRowEdit()),
+        EnityTypeIDForTaskCommnet: dispatch(mainSlice.actions.setCommentFormSelectedRowEdit()),
+        EnityTypeIDForProcesure: dispatch(mainSlice.actions.setProcedureFormSelectedRowEdit()),
+        WFTemplateIDForLessonLearn: dispatch(mainSlice.actions.setAfTemplateSelectedRowEdit()),
+        DefaultBtn:dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit([]))
       }));
     } else if (selectedRow) {
+
       //programTemplate
       const foundItemProgram = dataPrugTemplate.find(
         (item) => item.ID === selectedRow.FirstIDProgramTemplate
@@ -168,28 +179,48 @@ const ConfigurationAdd = () => {
       dispatch(mainSlice.actions.setProcedureFormSelectedRowEdit(procedureTemplateSelected));
 
       //af template
-      
       const foundItemAfTemplate = dataWfTemplate.find(
         (item) => item.ID === selectedRow.WFTemplateIDForLessonLearn
       );
       const afTemplateSelected = foundItemAfTemplate ? foundItemAfTemplate : null;
       dispatch(mainSlice.actions.setAfTemplateSelectedRowEdit(afTemplateSelected));
 
+      //defaultButton
+      const selectedArray = selectedRow.DefaultBtn
+      const resultArray = selectedArray.split("|");
+      resultArray.pop();
+
+      
+      const matchingNames = [];
+      
+      resultArray.forEach(resultId => {
+        dispatch(fetchAfBtn())
+        const matchingBtn = dataAfBtn.find(btn => btn.ID.toString() === resultId);
+        if (matchingBtn) {
+          matchingNames.push(matchingBtn.Name);
+        }
+      });
+      
+      console.log('Matching Names:', matchingNames);
+      
+      dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit(matchingNames));
+
+
       setFormData((prevFormData) => ({
         ...prevFormData,
         Name: selectedRow.Name,
         Description: selectedRow.Description,
         FirstIDProgramTemplate: programTemplateSelectedRowEdit,
-        SelMenuIDForMain:defaultRibbonSelectedRowEdit,
-        EnityTypeIDForLessonLearn:formTemplateSelectedRowEdit,
-        EnityTypeIDForTaskCommnet:commentFormSelectedRowEdit,
-        EnityTypeIDForProcesure:procedureFormSelectedRowEdit,
-        WFTemplateIDForLessonLearn:afTemplateSelectedRowEdit
+        SelMenuIDForMain: defaultRibbonSelectedRowEdit,
+        EnityTypeIDForLessonLearn: formTemplateSelectedRowEdit,
+        EnityTypeIDForTaskCommnet: commentFormSelectedRowEdit,
+        EnityTypeIDForProcesure: procedureFormSelectedRowEdit,
+        WFTemplateIDForLessonLearn: afTemplateSelectedRowEdit
       }));
     }
-  }, [isAddClicked, selectedRow, subTabName,dataPrugTemplate,dataRibbon,dataFormTemplate,dataWfTemplate]);
+  }, [isAddClicked, selectedRow, subTabName, dataPrugTemplate, dataRibbon, dataFormTemplate, dataWfTemplate,fetchAfBtn]);
 
-  
+
 
   ////////////////////handle change datas//////////////////////////////////////////////
 
@@ -205,10 +236,10 @@ const ConfigurationAdd = () => {
     (state) => state.dataProgramTemplate.dataProgramTemplate
   );
 
-  
+
   /////////////////////SELECTED ROW DATA///////////////////////////////////////////////////
 
-  
+
 
 
   /////////////////////////////Get main data//////////////////////////////////////////////////////////
@@ -250,7 +281,7 @@ const ConfigurationAdd = () => {
     dispatch(mainSlice.actions.setShowDialogProcedureForm(false));
   };
 
-  
+
   ///////////////////////BOX DATAS/////////////////////////////////////////////////////
 
   const isVisibleBox = useSelector((state) => state.isVisibleBox.isVisibleBox);
@@ -292,6 +323,9 @@ const ConfigurationAdd = () => {
   useEffect(() => {
   }, [selectedId]);
 
+  let selectedNameDefaultButtonEdit = useSelector((state) => state.selectedNameDefaultButtonEdit.selectedNameDefaultButtonEdit);
+
+ 
   const addConfiguration = () => {
     const defaultBtnValues = selectedId.join("|");
     const letterBtnValues = selectedIdLetterButtons.join("|");
@@ -306,32 +340,35 @@ const ConfigurationAdd = () => {
     formData.WFTemplateIDForLessonLearn = afTemplateSelectedRow.ID;
     formData.EnityTypeIDForTaskCommnet = commentFormSelectedRow.ID;
     formData.EnityTypeIDForProcesure = procedureFormSelectedRow.ID;
-    
+
+
 
     projectServices
-    .insertSetting(formData)
-    .then((res) => {
-      dispatch(fetchConfiguration());
-      dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit())
-      dispatch(mainSlice.actions.setprogramTemplateSelectedRow())
-      dispatch(mainSlice.actions.setDefaultRibbonSelectedRowEdit())
-      dispatch(mainSlice.actions.setDefaultRibbonSelectedRow())
-      dispatch(mainSlice.actions.setFormTemplateSelectedRowEdit())
-      dispatch(mainSlice.actions.setFormTemplateSelectedRow())
-      dispatch(mainSlice.actions.setCommentFormSelectedRowEdit())
-      dispatch(mainSlice.actions.setCommentFormSelectedRow())
-      dispatch(mainSlice.actions.setProcedureFormSelectedRowEdit())
-      dispatch(mainSlice.actions.setProcedureFormSelectedRow())
-      dispatch(mainSlice.actions.setAfTemplateSelectedRowEdit())
-      dispatch(mainSlice.actions.setAfTemplateSelectedRow())
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        Name: "",
-        Description:"",
-      }));
-    })
-    .catch(() => {});
-};
+      .insertSetting(formData)
+      .then((res) => {
+        dispatch(fetchConfiguration());
+        dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit())
+        dispatch(mainSlice.actions.setprogramTemplateSelectedRow())
+        dispatch(mainSlice.actions.setDefaultRibbonSelectedRowEdit())
+        dispatch(mainSlice.actions.setDefaultRibbonSelectedRow())
+        dispatch(mainSlice.actions.setFormTemplateSelectedRowEdit())
+        dispatch(mainSlice.actions.setFormTemplateSelectedRow())
+        dispatch(mainSlice.actions.setCommentFormSelectedRowEdit())
+        dispatch(mainSlice.actions.setCommentFormSelectedRow())
+        dispatch(mainSlice.actions.setProcedureFormSelectedRowEdit())
+        dispatch(mainSlice.actions.setProcedureFormSelectedRow())
+        dispatch(mainSlice.actions.setAfTemplateSelectedRowEdit())
+        dispatch(mainSlice.actions.setAfTemplateSelectedRow())
+        dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit())
+        dispatch(mainSlice.actions.setSelectedNameDefaultButton())
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          Name: "",
+          Description: "",
+        }));
+      })
+      .catch(() => { });
+  };
 
   //////////////////////Dialog Data/////////////////////////////////////////////
 
@@ -513,7 +550,7 @@ const ConfigurationAdd = () => {
         <div className="col-1"></div>
         <div className="col-5">
           <DropdownComponentwithButton
-            value={procedureFormSelectedRow ?procedureFormSelectedRow : procedureFormSelectedRowEdit}
+            value={procedureFormSelectedRow ? procedureFormSelectedRow : procedureFormSelectedRowEdit}
             options={dataFormTemplate}
             optionLabel="Name"
             label="procedure Form Template"

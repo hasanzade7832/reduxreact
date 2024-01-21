@@ -18,6 +18,7 @@ export const store = configureStore({
     isVisibleBox: mainSlice.reducer,
     selectedBoxName: mainSlice.reducer,
     selectedNameDefaultButton: mainSlice.reducer,
+    selectedNameDefaultButtonEdit: mainSlice.reducer,
     selectedNameLetterButton: mainSlice.reducer,
     selectedNameMeetingButton: mainSlice.reducer,
     selectedIdDefaultButton: mainSlice.reducer,
@@ -58,6 +59,9 @@ export const store = configureStore({
 });
 
 export type RootState = {
+  dataAfBtn:{
+    dataAfBtn:string;
+  };
   subTabName: {
     selectedSubTab: string;
   };
@@ -96,6 +100,9 @@ export type RootState = {
   };
   selectedNameDefaultButton: {
     selectedNameDefaultButton: string[];
+  };
+  selectedNameDefaultButtonEdit:{
+    selectedNameDefaultButtonEdit:string[];
   };
   selectedNameLetterButton: {
     selectedNameLetterButton: string[];
