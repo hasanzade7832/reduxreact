@@ -83,7 +83,7 @@ const CustomComponent = ({
         />
         <div>
           {Array.isArray(updatedNames) && updatedNames.length ? (
-            updatedNames.map((name, index) => (
+            updatedNames?.map((name, index) => (
               <div
                 onDoubleClick={() => handleDoubleClick(index)}
                 style={{ padding: "2px", margin: "5px", cursor: "pointer" }}
@@ -93,7 +93,7 @@ const CustomComponent = ({
               </div>
             ))
           ) : (
-            selectedNameDefaultButtonEdit.map((name, index) => (
+            selectedNameDefaultButtonEdit?.map((name, index) => (
               <div
                 onDoubleClick={() => handleDoubleClick(index)}
                 style={{ padding: "2px", margin: "5px", cursor: "pointer" }}

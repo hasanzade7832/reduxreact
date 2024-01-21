@@ -139,7 +139,7 @@ const ConfigurationAdd = () => {
         EnityTypeIDForTaskCommnet: dispatch(mainSlice.actions.setCommentFormSelectedRowEdit()),
         EnityTypeIDForProcesure: dispatch(mainSlice.actions.setProcedureFormSelectedRowEdit()),
         WFTemplateIDForLessonLearn: dispatch(mainSlice.actions.setAfTemplateSelectedRowEdit()),
-        DefaultBtn:dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit([]))
+        // DefaultBtn:dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit([]))
       }));
     } else if (selectedRow) {
 
@@ -193,11 +193,11 @@ const ConfigurationAdd = () => {
       const matchingNames = [];
       
       resultArray.forEach(resultId => {
-        dispatch(fetchAfBtn())
         const matchingBtn = dataAfBtn.find(btn => btn.ID.toString() === resultId);
         if (matchingBtn) {
           matchingNames.push(matchingBtn.Name);
         }
+        dispatch(fetchAfBtn())
       });
       
       console.log('Matching Names:', matchingNames);
@@ -356,8 +356,8 @@ const ConfigurationAdd = () => {
         dispatch(mainSlice.actions.setProcedureFormSelectedRow())
         dispatch(mainSlice.actions.setAfTemplateSelectedRowEdit())
         dispatch(mainSlice.actions.setAfTemplateSelectedRow())
-        dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit([]))
-        dispatch(mainSlice.actions.setSelectedNameDefaultButton())
+        // dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit([]))
+        // dispatch(mainSlice.actions.setSelectedNameDefaultButton())
         setFormData((prevFormData) => ({
           ...prevFormData,
           Name: "",
