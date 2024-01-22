@@ -16,7 +16,9 @@ const CustomComponent = ({
   const dispatch = useDispatch();
 
   const [updatedNames, setUpdatedNames] = useState([]);
+  const [updatedNamesEdit, setUpdatedNamesEdit] = useState([]);
   const [updatedId, setUpdatedId] = useState([]);
+  const [updatedIdEdit, setUpdatedIdEdit] = useState([]);
 
   console.log("selectedNames",selectedNames);
 
@@ -34,8 +36,9 @@ const CustomComponent = ({
   );
 
   let selectedNameDefaultButtonEdit = useSelector((state) => state.selectedNameDefaultButtonEdit.selectedNameDefaultButtonEdit);
-  console.log("selectedNameDefaultButtonEdit",selectedNameDefaultButtonEdit);
-  
+
+  const IdsADefaultButtonEdit = useSelector((state)=>state.selectedIdDefaultButtonEdit.selectedIdDefaultButtonEdit);
+
   const handleDoubleClick = (index) => {
     const updatedNamesCopy = [...dataDefaultButton];
     const updatedIdsCopy = [...IdsDefaultButton];
@@ -46,6 +49,17 @@ const CustomComponent = ({
     dispatch(mainSlice.actions.setSelectedNameDefaultButton(updatedNamesCopy));
     dispatch(mainSlice.actions.setelectedIdDefaultButton(updatedIdsCopy));
   };
+
+  const handleDoubleClickEdit = (index) => {
+    const updatedNamesEditCopy = [...selectedNameDefaultButtonEdit];
+    const updatedIdsEditCopy = [...IdsADefaultButtonEdit];
+    updatedNamesEditCopy.splice(index,1);
+    updatedIdsEditCopy.splice(index,1);
+    setUpdatedNamesEdit(updatedNamesEditCopy);
+    setUpdatedIdEdit(updatedIdsEditCopy);
+    dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit(updatedNamesEditCopy));
+    dispatch(mainSlice.actions.setelectedIdDefaultButtonEdit(updatedIdsEditCopy));
+  }
 
   return (
     <>
@@ -98,9 +112,9 @@ const CustomComponent = ({
           ) : (
             selectedNameDefaultButtonEdit.map((name, index) => (
               <div
-                // onDoubleClick={() => handleDoubleClick(index)}
-                // style={{ padding: "2px", margin: "5px", cursor: "pointer" }}
-                // key={index}
+                onDoubleClick={() => handleDoubleClickEdit(index)}
+                style={{ padding: "2px", margin: "5px", cursor: "pointer" }}
+                key={index}
               >
                 {name}
               </div>

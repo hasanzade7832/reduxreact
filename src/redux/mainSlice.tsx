@@ -16,6 +16,7 @@ interface MainState {
   selectedNameLetterButton: string[];
   selectedNameMeetingButton: string[];
   selectedIdDefaultButton: string[];
+  selectedIdDefaultButtonEdit:string[];
   selectedIdLetterButton: string[];
   selectedIdMeetingButton: string[];
   nameofDialogTable: string;
@@ -56,6 +57,7 @@ const initialState: MainState = {
   selectedNameLetterButton: [],
   selectedNameMeetingButton: [],
   selectedIdDefaultButton: [],
+  selectedIdDefaultButtonEdit: [],
   selectedIdLetterButton: [],
   selectedIdMeetingButton: [],
   nameofDialogTable: "",
@@ -145,6 +147,12 @@ export const mainSlice = createSlice({
       action: PayloadAction<Array<string>>
     ) => {
       state.selectedIdDefaultButton = action.payload;
+    },
+    setelectedIdDefaultButtonEdit: (
+      state,
+      action: PayloadAction<Array<string>>
+    ) => {
+      state.selectedIdDefaultButtonEdit = action.payload;
     },
     setSelectedIdLetterButton: (
       state,

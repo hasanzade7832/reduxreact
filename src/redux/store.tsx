@@ -22,6 +22,7 @@ export const store = configureStore({
     selectedNameLetterButton: mainSlice.reducer,
     selectedNameMeetingButton: mainSlice.reducer,
     selectedIdDefaultButton: mainSlice.reducer,
+    selectedIdDefaultButtonEdit: mainSlice.reducer,
     selectedIdLetterButton: mainSlice.reducer,
     selectedIdMeetingButton: mainSlice.reducer,
     nameofDialogTable: mainSlice.reducer,
@@ -112,6 +113,9 @@ export type RootState = {
   };
   selectedIdDefaultButton: {
     selectedIdDefaultButton: string[];
+  };
+  selectedIdDefaultButtonEdit:{
+    selectedIdDefaultButtonEdit:string[];
   };
   selectedIdLetterButton: {
     selectedIdLetterButton: string[];
