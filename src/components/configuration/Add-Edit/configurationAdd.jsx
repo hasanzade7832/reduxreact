@@ -125,6 +125,8 @@ const ConfigurationAdd = () => {
 
   const dataAfBtn = useSelector((state) => state.dataAfBtn.dataAfBtn);
 
+  const defaultButtonEdit = useSelector((state)=>state.selectedNameDefaultButtonEdit.selectedNameDefaultButtonEdit);
+
 
 
   useEffect(() => {
@@ -138,11 +140,10 @@ const ConfigurationAdd = () => {
         EnityTypeIDForLessonLearn: dispatch(mainSlice.actions.setFormTemplateSelectedRowEdit()),
         EnityTypeIDForTaskCommnet: dispatch(mainSlice.actions.setCommentFormSelectedRowEdit()),
         EnityTypeIDForProcesure: dispatch(mainSlice.actions.setProcedureFormSelectedRowEdit()),
-        WFTemplateIDForLessonLearn: dispatch(mainSlice.actions.setAfTemplateSelectedRowEdit()),
+        WFTemplateIDForLessonLearn: dispatch(mainSlice.actions.setAfTemplateSelectedRowEdit([])),
         DefaultBtn:dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit([]))
       }));
     } else if (selectedRow) {
-
       //programTemplate
       const foundItemProgram = dataPrugTemplate.find(
         (item) => item.ID === selectedRow.FirstIDProgramTemplate
@@ -188,7 +189,6 @@ const ConfigurationAdd = () => {
       //defaultButton
       const selectedArray = selectedRow.DefaultBtn
       const resultArray = selectedArray.split("|");
-      resultArray.pop();
 
       const matchingNames = [];
       
@@ -197,14 +197,12 @@ const ConfigurationAdd = () => {
         if (matchingBtn) {
           matchingNames.push(matchingBtn.Name);
         }
-        dispatch(fetchAfBtn())
       });
+      dispatch(fetchAfBtn())
+      dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit(matchingNames));
       
       console.log('Matching Names:', matchingNames);
       
-      dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit(matchingNames));
-
-
       setFormData((prevFormData) => ({
         ...prevFormData,
         Name: selectedRow.Name,
@@ -219,8 +217,6 @@ const ConfigurationAdd = () => {
     }
   }, [isAddClicked, selectedRow, subTabName, dataPrugTemplate, dataRibbon, dataFormTemplate, dataWfTemplate,fetchAfBtn]);
 
-
-
   ////////////////////handle change datas//////////////////////////////////////////////
 
   const handleChange = (fieldName, value) => {
@@ -234,12 +230,6 @@ const ConfigurationAdd = () => {
   const dataProgram = useSelector(
     (state) => state.dataProgramTemplate.dataProgramTemplate
   );
-
-
-  /////////////////////SELECTED ROW DATA///////////////////////////////////////////////////
-
-
-
 
   /////////////////////////////Get main data//////////////////////////////////////////////////////////
 
@@ -279,7 +269,6 @@ const ConfigurationAdd = () => {
     dispatch(mainSlice.actions.setShowDialogCommentForm(false));
     dispatch(mainSlice.actions.setShowDialogProcedureForm(false));
   };
-
 
   ///////////////////////BOX DATAS/////////////////////////////////////////////////////
 
@@ -321,29 +310,28 @@ const ConfigurationAdd = () => {
 
   useEffect(() => {
   }, [selectedId]);
-
  
   const addConfiguration = () => {
-    const defaultBtnValues = selectedId.join("|");
-    const letterBtnValues = selectedIdLetterButtons.join("|");
-    const meetingBtnValues = selectedIdMeetingsButton.join("|");
+
+    const defaultBtnValues = selectedId?.join("|");
+    const letterBtnValues = selectedIdLetterButtons?.join("|");
+    const meetingBtnValues = selectedIdMeetingsButton?.join("|");
 
     formData.DefaultBtn = defaultBtnValues;
     formData.LetterBtns = letterBtnValues;
     formData.MeetingBtns = meetingBtnValues;
-    formData.FirstIDProgramTemplate = programTemplateSelectedRow.ID;
-    formData.SelMenuIDForMain = defaultRibbonSelectedRow.ID;
-    formData.EnityTypeIDForLessonLearn = formTemplateSelectedRow.ID;
-    formData.WFTemplateIDForLessonLearn = afTemplateSelectedRow.ID;
-    formData.EnityTypeIDForTaskCommnet = commentFormSelectedRow.ID;
-    formData.EnityTypeIDForProcesure = procedureFormSelectedRow.ID;
-
-
+    formData.FirstIDProgramTemplate = programTemplateSelectedRow?.ID;
+    formData.SelMenuIDForMain = defaultRibbonSelectedRow?.ID;
+    formData.EnityTypeIDForLessonLearn = formTemplateSelectedRow?.ID;
+    formData.WFTemplateIDForLessonLearn = afTemplateSelectedRow?.ID;
+    formData.EnityTypeIDForTaskCommnet = commentFormSelectedRow?.ID;
+    formData.EnityTypeIDForProcesure = procedureFormSelectedRow?.ID;
 
     projectServices
       .insertSetting(formData)
       .then((res) => {
         dispatch(fetchConfiguration());
+        dispatch(mainSlice.actions.setelectedIdDefaultButton([]))
         dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit())
         dispatch(mainSlice.actions.setprogramTemplateSelectedRow())
         dispatch(mainSlice.actions.setDefaultRibbonSelectedRowEdit())
@@ -357,11 +345,13 @@ const ConfigurationAdd = () => {
         dispatch(mainSlice.actions.setAfTemplateSelectedRowEdit())
         dispatch(mainSlice.actions.setAfTemplateSelectedRow())
         dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit([]))
-        dispatch(mainSlice.actions.setSelectedNameDefaultButton())
+        dispatch(mainSlice.actions.setSelectedNameDefaultButton([]))
+        console.log("defaultButtonEdit",defaultButtonEdit)
         setFormData((prevFormData) => ({
           ...prevFormData,
           Name: "",
           Description: "",
+          DefaultBtn:""
         }));
       })
       .catch(() => { });

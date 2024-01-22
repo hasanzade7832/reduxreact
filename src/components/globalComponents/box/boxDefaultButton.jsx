@@ -98,9 +98,9 @@ const CustomComponent = ({
           ) : (
             selectedNameDefaultButtonEdit.map((name, index) => (
               <div
-                onDoubleClick={() => handleDoubleClick(index)}
-                style={{ padding: "2px", margin: "5px", cursor: "pointer" }}
-                key={index}
+                // onDoubleClick={() => handleDoubleClick(index)}
+                // style={{ padding: "2px", margin: "5px", cursor: "pointer" }}
+                // key={index}
               >
                 {name}
               </div>

@@ -38,6 +38,9 @@ const TableDynamic = () => {
   const dataDefaultButton = useSelector(
     (state) => state.selectedNameDefaultButton.selectedNameDefaultButton
   );
+
+  console.log("dataDefaultButton",dataDefaultButton);
+  
   const dataLetterButton = useSelector(
     (state) => state.selectedNameLetterButton.selectedNameLetterButton
   );
