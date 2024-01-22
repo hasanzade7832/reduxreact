@@ -19,12 +19,20 @@ class projectService {
   async getAllCompany() {
     return await httpClient.post(ApiConst.getAllCompany);
   }
+
+  //setting
   async getAllSetting() {
     return await httpClient.post(ApiConst.getAllSetting);
   }
   async insertSetting(data) {
     return await httpClient.post(ApiConst.insertSetting, data);
   }
+  async updateSetting(data) {
+    return await httpClient.post(ApiConst.updateSetting, data);
+  }
+
+
+
   async getAllMenu() {
     return await httpClient.post(ApiConst.getAllMenu);
   }

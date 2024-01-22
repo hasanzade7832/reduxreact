@@ -40,10 +40,10 @@ function MainComponent() {
 
   const isAddClicked = useSelector((state) => state.isAddClicked.isAddClicked);
 
-  //console.log("handleAddComponent", handleAddComponent);
-  //console.log("isAddClicked", isAddClicked);
-  //console.log("subTabName", subTabName);
-  //console.log("prevSubTabName", prevSubTabName);
+  ////console.log("handleAddComponent", handleAddComponent);
+  ////console.log("isAddClicked", isAddClicked);
+  ////console.log("subTabName", subTabName);
+  ////console.log("prevSubTabName", prevSubTabName);
 
   useEffect(() => {
     // وقتی subTabName تغییر کرد، اقدام انجام شود

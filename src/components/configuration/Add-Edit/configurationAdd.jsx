@@ -20,10 +20,13 @@ import {
 import { fetchProgramTemplate } from "../../../redux/programtemplate/programtemplateSlice";
 import { mainSlice } from "../../../redux/mainSlice";
 import AddBar from "../../globalComponents/main/addBar";
+import EditBar from "../../globalComponents/main/editBar";
 import DropdownComponentwithButton from "../../globalComponents/main/dropDownWithButton";
 
 const ConfigurationAdd = () => {
   const [dialogVisible, setDialogVisible] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [nameInput, setNameInput] = useState("");
 
   const dispatch = useDispatch();
   ////////////////object main data for add////////////////////////////////////////
@@ -50,9 +53,7 @@ const ConfigurationAdd = () => {
   const selectedRow = useSelector(
     (state) => state.selectedRowData.selectedRowData
   );
-
-  console.log("rrrrrrrrr", selectedRow);
-
+  console.log("111111111111",selectedRow);
 
   let subTabName = useSelector((state) => state.subTabName.selectedSubTab);
 
@@ -121,13 +122,9 @@ const ConfigurationAdd = () => {
     (state) => state.afTemplateSelectedRowEdit.afTemplateSelectedRowEdit
   );
 
-  console.log("afTemplateSelectedRowEdit", afTemplateSelectedRowEdit);
-
   const dataAfBtn = useSelector((state) => state.dataAfBtn.dataAfBtn);
 
-  const defaultButtonEdit = useSelector((state)=>state.selectedNameDefaultButtonEdit.selectedNameDefaultButtonEdit);
-
-
+  const defaultButtonEdit = useSelector((state) => state.selectedNameDefaultButtonEdit.selectedNameDefaultButtonEdit);
 
   useEffect(() => {
     if (isAddClicked) {
@@ -141,8 +138,10 @@ const ConfigurationAdd = () => {
         EnityTypeIDForTaskCommnet: dispatch(mainSlice.actions.setCommentFormSelectedRowEdit()),
         EnityTypeIDForProcesure: dispatch(mainSlice.actions.setProcedureFormSelectedRowEdit()),
         WFTemplateIDForLessonLearn: dispatch(mainSlice.actions.setAfTemplateSelectedRowEdit([])),
-        DefaultBtn:dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit([]))
+        DefaultBtn: dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit([]))
       }));
+      setIsEditMode(false);
+      setNameInput("");
     } else if (selectedRow) {
       //programTemplate
       const foundItemProgram = dataPrugTemplate.find(
@@ -191,7 +190,7 @@ const ConfigurationAdd = () => {
       const resultArray = selectedArray.split("|");
 
       const matchingNames = [];
-      
+
       resultArray.forEach(resultId => {
         const matchingBtn = dataAfBtn.find(btn => btn.ID.toString() === resultId);
         if (matchingBtn) {
@@ -200,9 +199,7 @@ const ConfigurationAdd = () => {
       });
       dispatch(fetchAfBtn())
       dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit(matchingNames));
-      
-      console.log('Matching Names:', matchingNames);
-      
+
       setFormData((prevFormData) => ({
         ...prevFormData,
         Name: selectedRow.Name,
@@ -214,25 +211,28 @@ const ConfigurationAdd = () => {
         EnityTypeIDForProcesure: procedureFormSelectedRowEdit,
         WFTemplateIDForLessonLearn: afTemplateSelectedRowEdit
       }));
+      setIsEditMode(true);
+      setNameInput(selectedRow.Name);
     }
-  }, [isAddClicked, selectedRow, subTabName, dataPrugTemplate, dataRibbon, dataFormTemplate, dataWfTemplate,fetchAfBtn]);
+  }, [isAddClicked, selectedRow, subTabName, dataPrugTemplate, dataRibbon, dataFormTemplate, dataWfTemplate, fetchAfBtn]);
 
   ////////////////////handle change datas//////////////////////////////////////////////
-
   const handleChange = (fieldName, value) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       [fieldName]: value,
     }));
-  };
 
+    if (fieldName === "Name") {
+      setNameInput(value);
+    }
+  };
   /////////////////////MAIN DATA//////////////////////////////////////////
   const dataProgram = useSelector(
     (state) => state.dataProgramTemplate.dataProgramTemplate
   );
 
   /////////////////////////////Get main data//////////////////////////////////////////////////////////
-
   useEffect(() => {
     dispatch(fetchProgramTemplate());
     dispatch(fetchAllRibbon());
@@ -282,8 +282,6 @@ const ConfigurationAdd = () => {
     (state) => state.selectedIdDefaultButton.selectedIdDefaultButton
   );
 
-  //console.log("YYYYYYYYYYYYY",selectedIdDefaultButton)
-
   const selectedNamesLetterButtons = useSelector(
     (state) => state.selectedNameLetterButton.selectedNameLetterButton
   );
@@ -310,7 +308,7 @@ const ConfigurationAdd = () => {
 
   useEffect(() => {
   }, [selectedId]);
- 
+
   const addConfiguration = () => {
 
     const defaultBtnValues = selectedId?.join("|");
@@ -346,19 +344,37 @@ const ConfigurationAdd = () => {
         dispatch(mainSlice.actions.setAfTemplateSelectedRow())
         dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit([]))
         dispatch(mainSlice.actions.setSelectedNameDefaultButton([]))
-        console.log("defaultButtonEdit",defaultButtonEdit)
+
         setFormData((prevFormData) => ({
           ...prevFormData,
           Name: "",
           Description: "",
-          DefaultBtn:""
+          DefaultBtn: ""
         }));
       })
       .catch(() => { });
   };
 
-  //////////////////////Dialog Data/////////////////////////////////////////////
+  const editConfiguration = () => {
 
+    const updatedSelectedRow = {
+      ...selectedRow,
+      Name: nameInput,
+    };
+    projectServices
+      .updateSetting(updatedSelectedRow)
+      .then((res) => {
+        setNameInput("");
+      })
+      .catch(() => { });
+      
+      dispatch(mainSlice.actions.setSelectedRowData({
+        ...selectedRow,
+        Name: nameInput,
+      }));
+  };
+
+  //////////////////////Dialog Data/////////////////////////////////////////////
   const dialogProgramTemplate = useSelector(
     (state) => state.showDialogProgramTemplate.showDialogProgramTemplate
   );
@@ -418,13 +434,17 @@ const ConfigurationAdd = () => {
     <>
       {/* ////////////////////////Add Line//////////////////*/}
       <div>
-        <AddBar onClick={addConfiguration} />
+        {isEditMode ? (
+          <EditBar onClick={editConfiguration} />
+        ) : (
+          <AddBar onClick={addConfiguration} />
+        )}
       </div>
       {/* /////////////////////Line1/////////////////////// */}
       <div className="grid" style={{ marginLeft: "20px", marginTop: "20px" }}>
         <div className="col-5">
           <CustomInputText
-            value={formData.Name}
+            value={nameInput}
             onChange={(e) => handleChange("Name", e.target.value)}
             label="Name"
           />

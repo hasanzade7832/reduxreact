@@ -6,12 +6,13 @@ const SaveComponent = ({ onClick }) => {
       <div className="p-toolbar-group-left">
         <Button
           onClick={onClick}
-          label="Save"
+          label="Edit"
           size="small"
-          icon="pi pi-check"
+          icon="pi pi-file-edit"
+          className="green-800"
           style={{
             margin: "10px",
-            backgroundColor: "#03C03C",
+            backgroundColor: "#FEBE10",
             color:"black"
           }}
         />

@@ -5,8 +5,12 @@ export const ApiConst = Object.freeze({
   upload: "api/File/Upload",
   insert: "api/File/Insert",
   getAllCompany: "api/Company/GetAll",
+  
+  //setting
   getAllSetting: "api/Setting/GetAll",
   insertSetting: "api/Setting/Insert",
+  updateSetting: "api/Setting/Update",
+
   getAllMenu: "api/Menu/GetAll",
   getAllFirstPrugTemplate: "api/ProgramTemplate/GetAll",
   getAllCommand: "api/Command/GetAll",

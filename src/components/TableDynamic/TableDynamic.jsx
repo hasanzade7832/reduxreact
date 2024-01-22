@@ -217,7 +217,7 @@ const TableDynamic = () => {
               dispatch(mainSlice.actions.setIsAddClicked(true));
               dispatch(mainSlice.actions.setHandleAddComponent(true));
               setSelectedRow(null);
-              //console.log("adddd");
+              ////console.log("adddd");
             }}
           ></i>
         </Button>
@@ -258,7 +258,7 @@ const TableDynamic = () => {
           selectionMode="single"
           selection={selectedRow}
           onSelectionChange={(e) => {
-            //console.log("eeeeeeee", e);
+            ////console.log("eeeeeeee", e);
             setSelectedRow(e.value);
             dispatch(mainSlice.actions.setIsAddClicked(false));
             dispatch(mainSlice.actions.setSelectedRowData(e.value));

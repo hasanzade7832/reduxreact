@@ -20,7 +20,7 @@ const CustomComponent = ({
   const [updatedId, setUpdatedId] = useState([]);
   const [updatedIdEdit, setUpdatedIdEdit] = useState([]);
 
-  console.log("selectedNames",selectedNames);
+  //console.log("selectedNames",selectedNames);
 
   useEffect(() => {
     setUpdatedNames(selectedNames);

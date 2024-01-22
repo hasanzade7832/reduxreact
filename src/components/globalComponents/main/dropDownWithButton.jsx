@@ -23,7 +23,7 @@ const CustomDropdownComponent = ({
   const nameOfDialogTable = useSelector(
     (state) => state.nameofDialogTable.nameofDialogTable
   );
-  //console.log("nameOfDialogTable", nameOfDialogTable);
+  ////console.log("nameOfDialogTable", nameOfDialogTable);
 
   return (
     <>
