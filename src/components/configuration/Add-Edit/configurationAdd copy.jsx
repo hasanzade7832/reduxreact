@@ -218,11 +218,6 @@ const ConfigurationAdd = () => {
 
   ////////////////////handle change datas//////////////////////////////////////////////
   const handleChange = (fieldName, value) => {
-
-       // console.log("prevFormData", prevFormData, fieldName, {
-    //   ...prevFormData,
-    //   [fieldName]: value,
-    // })
     setFormData((prevFormData) => ({
       ...prevFormData,
       [fieldName]: value,
