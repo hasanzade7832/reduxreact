@@ -422,6 +422,8 @@ const ConfigurationAdd = () => {
         dispatch(fetchConfiguration());
         dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit());
         dispatch(mainSlice.actions.setprogramTemplateSelectedRow());
+        dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit([]));
+        dispatch(mainSlice.actions.setelectedIdDefaultButtonEdit([]));
       })
       .catch(() => {});
   };
