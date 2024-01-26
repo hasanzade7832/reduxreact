@@ -33,8 +33,6 @@ const ConfigurationAdd = () => {
     (state) => state.programTemplateSelectedRow.programTemplateSelectedRow
   );
 
-  console.log("BBBBBBBBB", programTemplateSelectedRow);
-
   const programTemplateSelectedRowEdit = useSelector(
     (state) =>
       state.programTemplateSelectedRowEdit.programTemplateSelectedRowEdit
@@ -120,10 +118,6 @@ const ConfigurationAdd = () => {
   );
 
   const dataAfBtn = useSelector((state) => state.dataAfBtn.dataAfBtn);
-
-  const defaultButtonEdit = useSelector(
-    (state) => state.selectedNameDefaultButtonEdit.selectedNameDefaultButtonEdit
-  );
 
   useEffect(() => {
     if (isAddClicked) {
@@ -265,10 +259,6 @@ const ConfigurationAdd = () => {
 
   ////////////////////handle change datas//////////////////////////////////////////////
   const handleChange = (fieldName, value) => {
-    // console.log("prevFormData", prevFormData, fieldName, {
-    //   ...prevFormData,
-    //   [fieldName]: value,
-    // })
     setFormData((prevFormData) => ({
       ...prevFormData,
       [fieldName]: value,
@@ -359,6 +349,8 @@ const ConfigurationAdd = () => {
     const letterBtnValues = selectedIdLetterButtons?.join("|");
     const meetingBtnValues = selectedIdMeetingsButton?.join("|");
 
+    console.log("defaultBtnValues", defaultBtnValues);
+
     formData.DefaultBtn = defaultBtnValues;
     formData.LetterBtns = letterBtnValues;
     formData.MeetingBtns = meetingBtnValues;
@@ -420,7 +412,6 @@ const ConfigurationAdd = () => {
         dispatch(fetchConfiguration());
         dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit());
         dispatch(mainSlice.actions.setprogramTemplateSelectedRow());
-        console.log("AAAAAAAAAAA", formData.FirstIDProgramTemplate);
       })
       .catch(() => {});
   };
