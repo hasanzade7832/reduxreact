@@ -33,6 +33,8 @@ const ConfigurationAdd = () => {
     (state) => state.programTemplateSelectedRow.programTemplateSelectedRow
   );
 
+  console.log("BBBBBBBBB", programTemplateSelectedRow);
+
   const programTemplateSelectedRowEdit = useSelector(
     (state) =>
       state.programTemplateSelectedRowEdit.programTemplateSelectedRowEdit
@@ -49,9 +51,7 @@ const ConfigurationAdd = () => {
     EnityTypeIDForLessonLearn: null,
     EnityTypeIDForProcesure: null,
     WFTemplateIDForLessonLearn: null,
-    FirstIDProgramTemplate: programTemplateSelectedRow
-      ? programTemplateSelectedRow
-      : programTemplateSelectedRowEdit,
+    FirstIDProgramTemplate: null,
     EnityTypeIDForTaskCommnet: null,
     SelMenuIDForMain: null,
     IsVisible: true,
@@ -400,11 +400,13 @@ const ConfigurationAdd = () => {
   };
 
   const editConfiguration = () => {
+    console.log("HHHHHHHHHHH", formData.FirstIDProgramTemplate);
+    console.log("ttttttttttt", formData.Name);
     const updatedSelectedRow = {
       ...selectedRow,
       Name: formData.Name,
       Description: formData.Description,
-      FirstIDProgramTemplate: formData.FirstIDProgramTemplate,
+      FirstIDProgramTemplate: programTemplateSelectedRow?.ID,
     };
     projectServices
       .updateSetting(updatedSelectedRow)
@@ -413,9 +415,10 @@ const ConfigurationAdd = () => {
           Name: "",
           Description: "",
         });
+        dispatch(fetchConfiguration());
         dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit());
         dispatch(mainSlice.actions.setprogramTemplateSelectedRow());
-        dispatch(fetchConfiguration());
+        console.log("AAAAAAAAAAA", formData.FirstIDProgramTemplate);
       })
       .catch(() => {});
   };

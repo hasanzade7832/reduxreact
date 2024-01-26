@@ -26,6 +26,7 @@ const TableComponent = ({ value }) => {
 
   const handleSelect = () => {
     if (selectedRow) {
+      console.log("rrrrrrrrrrr", selectedRow);
       dispatch(mainSlice.actions.setprogramTemplateSelectedRow(selectedRow));
       dispatch(mainSlice.actions.setshowDialogProgramTemplate(false));
     }
