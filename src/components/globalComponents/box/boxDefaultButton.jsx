@@ -41,8 +41,10 @@ const CustomComponent = ({
     setUpdatedIdEdit([...selectedIdEdit, ...selectedId]);
   }, [selectedNames, selectedNamesEdit, selectedId, selectedIdEdit]);
 
-  console.log("EDIT", updatedNamesEdit);
-  console.log("ADD", updatedNames);
+  console.log("EDIT", selectedIdEdit);
+  console.log("ADD", selectedId);
+  console.log("namessss", selectedNamesEdit);
+  console.log("idddddd", selectedIdEdit);
 
   const dataDefaultButton = useSelector(
     (state) => state.selectedNameDefaultButton.selectedNameDefaultButton

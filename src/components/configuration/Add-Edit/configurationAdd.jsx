@@ -127,6 +127,8 @@ const ConfigurationAdd = () => {
     (state) => state.selectedIdDefaultButtonEdit.selectedIdDefaultButtonEdit
   );
 
+  console.log("4444444444", IdsADefaultButtonEdit);
+
   const dataAfBtn = useSelector((state) => state.dataAfBtn.dataAfBtn);
 
   useEffect(() => {
@@ -329,6 +331,8 @@ const ConfigurationAdd = () => {
     (state) => state.selectedIdDefaultButton.selectedIdDefaultButton
   );
 
+  console.log("555555555", selectedIdDefaultButton);
+
   const selectedNamesLetterButtons = useSelector(
     (state) => state.selectedNameLetterButton.selectedNameLetterButton
   );
@@ -403,7 +407,7 @@ const ConfigurationAdd = () => {
 
   const editConfiguration = () => {
     console.log("HHHHHHHHHHH", formData.FirstIDProgramTemplate);
-    console.log("ttttttttttt", formData.Name);
+    console.log("ttttttttttt", selectedIdDefaultButton);
     const updatedSelectedRow = {
       ...selectedRow,
       Name: formData.Name,
@@ -411,6 +415,7 @@ const ConfigurationAdd = () => {
       FirstIDProgramTemplate: programTemplateSelectedRow?.ID
         ? programTemplateSelectedRow?.ID
         : programTemplateSelectedRowEdit?.ID,
+      // DefaultBtn: IdsADefaultButtonEdit,
     };
     projectServices
       .updateSetting(updatedSelectedRow)
@@ -655,7 +660,7 @@ const ConfigurationAdd = () => {
             titleBox={"Default Action Buttons"}
             selectedNames={selectedNamesDefaultButtons}
             selectedNamesEdit={selectedNameDefaultButtonEdit}
-            selectedId={selectedIdDefaultButton}
+            selectedId={selectedId}
             selectedIdEdit={IdsADefaultButtonEdit}
           />
         </div>
