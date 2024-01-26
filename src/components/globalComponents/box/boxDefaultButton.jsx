@@ -11,7 +11,9 @@ const CustomComponent = ({
   dialogData,
   titleBox,
   selectedNames,
+  selectedNamesEdit,
   selectedId,
+  selectedIdEdit,
 }) => {
   const dispatch = useDispatch();
 
@@ -20,12 +22,27 @@ const CustomComponent = ({
   const [updatedId, setUpdatedId] = useState([]);
   const [updatedIdEdit, setUpdatedIdEdit] = useState([]);
 
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  useEffect(() => {
+    if (selectedNamesEdit.length > 0 || selectedIdEdit.length > 0) {
+      setIsEditMode(true);
+    } else {
+      setIsEditMode(false);
+    }
+  }, [selectedNamesEdit, selectedIdEdit]);
+
   //console.log("selectedNames",selectedNames);
 
   useEffect(() => {
     setUpdatedNames(selectedNames);
+    setUpdatedNamesEdit([...selectedNamesEdit, ...selectedNames]);
     setUpdatedId(selectedId);
-  }, [selectedNames, updatedId]);
+    setUpdatedIdEdit([...selectedIdEdit, ...selectedId]);
+  }, [selectedNames, selectedNamesEdit, selectedId, selectedIdEdit]);
+
+  console.log("EDIT", updatedNamesEdit);
+  console.log("ADD", updatedNames);
 
   const dataDefaultButton = useSelector(
     (state) => state.selectedNameDefaultButton.selectedNameDefaultButton
@@ -34,10 +51,6 @@ const CustomComponent = ({
   const IdsDefaultButton = useSelector(
     (state) => state.selectedIdDefaultButton.selectedIdDefaultButton
   );
-
-  let selectedNameDefaultButtonEdit = useSelector((state) => state.selectedNameDefaultButtonEdit.selectedNameDefaultButtonEdit);
-
-  const IdsADefaultButtonEdit = useSelector((state)=>state.selectedIdDefaultButtonEdit.selectedIdDefaultButtonEdit);
 
   const handleDoubleClick = (index) => {
     const updatedNamesCopy = [...dataDefaultButton];
@@ -51,15 +64,29 @@ const CustomComponent = ({
   };
 
   const handleDoubleClickEdit = (index) => {
-    const updatedNamesEditCopy = [...selectedNameDefaultButtonEdit];
-    const updatedIdsEditCopy = [...IdsADefaultButtonEdit];
-    updatedNamesEditCopy.splice(index,1);
-    updatedIdsEditCopy.splice(index,1);
+    const updatedNamesEditCopy = [...selectedNamesEdit];
+    const updatedIdsEditCopy = [...selectedIdEdit];
+    updatedNamesEditCopy.splice(index, 1);
+    updatedIdsEditCopy.splice(index, 1);
     setUpdatedNamesEdit(updatedNamesEditCopy);
     setUpdatedIdEdit(updatedIdsEditCopy);
-    dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit(updatedNamesEditCopy));
-    dispatch(mainSlice.actions.setelectedIdDefaultButtonEdit(updatedIdsEditCopy));
-  }
+    dispatch(
+      mainSlice.actions.setSelectedNameDefaultButtonEdit(updatedNamesEditCopy)
+    );
+    dispatch(
+      mainSlice.actions.setelectedIdDefaultButtonEdit(updatedIdsEditCopy)
+    );
+  };
+
+  const selectedRow = useSelector(
+    (state) => state.selectedRowData.selectedRowData
+  );
+  useEffect(() => {
+    if (selectedRow) {
+      dispatch(mainSlice.actions.setSelectedNameDefaultButton([]));
+      dispatch(mainSlice.actions.setelectedIdDefaultButton([]));
+    }
+  }, [selectedRow, dispatch]);
 
   return (
     <>
@@ -99,27 +126,25 @@ const CustomComponent = ({
           }}
         />
         <div>
-          {Array.isArray(updatedNames) && updatedNames.length ? (
-            updatedNames.map((name, index) => (
-              <div
-                onDoubleClick={() => handleDoubleClick(index)}
-                style={{ padding: "2px", margin: "5px", cursor: "pointer" }}
-                key={index}
-              >
-                {name}
-              </div>
-            ))
-          ) : (
-            selectedNameDefaultButtonEdit.map((name, index) => (
-              <div
-                onDoubleClick={() => handleDoubleClickEdit(index)}
-                style={{ padding: "2px", margin: "5px", cursor: "pointer" }}
-                key={index}
-              >
-                {name}
-              </div>
-            ))
-          )}
+          {isEditMode
+            ? updatedNamesEdit.map((name, index) => (
+                <div
+                  onDoubleClick={() => handleDoubleClickEdit(index)}
+                  style={{ padding: "2px", margin: "5px", cursor: "pointer" }}
+                  key={index}
+                >
+                  {name}
+                </div>
+              ))
+            : updatedNames.map((name, index) => (
+                <div
+                  onDoubleClick={() => handleDoubleClick(index)}
+                  style={{ padding: "2px", margin: "5px", cursor: "pointer" }}
+                  key={index}
+                >
+                  {name}
+                </div>
+              ))}
         </div>
       </div>
     </>

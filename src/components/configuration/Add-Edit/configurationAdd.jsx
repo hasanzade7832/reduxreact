@@ -117,6 +117,16 @@ const ConfigurationAdd = () => {
     (state) => state.afTemplateSelectedRowEdit.afTemplateSelectedRowEdit
   );
 
+  const selectedNameDefaultButtonEdit = useSelector(
+    (state) => state.selectedNameDefaultButtonEdit.selectedNameDefaultButtonEdit
+  );
+
+  console.log("2222222", selectedNameDefaultButtonEdit);
+
+  const IdsADefaultButtonEdit = useSelector(
+    (state) => state.selectedIdDefaultButtonEdit.selectedIdDefaultButtonEdit
+  );
+
   const dataAfBtn = useSelector((state) => state.dataAfBtn.dataAfBtn);
 
   useEffect(() => {
@@ -642,7 +652,9 @@ const ConfigurationAdd = () => {
             dialogData={showDialogDefaultButton}
             titleBox={"Default Action Buttons"}
             selectedNames={selectedNamesDefaultButtons}
+            selectedNamesEdit={selectedNameDefaultButtonEdit}
             selectedId={selectedIdDefaultButton}
+            selectedIdEdit={IdsADefaultButtonEdit}
           />
         </div>
         <div className="col-1"></div>
