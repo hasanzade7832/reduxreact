@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Dropdown } from 'primereact/dropdown';
+import { Dropdown } from "primereact/dropdown";
 
 import { useSelector, useDispatch } from "react-redux";
 import CustomInputText from "../../globalComponents/main/inputCom";
@@ -15,7 +15,7 @@ import {
   fetchAllRibbon,
   fetchWfTemplate,
   fetchEntityType,
-  fetchAfBtn
+  fetchAfBtn,
 } from "../../../redux/configuration/configurationSlice";
 import { fetchProgramTemplate } from "../../../redux/programtemplate/programtemplateSlice";
 import { mainSlice } from "../../../redux/mainSlice";
@@ -26,10 +26,17 @@ import DropdownComponentwithButton from "../../globalComponents/main/dropDownWit
 const ConfigurationAdd = () => {
   const [dialogVisible, setDialogVisible] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
-  const [nameInput, setNameInput] = useState("");
-
   const dispatch = useDispatch();
   ////////////////object main data for add////////////////////////////////////////
+
+  const programTemplateSelectedRow = useSelector(
+    (state) => state.programTemplateSelectedRow.programTemplateSelectedRow
+  );
+
+  const programTemplateSelectedRowEdit = useSelector(
+    (state) =>
+      state.programTemplateSelectedRowEdit.programTemplateSelectedRowEdit
+  );
 
   const [formData, setFormData] = useState({
     ID: 0,
@@ -42,7 +49,9 @@ const ConfigurationAdd = () => {
     EnityTypeIDForLessonLearn: null,
     EnityTypeIDForProcesure: null,
     WFTemplateIDForLessonLearn: null,
-    FirstIDProgramTemplate: null,
+    FirstIDProgramTemplate: programTemplateSelectedRow
+      ? programTemplateSelectedRow
+      : programTemplateSelectedRowEdit,
     EnityTypeIDForTaskCommnet: null,
     SelMenuIDForMain: null,
     IsVisible: true,
@@ -53,7 +62,6 @@ const ConfigurationAdd = () => {
   const selectedRow = useSelector(
     (state) => state.selectedRowData.selectedRowData
   );
-  console.log("111111111111",selectedRow);
 
   let subTabName = useSelector((state) => state.subTabName.selectedSubTab);
 
@@ -61,9 +69,7 @@ const ConfigurationAdd = () => {
     (state) => state.dataConfiguration.dataPrugTemplate
   );
 
-  const dataRibbon = useSelector(
-    (state) => state.dataRibbon.dataRibbon
-  );
+  const dataRibbon = useSelector((state) => state.dataRibbon.dataRibbon);
 
   const dataWfTemplate = useSelector(
     (state) => state.dataWfTemplate.dataWfTemplate
@@ -71,15 +77,6 @@ const ConfigurationAdd = () => {
 
   const dataFormTemplate = useSelector(
     (state) => state.dataEntityType.dataEntityType
-  );
-
-  const programTemplateSelectedRow = useSelector(
-    (state) => state.programTemplateSelectedRow.programTemplateSelectedRow
-  );
-
-  const programTemplateSelectedRowEdit = useSelector(
-    (state) =>
-      state.programTemplateSelectedRowEdit.programTemplateSelectedRowEdit
   );
 
   const defaultRibbonSelectedRow = useSelector(
@@ -124,7 +121,9 @@ const ConfigurationAdd = () => {
 
   const dataAfBtn = useSelector((state) => state.dataAfBtn.dataAfBtn);
 
-  const defaultButtonEdit = useSelector((state) => state.selectedNameDefaultButtonEdit.selectedNameDefaultButtonEdit);
+  const defaultButtonEdit = useSelector(
+    (state) => state.selectedNameDefaultButtonEdit.selectedNameDefaultButtonEdit
+  );
 
   useEffect(() => {
     if (isAddClicked) {
@@ -132,73 +131,112 @@ const ConfigurationAdd = () => {
         ...prevFormData,
         Name: "",
         Description: "",
-        FirstIDProgramTemplate: dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit()),
-        SelMenuIDForMain: dispatch(mainSlice.actions.setDefaultRibbonSelectedRowEdit()),
-        EnityTypeIDForLessonLearn: dispatch(mainSlice.actions.setFormTemplateSelectedRowEdit()),
-        EnityTypeIDForTaskCommnet: dispatch(mainSlice.actions.setCommentFormSelectedRowEdit()),
-        EnityTypeIDForProcesure: dispatch(mainSlice.actions.setProcedureFormSelectedRowEdit()),
-        WFTemplateIDForLessonLearn: dispatch(mainSlice.actions.setAfTemplateSelectedRowEdit([])),
-        DefaultBtn: dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit([]))
+        FirstIDProgramTemplate: dispatch(
+          mainSlice.actions.setProgramTemplateSelectedRowEdit()
+        ),
+        SelMenuIDForMain: dispatch(
+          mainSlice.actions.setDefaultRibbonSelectedRowEdit()
+        ),
+        EnityTypeIDForLessonLearn: dispatch(
+          mainSlice.actions.setFormTemplateSelectedRowEdit()
+        ),
+        EnityTypeIDForTaskCommnet: dispatch(
+          mainSlice.actions.setCommentFormSelectedRowEdit()
+        ),
+        EnityTypeIDForProcesure: dispatch(
+          mainSlice.actions.setProcedureFormSelectedRowEdit()
+        ),
+        WFTemplateIDForLessonLearn: dispatch(
+          mainSlice.actions.setAfTemplateSelectedRowEdit([])
+        ),
+        DefaultBtn: dispatch(
+          mainSlice.actions.setSelectedNameDefaultButtonEdit([])
+        ),
       }));
       setIsEditMode(false);
-      setNameInput("");
     } else if (selectedRow) {
       //programTemplate
       const foundItemProgram = dataPrugTemplate.find(
         (item) => item.ID === selectedRow.FirstIDProgramTemplate
       );
       const dataProgramSelected = foundItemProgram ? foundItemProgram : null;
-      dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit(dataProgramSelected));
+      dispatch(
+        mainSlice.actions.setProgramTemplateSelectedRowEdit(dataProgramSelected)
+      );
 
       // defaultRibbon
       const foundItemRibbon = dataRibbon.find(
         (item) => item.ID === selectedRow.SelMenuIDForMain
       );
       const dataRibbonSelected = foundItemRibbon ? foundItemRibbon : null;
-      dispatch(mainSlice.actions.setDefaultRibbonSelectedRowEdit(dataRibbonSelected));
+      dispatch(
+        mainSlice.actions.setDefaultRibbonSelectedRowEdit(dataRibbonSelected)
+      );
 
       //form template
       const foundItemFormTemplate = dataFormTemplate.find(
         (item) => item.ID === selectedRow.EnityTypeIDForLessonLearn
       );
-      const formTemplateSelected = foundItemFormTemplate ? foundItemFormTemplate : null;
-      dispatch(mainSlice.actions.setFormTemplateSelectedRowEdit(formTemplateSelected));
+      const formTemplateSelected = foundItemFormTemplate
+        ? foundItemFormTemplate
+        : null;
+      dispatch(
+        mainSlice.actions.setFormTemplateSelectedRowEdit(formTemplateSelected)
+      );
 
       //comment form
       const foundItemComment = dataFormTemplate.find(
         (item) => item.ID === selectedRow.EnityTypeIDForTaskCommnet
       );
-      const commentTemplateSelected = foundItemComment ? foundItemComment : null;
-      dispatch(mainSlice.actions.setCommentFormSelectedRowEdit(commentTemplateSelected));
+      const commentTemplateSelected = foundItemComment
+        ? foundItemComment
+        : null;
+      dispatch(
+        mainSlice.actions.setCommentFormSelectedRowEdit(commentTemplateSelected)
+      );
 
       //procedure form
       const foundItemProcedure = dataFormTemplate.find(
         (item) => item.ID === selectedRow.EnityTypeIDForProcesure
       );
-      const procedureTemplateSelected = foundItemProcedure ? foundItemProcedure : null;
-      dispatch(mainSlice.actions.setProcedureFormSelectedRowEdit(procedureTemplateSelected));
+      const procedureTemplateSelected = foundItemProcedure
+        ? foundItemProcedure
+        : null;
+      dispatch(
+        mainSlice.actions.setProcedureFormSelectedRowEdit(
+          procedureTemplateSelected
+        )
+      );
 
       //af template
       const foundItemAfTemplate = dataWfTemplate.find(
         (item) => item.ID === selectedRow.WFTemplateIDForLessonLearn
       );
-      const afTemplateSelected = foundItemAfTemplate ? foundItemAfTemplate : null;
-      dispatch(mainSlice.actions.setAfTemplateSelectedRowEdit(afTemplateSelected));
+      const afTemplateSelected = foundItemAfTemplate
+        ? foundItemAfTemplate
+        : null;
+      dispatch(
+        mainSlice.actions.setAfTemplateSelectedRowEdit(afTemplateSelected)
+      );
 
       //defaultButton
-      const selectedArray = selectedRow.DefaultBtn
+      const selectedArray = selectedRow.DefaultBtn;
       const resultArray = selectedArray.split("|");
 
       const matchingNames = [];
 
-      resultArray.forEach(resultId => {
-        const matchingBtn = dataAfBtn.find(btn => btn.ID.toString() === resultId);
+      resultArray.forEach((resultId) => {
+        const matchingBtn = dataAfBtn.find(
+          (btn) => btn.ID.toString() === resultId
+        );
         if (matchingBtn) {
           matchingNames.push(matchingBtn.Name);
         }
       });
-      dispatch(fetchAfBtn())
-      dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit(matchingNames));
+      dispatch(fetchAfBtn());
+      dispatch(
+        mainSlice.actions.setSelectedNameDefaultButtonEdit(matchingNames)
+      );
 
       setFormData((prevFormData) => ({
         ...prevFormData,
@@ -209,17 +247,25 @@ const ConfigurationAdd = () => {
         EnityTypeIDForLessonLearn: formTemplateSelectedRowEdit,
         EnityTypeIDForTaskCommnet: commentFormSelectedRowEdit,
         EnityTypeIDForProcesure: procedureFormSelectedRowEdit,
-        WFTemplateIDForLessonLearn: afTemplateSelectedRowEdit
+        WFTemplateIDForLessonLearn: afTemplateSelectedRowEdit,
       }));
       setIsEditMode(true);
-      setNameInput(selectedRow.Name);
+      formData.Name = selectedRow.Name;
     }
-  }, [isAddClicked, selectedRow, subTabName, dataPrugTemplate, dataRibbon, dataFormTemplate, dataWfTemplate, fetchAfBtn]);
+  }, [
+    isAddClicked,
+    selectedRow,
+    subTabName,
+    dataPrugTemplate,
+    dataRibbon,
+    dataFormTemplate,
+    dataWfTemplate,
+    fetchAfBtn,
+  ]);
 
   ////////////////////handle change datas//////////////////////////////////////////////
   const handleChange = (fieldName, value) => {
-
-       // console.log("prevFormData", prevFormData, fieldName, {
+    // console.log("prevFormData", prevFormData, fieldName, {
     //   ...prevFormData,
     //   [fieldName]: value,
     // })
@@ -227,10 +273,6 @@ const ConfigurationAdd = () => {
       ...prevFormData,
       [fieldName]: value,
     }));
-
-    if (fieldName === "Name") {
-      setNameInput(value);
-    }
   };
   /////////////////////MAIN DATA//////////////////////////////////////////
   const dataProgram = useSelector(
@@ -304,18 +346,15 @@ const ConfigurationAdd = () => {
   //////////////ADD FUNCTION/////////////////////////////////////////////////////
   const selected = useSelector((state) => state.selectedNames.selectedNames);
 
-  useEffect(() => {
-  }, [selected]);
+  useEffect(() => {}, [selected]);
 
   const selectedId = useSelector(
     (state) => state.selectedIdDefaultButton.selectedIdDefaultButton
   );
 
-  useEffect(() => {
-  }, [selectedId]);
+  useEffect(() => {}, [selectedId]);
 
   const addConfiguration = () => {
-
     const defaultBtnValues = selectedId?.join("|");
     const letterBtnValues = selectedIdLetterButtons?.join("|");
     const meetingBtnValues = selectedIdMeetingsButton?.join("|");
@@ -334,47 +373,51 @@ const ConfigurationAdd = () => {
       .insertSetting(formData)
       .then((res) => {
         dispatch(fetchConfiguration());
-        dispatch(mainSlice.actions.setelectedIdDefaultButton([]))
-        dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit())
-        dispatch(mainSlice.actions.setprogramTemplateSelectedRow())
-        dispatch(mainSlice.actions.setDefaultRibbonSelectedRowEdit())
-        dispatch(mainSlice.actions.setDefaultRibbonSelectedRow())
-        dispatch(mainSlice.actions.setFormTemplateSelectedRowEdit())
-        dispatch(mainSlice.actions.setFormTemplateSelectedRow())
-        dispatch(mainSlice.actions.setCommentFormSelectedRowEdit())
-        dispatch(mainSlice.actions.setCommentFormSelectedRow())
-        dispatch(mainSlice.actions.setProcedureFormSelectedRowEdit())
-        dispatch(mainSlice.actions.setProcedureFormSelectedRow())
-        dispatch(mainSlice.actions.setAfTemplateSelectedRowEdit())
-        dispatch(mainSlice.actions.setAfTemplateSelectedRow())
-        dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit([]))
-        dispatch(mainSlice.actions.setSelectedNameDefaultButton([]))
+        dispatch(mainSlice.actions.setelectedIdDefaultButton([]));
+        dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit());
+        dispatch(mainSlice.actions.setprogramTemplateSelectedRow());
+        dispatch(mainSlice.actions.setDefaultRibbonSelectedRowEdit());
+        dispatch(mainSlice.actions.setDefaultRibbonSelectedRow());
+        dispatch(mainSlice.actions.setFormTemplateSelectedRowEdit());
+        dispatch(mainSlice.actions.setFormTemplateSelectedRow());
+        dispatch(mainSlice.actions.setCommentFormSelectedRowEdit());
+        dispatch(mainSlice.actions.setCommentFormSelectedRow());
+        dispatch(mainSlice.actions.setProcedureFormSelectedRowEdit());
+        dispatch(mainSlice.actions.setProcedureFormSelectedRow());
+        dispatch(mainSlice.actions.setAfTemplateSelectedRowEdit());
+        dispatch(mainSlice.actions.setAfTemplateSelectedRow());
+        dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit([]));
+        dispatch(mainSlice.actions.setSelectedNameDefaultButton([]));
 
         setFormData((prevFormData) => ({
           ...prevFormData,
           Name: "",
           Description: "",
-          DefaultBtn: ""
+          DefaultBtn: "",
         }));
       })
-      .catch(() => { });
+      .catch(() => {});
   };
 
   const editConfiguration = () => {
-
     const updatedSelectedRow = {
       ...selectedRow,
-      Name: nameInput,
+      Name: formData.Name,
+      Description: formData.Description,
+      FirstIDProgramTemplate: formData.FirstIDProgramTemplate,
     };
     projectServices
       .updateSetting(updatedSelectedRow)
       .then((res) => {
-        setNameInput("");
+        setFormData({
+          Name: "",
+          Description: "",
+        });
+        dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit());
+        dispatch(mainSlice.actions.setprogramTemplateSelectedRow());
         dispatch(fetchConfiguration());
       })
-      .catch(() => { });
-      
- 
+      .catch(() => {});
   };
 
   //////////////////////Dialog Data/////////////////////////////////////////////
@@ -447,7 +490,7 @@ const ConfigurationAdd = () => {
       <div className="grid" style={{ marginLeft: "20px", marginTop: "20px" }}>
         <div className="col-5">
           <CustomInputText
-            value={nameInput}
+            value={formData.Name}
             onChange={(e) => handleChange("Name", e.target.value)}
             label="Name"
           />
@@ -488,7 +531,11 @@ const ConfigurationAdd = () => {
         <div className="col-1"></div>
         <div className="col-5">
           <DropdownComponentwithButton
-            value={defaultRibbonSelectedRow ? defaultRibbonSelectedRow : defaultRibbonSelectedRowEdit}
+            value={
+              defaultRibbonSelectedRow
+                ? defaultRibbonSelectedRow
+                : defaultRibbonSelectedRowEdit
+            }
             options={dataRibbon}
             optionLabel="Name"
             label="Default Ribbon"
@@ -507,7 +554,11 @@ const ConfigurationAdd = () => {
       <div className="grid" style={{ marginLeft: "20px", marginTop: "5px" }}>
         <div className="col-5">
           <DropdownComponentwithButton
-            value={formTemplateSelectedRow ? formTemplateSelectedRow : formTemplateSelectedRowEdit}
+            value={
+              formTemplateSelectedRow
+                ? formTemplateSelectedRow
+                : formTemplateSelectedRowEdit
+            }
             options={dataFormTemplate}
             optionLabel="Name"
             label="Lessons Learned Form Template"
@@ -524,7 +575,11 @@ const ConfigurationAdd = () => {
         <div className="col-1"></div>
         <div className="col-5">
           <DropdownComponentwithButton
-            value={afTemplateSelectedRow ? afTemplateSelectedRow : afTemplateSelectedRowEdit}
+            value={
+              afTemplateSelectedRow
+                ? afTemplateSelectedRow
+                : afTemplateSelectedRowEdit
+            }
             options={dataWfTemplate}
             optionLabel="Name"
             label="Lessons Learned Af Template"
@@ -543,7 +598,11 @@ const ConfigurationAdd = () => {
       <div className="grid" style={{ marginLeft: "20px", marginTop: "5px" }}>
         <div className="col-5">
           <DropdownComponentwithButton
-            value={commentFormSelectedRow ? commentFormSelectedRow : commentFormSelectedRowEdit}
+            value={
+              commentFormSelectedRow
+                ? commentFormSelectedRow
+                : commentFormSelectedRowEdit
+            }
             options={dataFormTemplate}
             optionLabel="Name"
             label="Comment Form Template"
@@ -560,7 +619,11 @@ const ConfigurationAdd = () => {
         <div className="col-1"></div>
         <div className="col-5">
           <DropdownComponentwithButton
-            value={procedureFormSelectedRow ? procedureFormSelectedRow : procedureFormSelectedRowEdit}
+            value={
+              procedureFormSelectedRow
+                ? procedureFormSelectedRow
+                : procedureFormSelectedRowEdit
+            }
             options={dataFormTemplate}
             optionLabel="Name"
             label="procedure Form Template"
