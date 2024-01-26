@@ -406,7 +406,9 @@ const ConfigurationAdd = () => {
       ...selectedRow,
       Name: formData.Name,
       Description: formData.Description,
-      FirstIDProgramTemplate: programTemplateSelectedRow?.ID,
+      FirstIDProgramTemplate: programTemplateSelectedRow?.ID
+        ? programTemplateSelectedRow?.ID
+        : programTemplateSelectedRowEdit?.ID,
     };
     projectServices
       .updateSetting(updatedSelectedRow)
