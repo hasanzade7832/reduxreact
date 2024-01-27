@@ -441,6 +441,7 @@ const ConfigurationAdd = () => {
         dispatch(mainSlice.actions.setelectedIdDefaultButton([]));
         dispatch(mainSlice.actions.setIsAddClicked(true));
         dispatch(mainSlice.actions.setHandleAddComponent(true));
+        dispatch(mainSlice.actions.setModeSelectedRow(true));
       })
       .catch(() => {});
   };

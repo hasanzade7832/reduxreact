@@ -45,6 +45,7 @@ export const store = configureStore({
     showDialogAfTemplate: mainSlice.reducer,
     showDialogCommentForm: mainSlice.reducer,
     showDialogProcedureForm: mainSlice.reducer,
+    modeSelectedRow:mainSlice.reducer,
     dataConfiguration: configurationSlice.reducer,
     dataRibbon: configurationSlice.reducer,
     dataWfTemplate: configurationSlice.reducer,
@@ -188,6 +189,9 @@ export type RootState = {
   };
   formTemplateSelectedRowEdit:{
     formTemplateSelectedRowEdit:string;
+  }
+  modeSelectedRow:{
+    modeSelectedRow:Boolean
   }
 };
 export type AppDispatch = typeof store.dispatch;

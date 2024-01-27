@@ -39,6 +39,7 @@ interface MainState {
   showDialogCommentForm: Boolean;
   showDialogProcedureForm: Boolean;
   selectedRowData: null;
+  modeSelectedRow:Boolean
 }
 
 const initialState: MainState = {
@@ -80,6 +81,7 @@ const initialState: MainState = {
   showDialogCommentForm: false,
   showDialogProcedureForm: false,
   selectedRowData: null,
+  modeSelectedRow:false
 };
 
 export const mainSlice = createSlice({
@@ -228,6 +230,9 @@ export const mainSlice = createSlice({
     },
     setSelectedRowData: (state, action: PayloadAction<null>) => {
       state.selectedRowData = action.payload;
+    },
+    setModeSelectedRow: (state, action: PayloadAction<Boolean>) => {
+      state.modeSelectedRow = action.payload;
     },
   },
 });

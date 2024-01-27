@@ -17,13 +17,16 @@ import projectServices from "../services/project.services"
 const TableDynamic = () => {
   const dispatch = useDispatch();
   const [selectedRow, setSelectedRow] = useState(null);
-  const [isEditDisabled, setIsEditDisabled] = useState(true);
+  // const [isEditDisabled, setIsEditDisabled] = useState(true);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
   const toast = useRef(null);
 
   ///////////////////////All data to need this table dynamic////////////////////////////////////////////////
   const subTabName = useSelector((state) => state.subTabName.selectedSubTab);
+
+  const isEditDisabled = useSelector((state)=>state.modeSelectedRow.modeSelectedRow);
+
 
   const dataConfiguration = useSelector(
     (state) => state.dataConfiguration.dataConfiguration
@@ -74,7 +77,8 @@ const TableDynamic = () => {
   useEffect(() => {
     // وقتی subTabName تغییر کرد، اقدام انجام شود
     setSelectedRow(null);
-    setIsEditDisabled(true);
+    // setIsEditDisabled(true);
+    dispatch(mainSlice.actions.setModeSelectedRow(true));
   }, [subTabName]);
 
   /////////////////////////DATA FOR TABLE//////////////////////////////////////////////////////////////////////
@@ -141,22 +145,20 @@ const TableDynamic = () => {
     );
   }
 
+
   const handleRowClick = (event) => {
     setSelectedRow(event.data);
-    setIsEditDisabled(false);
+    // setIsEditDisabled(false);
+    dispatch(mainSlice.actions.setModeSelectedRow(false));
   };
 
   const handleDelete = () => {
     setSelectedRow(selectedRowData);
-
     setShowDeleteConfirmation(true);
   };
 
-
-
   const confirmDelete = () => {
-    //console.log("subTabName",subTabName)
-    //console.log("selectedRowData",selectedRowData)
+
     if (subTabName == "Configuration") {
       projectServices
         .deleteSetting({ id: selectedRowData.ID })
@@ -164,6 +166,8 @@ const TableDynamic = () => {
           dispatch(fetchConfiguration());
           dispatch(mainSlice.actions.setIsAddClicked(true));
           dispatch(mainSlice.actions.setHandleAddComponent(true));
+          // setIsEditDisabled(true);
+          dispatch(mainSlice.actions.setModeSelectedRow(true))
           setShowDeleteConfirmation(false);
           toast.current.show({
             severity: "success",
