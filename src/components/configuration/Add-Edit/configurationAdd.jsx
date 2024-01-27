@@ -125,13 +125,9 @@ const ConfigurationAdd = () => {
     (state) => state.selectedNameDefaultButtonEdit.selectedNameDefaultButtonEdit
   );
 
-  //console.log("2222222", selectedNameDefaultButtonEdit);
-
   const IdsADefaultButtonEdit = useSelector(
     (state) => state.selectedIdDefaultButtonEdit.selectedIdDefaultButtonEdit
   );
-
-  //console.log("4444444444", IdsADefaultButtonEdit);
 
   const dataAfBtn = useSelector((state) => state.dataAfBtn.dataAfBtn);
 
@@ -341,8 +337,6 @@ const ConfigurationAdd = () => {
     (state) => state.selectedIdDefaultButton.selectedIdDefaultButton
   );
 
-  //console.log("555555555", selectedIdDefaultButton);
-
   const selectedNamesLetterButtons = useSelector(
     (state) => state.selectedNameLetterButton.selectedNameLetterButton
   );
@@ -372,8 +366,6 @@ const ConfigurationAdd = () => {
     const defaultBtnValues = selectedId?.join("|");
     const letterBtnValues = selectedIdLetterButtons?.join("|");
     const meetingBtnValues = selectedIdMeetingsButton?.join("|");
-
-    //console.log("defaultBtnValues", defaultBtnValues);
 
     formData.DefaultBtn = defaultBtnValues;
     formData.LetterBtns = letterBtnValues;
