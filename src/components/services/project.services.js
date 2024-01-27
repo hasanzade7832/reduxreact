@@ -30,6 +30,9 @@ class projectService {
   async updateSetting(data) {
     return await httpClient.post(ApiConst.updateSetting, data);
   }
+  async deleteSetting(data) {
+    return await httpClient.post(ApiConst.deleteSetting, data);
+  }
 
 
 

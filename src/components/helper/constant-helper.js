@@ -10,6 +10,7 @@ export const ApiConst = Object.freeze({
   getAllSetting: "api/Setting/GetAll",
   insertSetting: "api/Setting/Insert",
   updateSetting: "api/Setting/Update",
+  deleteSetting: "api/Setting/Delete",
 
   getAllMenu: "api/Menu/GetAll",
   getAllFirstPrugTemplate: "api/ProgramTemplate/GetAll",

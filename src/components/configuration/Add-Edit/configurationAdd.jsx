@@ -412,11 +412,9 @@ const ConfigurationAdd = () => {
   };
 
   const editConfiguration = () => {
-    console.log("aaaaaaaaaaaaa", selectedIdDefaultButton);
-    console.log("EEEEEEEEEEEEE", IdsADefaultButtonEdit);
+    
     const combinedIds = IdsADefaultButtonEdit.concat(selectedIdDefaultButton);
     const defaultBtnValue = combinedIds.join("|");
-    console.log("HHHHHHHHHHH", defaultBtnValue);
 
     const updatedSelectedRow = {
       ...selectedRow,

@@ -77,6 +77,8 @@ export const fetchAfBtn= createAsyncThunk(
   }
 );
 
+
+
 const configurationSlice = createSlice({
   name: "Configuration",
   initialState: {

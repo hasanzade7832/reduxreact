@@ -12,32 +12,13 @@ import { Button } from "primereact/button";
 import { mainSlice } from "../../redux/mainSlice";
 import { Toast } from "primereact/toast";
 import { Dialog } from "primereact/dialog";
+import projectServices from "../services/project.services"
 
 const TableDynamic = () => {
   const dispatch = useDispatch();
   const [selectedRow, setSelectedRow] = useState(null);
   const [isEditDisabled,setIsEditDisabled] = useState(true);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-
-  const handleDelete = (rowData) => {
-    setSelectedRow(rowData);
-    setShowDeleteConfirmation(true);
-  };
-
-  const confirmDelete = () => {
-    setSelectedRow(null);
-    setShowDeleteConfirmation(false);
-    toast.current.show({
-      severity: "success",
-      summary: "Success",
-      detail: "Item deleted successfully",
-    });
-  };
-
-  const cancelDelete = () => {
-    setSelectedRow(null);
-    setShowDeleteConfirmation(false);
-  };
 
   const toast = useRef(null);
 
@@ -72,6 +53,11 @@ const TableDynamic = () => {
   const fieldsColumnsCommands = useSelector(
     (state) => state.dataCommands.fieldColumn
   );
+
+  const selectedRowData = useSelector(
+    (state) => state.selectedRowData.selectedRowData
+  );
+
 
   useEffect(() => {
     if (subTabName === "Configuration") {
@@ -122,6 +108,7 @@ const TableDynamic = () => {
 
   ///////////////////////////ADDITIONAL COLUMNS////////////////////////////////////////////////////
 
+  
   const additionalColumns = [];
 
   if (subTabName === "Configuration") {
@@ -154,11 +141,47 @@ const TableDynamic = () => {
     );
   }
 
-
   const handleRowClick = (event) => {
-    setSelectedRow(event.data); // ذخیره ردیف انتخاب شده
-    setIsEditDisabled(false); // فعال کردن ویرایش
+    setSelectedRow(event.data); 
+    setIsEditDisabled(false); 
   };
+
+  const handleDelete = (rowData) => {
+    console.log("rowData",rowData);
+    setSelectedRow(rowData);
+    setShowDeleteConfirmation(true);
+  };
+
+  
+
+  const confirmDelete = (rowData) => {
+    console.log("subTabName",subTabName)
+    console.log("selectedRowData",selectedRowData)
+    if(subTabName=="Configuration"){
+      projectServices
+      .deleteSetting({id:selectedRowData.ID})
+      .then((res) => {
+        dispatch(fetchConfiguration());
+        setSelectedRow(null);
+        setShowDeleteConfirmation(false);
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Item deleted successfully",
+        });
+      })
+      .catch(() => {});
+    }
+   
+  };
+
+  const cancelDelete = () => {
+    setSelectedRow(null);
+    setShowDeleteConfirmation(false);
+  };
+
+
+  
   
   //////////////////////////////////////////////////////////////////////////////////////
 
@@ -179,7 +202,7 @@ const TableDynamic = () => {
         onHide={cancelDelete}
         header="Confirmation"
         icon="pi pi-exclamation-triangle"
-        position="top"
+        position="center"
         footer={
           <div>
             <Button
@@ -237,6 +260,7 @@ const TableDynamic = () => {
           // text
           style={{ backgroundColor: "white", marginRight: "10px" }}
           severity="danger"
+          onClick={()=>{handleDelete()}}
         >
           <i
             className="pi pi-trash"
@@ -247,6 +271,9 @@ const TableDynamic = () => {
             }}
           ></i>
         </Button>
+      </div>
+      <div>
+        
       </div>
       <div style={{ marginTop: "10px" }}>
         <DataTable
