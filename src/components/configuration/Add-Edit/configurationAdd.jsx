@@ -230,6 +230,7 @@ const ConfigurationAdd = () => {
       const resultArray = selectedArray.split("|");
 
       const matchingNames = [];
+      const matchingIds = [] ;
 
       resultArray.forEach((resultId) => {
         const matchingBtn = dataAfBtn.find(
@@ -237,11 +238,16 @@ const ConfigurationAdd = () => {
         );
         if (matchingBtn) {
           matchingNames.push(matchingBtn.Name);
+          matchingIds.push(matchingBtn.ID);
         }
       });
+      console.log("matchingNames",matchingNames);
       dispatch(fetchAfBtn());
       dispatch(
         mainSlice.actions.setSelectedNameDefaultButtonEdit(matchingNames)
+      );
+      dispatch(
+        mainSlice.actions.setelectedIdDefaultButtonEdit(matchingIds)
       );
 
       setFormData((prevFormData) => ({
@@ -406,8 +412,12 @@ const ConfigurationAdd = () => {
   };
 
   const editConfiguration = () => {
-    console.log("HHHHHHHHHHH", formData.FirstIDProgramTemplate);
-    console.log("ttttttttttt", selectedIdDefaultButton);
+    console.log("aaaaaaaaaaaaa", selectedIdDefaultButton);
+    console.log("EEEEEEEEEEEEE", IdsADefaultButtonEdit);
+    const combinedIds = IdsADefaultButtonEdit.concat(selectedIdDefaultButton);
+    const defaultBtnValue = combinedIds.join("|");
+    console.log("HHHHHHHHHHH", defaultBtnValue);
+
     const updatedSelectedRow = {
       ...selectedRow,
       Name: formData.Name,
@@ -415,7 +425,7 @@ const ConfigurationAdd = () => {
       FirstIDProgramTemplate: programTemplateSelectedRow?.ID
         ? programTemplateSelectedRow?.ID
         : programTemplateSelectedRowEdit?.ID,
-      // DefaultBtn: IdsADefaultButtonEdit,
+      DefaultBtn:defaultBtnValue,
     };
     projectServices
       .updateSetting(updatedSelectedRow)
