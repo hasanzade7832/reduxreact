@@ -174,16 +174,12 @@ const TableDynamic = () => {
         })
         .catch(() => { });
     }
-
   };
 
   const cancelDelete = () => {
     setSelectedRow(null);
     setShowDeleteConfirmation(false);
   };
-
-
-
 
   //////////////////////////////////////////////////////////////////////////////////////
 
@@ -196,7 +192,7 @@ const TableDynamic = () => {
         width: "100%",
       }}
     >
-      <Toast ref={toast} position="bottom-right" />
+      <Toast ref={toast} position="top-right" />
 
       {/* Delete Confirmation Dialog */}
       <Dialog
