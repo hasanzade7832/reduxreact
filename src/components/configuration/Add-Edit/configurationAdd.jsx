@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect , useRef } from "react";
 import { Dropdown } from "primereact/dropdown";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -22,12 +22,16 @@ import { mainSlice } from "../../../redux/mainSlice";
 import AddBar from "../../globalComponents/main/addBar";
 import EditBar from "../../globalComponents/main/editBar";
 import DropdownComponentwithButton from "../../globalComponents/main/dropDownWithButton";
+import { Toast } from "primereact/toast";
+
 
 const ConfigurationAdd = () => {
   const [dialogVisible, setDialogVisible] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const dispatch = useDispatch();
   ////////////////object main data for add////////////////////////////////////////
+
+  const toast = useRef(null);
 
   const programTemplateSelectedRow = useSelector(
     (state) => state.programTemplateSelectedRow.programTemplateSelectedRow
@@ -401,6 +405,12 @@ const ConfigurationAdd = () => {
         dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit([]));
         dispatch(mainSlice.actions.setSelectedNameDefaultButton([]));
 
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Item Added successfully",
+        });
+
         setFormData((prevFormData) => ({
           ...prevFormData,
           Name: "",
@@ -442,6 +452,11 @@ const ConfigurationAdd = () => {
         dispatch(mainSlice.actions.setIsAddClicked(true));
         dispatch(mainSlice.actions.setHandleAddComponent(true));
         dispatch(mainSlice.actions.setModeSelectedRow(true));
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Item Edited successfully",
+        });
       })
       .catch(() => {});
   };
@@ -504,6 +519,7 @@ const ConfigurationAdd = () => {
 
   return (
     <>
+     <Toast ref={toast} position="top-right" />
       {/* ////////////////////////Add Line//////////////////*/}
       <div>
         {isEditMode ? (
