@@ -7,7 +7,7 @@ export const fetchCommands = createAsyncThunk("fetchCommands", async () => {
     const response = await projectServices.getAllCommand();
     return response.data;
   } catch (error) {
-    //console.error("Hata:", error);
+    ////console.error("Hata:", error);
     throw error;
   }
 });

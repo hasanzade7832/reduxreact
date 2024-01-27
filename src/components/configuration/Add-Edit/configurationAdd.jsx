@@ -121,13 +121,13 @@ const ConfigurationAdd = () => {
     (state) => state.selectedNameDefaultButtonEdit.selectedNameDefaultButtonEdit
   );
 
-  console.log("2222222", selectedNameDefaultButtonEdit);
+  //console.log("2222222", selectedNameDefaultButtonEdit);
 
   const IdsADefaultButtonEdit = useSelector(
     (state) => state.selectedIdDefaultButtonEdit.selectedIdDefaultButtonEdit
   );
 
-  console.log("4444444444", IdsADefaultButtonEdit);
+  //console.log("4444444444", IdsADefaultButtonEdit);
 
   const dataAfBtn = useSelector((state) => state.dataAfBtn.dataAfBtn);
 
@@ -241,7 +241,7 @@ const ConfigurationAdd = () => {
           matchingIds.push(matchingBtn.ID);
         }
       });
-      console.log("matchingNames",matchingNames);
+      //console.log("matchingNames",matchingNames);
       dispatch(fetchAfBtn());
       dispatch(
         mainSlice.actions.setSelectedNameDefaultButtonEdit(matchingNames)
@@ -337,7 +337,7 @@ const ConfigurationAdd = () => {
     (state) => state.selectedIdDefaultButton.selectedIdDefaultButton
   );
 
-  console.log("555555555", selectedIdDefaultButton);
+  //console.log("555555555", selectedIdDefaultButton);
 
   const selectedNamesLetterButtons = useSelector(
     (state) => state.selectedNameLetterButton.selectedNameLetterButton
@@ -369,7 +369,7 @@ const ConfigurationAdd = () => {
     const letterBtnValues = selectedIdLetterButtons?.join("|");
     const meetingBtnValues = selectedIdMeetingsButton?.join("|");
 
-    console.log("defaultBtnValues", defaultBtnValues);
+    //console.log("defaultBtnValues", defaultBtnValues);
 
     formData.DefaultBtn = defaultBtnValues;
     formData.LetterBtns = letterBtnValues;
@@ -412,7 +412,7 @@ const ConfigurationAdd = () => {
   };
 
   const editConfiguration = () => {
-    
+
     const combinedIds = IdsADefaultButtonEdit.concat(selectedIdDefaultButton);
     const defaultBtnValue = combinedIds.join("|");
 
@@ -439,6 +439,8 @@ const ConfigurationAdd = () => {
         dispatch(mainSlice.actions.setSelectedNameDefaultButton([]));
         dispatch(mainSlice.actions.setelectedIdDefaultButtonEdit([]));
         dispatch(mainSlice.actions.setelectedIdDefaultButton([]));
+        dispatch(mainSlice.actions.setIsAddClicked(true));
+        dispatch(mainSlice.actions.setHandleAddComponent(true));
       })
       .catch(() => {});
   };

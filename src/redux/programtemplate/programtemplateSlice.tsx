@@ -9,7 +9,7 @@ export const fetchProgramTemplate = createAsyncThunk(
       const response = await projectServices.getAllProgramTemplate();
       return response.data;
     } catch (error) {
-      //console.error("Hata:", error);
+      ////console.error("Hata:", error);
       throw error;
     }
   }

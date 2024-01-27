@@ -16,7 +16,7 @@ const CommandsAdd = () => {
   ];
 
   const addCommand = () => {
-    ////console.log("addCommand");
+    //////console.log("addCommand");
   };
 
   return (

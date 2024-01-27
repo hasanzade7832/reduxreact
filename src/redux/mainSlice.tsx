@@ -128,7 +128,7 @@ export const mainSlice = createSlice({
       action: PayloadAction<Array<string>>
     ) => {
       state.selectedNameDefaultButtonEdit = action.payload;
-      //console.log("action",action.payload)
+      ////console.log("action",action.payload)
     },
     setselectedNameLetterButton: (
       state,

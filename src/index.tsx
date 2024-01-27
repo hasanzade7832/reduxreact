@@ -15,7 +15,7 @@ const rootElement = document.getElementById("root");
 if (rootElement) {
   root = ReactDOM.createRoot(rootElement);
 } else {
-  //console.error("Could not find root element with id 'root'.");
+  ////console.error("Could not find root element with id 'root'.");
 }
 
 root!.render(

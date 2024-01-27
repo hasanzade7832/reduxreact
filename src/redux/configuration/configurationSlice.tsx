@@ -9,7 +9,7 @@ export const fetchConfiguration = createAsyncThunk(
       const response = await projectServices.getAllSetting();
       return response.data;
     } catch (error) {
-      //console.error("Hata:", error);
+      ////console.error("Hata:", error);
       throw error;
     }
   }
@@ -20,7 +20,7 @@ export const fetchAllRibbon = createAsyncThunk("fetchAllRibbon", async () => {
     const response = await projectServices.getAllMenu();
     return response.data;
   } catch (error) {
-    //console.error("Hata:", error);
+    ////console.error("Hata:", error);
     throw error;
   }
 });
@@ -32,7 +32,7 @@ export const fetchPrugTemplate = createAsyncThunk(
       const response = await projectServices.getAllFirstPrugTemplate();
       return response.data;
     } catch (error) {
-      //console.error("Hata:", error);
+      ////console.error("Hata:", error);
       throw error;
     }
   }
@@ -45,7 +45,7 @@ export const fetchWfTemplate= createAsyncThunk(
       const response = await projectServices.getAllWfTemplate();
       return response.data;
     } catch (error) {
-      //console.error("Hata:", error);
+      ////console.error("Hata:", error);
       throw error;
     }
   }
@@ -58,7 +58,7 @@ export const fetchEntityType= createAsyncThunk(
       const response = await projectServices.getAllEntityType();
       return response.data;
     } catch (error) {
-      //console.error("Hata:", error);
+      ////console.error("Hata:", error);
       throw error;
     }
   }
@@ -71,7 +71,7 @@ export const fetchAfBtn= createAsyncThunk(
       const response = await projectServices.getAllAfBtn();
       return response.data;
     } catch (error) {
-      //console.error("Hata:", error);
+      ////console.error("Hata:", error);
       throw error;
     }
   }
