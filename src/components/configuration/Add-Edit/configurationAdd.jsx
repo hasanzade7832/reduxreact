@@ -262,7 +262,8 @@ const ConfigurationAdd = () => {
         WFTemplateIDForLessonLearn: afTemplateSelectedRowEdit,
       }));
       setIsEditMode(true);
-      formData.Name = selectedRow.Name;
+      // formData.Name = selectedRow.Name;
+     
     }
   }, [
     isAddClicked,
@@ -425,6 +426,11 @@ const ConfigurationAdd = () => {
       FirstIDProgramTemplate: programTemplateSelectedRow?.ID
         ? programTemplateSelectedRow?.ID
         : programTemplateSelectedRowEdit?.ID,
+      SelMenuIDForMain:defaultRibbonSelectedRow?.ID ? defaultRibbonSelectedRow?.ID : defaultRibbonSelectedRowEdit?.ID,
+      EnityTypeIDForLessonLearn:formTemplateSelectedRow?.ID ? formTemplateSelectedRow?.ID : formTemplateSelectedRowEdit?.ID,
+      WFTemplateIDForLessonLearn:afTemplateSelectedRow?.ID ? afTemplateSelectedRow?.ID :afTemplateSelectedRowEdit?.ID,
+      EnityTypeIDForTaskCommnet:commentFormSelectedRow?.ID ? commentFormSelectedRow?.ID :commentFormSelectedRowEdit?.ID,
+      EnityTypeIDForProcesure:procedureFormSelectedRow?.ID ? procedureFormSelectedRow?.ID :procedureFormSelectedRowEdit?.ID,
       DefaultBtn:defaultBtnValue,
     };
     projectServices
@@ -437,6 +443,16 @@ const ConfigurationAdd = () => {
         dispatch(fetchConfiguration());
         dispatch(mainSlice.actions.setProgramTemplateSelectedRowEdit());
         dispatch(mainSlice.actions.setprogramTemplateSelectedRow());
+        dispatch(mainSlice.actions.setDefaultRibbonSelectedRowEdit());
+        dispatch(mainSlice.actions.setDefaultRibbonSelectedRow());
+        dispatch(mainSlice.actions.setFormTemplateSelectedRowEdit());
+        dispatch(mainSlice.actions.setFormTemplateSelectedRow());
+        dispatch(mainSlice.actions.setAfTemplateSelectedRowEdit());
+        dispatch(mainSlice.actions.setAfTemplateSelectedRow());
+        dispatch(mainSlice.actions.setCommentFormSelectedRowEdit());
+        dispatch(mainSlice.actions.setCommentFormSelectedRow());
+        dispatch(mainSlice.actions.setProcedureFormSelectedRowEdit());
+        dispatch(mainSlice.actions.setProcedureFormSelectedRow());
         dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit([]));
         dispatch(mainSlice.actions.setSelectedNameDefaultButton([]));
         dispatch(mainSlice.actions.setelectedIdDefaultButtonEdit([]));
