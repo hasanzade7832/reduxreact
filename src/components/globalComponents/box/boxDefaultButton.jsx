@@ -32,19 +32,12 @@ const CustomComponent = ({
     }
   }, [selectedNamesEdit, selectedIdEdit]);
 
-  ////console.log("selectedNames",selectedNames);
-
   useEffect(() => {
     setUpdatedNames(selectedNames);
     setUpdatedNamesEdit([...selectedNamesEdit, ...selectedNames]);
     setUpdatedId(selectedId);
     setUpdatedIdEdit([...selectedIdEdit, ...selectedId]);
   }, [selectedNames, selectedNamesEdit, selectedId, selectedIdEdit]);
-
-  //console.log("EDIT", selectedIdEdit);
-  //console.log("ADD", selectedId);
-  //console.log("namessss", selectedNamesEdit);
-  //console.log("idddddd", selectedIdEdit);
 
   const dataDefaultButton = useSelector(
     (state) => state.selectedNameDefaultButton.selectedNameDefaultButton

@@ -14,10 +14,12 @@ interface MainState {
   selectedNameDefaultButton: string[];
   selectedNameDefaultButtonEdit:string[];
   selectedNameLetterButton: string[];
+  selectedNameLetterButtonEdit: string[];
   selectedNameMeetingButton: string[];
   selectedIdDefaultButton: string[];
   selectedIdDefaultButtonEdit:string[];
   selectedIdLetterButton: string[];
+  selectedIdLetterButtonEdit: string[];
   selectedIdMeetingButton: string[];
   nameofDialogTable: string;
   programTemplateSelectedRow: string;
@@ -56,10 +58,12 @@ const initialState: MainState = {
   selectedNameDefaultButton: [],
   selectedNameDefaultButtonEdit: [],
   selectedNameLetterButton: [],
+  selectedNameLetterButtonEdit: [],
   selectedNameMeetingButton: [],
   selectedIdDefaultButton: [],
   selectedIdDefaultButtonEdit: [],
   selectedIdLetterButton: [],
+  selectedIdLetterButtonEdit: [],
   selectedIdMeetingButton: [],
   nameofDialogTable: "",
   programTemplateSelectedRow: "",
@@ -138,6 +142,12 @@ export const mainSlice = createSlice({
     ) => {
       state.selectedNameLetterButton = action.payload;
     },
+    setselectedNameLetterButtonEdit: (
+      state,
+      action: PayloadAction<Array<string>>
+    ) => {
+      state.selectedNameLetterButtonEdit = action.payload;
+    },
     setSelectedNameMeetingButton: (
       state,
       action: PayloadAction<Array<string>>
@@ -161,6 +171,12 @@ export const mainSlice = createSlice({
       action: PayloadAction<Array<string>>
     ) => {
       state.selectedIdLetterButton = action.payload;
+    },
+    setSelectedIdLetterButtonEdit: (
+      state,
+      action: PayloadAction<Array<string>>
+    ) => {
+      state.selectedIdLetterButtonEdit = action.payload;
     },
     setSelectedIdMeetingButton: (
       state,

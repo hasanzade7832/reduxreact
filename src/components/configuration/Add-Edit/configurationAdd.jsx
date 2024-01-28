@@ -129,6 +129,15 @@ const ConfigurationAdd = () => {
     (state) => state.selectedIdDefaultButtonEdit.selectedIdDefaultButtonEdit
   );
 
+  const selectedNameLetterButtonEdit = useSelector(
+    (state) => state.selectedNameLetterButtonEdit.selectedNameLetterButtonEdit
+  );
+
+  const selectedIdLetterButtonEdit = useSelector(
+    (state) => state.selectedIdLetterButtonEdit.selectedIdLetterButtonEdit
+  );
+
+
   const dataAfBtn = useSelector((state) => state.dataAfBtn.dataAfBtn);
 
   useEffect(() => {
@@ -157,6 +166,9 @@ const ConfigurationAdd = () => {
         ),
         DefaultBtn: dispatch(
           mainSlice.actions.setSelectedNameDefaultButtonEdit([])
+        ),
+        LetterBtns: dispatch(
+          mainSlice.actions.setSelectedIdLetterButtonEdit([])
         ),
       }));
       setIsEditMode(false);
@@ -226,29 +238,52 @@ const ConfigurationAdd = () => {
       );
 
       //defaultButton
-      const selectedArray = selectedRow.DefaultBtn;
-      const resultArray = selectedArray.split("|");
+      const selectedArrayDefaultBtn = selectedRow.DefaultBtn;
+      const resultArrayDefaultButton = selectedArrayDefaultBtn.split("|");
 
-      const matchingNames = [];
-      const matchingIds = [] ;
+      const matchingNamesDefaultBtn = [];
+      const matchingIdsDefaultBtn = [] ;
 
-      resultArray.forEach((resultId) => {
-        const matchingBtn = dataAfBtn.find(
+      resultArrayDefaultButton.forEach((resultId) => {
+        const matchingBtnDefault = dataAfBtn.find(
           (btn) => btn.ID.toString() === resultId
         );
-        if (matchingBtn) {
-          matchingNames.push(matchingBtn.Name);
-          matchingIds.push(matchingBtn.ID);
+        if (matchingBtnDefault) {
+          matchingNamesDefaultBtn.push(matchingBtnDefault.Name);
+          matchingIdsDefaultBtn.push(matchingBtnDefault.ID);
         }
       });
-      //console.log("matchingNames",matchingNames);
+      dispatch(
+        mainSlice.actions.setSelectedNameDefaultButtonEdit(matchingNamesDefaultBtn)
+        );
+        dispatch(
+          mainSlice.actions.setelectedIdDefaultButtonEdit(matchingIdsDefaultBtn)
+          );
+      // dispatch(fetchAfBtn());
+
+      //meetingBtn
+      const selectedArrayLetterBtn = selectedRow.LetterBtns;
+      const resultArrayLetterBtn = selectedArrayLetterBtn.split("|");
+
+      const matchingNamesLetterBtn = [];
+      const matchingIdsLetterBtn = [] ;
+
+      resultArrayLetterBtn.forEach((resultId) => {
+        const matchingBtnLetter = dataAfBtn.find(
+          (btn) => btn.ID.toString() === resultId
+        );
+        if (matchingBtnLetter) {
+          matchingNamesLetterBtn.push(matchingBtnLetter.Name);
+          matchingIdsLetterBtn.push(matchingBtnLetter.ID);
+        }
+      });
+      dispatch(
+        mainSlice.actions.setselectedNameLetterButtonEdit(matchingNamesLetterBtn)
+        );
+        dispatch(
+          mainSlice.actions.setSelectedIdLetterButtonEdit(matchingIdsLetterBtn)
+          );
       dispatch(fetchAfBtn());
-      dispatch(
-        mainSlice.actions.setSelectedNameDefaultButtonEdit(matchingNames)
-      );
-      dispatch(
-        mainSlice.actions.setelectedIdDefaultButtonEdit(matchingIds)
-      );
 
       setFormData((prevFormData) => ({
         ...prevFormData,
@@ -402,6 +437,8 @@ const ConfigurationAdd = () => {
         dispatch(mainSlice.actions.setAfTemplateSelectedRow());
         dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit([]));
         dispatch(mainSlice.actions.setSelectedNameDefaultButton([]));
+        dispatch(mainSlice.actions.setselectedNameLetterButtonEdit([]));
+        dispatch(mainSlice.actions.setselectedNameLetterButton([]));
 
         toast.current.show({
           severity: "success",
@@ -421,8 +458,15 @@ const ConfigurationAdd = () => {
 
   const editConfiguration = () => {
 
-    const combinedIds = IdsADefaultButtonEdit.concat(selectedIdDefaultButton);
-    const defaultBtnValue = combinedIds.join("|");
+    const combinedIdsDefaultButton = IdsADefaultButtonEdit.concat(selectedIdDefaultButton);
+    const defaultBtnValue = combinedIdsDefaultButton.join("|");
+
+    console.log("AAAAAAAAAAAA",defaultBtnValue);
+
+    const combinedIdsLetterButton = selectedIdLetterButtonEdit.concat(selectedIdLetterButtons);
+    const letterBtnValue = combinedIdsLetterButton.join("|");
+
+    console.log("BBBBBBBB",letterBtnValue);
 
     const updatedSelectedRow = {
       ...selectedRow,
@@ -437,6 +481,7 @@ const ConfigurationAdd = () => {
       EnityTypeIDForTaskCommnet:commentFormSelectedRow?.ID ? commentFormSelectedRow?.ID :commentFormSelectedRowEdit?.ID,
       EnityTypeIDForProcesure:procedureFormSelectedRow?.ID ? procedureFormSelectedRow?.ID :procedureFormSelectedRowEdit?.ID,
       DefaultBtn:defaultBtnValue,
+      LetterBtns:letterBtnValue
     };
     projectServices
       .updateSetting(updatedSelectedRow)
@@ -459,9 +504,13 @@ const ConfigurationAdd = () => {
         dispatch(mainSlice.actions.setProcedureFormSelectedRowEdit());
         dispatch(mainSlice.actions.setProcedureFormSelectedRow());
         dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit([]));
+        dispatch(mainSlice.actions.setselectedNameLetterButtonEdit([]));
         dispatch(mainSlice.actions.setSelectedNameDefaultButton([]));
+        dispatch(mainSlice.actions.setselectedNameLetterButton([]));
         dispatch(mainSlice.actions.setelectedIdDefaultButtonEdit([]));
+        dispatch(mainSlice.actions.setSelectedIdLetterButtonEdit([]));
         dispatch(mainSlice.actions.setelectedIdDefaultButton([]));
+        dispatch(mainSlice.actions.setSelectedIdLetterButton([]));
         dispatch(mainSlice.actions.setIsAddClicked(true));
         dispatch(mainSlice.actions.setHandleAddComponent(true));
         dispatch(mainSlice.actions.setModeSelectedRow(true));
@@ -712,7 +761,9 @@ const ConfigurationAdd = () => {
             dialogData={showDialogLetterButton}
             titleBox={"Letter Action Buttons"}
             selectedNames={selectedNamesLetterButtons}
+            selectedNamesEdit={selectedNameLetterButtonEdit}
             selectedId={selectedIdLetterButtons}
+            selectedIdEdit={selectedIdLetterButtonEdit}
           />
         </div>
       </div>

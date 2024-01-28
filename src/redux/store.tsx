@@ -20,10 +20,12 @@ export const store = configureStore({
     selectedNameDefaultButton: mainSlice.reducer,
     selectedNameDefaultButtonEdit: mainSlice.reducer,
     selectedNameLetterButton: mainSlice.reducer,
+    selectedNameLetterButtonEdit:mainSlice.reducer,
     selectedNameMeetingButton: mainSlice.reducer,
     selectedIdDefaultButton: mainSlice.reducer,
     selectedIdDefaultButtonEdit: mainSlice.reducer,
     selectedIdLetterButton: mainSlice.reducer,
+    selectedIdLetterButtonEdit:mainSlice.reducer,
     selectedIdMeetingButton: mainSlice.reducer,
     nameofDialogTable: mainSlice.reducer,
     programTemplateSelectedRow: mainSlice.reducer,
@@ -109,6 +111,9 @@ export type RootState = {
   selectedNameLetterButton: {
     selectedNameLetterButton: string[];
   };
+  selectedNameLetterButtonEdit:{
+    selectedNameLetterButtonEdit:string[];
+  };
   selectedNameMeetingButton: {
     selectedNameMeetingButton: string[];
   };
@@ -120,6 +125,9 @@ export type RootState = {
   };
   selectedIdLetterButton: {
     selectedIdLetterButton: string[];
+  };
+  selectedIdLetterButtonEdit:{
+    selectedIdLetterButtonEdit:string[];
   };
   selectedIdMeetingButton: {
     selectedIdMeetingButton: string[];

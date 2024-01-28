@@ -11,17 +11,34 @@ const CustomComponent = ({
   dialogData,
   titleBox,
   selectedNames,
+  selectedNamesEdit,
   selectedId,
+  selectedIdEdit
 }) => {
   const dispatch = useDispatch();
 
   const [updatedNames, setUpdatedNames] = useState([]);
+  const [updatedNamesEdit, setUpdatedNamesEdit] = useState([]);
   const [updatedId, setUpdatedId] = useState([]);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [updatedIdEdit, setUpdatedIdEdit] = useState([]);
+
+  console.log("cccccccccccc",updatedNamesEdit)
+
+  useEffect(() => {
+    if (selectedNamesEdit.length > 0 || selectedIdEdit.length > 0) {
+      setIsEditMode(true);
+    } else {
+      setIsEditMode(false);
+    }
+  }, [selectedNamesEdit, selectedIdEdit]);
 
   useEffect(() => {
     setUpdatedNames(selectedNames);
+    setUpdatedNamesEdit([...selectedNamesEdit, ...selectedNames]);
     setUpdatedId(selectedId);
-  }, [selectedNames, updatedId]);
+    setUpdatedIdEdit([...selectedIdEdit, ...selectedId]);
+  }, [selectedNames, selectedNamesEdit, selectedId, selectedIdEdit]);
 
   const dataLetterButton = useSelector(
     (state) => state.selectedNameLetterButton.selectedNameLetterButton
@@ -42,6 +59,21 @@ const CustomComponent = ({
       mainSlice.actions.setselectedNameLetterButton(updatedNamesLetterCopy)
     );
     dispatch(mainSlice.actions.setSelectedIdLetterButton(updatedIdsLetterCopy));
+  };
+
+  const handleDoubleClickEdit = (index) => {
+    const updatedNamesEditCopy = [...selectedNamesEdit];
+    const updatedIdsEditCopy = [...selectedIdEdit];
+    updatedNamesEditCopy.splice(index, 1);
+    updatedIdsEditCopy.splice(index, 1);
+    setUpdatedNamesEdit(updatedNamesEditCopy);
+    setUpdatedIdEdit(updatedIdsEditCopy);
+    dispatch(
+      mainSlice.actions.setselectedNameLetterButtonEdit(updatedNamesEditCopy)
+    );
+    dispatch(
+      mainSlice.actions.setSelectedIdLetterButtonEdit(updatedIdsEditCopy)
+    );
   };
 
   return (
@@ -81,20 +113,26 @@ const CustomComponent = ({
             marginTop: "1px",
           }}
         />
-        <div>
-          {Array.isArray(updatedNames) && updatedNames.length ? (
-            updatedNames.map((name, index) => (
-              <div
-                onDoubleClick={() => handleDoubleClick(index)}
-                style={{ padding: "2px", margin: "5px", cursor: "pointer" }}
-                key={index}
-              >
-                {name}
-              </div>
-            ))
-          ) : (
-            <span> </span>
-          )}
+         <div>
+          {isEditMode
+            ? updatedNamesEdit.map((name, index) => (
+                <div
+                  onDoubleClick={() => handleDoubleClickEdit(index)}
+                  style={{ padding: "2px", margin: "5px", cursor: "pointer" }}
+                  key={index}
+                >
+                  {name}
+                </div>
+              ))
+            : updatedNames.map((name, index) => (
+                <div
+                  onDoubleClick={() => handleDoubleClick(index)}
+                  style={{ padding: "2px", margin: "5px", cursor: "pointer" }}
+                  key={index}
+                >
+                  {name}
+                </div>
+              ))}
         </div>
       </div>
     </>
