@@ -262,7 +262,12 @@ const ConfigurationAdd = () => {
         WFTemplateIDForLessonLearn: afTemplateSelectedRowEdit,
       }));
       setIsEditMode(true);
-      // formData.Name = selectedRow.Name;
+        dispatch(mainSlice.actions.setprogramTemplateSelectedRow());
+        dispatch(mainSlice.actions.setDefaultRibbonSelectedRow());
+        dispatch(mainSlice.actions.setFormTemplateSelectedRow());
+        dispatch(mainSlice.actions.setCommentFormSelectedRow());
+        dispatch(mainSlice.actions.setProcedureFormSelectedRow());
+        dispatch(mainSlice.actions.setAfTemplateSelectedRow());
      
     }
   }, [
