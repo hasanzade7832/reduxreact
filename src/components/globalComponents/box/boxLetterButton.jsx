@@ -13,7 +13,7 @@ const CustomComponent = ({
   selectedNames,
   selectedNamesEdit,
   selectedId,
-  selectedIdEdit
+  selectedIdEdit,
 }) => {
   const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ const CustomComponent = ({
   const [isEditMode, setIsEditMode] = useState(false);
   const [updatedIdEdit, setUpdatedIdEdit] = useState([]);
 
-  console.log("cccccccccccc",updatedNamesEdit)
+  console.log("cccccccccccc", updatedNamesEdit);
 
   useEffect(() => {
     if (selectedNamesEdit.length > 0 || selectedIdEdit.length > 0) {
@@ -76,6 +76,16 @@ const CustomComponent = ({
     );
   };
 
+  const selectedRow = useSelector(
+    (state) => state.selectedRowData.selectedRowData
+  );
+  useEffect(() => {
+    if (selectedRow) {
+      dispatch(mainSlice.actions.setselectedNameLetterButton([]));
+      dispatch(mainSlice.actions.setSelectedIdLetterButton([]));
+    }
+  }, [selectedRow, dispatch]);
+
   return (
     <>
       <div
@@ -113,7 +123,7 @@ const CustomComponent = ({
             marginTop: "1px",
           }}
         />
-         <div>
+        <div>
           {isEditMode
             ? updatedNamesEdit.map((name, index) => (
                 <div

@@ -1,4 +1,4 @@
-import { useState, useEffect , useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Dropdown } from "primereact/dropdown";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -23,7 +23,6 @@ import AddBar from "../../globalComponents/main/addBar";
 import EditBar from "../../globalComponents/main/editBar";
 import DropdownComponentwithButton from "../../globalComponents/main/dropDownWithButton";
 import { Toast } from "primereact/toast";
-
 
 const ConfigurationAdd = () => {
   const [dialogVisible, setDialogVisible] = useState(false);
@@ -137,6 +136,13 @@ const ConfigurationAdd = () => {
     (state) => state.selectedIdLetterButtonEdit.selectedIdLetterButtonEdit
   );
 
+  const selectedNameMeetingButtonEdit = useSelector(
+    (state) => state.selectedNameMeetingButtonEdit.selectedNameMeetingButtonEdit
+  );
+
+  const selectedIdMeetingButtonEdit = useSelector(
+    (state) => state.selectedIdMeetingButtonEdit.selectedIdMeetingButtonEdit
+  );
 
   const dataAfBtn = useSelector((state) => state.dataAfBtn.dataAfBtn);
 
@@ -169,6 +175,9 @@ const ConfigurationAdd = () => {
         ),
         LetterBtns: dispatch(
           mainSlice.actions.setSelectedIdLetterButtonEdit([])
+        ),
+        MeetingBtns: dispatch(
+          mainSlice.actions.setSelectedIdMeetingButtonEdit([])
         ),
       }));
       setIsEditMode(false);
@@ -242,7 +251,7 @@ const ConfigurationAdd = () => {
       const resultArrayDefaultButton = selectedArrayDefaultBtn.split("|");
 
       const matchingNamesDefaultBtn = [];
-      const matchingIdsDefaultBtn = [] ;
+      const matchingIdsDefaultBtn = [];
 
       resultArrayDefaultButton.forEach((resultId) => {
         const matchingBtnDefault = dataAfBtn.find(
@@ -254,19 +263,21 @@ const ConfigurationAdd = () => {
         }
       });
       dispatch(
-        mainSlice.actions.setSelectedNameDefaultButtonEdit(matchingNamesDefaultBtn)
-        );
-        dispatch(
-          mainSlice.actions.setelectedIdDefaultButtonEdit(matchingIdsDefaultBtn)
-          );
+        mainSlice.actions.setSelectedNameDefaultButtonEdit(
+          matchingNamesDefaultBtn
+        )
+      );
+      dispatch(
+        mainSlice.actions.setelectedIdDefaultButtonEdit(matchingIdsDefaultBtn)
+      );
       // dispatch(fetchAfBtn());
 
-      //meetingBtn
+      //letterBtn
       const selectedArrayLetterBtn = selectedRow.LetterBtns;
       const resultArrayLetterBtn = selectedArrayLetterBtn.split("|");
 
       const matchingNamesLetterBtn = [];
-      const matchingIdsLetterBtn = [] ;
+      const matchingIdsLetterBtn = [];
 
       resultArrayLetterBtn.forEach((resultId) => {
         const matchingBtnLetter = dataAfBtn.find(
@@ -278,11 +289,39 @@ const ConfigurationAdd = () => {
         }
       });
       dispatch(
-        mainSlice.actions.setselectedNameLetterButtonEdit(matchingNamesLetterBtn)
+        mainSlice.actions.setselectedNameLetterButtonEdit(
+          matchingNamesLetterBtn
+        )
+      );
+      dispatch(
+        mainSlice.actions.setSelectedIdLetterButtonEdit(matchingIdsLetterBtn)
+      );
+
+      //meetingBtn
+      const selectedArrayMeetingBtn = selectedRow.MeetingBtns;
+      const resultArrayMeetingBtn = selectedArrayMeetingBtn.split("|");
+
+      const matchingNamesMeetingBtn = [];
+      const matchingIdsMeetingBtn = [];
+
+      resultArrayMeetingBtn.forEach((resultId) => {
+        const matchingBtnMeeting = dataAfBtn.find(
+          (btn) => btn.ID.toString() === resultId
         );
-        dispatch(
-          mainSlice.actions.setSelectedIdLetterButtonEdit(matchingIdsLetterBtn)
-          );
+        if (matchingBtnMeeting) {
+          matchingNamesMeetingBtn.push(matchingBtnMeeting.Name);
+          matchingIdsMeetingBtn.push(matchingBtnMeeting.ID);
+        }
+      });
+      dispatch(
+        mainSlice.actions.setSelectedNameMeetingButtonEdit(
+          matchingNamesMeetingBtn
+        )
+      );
+      dispatch(
+        mainSlice.actions.setSelectedIdMeetingButtonEdit(matchingIdsMeetingBtn)
+      );
+
       dispatch(fetchAfBtn());
 
       setFormData((prevFormData) => ({
@@ -297,13 +336,12 @@ const ConfigurationAdd = () => {
         WFTemplateIDForLessonLearn: afTemplateSelectedRowEdit,
       }));
       setIsEditMode(true);
-        dispatch(mainSlice.actions.setprogramTemplateSelectedRow());
-        dispatch(mainSlice.actions.setDefaultRibbonSelectedRow());
-        dispatch(mainSlice.actions.setFormTemplateSelectedRow());
-        dispatch(mainSlice.actions.setCommentFormSelectedRow());
-        dispatch(mainSlice.actions.setProcedureFormSelectedRow());
-        dispatch(mainSlice.actions.setAfTemplateSelectedRow());
-     
+      dispatch(mainSlice.actions.setprogramTemplateSelectedRow());
+      dispatch(mainSlice.actions.setDefaultRibbonSelectedRow());
+      dispatch(mainSlice.actions.setFormTemplateSelectedRow());
+      dispatch(mainSlice.actions.setCommentFormSelectedRow());
+      dispatch(mainSlice.actions.setProcedureFormSelectedRow());
+      dispatch(mainSlice.actions.setAfTemplateSelectedRow());
     }
   }, [
     isAddClicked,
@@ -439,6 +477,8 @@ const ConfigurationAdd = () => {
         dispatch(mainSlice.actions.setSelectedNameDefaultButton([]));
         dispatch(mainSlice.actions.setselectedNameLetterButtonEdit([]));
         dispatch(mainSlice.actions.setselectedNameLetterButton([]));
+        dispatch(mainSlice.actions.setSelectedNameMeetingButtonEdit([]));
+        dispatch(mainSlice.actions.setSelectedNameMeetingButton([]));
 
         toast.current.show({
           severity: "success",
@@ -457,16 +497,25 @@ const ConfigurationAdd = () => {
   };
 
   const editConfiguration = () => {
-
-    const combinedIdsDefaultButton = IdsADefaultButtonEdit.concat(selectedIdDefaultButton);
+    //defaultBtn
+    const combinedIdsDefaultButton = IdsADefaultButtonEdit.concat(
+      selectedIdDefaultButton
+    );
     const defaultBtnValue = combinedIdsDefaultButton.join("|");
 
-    console.log("AAAAAAAAAAAA",defaultBtnValue);
-
-    const combinedIdsLetterButton = selectedIdLetterButtonEdit.concat(selectedIdLetterButtons);
+    //letterBtn
+    const combinedIdsLetterButton = selectedIdLetterButtonEdit.concat(
+      selectedIdLetterButtons
+    );
     const letterBtnValue = combinedIdsLetterButton.join("|");
 
-    console.log("BBBBBBBB",letterBtnValue);
+    //meetingBtn
+    const combinedIdsMeetingButton = selectedIdMeetingButtonEdit.concat(
+      selectedIdMeetingsButton
+    );
+    const meetingBtnValue = combinedIdsMeetingButton.join("|");
+
+    console.log("meetingBtnValue", meetingBtnValue);
 
     const updatedSelectedRow = {
       ...selectedRow,
@@ -475,13 +524,24 @@ const ConfigurationAdd = () => {
       FirstIDProgramTemplate: programTemplateSelectedRow?.ID
         ? programTemplateSelectedRow?.ID
         : programTemplateSelectedRowEdit?.ID,
-      SelMenuIDForMain:defaultRibbonSelectedRow?.ID ? defaultRibbonSelectedRow?.ID : defaultRibbonSelectedRowEdit?.ID,
-      EnityTypeIDForLessonLearn:formTemplateSelectedRow?.ID ? formTemplateSelectedRow?.ID : formTemplateSelectedRowEdit?.ID,
-      WFTemplateIDForLessonLearn:afTemplateSelectedRow?.ID ? afTemplateSelectedRow?.ID :afTemplateSelectedRowEdit?.ID,
-      EnityTypeIDForTaskCommnet:commentFormSelectedRow?.ID ? commentFormSelectedRow?.ID :commentFormSelectedRowEdit?.ID,
-      EnityTypeIDForProcesure:procedureFormSelectedRow?.ID ? procedureFormSelectedRow?.ID :procedureFormSelectedRowEdit?.ID,
-      DefaultBtn:defaultBtnValue,
-      LetterBtns:letterBtnValue
+      SelMenuIDForMain: defaultRibbonSelectedRow?.ID
+        ? defaultRibbonSelectedRow?.ID
+        : defaultRibbonSelectedRowEdit?.ID,
+      EnityTypeIDForLessonLearn: formTemplateSelectedRow?.ID
+        ? formTemplateSelectedRow?.ID
+        : formTemplateSelectedRowEdit?.ID,
+      WFTemplateIDForLessonLearn: afTemplateSelectedRow?.ID
+        ? afTemplateSelectedRow?.ID
+        : afTemplateSelectedRowEdit?.ID,
+      EnityTypeIDForTaskCommnet: commentFormSelectedRow?.ID
+        ? commentFormSelectedRow?.ID
+        : commentFormSelectedRowEdit?.ID,
+      EnityTypeIDForProcesure: procedureFormSelectedRow?.ID
+        ? procedureFormSelectedRow?.ID
+        : procedureFormSelectedRowEdit?.ID,
+      DefaultBtn: defaultBtnValue,
+      LetterBtns: letterBtnValue,
+      MeetingBtns: meetingBtnValue,
     };
     projectServices
       .updateSetting(updatedSelectedRow)
@@ -505,12 +565,16 @@ const ConfigurationAdd = () => {
         dispatch(mainSlice.actions.setProcedureFormSelectedRow());
         dispatch(mainSlice.actions.setSelectedNameDefaultButtonEdit([]));
         dispatch(mainSlice.actions.setselectedNameLetterButtonEdit([]));
+        dispatch(mainSlice.actions.setSelectedNameMeetingButtonEdit([]));
         dispatch(mainSlice.actions.setSelectedNameDefaultButton([]));
         dispatch(mainSlice.actions.setselectedNameLetterButton([]));
+        dispatch(mainSlice.actions.setSelectedNameMeetingButton([]));
         dispatch(mainSlice.actions.setelectedIdDefaultButtonEdit([]));
         dispatch(mainSlice.actions.setSelectedIdLetterButtonEdit([]));
+        dispatch(mainSlice.actions.setSelectedIdMeetingButtonEdit([]));
         dispatch(mainSlice.actions.setelectedIdDefaultButton([]));
         dispatch(mainSlice.actions.setSelectedIdLetterButton([]));
+        dispatch(mainSlice.actions.setSelectedIdMeetingButton([]));
         dispatch(mainSlice.actions.setIsAddClicked(true));
         dispatch(mainSlice.actions.setHandleAddComponent(true));
         dispatch(mainSlice.actions.setModeSelectedRow(true));
@@ -581,7 +645,7 @@ const ConfigurationAdd = () => {
 
   return (
     <>
-     <Toast ref={toast} position="top-right" />
+      <Toast ref={toast} position="top-right" />
       {/* ////////////////////////Add Line//////////////////*/}
       <div>
         {isEditMode ? (
@@ -774,7 +838,9 @@ const ConfigurationAdd = () => {
             dialogData={showDialogMeetingButton}
             titleBox={"Meeting Action Buttons"}
             selectedNames={selectedNamesMeetingsButtons}
+            selectedNamesEdit={selectedNameMeetingButtonEdit}
             selectedId={selectedIdMeetingsButton}
+            selectedIdEdit={selectedIdMeetingButtonEdit}
           />
         </div>
         <div className="col-1"></div>

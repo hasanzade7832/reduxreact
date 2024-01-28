@@ -12,22 +12,24 @@ interface MainState {
   isVisibleBox: Boolean;
   selectedBoxName: string;
   selectedNameDefaultButton: string[];
-  selectedNameDefaultButtonEdit:string[];
+  selectedNameDefaultButtonEdit: string[];
   selectedNameLetterButton: string[];
   selectedNameLetterButtonEdit: string[];
   selectedNameMeetingButton: string[];
+  selectedNameMeetingButtonEdit: string[];
   selectedIdDefaultButton: string[];
-  selectedIdDefaultButtonEdit:string[];
+  selectedIdDefaultButtonEdit: string[];
   selectedIdLetterButton: string[];
   selectedIdLetterButtonEdit: string[];
   selectedIdMeetingButton: string[];
+  selectedIdMeetingButtonEdit: string[];
   nameofDialogTable: string;
   programTemplateSelectedRow: string;
   programTemplateSelectedRowEdit: string;
   defaultRibbonSelectedRow: string;
-  defaultRibbonSelectedRowEdit:string;
+  defaultRibbonSelectedRowEdit: string;
   formTemplateSelectedRow: string;
-  formTemplateSelectedRowEdit:string;
+  formTemplateSelectedRowEdit: string;
   afTemplateSelectedRow: string;
   afTemplateSelectedRowEdit: string;
   commentFormSelectedRow: string;
@@ -41,7 +43,7 @@ interface MainState {
   showDialogCommentForm: Boolean;
   showDialogProcedureForm: Boolean;
   selectedRowData: null;
-  modeSelectedRow:Boolean
+  modeSelectedRow: Boolean;
 }
 
 const initialState: MainState = {
@@ -60,24 +62,26 @@ const initialState: MainState = {
   selectedNameLetterButton: [],
   selectedNameLetterButtonEdit: [],
   selectedNameMeetingButton: [],
+  selectedNameMeetingButtonEdit: [],
   selectedIdDefaultButton: [],
   selectedIdDefaultButtonEdit: [],
   selectedIdLetterButton: [],
   selectedIdLetterButtonEdit: [],
   selectedIdMeetingButton: [],
+  selectedIdMeetingButtonEdit: [],
   nameofDialogTable: "",
   programTemplateSelectedRow: "",
   programTemplateSelectedRowEdit: "",
   defaultRibbonSelectedRow: "",
-  defaultRibbonSelectedRowEdit:"",
+  defaultRibbonSelectedRowEdit: "",
   formTemplateSelectedRow: "",
   formTemplateSelectedRowEdit: "",
   afTemplateSelectedRow: "",
-  afTemplateSelectedRowEdit:"",
+  afTemplateSelectedRowEdit: "",
   commentFormSelectedRow: "",
-  commentFormSelectedRowEdit:"",
+  commentFormSelectedRowEdit: "",
   procedureFormSelectedRow: "",
-  procedureFormSelectedRowEdit:"",
+  procedureFormSelectedRowEdit: "",
   showDialogProgramTemplate: false,
   showDialogDefaultRibbon: false,
   showDialogFormTemplate: false,
@@ -85,7 +89,7 @@ const initialState: MainState = {
   showDialogCommentForm: false,
   showDialogProcedureForm: false,
   selectedRowData: null,
-  modeSelectedRow:false
+  modeSelectedRow: false,
 };
 
 export const mainSlice = createSlice({
@@ -134,7 +138,6 @@ export const mainSlice = createSlice({
       action: PayloadAction<Array<string>>
     ) => {
       state.selectedNameDefaultButtonEdit = action.payload;
-      ////console.log("action",action.payload)
     },
     setselectedNameLetterButton: (
       state,
@@ -153,6 +156,12 @@ export const mainSlice = createSlice({
       action: PayloadAction<Array<string>>
     ) => {
       state.selectedNameMeetingButton = action.payload;
+    },
+    setSelectedNameMeetingButtonEdit: (
+      state,
+      action: PayloadAction<Array<string>>
+    ) => {
+      state.selectedNameMeetingButtonEdit = action.payload;
     },
     setelectedIdDefaultButton: (
       state,
@@ -183,6 +192,12 @@ export const mainSlice = createSlice({
       action: PayloadAction<Array<string>>
     ) => {
       state.selectedIdMeetingButton = action.payload;
+    },
+    setSelectedIdMeetingButtonEdit: (
+      state,
+      action: PayloadAction<Array<string>>
+    ) => {
+      state.selectedIdMeetingButtonEdit = action.payload;
     },
     setNameofDialogTable: (state, action: PayloadAction<string>) => {
       state.nameofDialogTable = action.payload;

@@ -20,23 +20,25 @@ export const store = configureStore({
     selectedNameDefaultButton: mainSlice.reducer,
     selectedNameDefaultButtonEdit: mainSlice.reducer,
     selectedNameLetterButton: mainSlice.reducer,
-    selectedNameLetterButtonEdit:mainSlice.reducer,
+    selectedNameLetterButtonEdit: mainSlice.reducer,
     selectedNameMeetingButton: mainSlice.reducer,
+    selectedNameMeetingButtonEdit: mainSlice.reducer,
     selectedIdDefaultButton: mainSlice.reducer,
     selectedIdDefaultButtonEdit: mainSlice.reducer,
     selectedIdLetterButton: mainSlice.reducer,
-    selectedIdLetterButtonEdit:mainSlice.reducer,
+    selectedIdLetterButtonEdit: mainSlice.reducer,
     selectedIdMeetingButton: mainSlice.reducer,
+    selectedIdMeetingButtonEdit: mainSlice.reducer,
     nameofDialogTable: mainSlice.reducer,
     programTemplateSelectedRow: mainSlice.reducer,
     programTemplateSelectedRowEdit: mainSlice.reducer,
     defaultRibbonSelectedRow: mainSlice.reducer,
     defaultRibbonSelectedRowEdit: mainSlice.reducer,
     formTemplateSelectedRow: mainSlice.reducer,
-    formTemplateSelectedRowEdit:mainSlice.reducer,
+    formTemplateSelectedRowEdit: mainSlice.reducer,
     selectedRowData: mainSlice.reducer,
     afTemplateSelectedRow: mainSlice.reducer,
-    afTemplateSelectedRowEdit:mainSlice.reducer,
+    afTemplateSelectedRowEdit: mainSlice.reducer,
     commentFormSelectedRow: mainSlice.reducer,
     commentFormSelectedRowEdit: mainSlice.reducer,
     procedureFormSelectedRow: mainSlice.reducer,
@@ -47,7 +49,7 @@ export const store = configureStore({
     showDialogAfTemplate: mainSlice.reducer,
     showDialogCommentForm: mainSlice.reducer,
     showDialogProcedureForm: mainSlice.reducer,
-    modeSelectedRow:mainSlice.reducer,
+    modeSelectedRow: mainSlice.reducer,
     dataConfiguration: configurationSlice.reducer,
     dataRibbon: configurationSlice.reducer,
     dataWfTemplate: configurationSlice.reducer,
@@ -63,8 +65,8 @@ export const store = configureStore({
 });
 
 export type RootState = {
-  dataAfBtn:{
-    dataAfBtn:string;
+  dataAfBtn: {
+    dataAfBtn: string;
   };
   subTabName: {
     selectedSubTab: string;
@@ -105,32 +107,38 @@ export type RootState = {
   selectedNameDefaultButton: {
     selectedNameDefaultButton: string[];
   };
-  selectedNameDefaultButtonEdit:{
-    selectedNameDefaultButtonEdit:string[];
+  selectedNameDefaultButtonEdit: {
+    selectedNameDefaultButtonEdit: string[];
   };
   selectedNameLetterButton: {
     selectedNameLetterButton: string[];
   };
-  selectedNameLetterButtonEdit:{
-    selectedNameLetterButtonEdit:string[];
+  selectedNameLetterButtonEdit: {
+    selectedNameLetterButtonEdit: string[];
   };
   selectedNameMeetingButton: {
     selectedNameMeetingButton: string[];
   };
+  selectedNameMeetingButtonEdit: {
+    selectedNameMeetingButtonEdit: string[];
+  };
   selectedIdDefaultButton: {
     selectedIdDefaultButton: string[];
   };
-  selectedIdDefaultButtonEdit:{
-    selectedIdDefaultButtonEdit:string[];
+  selectedIdDefaultButtonEdit: {
+    selectedIdDefaultButtonEdit: string[];
   };
   selectedIdLetterButton: {
     selectedIdLetterButton: string[];
   };
-  selectedIdLetterButtonEdit:{
-    selectedIdLetterButtonEdit:string[];
+  selectedIdLetterButtonEdit: {
+    selectedIdLetterButtonEdit: string[];
   };
   selectedIdMeetingButton: {
     selectedIdMeetingButton: string[];
+  };
+  selectedIdMeetingButtonEdit: {
+    selectedIdMeetingButtonEdit: string[];
   };
   nameofDialogTable: {
     nameofDialogTable: string;
@@ -147,21 +155,21 @@ export type RootState = {
   afTemplateSelectedRow: {
     afTemplateSelectedRow: string;
   };
-  afTemplateSelectedRowEdit:{
-    afTemplateSelectedRowEdit:string;
-  }
+  afTemplateSelectedRowEdit: {
+    afTemplateSelectedRowEdit: string;
+  };
   commentFormSelectedRow: {
     commentFormSelectedRow: string;
   };
-  commentFormSelectedRowEdit:{
-    commentFormSelectedRowEdit:string;
-  }
+  commentFormSelectedRowEdit: {
+    commentFormSelectedRowEdit: string;
+  };
   procedureFormSelectedRow: {
     procedureFormSelectedRow: string;
   };
-  procedureFormSelectedRowEdit:{
-    procedureFormSelectedRowEdit:string;
-  }
+  procedureFormSelectedRowEdit: {
+    procedureFormSelectedRowEdit: string;
+  };
   showDialogProgramTemplate: {
     showDialogProgramTemplate: Boolean;
   };
@@ -192,14 +200,14 @@ export type RootState = {
   programTemplateSelectedRowEdit: {
     programTemplateSelectedRowEdit: string;
   };
-  defaultRibbonSelectedRowEdit:{
-    defaultRibbonSelectedRowEdit:string;
+  defaultRibbonSelectedRowEdit: {
+    defaultRibbonSelectedRowEdit: string;
   };
-  formTemplateSelectedRowEdit:{
-    formTemplateSelectedRowEdit:string;
-  }
-  modeSelectedRow:{
-    modeSelectedRow:Boolean
-  }
+  formTemplateSelectedRowEdit: {
+    formTemplateSelectedRowEdit: string;
+  };
+  modeSelectedRow: {
+    modeSelectedRow: Boolean;
+  };
 };
 export type AppDispatch = typeof store.dispatch;

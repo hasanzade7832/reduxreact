@@ -11,24 +11,39 @@ const CustomComponent = ({
   dialogData,
   titleBox,
   selectedNames,
+  selectedNamesEdit,
   selectedId,
+  selectedIdEdit,
 }) => {
   const dispatch = useDispatch();
 
   const [updatedNames, setUpdatedNames] = useState([]);
+  const [updatedNamesEdit, setUpdatedNamesEdit] = useState([]);
   const [updatedId, setUpdatedId] = useState([]);
+  const [updatedIdEdit, setUpdatedIdEdit] = useState([]);
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  useEffect(() => {
+    if (selectedNamesEdit.length > 0 || selectedIdEdit.length > 0) {
+      setIsEditMode(true);
+    } else {
+      setIsEditMode(false);
+    }
+  }, [selectedNamesEdit, selectedIdEdit]);
 
   useEffect(() => {
     setUpdatedNames(selectedNames);
+    setUpdatedNamesEdit([...selectedNamesEdit, ...selectedNames]);
     setUpdatedId(selectedId);
-  }, [selectedNames, updatedId]);
+    setUpdatedIdEdit([...selectedIdEdit, ...selectedId]);
+  }, [selectedNames, selectedNamesEdit, selectedId, selectedIdEdit]);
 
   const dataMeetingButton = useSelector(
-    (state) => state.selectedNameLetterButton.selectedNameLetterButton
+    (state) => state.selectedNameMeetingButton.selectedNameMeetingButton
   );
 
   const IdsMeetingButton = useSelector(
-    (state) => state.selectedIdLetterButton.selectedIdLetterButton
+    (state) => state.selectedIdMeetingButton.selectedIdMeetingButton
   );
 
   const handleDoubleClick = (index) => {
@@ -45,6 +60,31 @@ const CustomComponent = ({
       mainSlice.actions.setSelectedIdMeetingButton(updatedIdsMeetingCopy)
     );
   };
+
+  const handleDoubleClickEdit = (index) => {
+    const updatedNamesEditCopy = [...selectedNamesEdit];
+    const updatedIdsEditCopy = [...selectedIdEdit];
+    updatedNamesEditCopy.splice(index, 1);
+    updatedIdsEditCopy.splice(index, 1);
+    setUpdatedNamesEdit(updatedNamesEditCopy);
+    setUpdatedIdEdit(updatedIdsEditCopy);
+    dispatch(
+      mainSlice.actions.setSelectedNameMeetingButtonEdit(updatedNamesEditCopy)
+    );
+    dispatch(
+      mainSlice.actions.setSelectedIdMeetingButtonEdit(updatedIdsEditCopy)
+    );
+  };
+
+  const selectedRow = useSelector(
+    (state) => state.selectedRowData.selectedRowData
+  );
+  useEffect(() => {
+    if (selectedRow) {
+      dispatch(mainSlice.actions.setSelectedNameMeetingButton([]));
+      dispatch(mainSlice.actions.setSelectedIdMeetingButton([]));
+    }
+  }, [selectedRow, dispatch]);
 
   return (
     <>
@@ -84,19 +124,25 @@ const CustomComponent = ({
           }}
         />
         <div>
-          {Array.isArray(updatedNames) && updatedNames.length ? (
-            updatedNames.map((name, index) => (
-              <div
-                onDoubleClick={() => handleDoubleClick(index)}
-                style={{ padding: "2px", margin: "5px", cursor: "pointer" }}
-                key={index}
-              >
-                {name}
-              </div>
-            ))
-          ) : (
-            <span> </span>
-          )}
+          {isEditMode
+            ? updatedNamesEdit.map((name, index) => (
+                <div
+                  onDoubleClick={() => handleDoubleClickEdit(index)}
+                  style={{ padding: "2px", margin: "5px", cursor: "pointer" }}
+                  key={index}
+                >
+                  {name}
+                </div>
+              ))
+            : updatedNames.map((name, index) => (
+                <div
+                  onDoubleClick={() => handleDoubleClick(index)}
+                  style={{ padding: "2px", margin: "5px", cursor: "pointer" }}
+                  key={index}
+                >
+                  {name}
+                </div>
+              ))}
         </div>
       </div>
     </>
