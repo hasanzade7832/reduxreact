@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface MainState {
+  isEditMode:Boolean;
   selectedSubTab: string;
   valueDisplayHeader: string;
   valueSplitterShow: Boolean;
@@ -47,6 +48,7 @@ interface MainState {
 }
 
 const initialState: MainState = {
+  isEditMode:false,
   selectedSubTab: "",
   valueDisplayHeader: "",
   valueSplitterShow: false,
@@ -96,6 +98,9 @@ export const mainSlice = createSlice({
   name: "mainSlice",
   initialState,
   reducers: {
+    setIsEditMode: (state, action: PayloadAction<Boolean>) => {
+      state.isEditMode = action.payload;
+    },
     setSubTab: (state, action: PayloadAction<string>) => {
       state.selectedSubTab = action.payload;
     },

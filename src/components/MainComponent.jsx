@@ -4,13 +4,14 @@ import { Splitter, SplitterPanel } from "primereact/splitter";
 import { useSelector, useDispatch } from "react-redux";
 import tabData from "../utils/tabData";
 import AddConfiguration from "./configuration/Add-Edit/configurationAdd";
-import AddCommands from "../components/commands/AddCommands";
+import AddCommands from "./commands/Add-Edit/AddCommands";
 import { mainSlice } from "../redux/mainSlice";
 
 function MainComponent() {
   const dispatch = useDispatch();
 
   let subTabName = useSelector((state) => state.subTabName.selectedSubTab);
+  console.log("subTabName",subTabName);
 
   const prevSubTabName = usePrevious(subTabName);
 
@@ -38,15 +39,7 @@ function MainComponent() {
     (state) => state.handleAddComponent.handleAddComponent
   );
 
-  const isAddClicked = useSelector((state) => state.isAddClicked.isAddClicked);
-
-  //////console.log("handleAddComponent", handleAddComponent);
-  //////console.log("isAddClicked", isAddClicked);
-  //////console.log("subTabName", subTabName);
-  //////console.log("prevSubTabName", prevSubTabName);
-
   useEffect(() => {
-    // وقتی subTabName تغییر کرد، اقدام انجام شود
     dispatch(mainSlice.actions.setHandleAddComponent(false));
     dispatch(mainSlice.actions.setIsAddClicked(false));
   }, [subTabName]);
@@ -57,11 +50,19 @@ function MainComponent() {
     }
   }, [selectedRowData]);
 
-  const shouldDisplayAddConfiguration =
+  //showConfiguration
+  const showConfiguration =
     handleAddComponent &&
     subTabName === "Configuration" &&
     subTabName === prevSubTabName;
+  
+  //showCommands
+  const showCommands = 
+  handleAddComponent &&
+    subTabName === "Commands" &&
+    subTabName === prevSubTabName;
 
+  
   return (
     <>
       {splitterShow && (
@@ -79,7 +80,8 @@ function MainComponent() {
             style={{ overflow: "auto" }}
           >
             <div className="w-full h-full">
-              {shouldDisplayAddConfiguration && <AddConfiguration />}
+              {showConfiguration && <AddConfiguration />}
+              {showCommands && <AddCommands />}
             </div>
           </SplitterPanel>
         </Splitter>

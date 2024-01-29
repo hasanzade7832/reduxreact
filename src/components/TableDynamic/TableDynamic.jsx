@@ -145,10 +145,8 @@ const TableDynamic = () => {
     );
   }
 
-
   const handleRowClick = (event) => {
     setSelectedRow(event.data);
-    // setIsEditDisabled(false);
     dispatch(mainSlice.actions.setModeSelectedRow(false));
   };
 
@@ -166,7 +164,6 @@ const TableDynamic = () => {
           dispatch(fetchConfiguration());
           dispatch(mainSlice.actions.setIsAddClicked(true));
           dispatch(mainSlice.actions.setHandleAddComponent(true));
-          // setIsEditDisabled(true);
           dispatch(mainSlice.actions.setModeSelectedRow(true))
           setShowDeleteConfirmation(false);
           toast.current.show({
@@ -229,7 +226,13 @@ const TableDynamic = () => {
         <span style={{ fontWeight: "bold" }}>{subTabName}</span>
       </div>
       <div style={{ textAlign: "right", marginTop: "20px" }}>
-        <Button style={{ backgroundColor: "white", marginRight: "10px" }} severity="success">
+        <Button style={{ backgroundColor: "white", marginRight: "10px" }} severity="success"
+         onClick={() => {
+          dispatch(mainSlice.actions.setIsAddClicked(true));
+          dispatch(mainSlice.actions.setHandleAddComponent(true));
+          dispatch(mainSlice.actions.setModeSelectedRow(true));
+          setSelectedRow(null);
+        }}>
           <i
             className="pi pi-plus"
             style={{
@@ -238,12 +241,7 @@ const TableDynamic = () => {
               fontSize: "0.8rem",
             }}
             size="small"
-            onClick={() => {
-              dispatch(mainSlice.actions.setIsAddClicked(true));
-              dispatch(mainSlice.actions.setHandleAddComponent(true));
-              setSelectedRow(null);
-              //////console.log("adddd");
-            }}
+           
           ></i>
         </Button>
 

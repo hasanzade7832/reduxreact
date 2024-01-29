@@ -7,6 +7,7 @@ import programTemplateSlice from "./programtemplate/programtemplateSlice";
 
 export const store = configureStore({
   reducer: {
+    isEditMode:mainSlice.reducer,
     displayHeader: mainSlice.reducer,
     subTabName: mainSlice.reducer,
     displaySplitter: mainSlice.reducer,
@@ -65,6 +66,9 @@ export const store = configureStore({
 });
 
 export type RootState = {
+  isEditMode:{
+    isEditMode:Boolean
+  };
   dataAfBtn: {
     dataAfBtn: string;
   };
