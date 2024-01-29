@@ -5,6 +5,7 @@ export const ApiConst = Object.freeze({
   upload: "api/File/Upload",
   insert: "api/File/Insert",
   getAllCompany: "api/Company/GetAll",
+  getEnum: "api/GetEnumByName",
   
   //setting
   getAllSetting: "api/Setting/GetAll",

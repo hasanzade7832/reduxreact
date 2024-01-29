@@ -6,7 +6,7 @@ import CustomDropdown from "../../globalComponents/main/dropDownComp";
 import AddBar from "../../globalComponents/main/addBar";
 import EditBar from "../../globalComponents/main/editBar";
 import {mainSlice} from "../../../redux/mainSlice";
-import {fetchCommands} from "../../../redux/commands/commandsSlice";
+import {fetchCommands,fetchViewMode} from "../../../redux/commands/commandsSlice";
 import projectServices from "../../services/project.services";
 import { Toast } from "primereact/toast";
 
@@ -45,6 +45,28 @@ const CommandsAdd = () => {
   const isAddClicked = useSelector((state) => state.isAddClicked.isAddClicked);
 
   const selectedRow = useSelector((state) => state.selectedRowData.selectedRowData);
+
+  const dataViewMode = useSelector((state)=>state.dataViewMode.dataViewMode);
+
+  console.log("dataViewMode",typeof(dataViewMode));
+
+  const keys = Object.keys(dataViewMode);
+  const value = Object.values(dataViewMode);
+
+  const dataView = [];
+
+  for (let index = 0; index < keys.length; index++) {
+    const pushingObj = {}
+    pushingObj["key"] = keys[index];
+    pushingObj["value"] = value[index];
+
+    dataView.push( pushingObj );
+    
+  }
+
+  useEffect(()=>{
+    dispatch(fetchViewMode())
+  },[])
 
   useEffect(()=>{
     if(isAddClicked){
@@ -138,11 +160,13 @@ const CommandsAdd = () => {
       {/* ///////////////////////////LINE2///////////////////////////// */}
       <div className="grid" style={{ marginLeft: "20px", marginTop: "20px" }}>
         <div className="col-5">
-          <div>{/* <CustomInputText label="Name" /> */}</div>
+          <div>
+            <CustomDropdown label="View Mode"  optionLabel="key" options={dataView}/>
+          </div>
         </div>
         <div className="col-1"></div>
         <div className="col-5">
-          {/* <CustomInputText label="Description" /> */}
+          <CustomInputText label="Main Column Id" />
         </div>
       </div>
       {/* ///////////////////////////LINE3///////////////////////////// */}

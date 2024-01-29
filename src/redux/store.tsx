@@ -60,8 +60,9 @@ export const store = configureStore({
     selectedId: configurationSlice.reducer,
     dataLogin: loginSlice.reducer,
     loginSuccess: loginSlice.reducer,
-    dataCommands: commandsSlice.reducer,
     dataProgramTemplate: programTemplateSlice.reducer,
+    dataCommands: commandsSlice.reducer,
+    dataViewMode:commandsSlice.reducer
   },
 });
 
@@ -213,5 +214,6 @@ export type RootState = {
   modeSelectedRow: {
     modeSelectedRow: Boolean;
   };
+  
 };
 export type AppDispatch = typeof store.dispatch;

@@ -19,6 +19,9 @@ class projectService {
   async getAllCompany() {
     return await httpClient.post(ApiConst.getAllCompany);
   }
+  async getEnum(data) {
+    return await httpClient.post(ApiConst.getEnum,data);
+  }
 
   //setting
   async getAllSetting() {
