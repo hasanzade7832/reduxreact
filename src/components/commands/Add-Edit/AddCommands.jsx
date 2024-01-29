@@ -1,16 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useRef} from "react";
 import { useSelector , useDispatch } from "react-redux";
 import CustomInputText from "../../globalComponents/main/inputCom";
 import CustomTextArea from "../../globalComponents/main/inputTextAreaComp";
 import CustomDropdown from "../../globalComponents/main/dropDownComp";
 import AddBar from "../../globalComponents/main/addBar";
 import EditBar from "../../globalComponents/main/editBar";
-// import "../../../src/App.scss";
 import {mainSlice} from "../../../redux/mainSlice";
+import {fetchCommands} from "../../../redux/commands/commandsSlice";
+import projectServices from "../../services/project.services";
+import { Toast } from "primereact/toast";
+
 
 const CommandsAdd = () => {
 
   const dispatch = useDispatch();
+
+  const toast = useRef(null);
  
   const [formData, setFormData] = useState({
     ID: 0,
@@ -46,19 +51,63 @@ const CommandsAdd = () => {
       dispatch(mainSlice.actions.setIsEditMode(false));
     }else if(selectedRow){
       dispatch(mainSlice.actions.setIsEditMode(true));
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        Name: selectedRow.Name,
+        Describtion:selectedRow.Describtion
+      }));
     }
   },[isAddClicked,selectedRow,]);
 
   const addCommand = () => {
-    //////console.log("addCommand");
+
+    projectServices
+      .insertCommand(formData)
+      .then((res) => {
+        dispatch(fetchCommands());
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Item Added successfully",
+        });
+
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          Name:"",
+          Describtion:""
+        }));
+      })
+      .catch(() => {});
   };
 
   const editCommand = () => {
 
+    const updatedSelectedRow = {
+      ...selectedRow,
+      Name: formData.Name,
+      Describtion:formData.Describtion
+    };
+
+    projectServices
+    .updateCommand(updatedSelectedRow)
+    .then((res) => {
+      dispatch(fetchCommands());
+      toast.current.show({
+        severity: "success",
+        summary: "Success",
+        detail: "Item Edited successfully",
+      });
+      setFormData({
+        Name: "",
+        Describtion:""
+      });
+    })
+    .catch(() => {});
   };
 
   return (
     <>
+       <Toast ref={toast} position="top-right" />
       <div>
         {isEditMode ? (
           <EditBar onClick={editCommand} />
@@ -73,15 +122,17 @@ const CommandsAdd = () => {
           <div>
             <CustomInputText 
              label="Name"
+             value={formData.Name}
              onChange={(e) => handleChange("Name", e.target.value)}
               />
           </div>
         </div>
         <div className="col-1"></div>
         <div className="col-5">
-          <CustomInputText 
-          label="Description" 
-          onChange={(e) => handleChange("Description", e.target.value)}/>
+          <CustomInputText
+          label="Description"
+          value={formData.Describtion}
+          onChange={(e) => handleChange("Describtion", e.target.value)}/>
         </div>
       </div>
       {/* ///////////////////////////LINE2///////////////////////////// */}

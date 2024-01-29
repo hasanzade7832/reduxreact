@@ -34,8 +34,6 @@ class projectService {
     return await httpClient.post(ApiConst.deleteSetting, data);
   }
 
-
-
   async getAllMenu() {
     return await httpClient.post(ApiConst.getAllMenu);
   }
@@ -43,9 +41,18 @@ class projectService {
     return await httpClient.post(ApiConst.getAllFirstPrugTemplate);
   }
 
+  //command
   async getAllCommand() {
     return await httpClient.post(ApiConst.getAllCommand);
   }
+  async insertCommand(data) {
+    return await httpClient.post(ApiConst.insertCommand,data);
+  }
+  async updateCommand(data) {
+    return await httpClient.post(ApiConst.updateCommand,data);
+  }
+
+
   async getAllProgramTemplate() {
     return await httpClient.post(ApiConst.getAllProgramTemplate);
   }

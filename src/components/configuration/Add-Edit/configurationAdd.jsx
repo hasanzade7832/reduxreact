@@ -270,7 +270,6 @@ const ConfigurationAdd = () => {
       dispatch(
         mainSlice.actions.setelectedIdDefaultButtonEdit(matchingIdsDefaultBtn)
       );
-      // dispatch(fetchAfBtn());
 
       //letterBtn
       const selectedArrayLetterBtn = selectedRow.LetterBtns;

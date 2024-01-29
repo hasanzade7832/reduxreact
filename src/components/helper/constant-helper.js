@@ -14,7 +14,12 @@ export const ApiConst = Object.freeze({
 
   getAllMenu: "api/Menu/GetAll",
   getAllFirstPrugTemplate: "api/ProgramTemplate/GetAll",
+
+  //command
   getAllCommand: "api/Command/GetAll",
+  insertCommand: "api/Command/Insert",
+  updateCommand: "api/Command/Update",
+
   getAllProgramTemplate: "api/ProgramTemplate/GetAll",
   getAllWfTemplate: "api/WFTemplate/GetAll",
   getAllEntityType: "api/EntityType/GetAllComplete",
