@@ -28,13 +28,13 @@ const CommandsAdd = () => {
     gridCmd: "",
     tabCmd: "",
     QR: "",
-    ViewMode: -1,
+    ViewMode: null,
     DefaultColumns: "",
     ReportParam: "",
     SpParam: "",
     InvisibleColumns: "",
     ColorColumn: "",
-    CmdType: 0,
+    CmdType:null,
     ApiColumns: ""
   });
 
@@ -96,7 +96,9 @@ const CommandsAdd = () => {
         DefaultColumns:"",
         ApiColumns:"",
         SpParam:"",
-        ReportParam:""
+        ReportParam:"",
+        ViewMode:null,
+        CmdType:null
       }));
     } else if (selectedRow) {
       dispatch(mainSlice.actions.setIsEditMode(true));
@@ -318,12 +320,11 @@ const CommandsAdd = () => {
           </div>
         </div>
         <div className="col-1"></div>
-        <div className="col-5"  style={{marginTop:"20px"}}>
-          <CustomInputText
-            label="Default Columns"
+        <div className="col-5">
+          <CustomTextArea
+            label="Hidden Columns"
             value={formData.DefaultColumns}
             onChange={(e) => {
-              console.log("tabCmd",e.target.value);
               handleChange("DefaultColumns", e.target.value);
             }}
           />
@@ -343,12 +344,11 @@ const CommandsAdd = () => {
           </div>
         </div>
         <div className="col-1"></div>
-        <div className="col-5"  style={{marginTop:"20px"}}>
-          <CustomInputText
+        <div className="col-5">
+          <CustomTextArea
             label="Sp Parameters"
             value={formData.SpParam}
             onChange={(e) => {
-              console.log("tabCmd",e.target.value);
               handleChange("SpParam", e.target.value);
             }}
           />
@@ -373,9 +373,8 @@ const CommandsAdd = () => {
         <div className="col-5">
           <CustomTextArea
             label="Report Parameters"
-            value={formData.CmdType}
+            value={formData.ReportParam}
             onChange={(e) => {
-              console.log("ReportParam",e.target.value);
               handleChange("ReportParam", e.target.value);
             }}
           />
