@@ -62,7 +62,8 @@ export const store = configureStore({
     loginSuccess: loginSlice.reducer,
     dataProgramTemplate: programTemplateSlice.reducer,
     dataCommands: commandsSlice.reducer,
-    dataViewMode:commandsSlice.reducer
+    dataViewMode:commandsSlice.reducer,
+    dataApiMode:commandsSlice.reducer
   },
 });
 

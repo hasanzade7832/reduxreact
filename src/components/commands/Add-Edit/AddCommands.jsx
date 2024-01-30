@@ -28,9 +28,13 @@ const CommandsAdd = () => {
     tabCmd: "",
     QR: "",
     ViewMode: -1,
-    DefaultColumns: null,
-    ReportParam: null,
-    projectIntensive: true,
+    DefaultColumns: "",
+    ReportParam: "",
+    SpParam: "",
+    InvisibleColumns: "",
+    ColorColumn: "",
+    CmdType: 0,
+    ApiColumns: ""
   });
 
   ////////////////////handle change datas//////////////////////////////////////////////
@@ -59,6 +63,17 @@ const CommandsAdd = () => {
     })
   );
 
+  const dataApiMode = useSelector((state) => state.dataApiMode.dataApiMode);
+
+  const dataApiModeArray = Object.entries(dataApiMode).map(
+    ([key, value]) => ({
+      key,
+      value,
+    })
+  );
+
+  console.log("dataApiMode",dataApiMode);
+
   useEffect(() => {
     dispatch(fetchViewMode());
   }, []);
@@ -70,7 +85,16 @@ const CommandsAdd = () => {
         ...prevFormData,
         Name: "",
         Describtion: "",
-        ViewMode: null,
+        MainColumnIDName:"",
+        ColorColumn:"",
+        GroupName:"",
+        QR:"",
+        tabCmd:"",
+        InvisibleColumns:"",
+        DefaultColumns:"",
+        ApiColumns:"",
+        SpParam:"",
+        ReportParam:""
       }));
     } else if (selectedRow) {
       dispatch(mainSlice.actions.setIsEditMode(true));
@@ -79,6 +103,16 @@ const CommandsAdd = () => {
         Name: selectedRow.Name,
         Describtion: selectedRow.Describtion,
         ViewMode: selectedRow.ViewMode,
+        MainColumnIDName:selectedRow.MainColumnIDName,
+        ColorColumn:selectedRow.ColorColumn,
+        GroupName:selectedRow.GroupName,
+        QR:selectedRow.QR,
+        tabCmd:selectedRow.tabCmd,
+        InvisibleColumns:selectedRow.InvisibleColumns,
+        DefaultColumns:selectedRow.DefaultColumns,
+        ApiColumns:selectedRow.ApiColumns,
+        SpParam:selectedRow.SpParam,
+        ReportParam:selectedRow.ReportParam
       }));
     }
   }, [isAddClicked, selectedRow]);
@@ -99,9 +133,19 @@ const CommandsAdd = () => {
           Name: "",
           Describtion: "",
           ViewMode: null,
+          MainColumnIDName:"",
+          ColorColumn:"",
+          GroupName:"",
+          QR:"",
+          tabCmd:"",
+          InvisibleColumns:"",
+          DefaultColumns:"",
+          ApiColumns:"",
+          SpParam:"",
+          ReportParam:""
         }));
       })
-      .catch(() => {});
+      .catch(() => { });
   };
 
   const editCommand = () => {
@@ -110,6 +154,16 @@ const CommandsAdd = () => {
       Name: formData.Name,
       Describtion: formData.Describtion,
       ViewMode: formData.ViewMode,
+      MainColumnIDName:formData.MainColumnIDName,
+      ColorColumn:formData.ColorColumn,
+      GroupName:formData.GroupName,
+      QR:formData.QR,
+      tabCmd:formData.tabCmd,
+      InvisibleColumns:formData.InvisibleColumns,
+      DefaultColumns:formData.DefaultColumns,
+      ApiColumns:formData.ApiColumns,
+      SpParam:formData.SpParam,
+      ReportParam:formData.ReportParam
     };
 
     projectServices
@@ -124,9 +178,19 @@ const CommandsAdd = () => {
         setFormData({
           Name: "",
           Describtion: "",
+          MainColumnIDName:"",
+          ColorColumn:"",
+          GroupName:"",
+          QR:"",
+          tabCmd:"",
+          InvisibleColumns:"",
+          DefaultColumns:"",
+          ApiColumns:"",
+          SpParam:"",
+          ReportParam:""
         });
       })
-      .catch(() => {});
+      .catch(() => { });
   };
 
   return (
@@ -176,65 +240,140 @@ const CommandsAdd = () => {
         </div>
         <div className="col-1"></div>
         <div className="col-5">
-          <CustomInputText label="Main Column Id" />
+          <CustomInputText
+           label="Main Column Id" 
+           value={formData.MainColumnIDName}
+           onChange={(e) => {
+             handleChange("MainColumnIDName", e.target.value);
+           }}
+           />
         </div>
       </div>
       {/* ///////////////////////////LINE3///////////////////////////// */}
       <div className="grid" style={{ marginLeft: "20px", marginTop: "20px" }}>
         <div className="col-5">
-          <div>{/* <CustomInputText label="Name" /> */}</div>
-        </div>
-        <div className="col-1"></div>
-        <div className="col-5">
-          {/* <CustomInputText label="Description" /> */}
-        </div>
-      </div>
-      {/* ///////////////////////////LINE4///////////////////////////// */}
-      <div className="grid" style={{ marginLeft: "20px", marginTop: "20px" }}>
-        <div className="col-5">
           <div>
-            <CustomTextArea label="Description" id="Description" />
+            <CustomInputText
+              label="Color Columns"
+              value={formData.ColorColumn}
+              onChange={(e) => {
+                handleChange("ColorColumn", e.target.value);
+              }}
+            />
           </div>
         </div>
         <div className="col-1"></div>
-        <div className="col-5">
-          {/* <CustomInputText label="Description" /> */}
+        <div className="col-5" >
+          <CustomInputText
+            label="Group Name"
+            value={formData.GroupName}
+            onChange={(e) => {
+              console.log("eeeee",e.target.value)
+              handleChange("GroupName", e.target.value);
+            }}
+          />
         </div>
       </div>
+        {/* ///////////////////////////LINE4///////////////////////////// */}
+        <div className="grid" style={{ marginLeft: "20px", marginTop: "20px" }}>
+        <div className="col-5">
+          <div>
+            <CustomTextArea
+              label="Color Columns"
+              value={formData.QR}
+              onChange={(e) => {
+                handleChange("QR", e.target.value);
+              }}
+            />
+          </div>
+        </div>
+        <div className="col-1"></div>
+        <div className="col-5"  style={{marginTop:"20px"}}>
+          <CustomInputText
+            label="Report Command"
+            value={formData.tabCmd}
+            onChange={(e) => {
+              console.log("tabCmd",e.target.value);
+              handleChange("tabCmd", e.target.value);
+            }}
+          />
+        </div>
+        </div>
       {/* ///////////////////////////LINE5///////////////////////////// */}
       <div className="grid" style={{ marginLeft: "20px", marginTop: "20px" }}>
         <div className="col-5">
           <div>
-            <CustomTextArea label="Description" id="Description" />
+            <CustomTextArea
+              label="Invisible Columns"
+              value={formData.InvisibleColumns}
+              onChange={(e) => {
+                handleChange("InvisibleColumns", e.target.value);
+              }}
+            />
           </div>
         </div>
         <div className="col-1"></div>
-        <div className="col-5">
-          <CustomTextArea label="Description" id="Description" />
+        <div className="col-5"  style={{marginTop:"20px"}}>
+          <CustomInputText
+            label="Default Columns"
+            value={formData.DefaultColumns}
+            onChange={(e) => {
+              console.log("tabCmd",e.target.value);
+              handleChange("DefaultColumns", e.target.value);
+            }}
+          />
         </div>
       </div>
       {/* ///////////////////////////LINE6///////////////////////////// */}
       <div className="grid" style={{ marginLeft: "20px", marginTop: "20px" }}>
         <div className="col-5">
           <div>
-            <CustomTextArea label="Description" id="Description" />
+            <CustomTextArea
+              label="Api Columns"
+              value={formData.ApiColumns}
+              onChange={(e) => {
+                handleChange("ApiColumns", e.target.value);
+              }}
+            />
           </div>
         </div>
         <div className="col-1"></div>
-        <div className="col-5">
-          <CustomTextArea label="Description" id="Description" />
+        <div className="col-5"  style={{marginTop:"20px"}}>
+          <CustomInputText
+            label="Sp Parameters"
+            value={formData.SpParam}
+            onChange={(e) => {
+              console.log("tabCmd",e.target.value);
+              handleChange("SpParam", e.target.value);
+            }}
+          />
         </div>
       </div>
       {/* ///////////////////////////LINE7///////////////////////////// */}
       <div className="grid" style={{ marginLeft: "20px", marginTop: "20px" }}>
-        <div className="col-5">
+        <div className="col-5" style={{marginTop:"20px"}}>
           <div>
-            <CustomDropdown id="dd-city1" optionLabel="name" label="name" />
+          <CustomDropdown
+              label="Api Mode"
+              value={formData.CmdType}
+              optionLabel="key"
+              options={dataApiModeArray}
+              onChange={(e) => {
+                handleChange("CmdType", e.value);
+              }}
+            />
           </div>
         </div>
         <div className="col-1"></div>
         <div className="col-5">
-          <CustomTextArea label="Description" id="Description" />
+          <CustomTextArea
+            label="Report Parameters"
+            value={formData.CmdType}
+            onChange={(e) => {
+              console.log("ReportParam",e.target.value);
+              handleChange("ReportParam", e.target.value);
+            }}
+          />
         </div>
       </div>
     </>

@@ -5,21 +5,26 @@ import projectServices from "../../components/services/project.services";
 export const fetchCommands = createAsyncThunk("fetchCommands", async () => {
   try {
     const response = await projectServices.getAllCommand();
-    console.log("cccccccc",response.data);
     return response.data;
   } catch (error) {
-    ////console.error("Hata:", error);
     throw error;
   }
 });
 
 export const fetchViewMode = createAsyncThunk("fetchViewMode", async () => {
   try {
-    const response = await projectServices.getEnum({ str: "ViewMode" })
-    console.log("cccccccccccc",response.data)
+    const response = await projectServices.getEnum({ str: "CmdType" })
     return response.data;
   } catch (error) {
-    ////console.error("Hata:", error);
+    throw error;
+  }
+});
+
+export const fetchApiMode = createAsyncThunk("fetchApiMode", async () => {
+  try {
+    const response = await projectServices.getEnum({ str: "CmdType" })
+    return response.data;
+  } catch (error) {
     throw error;
   }
 });
@@ -28,6 +33,7 @@ interface MainState {
   isLoading:Boolean,
   dataCommands: string[],
   dataViewMode:string[],
+  dataApiMode:string[],
   headersString:string,
   fieldColumn:string
 };
@@ -36,6 +42,7 @@ const initialState: MainState = {
   isLoading: false,
   dataCommands: [],
   dataViewMode:[],
+  dataApiMode:[],
   headersString: "",
   fieldColumn: "",
 };
@@ -52,6 +59,9 @@ const commandsSlice = createSlice({
     });
     builder.addCase(fetchViewMode.fulfilled, (state, action) => {
       state.dataViewMode = action.payload;
+    });
+    builder.addCase(fetchApiMode.fulfilled, (state, action) => {
+      state.dataApiMode = action.payload;
     });
   },
 
