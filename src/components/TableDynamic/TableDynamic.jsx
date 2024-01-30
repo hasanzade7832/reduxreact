@@ -156,12 +156,28 @@ const TableDynamic = () => {
   };
 
   const confirmDelete = () => {
-
     if (subTabName == "Configuration") {
       projectServices
         .deleteSetting({ id: selectedRowData.ID })
         .then((res) => {
           dispatch(fetchConfiguration());
+          dispatch(mainSlice.actions.setIsAddClicked(true));
+          dispatch(mainSlice.actions.setHandleAddComponent(true));
+          dispatch(mainSlice.actions.setModeSelectedRow(true))
+          setShowDeleteConfirmation(false);
+          toast.current.show({
+            severity: "success",
+            summary: "Success",
+            detail: "Item deleted successfully",
+          });
+        })
+        .catch(() => { });
+    } else if(subTabName=="Commands"){
+      console.log("Iiiiiii",selectedRowData.ID)
+      projectServices
+        .deleteCommand({ id: selectedRowData.ID })
+        .then((res) => {
+          dispatch(fetchCommands());
           dispatch(mainSlice.actions.setIsAddClicked(true));
           dispatch(mainSlice.actions.setHandleAddComponent(true));
           dispatch(mainSlice.actions.setModeSelectedRow(true))

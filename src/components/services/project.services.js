@@ -54,6 +54,9 @@ class projectService {
   async updateCommand(data) {
     return await httpClient.post(ApiConst.updateCommand,data);
   }
+  async deleteCommand(data) {
+    return await httpClient.post(ApiConst.deleteCommand,data);
+  }
 
 
   async getAllProgramTemplate() {

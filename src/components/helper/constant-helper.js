@@ -6,6 +6,13 @@ export const ApiConst = Object.freeze({
   insert: "api/File/Insert",
   getAllCompany: "api/Company/GetAll",
   getEnum: "api/GetEnumByName",
+  getAllMenu: "api/Menu/GetAll",
+  getAllFirstPrugTemplate: "api/ProgramTemplate/GetAll",
+  getAllProgramTemplate: "api/ProgramTemplate/GetAll",
+  getAllWfTemplate: "api/WFTemplate/GetAll",
+  getAllEntityType: "api/EntityType/GetAllComplete",
+  getAllAfBtn:"api/AFBtn/GetAll",
+  insertAfBtn:"api/AFBtn/Insert",
   
   //setting
   getAllSetting: "api/Setting/GetAll",
@@ -13,17 +20,11 @@ export const ApiConst = Object.freeze({
   updateSetting: "api/Setting/Update",
   deleteSetting: "api/Setting/Delete",
 
-  getAllMenu: "api/Menu/GetAll",
-  getAllFirstPrugTemplate: "api/ProgramTemplate/GetAll",
-
   //command
   getAllCommand: "api/Command/GetAll",
   insertCommand: "api/Command/Insert",
   updateCommand: "api/Command/Update",
+  deleteCommand: "api/Command/Delete",
 
-  getAllProgramTemplate: "api/ProgramTemplate/GetAll",
-  getAllWfTemplate: "api/WFTemplate/GetAll",
-  getAllEntityType: "api/EntityType/GetAllComplete",
-  getAllAfBtn:"api/AFBtn/GetAll",
-  insertAfBtn:"api/AFBtn/Insert",
+  
 });
