@@ -9,6 +9,7 @@ import { mainSlice } from "../../../redux/mainSlice";
 import {
   fetchCommands,
   fetchViewMode,
+  fetchApiMode
 } from "../../../redux/commands/commandsSlice";
 import projectServices from "../../services/project.services";
 import { Toast } from "primereact/toast";
@@ -76,6 +77,7 @@ const CommandsAdd = () => {
 
   useEffect(() => {
     dispatch(fetchViewMode());
+    dispatch(fetchApiMode());
   }, []);
 
   useEffect(() => {
@@ -112,6 +114,7 @@ const CommandsAdd = () => {
         DefaultColumns:selectedRow.DefaultColumns,
         ApiColumns:selectedRow.ApiColumns,
         SpParam:selectedRow.SpParam,
+        CmdType:selectedRow.CmdType,
         ReportParam:selectedRow.ReportParam
       }));
     }
@@ -142,6 +145,7 @@ const CommandsAdd = () => {
           DefaultColumns:"",
           ApiColumns:"",
           SpParam:"",
+          CmdType:null,
           ReportParam:""
         }));
       })
@@ -163,6 +167,7 @@ const CommandsAdd = () => {
       DefaultColumns:formData.DefaultColumns,
       ApiColumns:formData.ApiColumns,
       SpParam:formData.SpParam,
+      CmdType:formData.CmdType,
       ReportParam:formData.ReportParam
     };
 

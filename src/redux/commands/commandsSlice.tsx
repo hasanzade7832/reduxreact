@@ -13,7 +13,7 @@ export const fetchCommands = createAsyncThunk("fetchCommands", async () => {
 
 export const fetchViewMode = createAsyncThunk("fetchViewMode", async () => {
   try {
-    const response = await projectServices.getEnum({ str: "CmdType" })
+    const response = await projectServices.getEnum({ str: "ViewMode" })
     return response.data;
   } catch (error) {
     throw error;
