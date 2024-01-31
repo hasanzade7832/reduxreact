@@ -241,7 +241,7 @@ const TableDynamic = () => {
       <div>
         <span style={{ fontWeight: "bold" }}>{subTabName}</span>
       </div>
-      <div style={{ textAlign: "right", marginTop: "20px" }}>
+      <div style={{ textAlign: "right", marginTop: "5px" }}>
         <Button style={{ backgroundColor: "white", marginRight: "10px" }} severity="success"
          onClick={() => {
           dispatch(mainSlice.actions.setIsAddClicked(true));
@@ -288,13 +288,11 @@ const TableDynamic = () => {
           ></i>
         </Button>
       </div>
-      <div>
 
-      </div>
-      <div style={{ marginTop: "10px" }}>
+      <div style={{ marginTop: "10px",height:'calc(100vh - 12rem)' }}>
         <DataTable
           scrollable
-          scrollHeight="80vh"
+          scrollHeight='calc(100vh - 12rem)'
           value={data}
           size="small"
           showGridlines

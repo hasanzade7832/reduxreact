@@ -46,7 +46,7 @@ const MyTabs = () => {
   return (
     <>
       <Toast ref={toast} />
-      <div className="custom-tabview ">
+      <div className="custom-tabview" style={{height:"6rem"}}>
         <TabView
           className="custom-tabview"
           activeIndex={activeIndex}
@@ -88,7 +88,7 @@ const MyTabs = () => {
           ))}
         </TabView>
       </div>
-      <div className="main-component-wrapper">
+      <div className="main-component-wrapper" style={{height:'calc(100vh - 7rem)'}}>
         <MainComponent />
       </div>
     </>
