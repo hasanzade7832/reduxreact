@@ -48,6 +48,7 @@ const MyTabs = () => {
       <Toast ref={toast} />
       <div className="custom-tabview" style={{height:"6rem"}}>
         <TabView
+          scrollable
           className="custom-tabview"
           activeIndex={activeIndex}
           onTabChange={(e) => {
@@ -59,7 +60,7 @@ const MyTabs = () => {
           }}
         >
           {tabData.map((tab, tabIndex) => (
-            <TabPanel key={tabIndex} header={tab.tabName} style={{fontWeight:"bold"}}>
+            <TabPanel  key={tabIndex} header={tab.tabName} >
               {tab.subTabs && (
                 <div style={{ display: "flex" }}>
                   {tab.subTabs.map((subTab, subTabIndex) => (
@@ -79,7 +80,7 @@ const MyTabs = () => {
                         textAlign: "center",
                       }}
                     >
-                      <span style={{ marginRight: "20px" }}>{subTab.name}</span>
+                      <span style={{ marginRight: "5px" }}>{subTab.name}</span>
                     </div>
                   ))}
                 </div>
@@ -88,7 +89,7 @@ const MyTabs = () => {
           ))}
         </TabView>
       </div>
-      <div className="main-component-wrapper" style={{height:'calc(100vh - 7rem)'}}>
+      <div className="main-component-wrapper" >
         <MainComponent />
       </div>
     </>

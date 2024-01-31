@@ -66,7 +66,7 @@ function MainComponent() {
   return (
     <>
       {splitterShow && (
-        <Splitter>
+        <Splitter >
           <SplitterPanel>
             <div
               style={{ width: "100%" }}
@@ -77,7 +77,6 @@ function MainComponent() {
           </SplitterPanel>
           <SplitterPanel
             className="flex align-items-center justify-content-center"
-            style={{ overflow: "auto" }}
           >
             <div className="w-full h-full">
               {showConfiguration && <AddConfiguration />}
@@ -89,8 +88,6 @@ function MainComponent() {
     </>
   );
 }
-
-//وقتی زیرتبها عوض میشن قسمتهای add  , edit بسته میشن
 
 function usePrevious(value) {
   const ref = useRef();
