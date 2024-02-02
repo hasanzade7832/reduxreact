@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Dropdown } from "primereact/dropdown";
 
+import { VirtualScroller } from "primereact/virtualscroller";
+
 import { useSelector, useDispatch } from "react-redux";
 import CustomInputText from "../../globalComponents/main/inputCom";
 import BoxDefaultButton from "../../globalComponents/box/boxDefaultButton";
@@ -644,7 +646,10 @@ const ConfigurationAdd = () => {
   /////////////////////////////////////////////////////////////////
 
   return (
-    <>
+    <div
+      class="fadein animation-duration-300"
+      style={{ overflowY: "auto", maxHeight: "calc(100vh -200px)" }}
+    >
       <Toast ref={toast} position="top-right" />
       {/* ////////////////////////Add Line//////////////////*/}
       <div>
@@ -654,197 +659,209 @@ const ConfigurationAdd = () => {
           <AddBar onClick={addConfiguration} />
         )}
       </div>
-      {/* /////////////////////Line1/////////////////////// */}
-      <div className="grid" style={{ marginLeft: "20px", marginTop: "20px" }}>
-        <div className="col-5">
-          <CustomInputText
-            value={formData.Name}
-            onChange={(e) => handleChange("Name", e.target.value)}
-            label="Name"
-          />
+      <div
+        style={{
+          overflow: "auto",
+          whiteSpace: "nowrap",
+          maxHeight: "calc(100vh - 200px)",
+        }}
+      >
+        {/* /////////////////////Line1/////////////////////// */}
+        <div className="grid" style={{ marginLeft: "20px", marginTop: "20px" }}>
+          <div className="col-5">
+            <CustomInputText
+              value={formData.Name}
+              onChange={(e) => handleChange("Name", e.target.value)}
+              label="Name"
+            />
+          </div>
+          <div className="col-1"></div>
+          <div className="col-5">
+            <CustomInputText
+              value={formData.Description}
+              onChange={(e) => handleChange("Description", e.target.value)}
+              label="Description"
+            />
+          </div>
         </div>
-        <div className="col-1"></div>
-        <div className="col-5">
-          <CustomInputText
-            value={formData.Description}
-            onChange={(e) => handleChange("Description", e.target.value)}
-            label="Description"
-          />
+        {/* /////////////////////Line2/////////////////////// */}
+        <div className="grid" style={{ marginLeft: "20px", marginTop: "20px" }}>
+          <div className="col-5">
+            <DropdownComponentwithButton
+              value={
+                programTemplateSelectedRow
+                  ? programTemplateSelectedRow
+                  : programTemplateSelectedRowEdit
+              }
+              options={dataProgram}
+              optionLabel="Name"
+              label="Program Template"
+              onChange={(e) => {
+                const selectedValue = e.value ? e.value.ID : null;
+                handleChange("FirstIDProgramTemplate", selectedValue);
+                dispatch(
+                  mainSlice.actions.setprogramTemplateSelectedRow(e.value)
+                );
+              }}
+              onButtonClick={funcDialogProgramTemplate}
+              showDialog={dialogProgramTemplate}
+              hideDialog={hideDialog}
+            />
+          </div>
+          <div className="col-1"></div>
+          <div className="col-5">
+            <DropdownComponentwithButton
+              value={
+                defaultRibbonSelectedRow
+                  ? defaultRibbonSelectedRow
+                  : defaultRibbonSelectedRowEdit
+              }
+              options={dataRibbon}
+              optionLabel="Name"
+              label="Default Ribbon"
+              onChange={(e) => {
+                const selectedValue = e.value ? e.value.ID : null;
+                handleChange("SelMenuIDForMain", selectedValue);
+                dispatch(
+                  mainSlice.actions.setDefaultRibbonSelectedRow(e.value)
+                );
+              }}
+              onButtonClick={funcDialogDefaultRibbon}
+              showDialog={dialogDefaultRibbon}
+              hideDialog={hideDialog}
+            />
+          </div>
         </div>
-      </div>
-      {/* /////////////////////Line2/////////////////////// */}
-      <div className="grid" style={{ marginLeft: "20px", marginTop: "20px" }}>
-        <div className="col-5">
-          <DropdownComponentwithButton
-            value={
-              programTemplateSelectedRow
-                ? programTemplateSelectedRow
-                : programTemplateSelectedRowEdit
-            }
-            options={dataProgram}
-            optionLabel="Name"
-            label="Program Template"
-            onChange={(e) => {
-              const selectedValue = e.value ? e.value.ID : null;
-              handleChange("FirstIDProgramTemplate", selectedValue);
-              dispatch(
-                mainSlice.actions.setprogramTemplateSelectedRow(e.value)
-              );
-            }}
-            onButtonClick={funcDialogProgramTemplate}
-            showDialog={dialogProgramTemplate}
-            hideDialog={hideDialog}
-          />
+        {/* /////////////////////Line3/////////////////////// */}
+        <div className="grid" style={{ marginLeft: "20px", marginTop: "5px" }}>
+          <div className="col-5">
+            <DropdownComponentwithButton
+              value={
+                formTemplateSelectedRow
+                  ? formTemplateSelectedRow
+                  : formTemplateSelectedRowEdit
+              }
+              options={dataFormTemplate}
+              optionLabel="Name"
+              label="Lessons Learned Form Template"
+              onChange={(e) => {
+                const selectedValue = e.value ? e.value.ID : null;
+                handleChange("EnityTypeIDForLessonLearn", selectedValue);
+                dispatch(mainSlice.actions.setFormTemplateSelectedRow(e.value));
+              }}
+              onButtonClick={funcDialogLessonForms}
+              showDialog={dialogFormTemplate}
+              hideDialog={hideDialog}
+            />
+          </div>
+          <div className="col-1"></div>
+          <div className="col-5">
+            <DropdownComponentwithButton
+              value={
+                afTemplateSelectedRow
+                  ? afTemplateSelectedRow
+                  : afTemplateSelectedRowEdit
+              }
+              options={dataWfTemplate}
+              optionLabel="Name"
+              label="Lessons Learned Af Template"
+              onChange={(e) => {
+                const selectedValue = e.value ? e.value.ID : null;
+                handleChange("WFTemplateIDForLessonLearn", selectedValue);
+                dispatch(mainSlice.actions.setAfTemplateSelectedRow(e.value));
+              }}
+              onButtonClick={funcDialogAfTemplate}
+              showDialog={dialogAfTemplate}
+              hideDialog={hideDialog}
+            />
+          </div>
         </div>
-        <div className="col-1"></div>
-        <div className="col-5">
-          <DropdownComponentwithButton
-            value={
-              defaultRibbonSelectedRow
-                ? defaultRibbonSelectedRow
-                : defaultRibbonSelectedRowEdit
-            }
-            options={dataRibbon}
-            optionLabel="Name"
-            label="Default Ribbon"
-            onChange={(e) => {
-              const selectedValue = e.value ? e.value.ID : null;
-              handleChange("SelMenuIDForMain", selectedValue);
-              dispatch(mainSlice.actions.setDefaultRibbonSelectedRow(e.value));
-            }}
-            onButtonClick={funcDialogDefaultRibbon}
-            showDialog={dialogDefaultRibbon}
-            hideDialog={hideDialog}
-          />
+        {/* /////////////////////Line4/////////////////////// */}
+        <div className="grid" style={{ marginLeft: "20px", marginTop: "5px" }}>
+          <div className="col-5">
+            <DropdownComponentwithButton
+              value={
+                commentFormSelectedRow
+                  ? commentFormSelectedRow
+                  : commentFormSelectedRowEdit
+              }
+              options={dataFormTemplate}
+              optionLabel="Name"
+              label="Comment Form Template"
+              onChange={(e) => {
+                const selectedValue = e.value ? e.value.ID : null;
+                handleChange("EnityTypeIDForTaskCommnet", selectedValue);
+                dispatch(mainSlice.actions.setCommentFormSelectedRow(e.value));
+              }}
+              onButtonClick={funcDialogCommentForm}
+              showDialog={dialogCommentForm}
+              hideDialog={hideDialog}
+            />
+          </div>
+          <div className="col-1"></div>
+          <div className="col-5">
+            <DropdownComponentwithButton
+              value={
+                procedureFormSelectedRow
+                  ? procedureFormSelectedRow
+                  : procedureFormSelectedRowEdit
+              }
+              options={dataFormTemplate}
+              optionLabel="Name"
+              label="procedure Form Template"
+              onChange={(e) => {
+                const selectedValue = e.value ? e.value.ID : null;
+                handleChange("EnityTypeIDForProcesure", selectedValue);
+                dispatch(
+                  mainSlice.actions.setProcedureFormSelectedRow(e.value)
+                );
+              }}
+              onButtonClick={funcDialogProcedureForm}
+              showDialog={dialogProcedureForm}
+              hideDialog={hideDialog}
+            />
+          </div>
         </div>
-      </div>
-      {/* /////////////////////Line3/////////////////////// */}
-      <div className="grid" style={{ marginLeft: "20px", marginTop: "5px" }}>
-        <div className="col-5">
-          <DropdownComponentwithButton
-            value={
-              formTemplateSelectedRow
-                ? formTemplateSelectedRow
-                : formTemplateSelectedRowEdit
-            }
-            options={dataFormTemplate}
-            optionLabel="Name"
-            label="Lessons Learned Form Template"
-            onChange={(e) => {
-              const selectedValue = e.value ? e.value.ID : null;
-              handleChange("EnityTypeIDForLessonLearn", selectedValue);
-              dispatch(mainSlice.actions.setFormTemplateSelectedRow(e.value));
-            }}
-            onButtonClick={funcDialogLessonForms}
-            showDialog={dialogFormTemplate}
-            hideDialog={hideDialog}
-          />
-        </div>
-        <div className="col-1"></div>
-        <div className="col-5">
-          <DropdownComponentwithButton
-            value={
-              afTemplateSelectedRow
-                ? afTemplateSelectedRow
-                : afTemplateSelectedRowEdit
-            }
-            options={dataWfTemplate}
-            optionLabel="Name"
-            label="Lessons Learned Af Template"
-            onChange={(e) => {
-              const selectedValue = e.value ? e.value.ID : null;
-              handleChange("WFTemplateIDForLessonLearn", selectedValue);
-              dispatch(mainSlice.actions.setAfTemplateSelectedRow(e.value));
-            }}
-            onButtonClick={funcDialogAfTemplate}
-            showDialog={dialogAfTemplate}
-            hideDialog={hideDialog}
-          />
-        </div>
-      </div>
-      {/* /////////////////////Line4/////////////////////// */}
-      <div className="grid" style={{ marginLeft: "20px", marginTop: "5px" }}>
-        <div className="col-5">
-          <DropdownComponentwithButton
-            value={
-              commentFormSelectedRow
-                ? commentFormSelectedRow
-                : commentFormSelectedRowEdit
-            }
-            options={dataFormTemplate}
-            optionLabel="Name"
-            label="Comment Form Template"
-            onChange={(e) => {
-              const selectedValue = e.value ? e.value.ID : null;
-              handleChange("EnityTypeIDForTaskCommnet", selectedValue);
-              dispatch(mainSlice.actions.setCommentFormSelectedRow(e.value));
-            }}
-            onButtonClick={funcDialogCommentForm}
-            showDialog={dialogCommentForm}
-            hideDialog={hideDialog}
-          />
-        </div>
-        <div className="col-1"></div>
-        <div className="col-5">
-          <DropdownComponentwithButton
-            value={
-              procedureFormSelectedRow
-                ? procedureFormSelectedRow
-                : procedureFormSelectedRowEdit
-            }
-            options={dataFormTemplate}
-            optionLabel="Name"
-            label="procedure Form Template"
-            onChange={(e) => {
-              const selectedValue = e.value ? e.value.ID : null;
-              handleChange("EnityTypeIDForProcesure", selectedValue);
-              dispatch(mainSlice.actions.setProcedureFormSelectedRow(e.value));
-            }}
-            onButtonClick={funcDialogProcedureForm}
-            showDialog={dialogProcedureForm}
-            hideDialog={hideDialog}
-          />
-        </div>
-      </div>
 
-      {/* /////////////////////Line5/////////////////////// */}
-      <div className="grid" style={{ marginLeft: "20px", marginTop: "5px" }}>
-        <div className="col-5">
-          <BoxDefaultButton
-            dialogData={showDialogDefaultButton}
-            titleBox={"Default Action Buttons"}
-            selectedNames={selectedNamesDefaultButtons}
-            selectedNamesEdit={selectedNameDefaultButtonEdit}
-            selectedId={selectedId}
-            selectedIdEdit={IdsADefaultButtonEdit}
-          />
+        {/* /////////////////////Line5/////////////////////// */}
+        <div className="grid" style={{ marginLeft: "20px", marginTop: "5px" }}>
+          <div className="col-5">
+            <BoxDefaultButton
+              dialogData={showDialogDefaultButton}
+              titleBox={"Default Action Buttons"}
+              selectedNames={selectedNamesDefaultButtons}
+              selectedNamesEdit={selectedNameDefaultButtonEdit}
+              selectedId={selectedId}
+              selectedIdEdit={IdsADefaultButtonEdit}
+            />
+          </div>
+          <div className="col-1"></div>
+          <div className="col-5">
+            <BoxLetterButton
+              dialogData={showDialogLetterButton}
+              titleBox={"Letter Action Buttons"}
+              selectedNames={selectedNamesLetterButtons}
+              selectedNamesEdit={selectedNameLetterButtonEdit}
+              selectedId={selectedIdLetterButtons}
+              selectedIdEdit={selectedIdLetterButtonEdit}
+            />
+          </div>
         </div>
-        <div className="col-1"></div>
-        <div className="col-5">
-          <BoxLetterButton
-            dialogData={showDialogLetterButton}
-            titleBox={"Letter Action Buttons"}
-            selectedNames={selectedNamesLetterButtons}
-            selectedNamesEdit={selectedNameLetterButtonEdit}
-            selectedId={selectedIdLetterButtons}
-            selectedIdEdit={selectedIdLetterButtonEdit}
-          />
+        {/* /////////////////////Line6/////////////////////// */}
+        <div className="grid" style={{ marginLeft: "20px", marginTop: "5px" }}>
+          <div className="col-5">
+            <BoxMeetingButton
+              dialogData={showDialogMeetingButton}
+              titleBox={"Meeting Action Buttons"}
+              selectedNames={selectedNamesMeetingsButtons}
+              selectedNamesEdit={selectedNameMeetingButtonEdit}
+              selectedId={selectedIdMeetingsButton}
+              selectedIdEdit={selectedIdMeetingButtonEdit}
+            />
+          </div>
+          <div className="col-1"></div>
+          <div className="col-5"></div>
         </div>
-      </div>
-      {/* /////////////////////Line6/////////////////////// */}
-      <div className="grid" style={{ marginLeft: "20px", marginTop: "5px" }}>
-        <div className="col-5">
-          <BoxMeetingButton
-            dialogData={showDialogMeetingButton}
-            titleBox={"Meeting Action Buttons"}
-            selectedNames={selectedNamesMeetingsButtons}
-            selectedNamesEdit={selectedNameMeetingButtonEdit}
-            selectedId={selectedIdMeetingsButton}
-            selectedIdEdit={selectedIdMeetingButtonEdit}
-          />
-        </div>
-        <div className="col-1"></div>
-        <div className="col-5"></div>
       </div>
       {/* /////////////////////Dialog/////////////////////// */}
 
@@ -858,7 +875,7 @@ const ConfigurationAdd = () => {
           <ContentBoxDialog />
         </Dialog>
       )}
-    </>
+    </div>
   );
 };
 

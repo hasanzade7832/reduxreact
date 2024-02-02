@@ -206,6 +206,7 @@ const TableDynamic = () => {
         overflow: "hidden",
         width: "100%",
       }}
+      class="fadein animation-duration-300"
     >
       <Toast ref={toast} position="top-right" />
 
@@ -295,7 +296,7 @@ const TableDynamic = () => {
         </Button>
       </div>
 
-      <div style={{ marginTop: "10px", height: "calc(100vh - 12rem)" }}>
+      <div style={{ marginTop: "10px" }}>
         <DataTable
           scrollable
           scrollHeight="calc(100vh - 12rem)"

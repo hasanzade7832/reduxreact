@@ -67,15 +67,23 @@ function MainComponent() {
       {splitterShow && (
         <Splitter>
           <SplitterPanel>
-            <div style={{ width: "100%" }}>
-              <TableDynamic />
-            </div>
+            {/* <div style={{ width: "100%" }}> */}
+            <TableDynamic />
+            {/* </div> */}
           </SplitterPanel>
-          <SplitterPanel>
-            <div className="w-full h-full">
-              {showConfiguration && <AddConfiguration />}
-              {showCommands && <AddCommands />}
-            </div>
+          <SplitterPanel
+            style={{
+              height: "100vh",
+              overflow: "auto",
+              whiteSpace: "nowrap",
+              maxHeight: "calc(100vh-300px)",
+              height: "calc(100vh-500px)",
+            }}
+          >
+            {/* <div className="w-full h-full"> */}
+            {showConfiguration && <AddConfiguration />}
+            {showCommands && <AddCommands />}
+            {/* </div> */}
           </SplitterPanel>
         </Splitter>
       )}
