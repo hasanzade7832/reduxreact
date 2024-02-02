@@ -299,7 +299,7 @@ const TableDynamic = () => {
       <div style={{ marginTop: "10px" }}>
         <DataTable
           scrollable
-          scrollHeight="calc(100vh - 12rem)"
+          scrollHeight="calc(100vh - 13rem)"
           value={data}
           size="small"
           showGridlines

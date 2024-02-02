@@ -67,9 +67,9 @@ function MainComponent() {
       {splitterShow && (
         <Splitter>
           <SplitterPanel>
-            {/* <div style={{ width: "100%" }}> */}
-            <TableDynamic />
-            {/* </div> */}
+            <div style={{ width: "100%" }}>
+              <TableDynamic />
+            </div>
           </SplitterPanel>
           <SplitterPanel
             style={{
@@ -80,10 +80,10 @@ function MainComponent() {
               height: "calc(100vh-500px)",
             }}
           >
-            {/* <div className="w-full h-full"> */}
-            {showConfiguration && <AddConfiguration />}
-            {showCommands && <AddCommands />}
-            {/* </div> */}
+            <div className="w-full h-full">
+              {showConfiguration && <AddConfiguration />}
+              {showCommands && <AddCommands />}
+            </div>
           </SplitterPanel>
         </Splitter>
       )}
