@@ -12,7 +12,7 @@ import { Button } from "primereact/button";
 import { mainSlice } from "../../redux/mainSlice";
 import { Toast } from "primereact/toast";
 import { Dialog } from "primereact/dialog";
-import projectServices from "../services/project.services"
+import projectServices from "../services/project.services";
 
 const TableDynamic = () => {
   const dispatch = useDispatch();
@@ -25,8 +25,9 @@ const TableDynamic = () => {
   ///////////////////////All data to need this table dynamic////////////////////////////////////////////////
   const subTabName = useSelector((state) => state.subTabName.selectedSubTab);
 
-  const isEditDisabled = useSelector((state)=>state.modeSelectedRow.modeSelectedRow);
-
+  const isEditDisabled = useSelector(
+    (state) => state.modeSelectedRow.modeSelectedRow
+  );
 
   const dataConfiguration = useSelector(
     (state) => state.dataConfiguration.dataConfiguration
@@ -61,7 +62,6 @@ const TableDynamic = () => {
     (state) => state.selectedRowData.selectedRowData
   );
 
-
   useEffect(() => {
     if (subTabName === "Configuration") {
       dispatch(fetchConfiguration());
@@ -72,7 +72,7 @@ const TableDynamic = () => {
     }
   }, [subTabName]);
 
-  useEffect(() => { }, [dataCommands]);
+  useEffect(() => {}, [dataCommands]);
 
   useEffect(() => {
     // وقتی subTabName تغییر کرد، اقدام انجام شود
@@ -111,7 +111,6 @@ const TableDynamic = () => {
   const columnsArray = fieldsColumns.split("|");
 
   ///////////////////////////ADDITIONAL COLUMNS////////////////////////////////////////////////////
-
 
   const additionalColumns = [];
 
@@ -163,7 +162,7 @@ const TableDynamic = () => {
           dispatch(fetchConfiguration());
           dispatch(mainSlice.actions.setIsAddClicked(true));
           dispatch(mainSlice.actions.setHandleAddComponent(true));
-          dispatch(mainSlice.actions.setModeSelectedRow(true))
+          dispatch(mainSlice.actions.setModeSelectedRow(true));
           setShowDeleteConfirmation(false);
           toast.current.show({
             severity: "success",
@@ -171,25 +170,24 @@ const TableDynamic = () => {
             detail: "Item deleted successfully",
           });
         })
-        .catch(() => { });
-    } else if(subTabName=="Commands"){
-      console.log("Iiiiiii",selectedRowData.ID)
+        .catch(() => {});
+    } else if (subTabName == "Commands") {
+      console.log("Iiiiiii", selectedRowData.ID);
       projectServices
         .deleteCommand({ id: selectedRowData.ID })
         .then((res) => {
           dispatch(fetchCommands());
           dispatch(mainSlice.actions.setIsAddClicked(true));
           dispatch(mainSlice.actions.setHandleAddComponent(true));
-          dispatch(mainSlice.actions.setModeSelectedRow(true))
+          dispatch(mainSlice.actions.setModeSelectedRow(true));
           setShowDeleteConfirmation(false);
           toast.current.show({
             severity: "success",
             summary: "Success",
             detail: "Item deleted successfully",
           });
-
         })
-        .catch(() => { });
+        .catch(() => {});
     }
   };
 
@@ -242,13 +240,16 @@ const TableDynamic = () => {
         <span style={{ fontWeight: "bold" }}>{subTabName}</span>
       </div>
       <div style={{ textAlign: "right", marginTop: "5px" }}>
-        <Button style={{ backgroundColor: "white", marginRight: "10px" }} severity="success"
-         onClick={() => {
-          dispatch(mainSlice.actions.setIsAddClicked(true));
-          dispatch(mainSlice.actions.setHandleAddComponent(true));
-          dispatch(mainSlice.actions.setModeSelectedRow(true));
-          setSelectedRow(null);
-        }}>
+        <Button
+          style={{ backgroundColor: "white", marginRight: "10px" }}
+          severity="success"
+          onClick={() => {
+            dispatch(mainSlice.actions.setIsAddClicked(true));
+            dispatch(mainSlice.actions.setHandleAddComponent(true));
+            dispatch(mainSlice.actions.setModeSelectedRow(true));
+            setSelectedRow(null);
+          }}
+        >
           <i
             className="pi pi-plus"
             style={{
@@ -257,11 +258,14 @@ const TableDynamic = () => {
               fontSize: "0.8rem",
             }}
             size="small"
-           
           ></i>
         </Button>
 
-        <Button disabled={isEditDisabled} style={{ backgroundColor: "white", marginRight: "10px" }} severity="warning">
+        <Button
+          disabled={isEditDisabled}
+          style={{ backgroundColor: "white", marginRight: "10px" }}
+          severity="warning"
+        >
           <i
             className="pi pi-file-edit"
             style={{
@@ -276,7 +280,9 @@ const TableDynamic = () => {
           // text
           style={{ backgroundColor: "white", marginRight: "10px" }}
           severity="danger"
-          onClick={() => { handleDelete() }}
+          onClick={() => {
+            handleDelete();
+          }}
         >
           <i
             className="pi pi-trash"
@@ -289,10 +295,10 @@ const TableDynamic = () => {
         </Button>
       </div>
 
-      <div style={{ marginTop: "10px",height:'calc(100vh - 12rem)' }}>
+      <div style={{ marginTop: "10px", height: "calc(100vh - 12rem)" }}>
         <DataTable
           scrollable
-          scrollHeight='calc(100vh - 12rem)'
+          scrollHeight="calc(100vh - 12rem)"
           value={data}
           size="small"
           showGridlines

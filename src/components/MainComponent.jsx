@@ -11,7 +11,7 @@ function MainComponent() {
   const dispatch = useDispatch();
 
   let subTabName = useSelector((state) => state.subTabName.selectedSubTab);
-  console.log("subTabName",subTabName);
+  console.log("subTabName", subTabName);
 
   const prevSubTabName = usePrevious(subTabName);
 
@@ -55,29 +55,23 @@ function MainComponent() {
     handleAddComponent &&
     subTabName === "Configuration" &&
     subTabName === prevSubTabName;
-  
+
   //showCommands
-  const showCommands = 
-  handleAddComponent &&
+  const showCommands =
+    handleAddComponent &&
     subTabName === "Commands" &&
     subTabName === prevSubTabName;
 
-  
   return (
     <>
       {splitterShow && (
-        <Splitter >
+        <Splitter>
           <SplitterPanel>
-            <div
-              style={{ width: "100%" }}
-              className="flex align-items-center justify-content-center"
-            >
+            <div style={{ width: "100%" }}>
               <TableDynamic />
             </div>
           </SplitterPanel>
-          <SplitterPanel
-            className="flex align-items-center justify-content-center"
-          >
+          <SplitterPanel>
             <div className="w-full h-full">
               {showConfiguration && <AddConfiguration />}
               {showCommands && <AddCommands />}
