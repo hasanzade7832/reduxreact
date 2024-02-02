@@ -199,7 +199,7 @@ const CommandsAdd = () => {
   };
 
   return (
-    <>
+    <div class="fadein animation-duration-300">
       <Toast ref={toast} position="top-right" />
       <div>
         {isEditMode ? (
@@ -387,7 +387,7 @@ const CommandsAdd = () => {
         </div>
         ّ
       </div>
-    </>
+    </div>
   );
 };
 
