@@ -23,7 +23,15 @@ const CustomDropdown = ({
         style={{ width: "100%" }}
         placeholder=""
       />
-      <label htmlFor={id} style={{ fontSize: "0.8rem" }}>
+      <label
+        style={{
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          maxWidth: "100%",
+        }}
+        htmlFor={id}
+      >
         {label}
       </label>
     </span>

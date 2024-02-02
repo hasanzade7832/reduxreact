@@ -661,9 +661,9 @@ const ConfigurationAdd = () => {
       </div>
       <div
         style={{
-          overflow: "auto",
+          overflowY: "scroll",
           whiteSpace: "nowrap",
-          maxHeight: "calc(100vh - 200px)",
+          maxHeight: "calc(100vh - 12rem)",
         }}
       >
         {/* /////////////////////Line1/////////////////////// */}

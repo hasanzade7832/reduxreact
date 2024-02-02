@@ -72,8 +72,21 @@ p-tabview-nav-content{
 }
 
 /* span.p-dropdown-label.p-inputtext {
-  margin-top: -25px;
+
+  width: fit-content;
+
 } */
+
+/* .p-float-label label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width:170px;
+} */
+
+span.p-dropdown-label.p-inputtext {
+  width: 10px;
+}
 
 /* tab styles */
 span.p-tabview-title {
