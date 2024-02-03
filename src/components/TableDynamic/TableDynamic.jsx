@@ -206,6 +206,23 @@ const TableDynamic = () => {
         })
         .catch(() => {});
     }
+    else if (subTabName == "User") {
+      projectServices
+        .deleteUser({ gid: selectedRowData.ID })
+        .then((res) => {
+          dispatch(fetchUsers());
+          dispatch(mainSlice.actions.setIsAddClicked(true));
+          dispatch(mainSlice.actions.setHandleAddComponent(true));
+          dispatch(mainSlice.actions.setModeSelectedRow(true));
+          setShowDeleteConfirmation(false);
+          toast.current.show({
+            severity: "success",
+            summary: "Success",
+            detail: "Item deleted successfully",
+          });
+        })
+        .catch(() => {});
+    }
   };
 
   const cancelDelete = () => {
