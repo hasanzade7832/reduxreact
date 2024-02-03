@@ -8,6 +8,7 @@ import {
   fetchPrugTemplate,
 } from "../../redux/configuration/configurationSlice";
 import { fetchCommands } from "../../redux/commands/commandsSlice";
+import { fetchUsers } from "../../redux/user/userSlice";
 import { Button } from "primereact/button";
 import { mainSlice } from "../../redux/mainSlice";
 import { Toast } from "primereact/toast";
@@ -50,12 +51,22 @@ const TableDynamic = () => {
   );
   const dataCommands = useSelector((state) => state.dataCommands.dataCommands);
 
+  const dataUsers = useSelector((state) => state.dataUsers.dataUsers);
+
   const headersStringCommands = useSelector(
     (state) => state.dataCommands.headersString
   );
 
+  const headersStringUsers = useSelector(
+    (state) => state.dataUsers.headersString
+    );
+    
   const fieldsColumnsCommands = useSelector(
     (state) => state.dataCommands.fieldColumn
+  );
+
+  const fieldsColumnsUser = useSelector(
+    (state) => state.dataUsers.fieldColumn
   );
 
   const selectedRowData = useSelector(
@@ -69,6 +80,8 @@ const TableDynamic = () => {
       dispatch(fetchPrugTemplate());
     } else if (subTabName === "Commands") {
       dispatch(fetchCommands());
+    } else if (subTabName === "User"){
+      dispatch(fetchUsers());
     }
   }, [subTabName]);
 
@@ -94,6 +107,11 @@ const TableDynamic = () => {
       headersString: headersStringCommands,
       fieldsColumns: fieldsColumnsCommands,
     },
+    User :{
+      data: dataUsers,
+      headersString: headersStringUsers,
+      fieldsColumns: fieldsColumnsUser,
+    }
   };
 
   const tabData = subTabName ? tabDataMap[subTabName] : null;
@@ -172,7 +190,6 @@ const TableDynamic = () => {
         })
         .catch(() => {});
     } else if (subTabName == "Commands") {
-      console.log("Iiiiiii", selectedRowData.ID);
       projectServices
         .deleteCommand({ id: selectedRowData.ID })
         .then((res) => {

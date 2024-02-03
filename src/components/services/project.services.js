@@ -22,6 +22,21 @@ class projectService {
   async getEnum(data) {
     return await httpClient.post(ApiConst.getEnum,data);
   }
+  async getAllProgramTemplate() {
+    return await httpClient.post(ApiConst.getAllProgramTemplate);
+  }
+  async getAllWfTemplate() {
+    return await httpClient.post(ApiConst.getAllWfTemplate);
+  }
+  async getAllEntityType() {
+    return await httpClient.post(ApiConst.getAllEntityType);
+  }
+  async getAllAfBtn() {
+    return await httpClient.post(ApiConst.getAllAfBtn);
+  }
+  async insertAfBtn(data) {
+    return await httpClient.post(ApiConst.insertAfBtn,data);
+  }
 
   //setting
   async getAllSetting() {
@@ -58,22 +73,21 @@ class projectService {
     return await httpClient.post(ApiConst.deleteCommand,data);
   }
 
+  //user
+  async getAllUser() {
+    return await httpClient.post(ApiConst.getAllUser);
+  }
+  async insertUser(data) {
+    return await httpClient.post(ApiConst.insertUser,data);
+  }
+  async updateUser(data) {
+    return await httpClient.post(ApiConst.updateUser,data);
+  }
+  async deleteUser(data) {
+    return await httpClient.post(ApiConst.deleteUser,data);
+  }
 
-  async getAllProgramTemplate() {
-    return await httpClient.post(ApiConst.getAllProgramTemplate);
-  }
-  async getAllWfTemplate() {
-    return await httpClient.post(ApiConst.getAllWfTemplate);
-  }
-  async getAllEntityType() {
-    return await httpClient.post(ApiConst.getAllEntityType);
-  }
-  async getAllAfBtn() {
-    return await httpClient.post(ApiConst.getAllAfBtn);
-  }
-  async insertAfBtn(data) {
-    return await httpClient.post(ApiConst.insertAfBtn,data);
-  }
+  
 
 }
 

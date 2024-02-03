@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import tabData from "../utils/tabData";
 import AddConfiguration from "./configuration/Add-Edit/configurationAdd";
 import AddCommands from "./commands/Add-Edit/AddCommands";
+import AddUser from "./user/Add-Edit/AddUser";
 import { mainSlice } from "../redux/mainSlice";
 
 function MainComponent() {
@@ -62,6 +63,13 @@ function MainComponent() {
     subTabName === "Commands" &&
     subTabName === prevSubTabName;
 
+  //showUsers
+
+  const showUsers = 
+   handleAddComponent &&
+   subTabName === "User" &&
+   subTabName === prevSubTabName;
+
   return (
     <>
       {splitterShow && (
@@ -75,6 +83,7 @@ function MainComponent() {
             <div className="w-full h-full">
               {showConfiguration && <AddConfiguration />}
               {showCommands && <AddCommands />}
+              {showUsers && <AddUser />}
             </div>
           </SplitterPanel>
         </Splitter>

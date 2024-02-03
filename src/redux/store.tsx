@@ -3,6 +3,7 @@ import { mainSlice } from "./mainSlice";
 import configurationSlice from "./configuration/configurationSlice";
 import { loginSlice } from "./Login/loginSlice";
 import commandsSlice from "./commands/commandsSlice";
+import commandsUsers from "./user/userSlice";
 import programTemplateSlice from "./programtemplate/programtemplateSlice";
 
 export const store = configureStore({
@@ -63,7 +64,8 @@ export const store = configureStore({
     dataProgramTemplate: programTemplateSlice.reducer,
     dataCommands: commandsSlice.reducer,
     dataViewMode:commandsSlice.reducer,
-    dataApiMode:commandsSlice.reducer
+    dataApiMode:commandsSlice.reducer,
+    dataUsers:commandsUsers.reducer
   },
 });
 
@@ -215,6 +217,9 @@ export type RootState = {
   modeSelectedRow: {
     modeSelectedRow: Boolean;
   };
+  dataUsers:{
+    dataUsers:string[];
+  }
   
 };
 export type AppDispatch = typeof store.dispatch;
