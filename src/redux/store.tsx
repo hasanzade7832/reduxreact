@@ -8,7 +8,7 @@ import programTemplateSlice from "./programtemplate/programtemplateSlice";
 
 export const store = configureStore({
   reducer: {
-    isEditMode:mainSlice.reducer,
+    isEditMode: mainSlice.reducer,
     displayHeader: mainSlice.reducer,
     subTabName: mainSlice.reducer,
     displaySplitter: mainSlice.reducer,
@@ -63,15 +63,16 @@ export const store = configureStore({
     loginSuccess: loginSlice.reducer,
     dataProgramTemplate: programTemplateSlice.reducer,
     dataCommands: commandsSlice.reducer,
-    dataViewMode:commandsSlice.reducer,
-    dataApiMode:commandsSlice.reducer,
-    dataUsers:commandsUsers.reducer
+    dataViewMode: commandsSlice.reducer,
+    dataApiMode: commandsSlice.reducer,
+    dataUsers: commandsUsers.reducer,
+    dataUserType: commandsUsers.reducer,
   },
 });
 
 export type RootState = {
-  isEditMode:{
-    isEditMode:Boolean
+  isEditMode: {
+    isEditMode: Boolean;
   };
   dataAfBtn: {
     dataAfBtn: string;
@@ -217,9 +218,11 @@ export type RootState = {
   modeSelectedRow: {
     modeSelectedRow: Boolean;
   };
-  dataUsers:{
-    dataUsers:string[];
-  }
-  
+  dataUsers: {
+    dataUsers: string[];
+  };
+  dataUserType: {
+    dataUserType: string[];
+  };
 };
 export type AppDispatch = typeof store.dispatch;

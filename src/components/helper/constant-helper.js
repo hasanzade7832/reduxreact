@@ -11,9 +11,10 @@ export const ApiConst = Object.freeze({
   getAllProgramTemplate: "api/ProgramTemplate/GetAll",
   getAllWfTemplate: "api/WFTemplate/GetAll",
   getAllEntityType: "api/EntityType/GetAllComplete",
-  getAllAfBtn:"api/AFBtn/GetAll",
-  insertAfBtn:"api/AFBtn/Insert",
-  
+  getAllAfBtn: "api/AFBtn/GetAll",
+  insertAfBtn: "api/AFBtn/Insert",
+  changePassword: "api/User/ChangePasswordByAdmin",
+
   //setting
   getAllSetting: "api/Setting/GetAll",
   insertSetting: "api/Setting/Insert",
@@ -31,6 +32,4 @@ export const ApiConst = Object.freeze({
   insertUser: "api/User/Insert",
   updateUser: "api/User/Update",
   deleteUser: "api/User/Delete",
-
-  
 });

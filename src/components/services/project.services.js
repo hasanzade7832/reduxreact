@@ -20,7 +20,7 @@ class projectService {
     return await httpClient.post(ApiConst.getAllCompany);
   }
   async getEnum(data) {
-    return await httpClient.post(ApiConst.getEnum,data);
+    return await httpClient.post(ApiConst.getEnum, data);
   }
   async getAllProgramTemplate() {
     return await httpClient.post(ApiConst.getAllProgramTemplate);
@@ -35,7 +35,10 @@ class projectService {
     return await httpClient.post(ApiConst.getAllAfBtn);
   }
   async insertAfBtn(data) {
-    return await httpClient.post(ApiConst.insertAfBtn,data);
+    return await httpClient.post(ApiConst.insertAfBtn, data);
+  }
+  async changePassword(data) {
+    return await httpClient.post(ApiConst.changePassword, data);
   }
 
   //setting
@@ -64,13 +67,13 @@ class projectService {
     return await httpClient.post(ApiConst.getAllCommand);
   }
   async insertCommand(data) {
-    return await httpClient.post(ApiConst.insertCommand,data);
+    return await httpClient.post(ApiConst.insertCommand, data);
   }
   async updateCommand(data) {
-    return await httpClient.post(ApiConst.updateCommand,data);
+    return await httpClient.post(ApiConst.updateCommand, data);
   }
   async deleteCommand(data) {
-    return await httpClient.post(ApiConst.deleteCommand,data);
+    return await httpClient.post(ApiConst.deleteCommand, data);
   }
 
   //user
@@ -78,18 +81,14 @@ class projectService {
     return await httpClient.post(ApiConst.getAllUser);
   }
   async insertUser(data) {
-    return await httpClient.post(ApiConst.insertUser,data);
+    return await httpClient.post(ApiConst.insertUser, data);
   }
   async updateUser(data) {
-    return await httpClient.post(ApiConst.updateUser,data);
+    return await httpClient.post(ApiConst.updateUser, data);
   }
   async deleteUser(data) {
-    return await httpClient.post(ApiConst.deleteUser,data);
+    return await httpClient.post(ApiConst.deleteUser, data);
   }
-
-  
-
 }
-
 
 export default new projectService();
