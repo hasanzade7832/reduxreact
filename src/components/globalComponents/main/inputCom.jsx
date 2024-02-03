@@ -1,7 +1,7 @@
 import React from "react";
 import { InputText } from "primereact/inputtext";
 
-const CustomInputText = ({ label, value, onChange, disabled }) => {
+const CustomInputText = ({ label, value, onChange, disabled, type }) => {
   return (
     <span className="p-float-label" style={{ flex: "1", marginRight: "10px" }}>
       <InputText
@@ -9,7 +9,8 @@ const CustomInputText = ({ label, value, onChange, disabled }) => {
         onChange={onChange}
         style={{ width: "100%" }}
         className="custom-input p-inputtext-sm"
-        disabled = {disabled}
+        disabled={disabled}
+        type={type}
       />
       <label style={{ fontSize: "0.8rem" }}>{label}</label>
     </span>

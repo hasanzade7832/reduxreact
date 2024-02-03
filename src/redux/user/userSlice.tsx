@@ -12,14 +12,14 @@ export const fetchUsers = createAsyncThunk("fetchUsers", async () => {
 });
 
 interface MainState {
-  dataUsers : string[],
-  headersString:string,
-  fieldColumn:string
-};
+  dataUsers: string[];
+  headersString: string;
+  fieldColumn: string;
+}
 
 const initialState: MainState = {
- dataUsers:[],
- headersString: "",
+  dataUsers: [],
+  headersString: "",
   fieldColumn: "",
 };
 
@@ -30,11 +30,10 @@ const commandsSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchUsers.fulfilled, (state, action) => {
       state.dataUsers = action.payload;
-      state.headersString = "Name";
-      state.fieldColumn = "Name";
-    })
+      state.headersString = "Username";
+      state.fieldColumn = "Username";
+    });
   },
-
 });
 
 export default commandsSlice;
