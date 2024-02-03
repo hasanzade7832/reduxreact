@@ -212,6 +212,7 @@ const CommandsAdd = () => {
         style={{
           overflowY: "auto",
           whiteSpace: "nowrap",
+          height:"100vh",
           maxHeight: "calc(100vh - 12rem)",
         }}
       >

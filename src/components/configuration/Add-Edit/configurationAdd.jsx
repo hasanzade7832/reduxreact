@@ -648,7 +648,7 @@ const ConfigurationAdd = () => {
   return (
     <div
       class="fadein animation-duration-300"
-      style={{ overflowY: "auto", maxHeight: "calc(100vh -200px)" }}
+      // style={{ overflowY: "auto", maxHeight: "calc(100vh -200px)" }}
     >
       <Toast ref={toast} position="top-right" />
       {/* ////////////////////////Add Line//////////////////*/}
@@ -661,8 +661,9 @@ const ConfigurationAdd = () => {
       </div>
       <div
         style={{
-          overflowY: "scroll",
+          overflowY: "auto",
           whiteSpace: "nowrap",
+          height:"100vh",
           maxHeight: "calc(100vh - 12rem)",
         }}
       >

@@ -73,11 +73,10 @@ function MainComponent() {
           </SplitterPanel>
           <SplitterPanel
             style={{
-              height: "100vh",
-              overflow: "auto",
-              whiteSpace: "nowrap",
-              maxHeight: "calc(100vh-300px)",
-              height: "calc(100vh-500px)",
+              // overflowY: "scroll",
+              // whiteSpace: "nowrap",
+              // height:"75vh",
+              // maxHeight: "calc(100vh -75vh)",
             }}
           >
             <div className="w-full h-full">
