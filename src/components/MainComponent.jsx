@@ -71,14 +71,7 @@ function MainComponent() {
               <TableDynamic />
             </div>
           </SplitterPanel>
-          <SplitterPanel
-            style={{
-              // overflowY: "scroll",
-              // whiteSpace: "nowrap",
-              // height:"75vh",
-              // maxHeight: "calc(100vh -75vh)",
-            }}
-          >
+          <SplitterPanel>
             <div className="w-full h-full">
               {showConfiguration && <AddConfiguration />}
               {showCommands && <AddCommands />}
