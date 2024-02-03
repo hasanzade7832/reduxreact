@@ -62,55 +62,76 @@ export default function AddUser() {
             setFormData((prevFormData) => ({
                 ...prevFormData,
                 Name: "",
+                Family:"",
+                Username:"",
+                Email:"",
+                Mobile:""
             }));
         } else if (selectedRow) {
             dispatch(mainSlice.actions.setIsEditMode(true));
             setFormData((prevFormData) => ({
                 ...prevFormData,
                 Name: selectedRow.Name,
+                Family:selectedRow.Family,
+                Username:selectedRow.Username,
+                Email:selectedRow.Email,
+                Mobile:selectedRow.Mobile
             }));
         }
     }, [isAddClicked, selectedRow])
 
-    const addUser = () =>{
+    const addUser = () => {
         projectServices
-        .insertUser(formData)
-        .then((res) => {
-        dispatch(fetchUsers());
-          toast.current.show({
-            severity: "success",
-            summary: "Success",
-            detail: "Item Added successfully",
-          });
-          setFormData((prevFormData) => ({
-            ...prevFormData,
-            Name: "",
-          }));
-        })
-        .catch(() => {});
+            .insertUser(formData)
+            .then((res) => {
+                dispatch(fetchUsers());
+                toast.current.show({
+                    severity: "success",
+                    summary: "Success",
+                    detail: "Item Added successfully",
+                });
+                setFormData((prevFormData) => ({
+                    ...prevFormData,
+                    Name: "",
+                    Family:"",
+                    Username:"",
+                    Email:"",
+                    Mobile:""
+                }));
+            })
+            .catch(() => { });
     };
 
-    const editUser = () =>{
+    const editUser = () => {
         const updatedSelectedRow = {
             ...selectedRow,
             Name: formData.Name,
-          };
+            Family: formData.Family,
+            Username:formData.Username,
+            Email:formData.Email,
+            Mobile:formData.Mobile,
+            Password:formData.Password,
+            confirmPassword:formData.confirmPassword
+        };
         projectServices
-        .updateUser(updatedSelectedRow)
-        .then((res) => {
-        dispatch(fetchUsers());
-          toast.current.show({
-            severity: "success",
-            summary: "Success",
-            detail: "Item Edited successfully",
-          });
-          setFormData((prevFormData) => ({
-            ...prevFormData,
-            Name: "",
-          
-          }));
-        })
-        .catch(() => {});
+            .updateUser(updatedSelectedRow)
+            .then((res) => {
+                dispatch(fetchUsers());
+                toast.current.show({
+                    severity: "success",
+                    summary: "Success",
+                    detail: "Item Edited successfully",
+                });
+                setFormData((prevFormData) => ({
+                    ...prevFormData,
+                    Name: "",
+                    Family:"",
+                    Username:"",
+                    Email:"",
+                    Mobile:""
+                }));
+            })
+            .catch(() => { });
     }
 
     return (
@@ -145,13 +166,53 @@ export default function AddUser() {
                         </div>
                         <div className="col-1"></div>
                         <div className="col-5">
-                            {/* <CustomInputText
-                        label="ID"
-                        value={formData.Describtion}
-                        onChange={(e) => handleChange("Describtion", e.target.value)}
-                    /> */}
+                            <CustomInputText
+                                label="ID"
+                                disabled={"disabled"}
+                            />
                         </div>
                     </div>
+                    {/* ///////////////////////////LINE2///////////////////////////// */}
+                    <div className="grid" style={{ marginLeft: "20px", marginTop: "20px" }}>
+                        <div className="col-5">
+                            <div>
+                                <CustomInputText
+                                    label="Last Name"
+                                    value={formData.Family}
+                                    onChange={(e) => handleChange("Family", e.target.value)}
+                                />
+                            </div>
+                        </div>
+                        <div className="col-1"></div>
+                        <div className="col-5">
+                            <CustomInputText
+                                label="First Name"
+                                value={formData.Username}
+                                onChange={(e) => handleChange("Username", e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    {/* ///////////////////////////LINE3///////////////////////////// */}
+                    <div className="grid" style={{ marginLeft: "20px", marginTop: "20px" }}>
+                        <div className="col-5">
+                            <div>
+                                <CustomInputText
+                                    label="Email"
+                                    value={formData.Email}
+                                    onChange={(e) => handleChange("Email", e.target.value)}
+                                />
+                            </div>
+                        </div>
+                        <div className="col-1"></div>
+                        <div className="col-5">
+                            <CustomInputText
+                                label="Mobile"
+                                value={formData.Mobile}
+                                onChange={(e) => handleChange("Mobile", e.target.value)}
+                            />
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </>
