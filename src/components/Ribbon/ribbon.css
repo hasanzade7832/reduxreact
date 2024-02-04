@@ -3,14 +3,6 @@
   background-color: #fde6d5;
 }
 
-/* .custom-splitter .p-row-odd{
-  background-color: aqua;
-}
-
-.custom-splitter .p-row-even{
-  background-color: aqua;
-} */
-
-.custom-splitter .p-datatable-tbody {
-  background-color: #F97316;
+.custom-splitter tr {
+  background-color: #FFF4E7;
 }
