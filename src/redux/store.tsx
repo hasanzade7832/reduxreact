@@ -4,6 +4,7 @@ import configurationSlice from "./configuration/configurationSlice";
 import { loginSlice } from "./Login/loginSlice";
 import commandsSlice from "./commands/commandsSlice";
 import commandsUsers from "./user/userSlice";
+import ribbonSlice from "./ribbon/ribbonSlice";
 import programTemplateSlice from "./programtemplate/programtemplateSlice";
 
 export const store = configureStore({
@@ -67,6 +68,7 @@ export const store = configureStore({
     dataApiMode: commandsSlice.reducer,
     dataUsers: commandsUsers.reducer,
     dataUserType: commandsUsers.reducer,
+    dataMenuSetting:ribbonSlice.reducer
   },
 });
 
@@ -224,5 +226,8 @@ export type RootState = {
   dataUserType: {
     dataUserType: string[];
   };
+  dataMenuSetting:{
+    dataMenuSetting:string[];
+  }
 };
 export type AppDispatch = typeof store.dispatch;

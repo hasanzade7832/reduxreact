@@ -76,6 +76,11 @@ class projectService {
     return await httpClient.post(ApiConst.deleteCommand, data);
   }
 
+  //ribbon
+  async getAllMenu() {
+    return await httpClient.post(ApiConst.getAllMenu);
+  }
+
   //user
   async getAllUser() {
     return await httpClient.post(ApiConst.getAllUser);

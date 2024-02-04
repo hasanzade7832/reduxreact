@@ -7,6 +7,7 @@ import AddConfiguration from "./configuration/Add-Edit/configurationAdd";
 import AddCommands from "./commands/Add-Edit/AddCommands";
 import AddUser from "./user/Add-Edit/AddUser";
 import { mainSlice } from "../redux/mainSlice";
+import MainRibbonTab from "../components/Ribbon/1-Menu/menuSetting";
 
 function MainComponent() {
   const dispatch = useDispatch();
@@ -20,10 +21,10 @@ function MainComponent() {
     (state) => state.displaySplitter.valueSplitterShow
   );
 
-  tabData.map((tab) => {
+  tabData.forEach((tab) => {
     if (tab.subTabs && Array.isArray(tab.subTabs)) {
-      tab.subTabs.map((sub) => {
-        if (subTabName == sub.name) {
+      tab.subTabs.forEach((sub) => {
+        if (subTabName === sub.name) {
           splitterShow = true;
         }
       });
@@ -64,20 +65,19 @@ function MainComponent() {
     subTabName === prevSubTabName;
 
   //showUsers
-
-  const showUsers = 
-   handleAddComponent &&
-   subTabName === "User" &&
-   subTabName === prevSubTabName;
+  const showUsers =
+    handleAddComponent &&
+    subTabName === "User" &&
+    subTabName === prevSubTabName;
 
   return (
     <>
-      {splitterShow && (
+      {splitterShow && subTabName !== "Ribbon" && (
         <Splitter>
-          <SplitterPanel style={{minWidth:"200px"}}>
-              <TableDynamic />
+          <SplitterPanel style={{ minWidth: "200px" }}>
+            <TableDynamic />
           </SplitterPanel>
-          <SplitterPanel style={{minWidth:"300px"}}>
+          <SplitterPanel style={{ minWidth: "300px" }}>
             <div className="w-full h-full">
               {showConfiguration && <AddConfiguration />}
               {showCommands && <AddCommands />}
@@ -86,6 +86,10 @@ function MainComponent() {
           </SplitterPanel>
         </Splitter>
       )}
+
+      {
+        subTabName === "Ribbon" && <MainRibbonTab/>
+      }
     </>
   );
 }

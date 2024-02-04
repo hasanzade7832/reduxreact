@@ -27,9 +27,13 @@ export const ApiConst = Object.freeze({
   updateCommand: "api/Command/Update",
   deleteCommand: "api/Command/Delete",
 
+  //ribbon
+  getAllMenu: "api/Menu/GetAll",
+
   //user
   getAllUser: "api/User/GetAll",
   insertUser: "api/User/Insert",
   updateUser: "api/User/Update",
   deleteUser: "api/User/Delete",
+
 });
