@@ -87,9 +87,7 @@ function MainComponent() {
         </Splitter>
       )}
 
-      {
-        subTabName === "Ribbon" && <MainRibbonTab/>
-      }
+      {subTabName === "Ribbon" && <MainRibbonTab />}
     </>
   );
 }

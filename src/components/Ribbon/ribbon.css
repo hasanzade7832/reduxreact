@@ -1,0 +1,16 @@
+.custom-splitter .p-datatable-wrapper {
+  height: calc(100vh - 13rem);
+  background-color: #fde6d5;
+}
+
+/* .custom-splitter .p-row-odd{
+  background-color: aqua;
+}
+
+.custom-splitter .p-row-even{
+  background-color: aqua;
+} */
+
+.custom-splitter .p-datatable-tbody {
+  background-color: #F97316;
+}

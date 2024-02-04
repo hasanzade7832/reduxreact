@@ -59,15 +59,13 @@ const TableDynamic = () => {
 
   const headersStringUsers = useSelector(
     (state) => state.dataUsers.headersString
-    );
-    
+  );
+
   const fieldsColumnsCommands = useSelector(
     (state) => state.dataCommands.fieldColumn
   );
 
-  const fieldsColumnsUser = useSelector(
-    (state) => state.dataUsers.fieldColumn
-  );
+  const fieldsColumnsUser = useSelector((state) => state.dataUsers.fieldColumn);
 
   const selectedRowData = useSelector(
     (state) => state.selectedRowData.selectedRowData
@@ -80,7 +78,7 @@ const TableDynamic = () => {
       dispatch(fetchPrugTemplate());
     } else if (subTabName === "Commands") {
       dispatch(fetchCommands());
-    } else if (subTabName === "User"){
+    } else if (subTabName === "User") {
       dispatch(fetchUsers());
     }
   }, [subTabName]);
@@ -107,11 +105,11 @@ const TableDynamic = () => {
       headersString: headersStringCommands,
       fieldsColumns: fieldsColumnsCommands,
     },
-    User :{
+    User: {
       data: dataUsers,
       headersString: headersStringUsers,
       fieldsColumns: fieldsColumnsUser,
-    }
+    },
   };
 
   const tabData = subTabName ? tabDataMap[subTabName] : null;
@@ -205,8 +203,7 @@ const TableDynamic = () => {
           });
         })
         .catch(() => {});
-    }
-    else if (subTabName == "User") {
+    } else if (subTabName == "User") {
       projectServices
         .deleteUser({ gid: selectedRowData.ID })
         .then((res) => {
@@ -332,8 +329,6 @@ const TableDynamic = () => {
 
       <div style={{ marginTop: "10px" }}>
         <DataTable
-          scrollable
-          scrollHeight="calc(100vh - 12rem)"
           height={500}
           value={data}
           size="small"
