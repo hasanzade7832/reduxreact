@@ -10,17 +10,36 @@ export default function MenuSetting() {
   const [products, setProducts] = useState([
     { code: "a", name: "a", category: "a", quantity: "a" },
     { code: "a", name: "a", category: "a", quantity: "a" },
+    { code: "a", name: "a", category: "a", quantity: "a" },
+    { code: "a", name: "a", category: "a", quantity: "a" },
+    { code: "a", name: "a", category: "a", quantity: "a" },
+    { code: "a", name: "a", category: "a", quantity: "a" },
+    { code: "a", name: "a", category: "a", quantity: "a" },
+    { code: "a", name: "a", category: "a", quantity: "a" },
+    { code: "a", name: "a", category: "a", quantity: "a" },
+    { code: "a", name: "a", category: "a", quantity: "a" },
+    { code: "a", name: "a", category: "a", quantity: "a" },
+    { code: "a", name: "a", category: "a", quantity: "a" },
+    { code: "a", name: "a", category: "a", quantity: "a" },
+    { code: "a", name: "a", category: "a", quantity: "a" },
+    { code: "a", name: "a", category: "a", quantity: "a" },
+    { code: "a", name: "a", category: "a", quantity: "a" },
+    { code: "a", name: "a", category: "a", quantity: "a" },
+    { code: "a", name: "a", category: "a", quantity: "a" },
+    { code: "a", name: "a", category: "a", quantity: "a" },
+    { code: "a", name: "a", category: "a", quantity: "a" },
+    { code: "a", name: "a", category: "a", quantity: "a" },
+    { code: "a", name: "a", category: "a", quantity: "a" },
   ]);
 
   return (
-    <Splitter className="custom-splitter" style={{ overflow: "hidden" }}>
-      <SplitterPanel style={{ minwidth: "10px" }}>
+    <Splitter className="custom-splitter">
+      <SplitterPanel style={{ minwidth: "100px", overflow: "hidden" }}>
         {/* <div> */}
         <div
           className="card"
           style={{
-            // position: "relative",
-            height: "100vh",
+            height: "95vh",
             overflow: "hidden",
             width: "100%",
           }}
@@ -31,6 +50,14 @@ export default function MenuSetting() {
             <Column field="category" header="Category"></Column>
             <Column field="quantity" header="Quantity"></Column>
           </DataTable>
+          <div style={{ display: "flex" }}>
+            <div style={{ margin: "10px", width: "50%" }}>
+              <CustomInputText />
+            </div>
+            <div style={{ margin: "10px", width: "50%" }}>
+              <CustomInputText />
+            </div>
+          </div>
         </div>
         {/* <div style={{ marginTop: "30px", display: "flex", margin: "5px" }}>
           <div>
