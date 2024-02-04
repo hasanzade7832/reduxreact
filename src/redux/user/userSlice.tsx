@@ -41,8 +41,8 @@ const commandsSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchUsers.fulfilled, (state, action) => {
       state.dataUsers = action.payload;
-      state.headersString = "Username";
-      state.fieldColumn = "Username";
+      state.headersString = "Username|userType|Name|Family|Website|Mobile|Email|IsVisible";
+      state.fieldColumn = "Username|userType|Name|Family|Website|Mobile|Email|IsVisible";
     });
     builder.addCase(fetchUserType.fulfilled, (state, action) => {
       state.dataUserType = action.payload;

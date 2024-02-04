@@ -166,6 +166,10 @@ span.p-column-title{
   font-size: 0.85rem;
 }
 
+.p-datatable-wrapper {
+  height: calc(100vh - 12.5rem);
+}
+
 /* ::-webkit-scrollbar {
   scrollbar-width: thin;
   width: 10px;

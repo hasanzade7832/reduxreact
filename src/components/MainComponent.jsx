@@ -74,12 +74,10 @@ function MainComponent() {
     <>
       {splitterShow && (
         <Splitter>
-          <SplitterPanel>
-            <div style={{ width: "100%" }}>
+          <SplitterPanel style={{minWidth:"200px"}}>
               <TableDynamic />
-            </div>
           </SplitterPanel>
-          <SplitterPanel>
+          <SplitterPanel style={{minWidth:"300px"}}>
             <div className="w-full h-full">
               {showConfiguration && <AddConfiguration />}
               {showCommands && <AddCommands />}

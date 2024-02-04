@@ -8,7 +8,6 @@ const CustomButton = ({ label, className, size = "small", onClick }) => {
       className={className}
       size={size}
       onClick={onClick}
-      style={{ width: "100%" }}
     >
       {" "}
       <span style={{ textAlign: "center" }}>{label}</span>

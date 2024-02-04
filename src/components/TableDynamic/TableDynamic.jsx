@@ -334,6 +334,7 @@ const TableDynamic = () => {
         <DataTable
           scrollable
           scrollHeight="calc(100vh - 12rem)"
+          height={500}
           value={data}
           size="small"
           showGridlines

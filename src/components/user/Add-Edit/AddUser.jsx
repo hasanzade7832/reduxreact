@@ -210,12 +210,12 @@ export default function AddUser() {
           )}
         </div>
         <div
-        // style={{
-        //     overflowY: "auto",
-        //     whiteSpace: "nowrap",
-        //     height: "100vh",
-        //     maxHeight: "calc(100vh - 12rem)",
-        // }}
+         style={{
+            overflowY: "auto",
+            whiteSpace: "nowrap",
+            height:"100vh",
+            maxHeight: "calc(100vh - 12rem)",
+          }}
         >
           {/* ///////////////////////////LINE1///////////////////////////// */}
           <div
@@ -332,6 +332,7 @@ export default function AddUser() {
                 <ButtonCump
                   label="Change Password"
                   onClick={changePasswordFunc}
+                  
                 />
               </div>
             </div>

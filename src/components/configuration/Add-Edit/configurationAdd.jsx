@@ -664,7 +664,7 @@ const ConfigurationAdd = () => {
           overflowY: "auto",
           whiteSpace: "nowrap",
           height:"100vh",
-          maxHeight: "calc(100vh - 12rem)",
+          maxHeight: "calc(100vh - 11.8rem)",
         }}
       >
         {/* /////////////////////Line1/////////////////////// */}
