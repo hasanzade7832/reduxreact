@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk , PayloadAction} from "@reduxjs/toolkit";
 
 import projectServices from "../../components/services/project.services";
 
@@ -13,16 +13,22 @@ export const fetchMenuSetting = createAsyncThunk("fetchMenuSetting", async () =>
 
 interface MainState {
   dataMenuSetting: string[];
+  selectedRowDataRibbon:null
 }
 
 const initialState: MainState = {
     dataMenuSetting: [],
+    selectedRowDataRibbon:null
 };
 
-const userSlice = createSlice({
+const ribbonSlice = createSlice({
   name: "Ribbon",
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedRowDataRibbon: (state, action: PayloadAction<null>) => {
+      state.selectedRowDataRibbon = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchMenuSetting.fulfilled, (state, action) => {
       state.dataMenuSetting = action.payload;
@@ -30,4 +36,4 @@ const userSlice = createSlice({
   },
 });
 
-export default userSlice;
+export default ribbonSlice;

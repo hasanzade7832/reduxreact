@@ -55,6 +55,8 @@ const CommandsAdd = () => {
     (state) => state.selectedRowData.selectedRowData
   );
 
+  console.log("rowwwwww",selectedRow);
+
   const dataViewMode = useSelector((state) => state.dataViewMode.dataViewMode);
 
   const dataViewModeArray = Object.entries(dataViewMode).map(

@@ -1,8 +1,25 @@
 .custom-splitter .p-datatable-wrapper {
-  /* height: calc(100vh - 12rem); */
-  background-color: #fde6d5;
+  background-color: #FFF4E7;
 }
 
 .custom-splitter tr {
   background-color: #FFF4E7;
 }
+
+.custom-datatable .p-datatable-row.p-highlight {
+  background-color: red; 
+}
+
+.custom-datatable .p-datatable-row .custom-column.p-highlight {
+  background-color: red; 
+}
+
+.selected-row {
+  background-color: #F97316 !important;
+  color: white; 
+}
+.custom-datatable .p-datatable-tbody > tr:hover {
+  background-color: #F97316 !important;
+  color: white;
+}
+

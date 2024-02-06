@@ -68,7 +68,8 @@ export const store = configureStore({
     dataApiMode: commandsSlice.reducer,
     dataUsers: commandsUsers.reducer,
     dataUserType: commandsUsers.reducer,
-    dataMenuSetting:ribbonSlice.reducer
+    dataMenuSetting:ribbonSlice.reducer,
+    selectedRowDataRibbon:ribbonSlice.reducer
   },
 });
 
@@ -228,6 +229,9 @@ export type RootState = {
   };
   dataMenuSetting:{
     dataMenuSetting:string[];
+  }
+  selectedRowDataRibbon:{
+    selectedRowDataRibbon:null
   }
 };
 export type AppDispatch = typeof store.dispatch;
