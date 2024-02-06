@@ -29,11 +29,11 @@ export const ApiConst = Object.freeze({
 
   //ribbon
   getAllMenu: "api/Menu/GetAll",
+  getMenuTabByMenuId: "api/MenuTab/GetByMenuId",
 
   //user
   getAllUser: "api/User/GetAll",
   insertUser: "api/User/Insert",
   updateUser: "api/User/Update",
   deleteUser: "api/User/Delete",
-
 });
