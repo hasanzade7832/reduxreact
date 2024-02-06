@@ -28,6 +28,7 @@ export default function MenuSetting() {
   const [dataMenuGroupRes, setDataMenuGroupRes] = useState([]);
   const [dataMenuItem, setDataMenuItem] = useState([]);
   const [dataMenuItemRes, setDataMenuItemRes] = useState([]);
+  const [manageAcardeon, setManageAcardeon] = useState(false);
 
   const selectedRowTable = useSelector(
     (state) => state.selectedRowDataRibbon.selectedRowDataRibbon
@@ -55,6 +56,8 @@ export default function MenuSetting() {
   };
 
   const handleTab0 = (event) => {
+    setSelectedRow(event.value);
+    dispatch(ribbonSlice.actions.setSelectedRowDataRibbon(event.data));
     setShowAccardeon(true);
     setAccordionDisabled1(false);
     activeIndex.push(0);
@@ -111,153 +114,160 @@ export default function MenuSetting() {
   }, [dataMenuItem]);
 
   return (
-    <Splitter className="custom-splitter">
-      <SplitterPanel style={{ minwidth: "100px", overflow: "hidden" }}>
-        <div
-          className="card"
-          style={{
-            height: "95vh",
-            overflow: "hidden",
-            width: "100%",
-          }}
-        >
-          <DataTable
-            value={dataMenuSetting}
-            size="small"
-            showGridlines
-            selectionMode="single"
-            selection={selectedRow}
-            onSelectionChange={(e) => {
-              console.log("eeeeee", e.value);
-              setSelectedRow(e.value);
-              dispatch(ribbonSlice.actions.setSelectedRowDataRibbon(e.value));
+    <>
+      <Splitter className="custom-splitter">
+        <SplitterPanel style={{ minwidth: "100px", overflow: "hidden" }}>
+          <div
+            className="card"
+            style={{
+              height: "95vh",
+              overflow: "hidden",
+              width: "100%",
             }}
-            onRowClick={(event) => handleRowClick(event)}
-            onRowDoubleClick={handleTab0}
-            className="custom-datatable"
-            rowClassName={(rowData) =>
-              selectedRow && selectedRow.ID === rowData.ID ? "selected-row" : ""
-            }
           >
-            <Column field="Name" header="Name"></Column>
-          </DataTable>
-          <div style={{ display: "flex" }}>
-            <div style={{ margin: "10px", width: "50%" }}>
-              <CustomInputText />
-            </div>
-            <div style={{ margin: "10px", width: "50%" }}>
-              <CustomInputText />
+            <DataTable
+              value={dataMenuSetting}
+              size="small"
+              showGridlines
+              selectionMode="single"
+              selection={selectedRow}
+              onSelectionChange={(e) => {
+                console.log("eeeeee", e.value);
+
+                setManageAcardeon(true);
+                setAccordionDisabled2(true);
+                setAccordionDisabled3(true);
+                setActiveIndex(activeIndex.filter((index) => index !== 1));
+              }}
+              onRowClick={(event) => handleRowClick(event)}
+              onRowDoubleClick={handleTab0}
+              className="custom-datatable"
+              rowClassName={(rowData) =>
+                selectedRow && selectedRow.ID === rowData.ID
+                  ? "selected-row"
+                  : ""
+              }
+            >
+              <Column field="Name" header="Name"></Column>
+            </DataTable>
+            <div style={{ display: "flex" }}>
+              <div style={{ margin: "10px", width: "50%" }}>
+                <CustomInputText />
+              </div>
+              <div style={{ margin: "10px", width: "50%" }}>
+                <CustomInputText />
+              </div>
             </div>
           </div>
-        </div>
-      </SplitterPanel>
-      <SplitterPanel
-        style={{
-          overflowY: "auto",
-          whiteSpace: "nowrap",
-          height: "100vh",
-          maxHeight: "calc(100vh - 10rem)",
-          minWidth: "300px",
-        }}
-      >
-        {showAccardeon && (
-          <Accordion multiple activeIndex={activeIndex}>
-            <AccordionTab header="Header I" disabled={accordionDisabled1}>
-              <DataTable
-                value={dataMenuTab}
-                size="small"
-                showGridlines
-                selectionMode="single"
-                selection={selectedRowTab}
-                onSelectionChange={(e) => {
-                  console.log("eeeeee", e.value);
-                  setSelectedRowTab(e.value);
-                  dispatch(
-                    ribbonSlice.actions.setSelectedRowDataRibbon(e.value)
-                  );
-                }}
-                onRowClick={(event) => handleRowClickTab(event)}
-                onRowDoubleClick={handleTab1}
-                dataKey="id"
-                className="custom-datatable"
-                rowClassName={(rowData) =>
-                  selectedRowTab && selectedRowTab.ID === rowData.ID
-                    ? "selected-row"
-                    : ""
-                }
-                scrollable
-                scrollHeight="200px"
-              >
-                <Column field="Name" header="Name"></Column>
-                <Column field="Description" header="Description"></Column>
-                <Column field="Order" header="Order"></Column>
-              </DataTable>
-            </AccordionTab>
-            <AccordionTab header="Header II" disabled={accordionDisabled2}>
-              <DataTable
-                value={dataMenuGroupRes}
-                size="small"
-                showGridlines
-                selectionMode="single"
-                selection={selectedRowGroup}
-                onSelectionChange={(e) => {
-                  console.log("eeeeee", e.value);
-                  setSelectedRowGroup(e.value);
-                  dispatch(
-                    ribbonSlice.actions.setSelectedRowDataRibbon(e.value)
-                  );
-                }}
-                onRowClick={(event) => handleRowClickGroup(event)}
-                onRowDoubleClick={handleTab2}
-                dataKey="id"
-                className="custom-datatable"
-                rowClassName={(rowData) =>
-                  selectedRowGroup && selectedRowGroup.ID === rowData.ID
-                    ? "selected-row"
-                    : ""
-                }
-                scrollable
-                scrollHeight="200px"
-              >
-                <Column field="Name" header="Name"></Column>
-                <Column field="Description" header="Description"></Column>
-                <Column field="Order" header="Order"></Column>
-              </DataTable>
-            </AccordionTab>
-            <AccordionTab header="Header III" disabled={accordionDisabled3}>
-              <p className="m-0">panel 3</p>
-              <DataTable
-                value={dataMenuItemRes}
-                size="small"
-                showGridlines
-                selectionMode="single"
-                selection={selectedRowItem}
-                onSelectionChange={(e) => {
-                  console.log("eeeeee", e.value);
-                  setSelectedRowItem(e.value);
-                  dispatch(
-                    ribbonSlice.actions.setSelectedRowDataRibbon(e.value)
-                  );
-                }}
-                onRowClick={(event) => handleRowClickItem(event)}
-                dataKey="id"
-                className="custom-datatable"
-                rowClassName={(rowData) =>
-                  selectedRowItem && selectedRowItem.ID === rowData.ID
-                    ? "selected-row"
-                    : ""
-                }
-                scrollable
-                scrollHeight="200px"
-              >
-                <Column field="Name" header="Name"></Column>
-                <Column field="category" header="Category"></Column>
-                <Column field="quantity" header="Quantity"></Column>
-              </DataTable>
-            </AccordionTab>
-          </Accordion>
-        )}
-      </SplitterPanel>
-    </Splitter>
+        </SplitterPanel>
+        <SplitterPanel
+          style={{
+            overflowY: "auto",
+            whiteSpace: "nowrap",
+            height: "100vh",
+            maxHeight: "calc(100vh - 10rem)",
+            minWidth: "300px",
+          }}
+        >
+          {showAccardeon && (
+            <Accordion multiple activeIndex={activeIndex}>
+              <AccordionTab header="Header I" disabled={accordionDisabled1}>
+                <DataTable
+                  value={dataMenuTab}
+                  size="small"
+                  showGridlines
+                  selectionMode="single"
+                  selection={selectedRowTab}
+                  onSelectionChange={(e) => {
+                    console.log("eeeeee", e.value);
+                    setSelectedRowTab(e.value);
+                    dispatch(
+                      ribbonSlice.actions.setSelectedRowDataRibbon(e.value)
+                    );
+                  }}
+                  onRowClick={(event) => handleRowClickTab(event)}
+                  onRowDoubleClick={handleTab1}
+                  dataKey="id"
+                  className="custom-datatable"
+                  rowClassName={(rowData) =>
+                    selectedRowTab && selectedRowTab.ID === rowData.ID
+                      ? "selected-row"
+                      : ""
+                  }
+                  scrollable
+                  scrollHeight="200px"
+                >
+                  <Column field="Name" header="Name"></Column>
+                  <Column field="Description" header="Description"></Column>
+                  <Column field="Order" header="Order"></Column>
+                </DataTable>
+              </AccordionTab>
+              <AccordionTab header="Header II" disabled={accordionDisabled2}>
+                <DataTable
+                  value={dataMenuGroupRes}
+                  size="small"
+                  showGridlines
+                  selectionMode="single"
+                  selection={selectedRowGroup}
+                  onSelectionChange={(e) => {
+                    console.log("eeeeee", e.value);
+                    setSelectedRowGroup(e.value);
+                    dispatch(
+                      ribbonSlice.actions.setSelectedRowDataRibbon(e.value)
+                    );
+                  }}
+                  onRowClick={(event) => handleRowClickGroup(event)}
+                  onRowDoubleClick={handleTab2}
+                  dataKey="id"
+                  className="custom-datatable"
+                  rowClassName={(rowData) =>
+                    selectedRowGroup && selectedRowGroup.ID === rowData.ID
+                      ? "selected-row"
+                      : ""
+                  }
+                  scrollable
+                  scrollHeight="200px"
+                >
+                  <Column field="Name" header="Name"></Column>
+                  <Column field="Description" header="Description"></Column>
+                  <Column field="Order" header="Order"></Column>
+                </DataTable>
+              </AccordionTab>
+              <AccordionTab header="Header III" disabled={accordionDisabled3}>
+                <p className="m-0">panel 3</p>
+                <DataTable
+                  value={dataMenuItemRes}
+                  size="small"
+                  showGridlines
+                  selectionMode="single"
+                  selection={selectedRowItem}
+                  onSelectionChange={(e) => {
+                    console.log("eeeeee", e.value);
+                    setSelectedRowItem(e.value);
+                    dispatch(
+                      ribbonSlice.actions.setSelectedRowDataRibbon(e.value)
+                    );
+                  }}
+                  onRowClick={(event) => handleRowClickItem(event)}
+                  dataKey="id"
+                  className="custom-datatable"
+                  rowClassName={(rowData) =>
+                    selectedRowItem && selectedRowItem.ID === rowData.ID
+                      ? "selected-row"
+                      : ""
+                  }
+                  scrollable
+                  scrollHeight="200px"
+                >
+                  <Column field="Name" header="Name"></Column>
+                  <Column field="category" header="Category"></Column>
+                  <Column field="quantity" header="Quantity"></Column>
+                </DataTable>
+              </AccordionTab>
+            </Accordion>
+          )}
+        </SplitterPanel>
+      </Splitter>
+    </>
   );
 }
