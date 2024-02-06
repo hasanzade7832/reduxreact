@@ -72,6 +72,8 @@ export const store = configureStore({
     selectedRowDataRibbon: ribbonSlice.reducer,
     activeIndex: ribbonSlice.reducer,
     dataMenuTab: ribbonSlice.reducer,
+    dataMenuGroup: ribbonSlice.reducer,
+    dataMenuItem: ribbonSlice.reducer,
   },
 });
 
@@ -240,6 +242,12 @@ export type RootState = {
   };
   dataMenuTab: {
     dataMenuTab: string[];
+  };
+  dataMenuGroup: {
+    dataMenuGroup: string[];
+  };
+  dataMenuItem: {
+    dataMenuItem: string[];
   };
 };
 export type AppDispatch = typeof store.dispatch;

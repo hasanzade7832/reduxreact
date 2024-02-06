@@ -15,32 +15,43 @@ export default function MenuSetting() {
   const dispatch = useDispatch();
 
   const [selectedRow, setSelectedRow] = useState(null);
+  const [selectedRowTab, setSelectedRowTab] = useState(null);
+  const [selectedRowGroup, setSelectedRowGroup] = useState(null);
+  const [selectedRowItem, setSelectedRowItem] = useState(null);
   const [showAccardeon, setShowAccardeon] = useState(false);
   const [accordionDisabled1, setAccordionDisabled1] = useState(true);
   const [accordionDisabled2, setAccordionDisabled2] = useState(true);
   const [accordionDisabled3, setAccordionDisabled3] = useState(true);
   const [activeIndex, setActiveIndex] = useState([]);
-  const [menuSettingIds, setMenuSettingIds] = useState([]);
-
-  const [products, setProducts] = useState([
-    { id: "1", name: "a", category: "a", quantity: "a" },
-    { id: "2", name: "a", category: "a", quantity: "a" },
-    { id: "3", name: "a", category: "a", quantity: "a" },
-    { id: "4", name: "a", category: "a", quantity: "a" },
-    { id: "5", name: "a", category: "a", quantity: "a" },
-    { id: "6", name: "a", category: "a", quantity: "a" },
-    { id: "7", name: "a", category: "a", quantity: "a" },
-    { id: "8", name: "a", category: "a", quantity: "a" },
-  ]);
+  const [dataMenuTab, setDataMenuTab] = useState([]);
+  const [dataMenuGroup, setDataMenuGroup] = useState([]);
+  const [dataMenuGroupRes, setDataMenuGroupRes] = useState([]);
+  const [dataMenuItem, setDataMenuItem] = useState([]);
+  const [dataMenuItemRes, setDataMenuItemRes] = useState([]);
 
   const selectedRowTable = useSelector(
     (state) => state.selectedRowDataRibbon.selectedRowDataRibbon
   );
 
-  console.log("selectedRowTable", selectedRowTable);
+  const dataMenuSetting = useSelector(
+    (state) => state.dataMenuSetting.dataMenuSetting
+  );
 
   const handleRowClick = (event) => {
+    console.log("main");
     setSelectedRow(event.data);
+  };
+
+  const handleRowClickTab = (event) => {
+    setSelectedRowTab(event.data);
+  };
+
+  const handleRowClickGroup = (event) => {
+    setSelectedRowGroup(event.data);
+  };
+
+  const handleRowClickItem = (event) => {
+    setSelectedRowItem(event.data);
   };
 
   const handleTab0 = (event) => {
@@ -49,31 +60,55 @@ export default function MenuSetting() {
     activeIndex.push(0);
   };
 
-  const handleTab1 = () => {
+  const handleTab1 = (event) => {
+    setDataMenuGroup(event.data);
     setAccordionDisabled2(false);
     activeIndex.push(1);
   };
 
-  const handleTab2 = () => {
+  const handleTab2 = (event) => {
+    setDataMenuItem(event.data);
     setAccordionDisabled3(false);
     activeIndex.push(2);
   };
-
-  const dataMenuSetting = useSelector(
-    (state) => state.dataMenuSetting.dataMenuSetting
-  );
-
-  console.log("dataMenuSetting", products);
 
   useEffect(() => {
     dispatch(fetchMenuSetting());
   }, []);
 
-  // useEffect(() => {
-  //   const extractedIds = products.map((item) => item.id);
-  //   console.log("extractedIds", dataMenuSetting);
-  //   setMenuSettingIds(extractedIds);
-  // }, [dataMenuSetting]);
+  useEffect(() => {
+    if (selectedRowTable?.ID) {
+      projectServices
+        .getMenuTabByMenuId({ id: selectedRowTable?.ID })
+        .then((res) => {
+          console.log("res", res.data);
+          setDataMenuTab(res.data);
+        })
+        .catch(() => {});
+    }
+  }, [selectedRowTable]);
+
+  useEffect(() => {
+    if (dataMenuGroup?.ID) {
+      projectServices
+        .getMenuGroupByMenuTabId({ id: dataMenuGroup?.ID })
+        .then((res) => {
+          setDataMenuGroupRes(res.data);
+        })
+        .catch(() => {});
+    }
+  }, [dataMenuGroup]);
+
+  useEffect(() => {
+    if (dataMenuItem?.ID) {
+      projectServices
+        .getMenuItemByMenuGroupID({ id: dataMenuItem?.ID })
+        .then((res) => {
+          setDataMenuItemRes(res.data);
+        })
+        .catch(() => {});
+    }
+  }, [dataMenuItem]);
 
   return (
     <Splitter className="custom-splitter">
@@ -129,96 +164,93 @@ export default function MenuSetting() {
           <Accordion multiple activeIndex={activeIndex}>
             <AccordionTab header="Header I" disabled={accordionDisabled1}>
               <DataTable
-                value={products}
+                value={dataMenuTab}
                 size="small"
                 showGridlines
                 selectionMode="single"
-                selection={selectedRow}
+                selection={selectedRowTab}
                 onSelectionChange={(e) => {
                   console.log("eeeeee", e.value);
-                  setSelectedRow(e.value);
+                  setSelectedRowTab(e.value);
                   dispatch(
                     ribbonSlice.actions.setSelectedRowDataRibbon(e.value)
                   );
                 }}
-                onRowClick={(event) => handleRowClick(event)}
+                onRowClick={(event) => handleRowClickTab(event)}
                 onRowDoubleClick={handleTab1}
                 dataKey="id"
                 className="custom-datatable"
                 rowClassName={(rowData) =>
-                  selectedRow && selectedRow.id === rowData.id
+                  selectedRowTab && selectedRowTab.ID === rowData.ID
                     ? "selected-row"
                     : ""
                 }
                 scrollable
                 scrollHeight="200px"
               >
-                <Column field="id" header="id"></Column>
-                <Column field="name" header="Name"></Column>
-                <Column field="category" header="Category"></Column>
-                <Column field="quantity" header="Quantity"></Column>
+                <Column field="Name" header="Name"></Column>
+                <Column field="Description" header="Description"></Column>
+                <Column field="Order" header="Order"></Column>
               </DataTable>
             </AccordionTab>
             <AccordionTab header="Header II" disabled={accordionDisabled2}>
               <DataTable
-                value={products}
+                value={dataMenuGroupRes}
                 size="small"
                 showGridlines
                 selectionMode="single"
-                selection={selectedRow}
+                selection={selectedRowGroup}
                 onSelectionChange={(e) => {
                   console.log("eeeeee", e.value);
-                  setSelectedRow(e.value);
+                  setSelectedRowGroup(e.value);
                   dispatch(
                     ribbonSlice.actions.setSelectedRowDataRibbon(e.value)
                   );
                 }}
-                onRowClick={(event) => handleRowClick(event)}
+                onRowClick={(event) => handleRowClickGroup(event)}
                 onRowDoubleClick={handleTab2}
                 dataKey="id"
                 className="custom-datatable"
                 rowClassName={(rowData) =>
-                  selectedRow && selectedRow.id === rowData.id
+                  selectedRowGroup && selectedRowGroup.ID === rowData.ID
                     ? "selected-row"
                     : ""
                 }
                 scrollable
                 scrollHeight="200px"
               >
-                <Column field="id" header="id"></Column>
-                <Column field="name" header="Name"></Column>
-                <Column field="category" header="Category"></Column>
-                <Column field="quantity" header="Quantity"></Column>
+                <Column field="Name" header="Name"></Column>
+                <Column field="Description" header="Description"></Column>
+                <Column field="Order" header="Order"></Column>
               </DataTable>
             </AccordionTab>
             <AccordionTab header="Header III" disabled={accordionDisabled3}>
               <p className="m-0">panel 3</p>
               <DataTable
-                value={products}
+                value={dataMenuItemRes}
                 size="small"
                 showGridlines
                 selectionMode="single"
-                selection={selectedRow}
+                selection={selectedRowItem}
                 onSelectionChange={(e) => {
                   console.log("eeeeee", e.value);
-                  setSelectedRow(e.value);
+                  setSelectedRowItem(e.value);
                   dispatch(
                     ribbonSlice.actions.setSelectedRowDataRibbon(e.value)
                   );
                 }}
-                onRowClick={(event) => handleRowClick(event)}
+                onRowClick={(event) => handleRowClickItem(event)}
                 dataKey="id"
                 className="custom-datatable"
                 rowClassName={(rowData) =>
-                  selectedRow && selectedRow.id === rowData.id
+                  selectedRowItem && selectedRowItem.ID === rowData.ID
                     ? "selected-row"
                     : ""
                 }
                 scrollable
                 scrollHeight="200px"
               >
-                <Column field="id" header="id"></Column>
-                <Column field="name" header="Name"></Column>
+                <Column field="Name" header="Name"></Column>
                 <Column field="category" header="Category"></Column>
                 <Column field="quantity" header="Quantity"></Column>
               </DataTable>
