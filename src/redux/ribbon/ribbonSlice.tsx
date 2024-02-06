@@ -13,12 +13,14 @@ export const fetchMenuSetting = createAsyncThunk("fetchMenuSetting", async () =>
 
 interface MainState {
   dataMenuSetting: string[];
-  selectedRowDataRibbon:null
+  selectedRowDataRibbon:null;
+  activeIndex:null
 }
 
 const initialState: MainState = {
     dataMenuSetting: [],
-    selectedRowDataRibbon:null
+    selectedRowDataRibbon:null,
+    activeIndex:null
 };
 
 const ribbonSlice = createSlice({
@@ -27,6 +29,9 @@ const ribbonSlice = createSlice({
   reducers: {
     setSelectedRowDataRibbon: (state, action: PayloadAction<null>) => {
       state.selectedRowDataRibbon = action.payload;
+    },
+    setActiveIndex: (state, action: PayloadAction<null>) => {
+      state.activeIndex = action.payload;
     },
   },
   extraReducers: (builder) => {

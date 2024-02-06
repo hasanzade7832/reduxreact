@@ -14,6 +14,11 @@ export default function MenuSetting() {
   const dispatch = useDispatch();
 
   const [selectedRow, setSelectedRow] = useState(null);
+  const [showAccardeon,setShowAccardeon] = useState(false);
+  const [accordionDisabled1, setAccordionDisabled1] = useState(true);
+  const [accordionDisabled2, setAccordionDisabled2] = useState(true);
+  const [accordionDisabled3, setAccordionDisabled3] = useState(true);
+  const [activeIndex,setActiveIndex] = useState([]);
 
   const [products, setProducts] = useState([
     { id: "1", name: "a", category: "a", quantity: "a" },
@@ -35,7 +40,20 @@ export default function MenuSetting() {
 
   const handleRowClick = (event) => {
     setSelectedRow(event.data);
+    setShowAccardeon(true);
+    setAccordionDisabled1(false);
+    activeIndex.push(0)
   };
+
+  const handleTab1 = () => {
+    setAccordionDisabled2(false);
+    activeIndex.push(1)
+  }
+
+  const handleTab2 = () => {
+    setAccordionDisabled3(false);
+    activeIndex.push(2)
+  }
 
   return (
     <Splitter className="custom-splitter">
@@ -79,26 +97,27 @@ export default function MenuSetting() {
             </div>
           </div>
         </div>
-
       </SplitterPanel>
       <SplitterPanel style={{ minWidth: "300px" }}>
-        <Accordion>
-          <AccordionTab header="Header I" disabled>
-            <p className="m-0">
+        {showAccardeon && 
+          <Accordion  multiple activeIndex={activeIndex}>
+          <AccordionTab header="Header I" disabled={accordionDisabled1}>
+            <p className="m-0" onClick={handleTab1}>
               panel 1
             </p>
           </AccordionTab>
-          <AccordionTab header="Header II" disabled>
-            <p className="m-0">
+          <AccordionTab header="Header II" disabled = {accordionDisabled2}>
+            <p className="m-0" onClick={handleTab2}>
               panel 2
             </p>
           </AccordionTab>
-          <AccordionTab header="Header III" disabled>
+          <AccordionTab header="Header III" disabled = {accordionDisabled3}>
             <p className="m-0">
               panel 3
             </p>
           </AccordionTab>
         </Accordion>
+        }
       </SplitterPanel>
     </Splitter>
   );

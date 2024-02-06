@@ -14,6 +14,9 @@ import {
 import projectServices from "../../services/project.services";
 import { Toast } from "primereact/toast";
 
+{/* <Button outlined={activeIndex !== 0} rounded label="1" onClick={() => setActiveIndex(0)} className="w-2rem h-2rem p-0" /> */}
+
+
 const CommandsAdd = () => {
   const dispatch = useDispatch();
 
