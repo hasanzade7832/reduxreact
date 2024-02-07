@@ -237,7 +237,7 @@ const TableDynamic = () => {
         overflow: "hidden",
         width: "100%",
       }}
-      class="fadein animation-duration-300"
+      className="fadein animation-duration-300"
     >
       <Toast ref={toast} position="top-right" />
 

@@ -29,6 +29,7 @@ export default function MenuSetting() {
   const [dataMenuGroupRes, setDataMenuGroupRes] = useState([]);
   const [dataMenuItem, setDataMenuItem] = useState([]);
   const [dataMenuItemRes, setDataMenuItemRes] = useState([]);
+  
 
   const selectedRowTable = useSelector(
     (state) => state.selectedRowDataRibbon.selectedRowDataRibbon
@@ -57,12 +58,16 @@ export default function MenuSetting() {
   };
 
   const handleTab0 = (event) => {
-    setSelectedRow(event.data);
-    setShowAccardeon(true);
+    setShowAccardeon(false);
+    setActiveIndex([])
+    setTimeout(() => {
+      setSelectedRow(event.data); 
+      setShowAccardeon(true);
+      setDataMenuGroupRes([]);
+      setDataMenuItemRes([]);
+      setActiveIndex([0])
+  }, 50);
     setAccordionDisabled1(false);
-    activeIndex.push(0);
-    setDataMenuGroupRes([]);
-    setDataMenuItemRes([]);
   };
 
   const handleTab1 = (event) => {
@@ -118,9 +123,7 @@ export default function MenuSetting() {
     }
   }, [dataMenuItem]);
 
-  useEffect(() => {
-    console.log("ac", activeIndex);
-  }, [activeIndex]);
+
 
   const handleRowSelectionChange = (e) => {
     // setAccordionDisabled2(true);
