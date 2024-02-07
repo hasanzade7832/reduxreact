@@ -61,6 +61,8 @@ export default function MenuSetting() {
     setShowAccardeon(true);
     setAccordionDisabled1(false);
     activeIndex.push(0);
+    setDataMenuGroupRes([]);
+    setDataMenuItemRes([]);
   };
 
   const handleTab1 = (event) => {
@@ -100,7 +102,7 @@ export default function MenuSetting() {
         })
         .catch(() => {});
     }
-  }, [dataMenuGroup, dataMenuGroupRes, setDataMenuGroupRes]);
+  }, [dataMenuGroup]);
 
   useEffect(() => {
     if (dataMenuItem?.ID) {
@@ -111,7 +113,7 @@ export default function MenuSetting() {
         })
         .catch(() => {});
     }
-  }, [dataMenuItem, dataMenuItemRes, setDataMenuItemRes]);
+  }, [dataMenuItem]);
 
   useEffect(() => {
     console.log("ac", activeIndex);
@@ -120,7 +122,6 @@ export default function MenuSetting() {
   const handleRowSelectionChange = (e) => {
     setAccordionDisabled2(true);
     setAccordionDisabled3(true);
-    setActiveIndex([0]); // تنظیم کردن فقط برای آکاردئون اول
   };
   return (
     <>
@@ -173,7 +174,7 @@ export default function MenuSetting() {
         >
           {showAccardeon && (
             <Accordion
-              onChange={(e) => setActiveIndex(e.index)}
+              onChange={(e) => console.log("Ddddddd", e)}
               multiple
               activeIndex={activeIndex}
             >
