@@ -42,7 +42,6 @@ export default function MenuSetting() {
 
   const handleRowClick = (event) => {
     console.log("main");
-    // setSelectedRow(event.data);
   };
 
   const handleRowClickTab = (event) => {
@@ -69,7 +68,7 @@ export default function MenuSetting() {
   const handleTab1 = (event) => {
     console.log("ffffff", event);
     setDataMenuGroup(event.data);
-    // setAccordionDisabled2(false);
+    setAccordionDisabled2(false);
     activeIndex.push(1);
   };
 
@@ -243,7 +242,6 @@ export default function MenuSetting() {
                 </DataTable>
               </AccordionTab>
               <AccordionTab header="Header III" disabled={accordionDisabled3}>
-                <p className="m-0">panel 3</p>
                 <DataTable
                   value={dataMenuItemRes}
                   size="small"
