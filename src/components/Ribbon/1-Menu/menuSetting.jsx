@@ -113,6 +113,15 @@ export default function MenuSetting() {
     }
   }, [dataMenuItem, dataMenuItemRes, setDataMenuItemRes]);
 
+  useEffect(() => {
+    console.log("ac", activeIndex);
+  }, [activeIndex]);
+
+  const handleRowSelectionChange = (e) => {
+    setAccordionDisabled2(true);
+    setAccordionDisabled3(true);
+    setActiveIndex([0]); // تنظیم کردن فقط برای آکاردئون اول
+  };
   return (
     <>
       <Splitter className="custom-splitter">
@@ -131,10 +140,7 @@ export default function MenuSetting() {
               showGridlines
               selectionMode="single"
               selection={selectedRow}
-              onSelectionChange={(e) => {
-                setAccordionDisabled2(true);
-                setAccordionDisabled3(true);
-              }}
+              onSelectionChange={handleRowSelectionChange}
               onRowClick={(event) => handleRowClick(event)}
               onRowDoubleClick={handleTab0}
               className="custom-datatable"
@@ -166,7 +172,11 @@ export default function MenuSetting() {
           }}
         >
           {showAccardeon && (
-            <Accordion multiple activeIndex={activeIndex}>
+            <Accordion
+              onChange={(e) => setActiveIndex(e.index)}
+              multiple
+              activeIndex={activeIndex}
+            >
               <AccordionTab header="Header I" disabled={accordionDisabled1}>
                 <DataTable
                   value={dataMenuTabRes}
