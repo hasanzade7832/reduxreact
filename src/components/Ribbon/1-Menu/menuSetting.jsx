@@ -34,6 +34,8 @@ export default function MenuSetting() {
     (state) => state.selectedRowDataRibbon.selectedRowDataRibbon
   );
 
+  console.log("selectedRowTable", selectedRowTable);
+
   const dataMenuSetting = useSelector(
     (state) => state.dataMenuSetting.dataMenuSetting
   );
@@ -57,7 +59,6 @@ export default function MenuSetting() {
 
   const handleTab0 = (event) => {
     setSelectedRow(event.data);
-    dispatch(ribbonSlice.actions.setSelectedRowDataRibbon(event.data));
     setShowAccardeon(true);
     setAccordionDisabled1(false);
     activeIndex.push(0);
@@ -66,8 +67,9 @@ export default function MenuSetting() {
   };
 
   const handleTab1 = (event) => {
+    console.log("ffffff", event);
     setDataMenuGroup(event.data);
-    setAccordionDisabled2(false);
+    // setAccordionDisabled2(false);
     activeIndex.push(1);
   };
 
@@ -82,22 +84,23 @@ export default function MenuSetting() {
   }, []);
 
   useEffect(() => {
-    if (selectedRowTable?.ID) {
+    if (selectedRow?.ID) {
       projectServices
-        .getMenuTabByMenuId({ id: selectedRowTable?.ID })
+        .getMenuTabByMenuId({ id: selectedRow?.ID })
         .then((res) => {
-          console.log("res", res.data);
+          console.log("AAAAAAAAAAAA", res.data);
           setDataMenuTabRes(res.data);
         })
         .catch(() => {});
     }
-  }, [selectedRowTable, dataMenuTab]);
+  }, [selectedRow, dataMenuTab]);
 
   useEffect(() => {
     if (dataMenuGroup?.ID) {
       projectServices
         .getMenuGroupByMenuTabId({ id: dataMenuGroup?.ID })
         .then((res) => {
+          console.log("BBBBBBBBBBB", res.data);
           setDataMenuGroupRes(res.data);
         })
         .catch(() => {});
@@ -109,6 +112,7 @@ export default function MenuSetting() {
       projectServices
         .getMenuItemByMenuGroupID({ id: dataMenuItem?.ID })
         .then((res) => {
+          console.log("CCCCCCCCC", res.data);
           setDataMenuItemRes(res.data);
         })
         .catch(() => {});
