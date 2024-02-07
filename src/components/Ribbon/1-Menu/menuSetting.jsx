@@ -24,11 +24,11 @@ export default function MenuSetting() {
   const [accordionDisabled3, setAccordionDisabled3] = useState(true);
   const [activeIndex, setActiveIndex] = useState([]);
   const [dataMenuTab, setDataMenuTab] = useState([]);
+  const [dataMenuTabRes, setDataMenuTabRes] = useState([]);
   const [dataMenuGroup, setDataMenuGroup] = useState([]);
   const [dataMenuGroupRes, setDataMenuGroupRes] = useState([]);
   const [dataMenuItem, setDataMenuItem] = useState([]);
   const [dataMenuItemRes, setDataMenuItemRes] = useState([]);
-  const [manageAcardeon, setManageAcardeon] = useState(false);
 
   const selectedRowTable = useSelector(
     (state) => state.selectedRowDataRibbon.selectedRowDataRibbon
@@ -85,11 +85,11 @@ export default function MenuSetting() {
         .getMenuTabByMenuId({ id: selectedRowTable?.ID })
         .then((res) => {
           console.log("res", res.data);
-          setDataMenuTab(res.data);
+          setDataMenuTabRes(res.data);
         })
         .catch(() => {});
     }
-  }, [selectedRowTable]);
+  }, [selectedRowTable, dataMenuTab]);
 
   useEffect(() => {
     if (dataMenuGroup?.ID) {
@@ -100,7 +100,7 @@ export default function MenuSetting() {
         })
         .catch(() => {});
     }
-  }, [dataMenuGroup]);
+  }, [dataMenuGroup, dataMenuGroupRes, setDataMenuGroupRes]);
 
   useEffect(() => {
     if (dataMenuItem?.ID) {
@@ -111,7 +111,7 @@ export default function MenuSetting() {
         })
         .catch(() => {});
     }
-  }, [dataMenuItem]);
+  }, [dataMenuItem, dataMenuItemRes, setDataMenuItemRes]);
 
   return (
     <>
@@ -132,12 +132,8 @@ export default function MenuSetting() {
               selectionMode="single"
               selection={selectedRow}
               onSelectionChange={(e) => {
-                console.log("eeeeee", e.value);
-
-                setManageAcardeon(true);
                 setAccordionDisabled2(true);
                 setAccordionDisabled3(true);
-                setActiveIndex(activeIndex.filter((index) => index !== 1));
               }}
               onRowClick={(event) => handleRowClick(event)}
               onRowDoubleClick={handleTab0}
@@ -173,7 +169,7 @@ export default function MenuSetting() {
             <Accordion multiple activeIndex={activeIndex}>
               <AccordionTab header="Header I" disabled={accordionDisabled1}>
                 <DataTable
-                  value={dataMenuTab}
+                  value={dataMenuTabRes}
                   size="small"
                   showGridlines
                   selectionMode="single"
