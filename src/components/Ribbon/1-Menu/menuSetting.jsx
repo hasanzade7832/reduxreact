@@ -56,7 +56,7 @@ export default function MenuSetting() {
   };
 
   const handleTab0 = (event) => {
-    setSelectedRow(event.value);
+    setSelectedRow(event.data);
     dispatch(ribbonSlice.actions.setSelectedRowDataRibbon(event.data));
     setShowAccardeon(true);
     setAccordionDisabled1(false);
@@ -194,7 +194,6 @@ export default function MenuSetting() {
                   }}
                   onRowClick={(event) => handleRowClickTab(event)}
                   onRowDoubleClick={handleTab1}
-                  dataKey="id"
                   className="custom-datatable"
                   rowClassName={(rowData) =>
                     selectedRowTab && selectedRowTab.ID === rowData.ID
@@ -225,7 +224,6 @@ export default function MenuSetting() {
                   }}
                   onRowClick={(event) => handleRowClickGroup(event)}
                   onRowDoubleClick={handleTab2}
-                  dataKey="id"
                   className="custom-datatable"
                   rowClassName={(rowData) =>
                     selectedRowGroup && selectedRowGroup.ID === rowData.ID
@@ -256,7 +254,6 @@ export default function MenuSetting() {
                     );
                   }}
                   onRowClick={(event) => handleRowClickItem(event)}
-                  dataKey="id"
                   className="custom-datatable"
                   rowClassName={(rowData) =>
                     selectedRowItem && selectedRowItem.ID === rowData.ID
