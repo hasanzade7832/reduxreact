@@ -42,7 +42,7 @@ export default function MenuSetting() {
 
   const handleRowClick = (event) => {
     console.log("main");
-    setSelectedRow(event.data);
+    // setSelectedRow(event.data);
   };
 
   const handleRowClickTab = (event) => {
@@ -124,8 +124,8 @@ export default function MenuSetting() {
   }, [activeIndex]);
 
   const handleRowSelectionChange = (e) => {
-    setAccordionDisabled2(true);
-    setAccordionDisabled3(true);
+    // setAccordionDisabled2(true);
+    // setAccordionDisabled3(true);
   };
   return (
     <>
