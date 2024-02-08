@@ -57,12 +57,22 @@ export default function MenuSetting() {
   };
 
   const handleTab0 = (event) => {
-    setSelectedRow(event.data);
-    setShowAccardeon(true);
+    setShowAccardeon(false);
     setAccordionDisabled1(false);
-    activeIndex.push(0);
-    setDataMenuGroupRes([]);
-    setDataMenuItemRes([]);
+    setAccordionDisabled2(false);
+    setAccordionDisabled3(false);
+    setSelectedRow(event.data);
+    setActiveIndex([]);
+    setTimeout(() => {
+      setShowAccardeon(true);
+      // setAccordionDisabled1(true);
+      setAccordionDisabled2(true);
+      setAccordionDisabled3(true);
+      setDataMenuTabRes([]);
+      setDataMenuGroupRes([]);
+      setDataMenuItemRes([]);
+    }, 50);
+    setActiveIndex([0]);
   };
 
   const handleTab1 = (event) => {
