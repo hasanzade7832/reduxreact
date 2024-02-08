@@ -1,5 +1,10 @@
 .custom-splitter .p-datatable-wrapper {
   background-color: #FFF4E7;
+  height: calc(100vh - 15rem);
+}
+
+.custom-datatable table.p-datatable-table{
+  height: 10vh;
 }
 
 .custom-splitter tr {
