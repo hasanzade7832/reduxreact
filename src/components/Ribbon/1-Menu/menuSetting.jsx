@@ -186,6 +186,28 @@ export default function MenuSetting() {
       .catch((err) => {});
   };
 
+  const handleEdit = () => {
+    const updatedSelectedRow = {
+      ...selectedRowTable,
+      Name: insertMenuRibbon.Name,
+      Description: insertMenuRibbon.Description,
+    };
+
+    projectServices
+      .updateMenu(updatedSelectedRow)
+      .then((res) => {
+        dispatch(fetchMenuSetting());
+        insertMenuRibbon.Name = "";
+        insertMenuRibbon.Description = "";
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Item updated successfully",
+        });
+      })
+      .catch((err) => {});
+  };
+
   const cancelDelete = () => {
     setSelectedRowTable(null);
     setShowDeleteConfirmation(false);
@@ -258,6 +280,9 @@ export default function MenuSetting() {
                 }}
                 severity="warning"
                 disabled={disabledEdit}
+                onClick={() => {
+                  handleEdit();
+                }}
               >
                 <i className="pi pi-file-edit"></i>
               </Button>
