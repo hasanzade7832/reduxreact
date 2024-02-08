@@ -10,6 +10,7 @@ import { fetchMenuSetting } from "../../../redux/ribbon/ribbonSlice";
 import projectServices from "../../services/project.services";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
+import { Dialog } from "primereact/dialog";
 import "../../Ribbon/ribbon.css";
 
 export default function MenuSetting() {
@@ -35,6 +36,7 @@ export default function MenuSetting() {
   const [dataMenuItemRes, setDataMenuItemRes] = useState([]);
   const [disabledEdit, setDisabledEdit] = useState(true);
   const [disabledDelete, setDisabledDelete] = useState(true);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
   const [insertMenuRibbon, setInsertMenuRibbon] = useState({
     ID: 0,
@@ -183,6 +185,34 @@ export default function MenuSetting() {
       })
       .catch((err) => {});
   };
+
+  const cancelDelete = () => {
+    setSelectedRowTable(null);
+    setShowDeleteConfirmation(false);
+  };
+
+  const handleDelete = () => {
+    setSelectedRowTable(selectedRowTable);
+    setShowDeleteConfirmation(true);
+  };
+
+  const confirmDelete = () => {
+    projectServices
+      .deleteMenu({ id: selectedRowTable?.ID })
+      .then((res) => {
+        dispatch(fetchMenuSetting());
+        // dataMenuSetting = [...dataMenuSetting, res.data];
+        insertMenuRibbon.Name = "";
+        insertMenuRibbon.Description = "";
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Item deleted successfully",
+        });
+        setShowDeleteConfirmation(false);
+      })
+      .catch((err) => {});
+  };
   return (
     <>
       <Toast ref={toast} position="top-right" />
@@ -241,10 +271,39 @@ export default function MenuSetting() {
                 }}
                 severity="danger"
                 disabled={disabledDelete}
+                onClick={() => {
+                  handleDelete();
+                }}
               >
                 <i className="pi pi-trash"></i>
               </Button>
             </div>
+
+            <Dialog
+              visible={showDeleteConfirmation}
+              onHide={cancelDelete}
+              header="Confirmation"
+              icon="pi pi-exclamation-triangle"
+              position="center"
+              footer={
+                <div>
+                  <Button
+                    label="No"
+                    icon="pi pi-times"
+                    className="p-button-text"
+                    onClick={cancelDelete}
+                  />
+                  <Button
+                    label="Yes"
+                    icon="pi pi-check"
+                    className="p-button-text"
+                    onClick={confirmDelete}
+                  />
+                </div>
+              }
+            >
+              <div>Do you sure want to delete?</div>
+            </Dialog>
 
             <div style={{ marginTop: "10px" }}>
               <DataTable
@@ -267,7 +326,7 @@ export default function MenuSetting() {
                 <Column field="Description" header="Description"></Column>
               </DataTable>
             </div>
-            <div style={{ display: "flex" }}>
+            <div style={{ display: "flex", marginTop: "40px" }}>
               <div style={{ margin: "10px", width: "50%" }}>
                 <CustomInputText
                   value={insertMenuRibbon.Name}
