@@ -97,6 +97,14 @@ class projectService {
     return await httpClient.post(ApiConst.getMenuTabByMenuId, data);
   }
 
+  async insertMenuTab(data) {
+    return await httpClient.post(ApiConst.insertMenuTab, data);
+  }
+
+  async updateMenuTab(data) {
+    return await httpClient.post(ApiConst.updateMenuTab, data);
+  }
+
   async getMenuGroupByMenuTabId(data) {
     return await httpClient.post(ApiConst.getMenuGroupByMenuTabId, data);
   }
