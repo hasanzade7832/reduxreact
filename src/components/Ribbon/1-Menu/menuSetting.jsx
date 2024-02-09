@@ -36,8 +36,10 @@ export default function MenuSetting() {
   const [dataMenuItemRes, setDataMenuItemRes] = useState([]);
   const [disabledEdit, setDisabledEdit] = useState(true);
   const [disabledEditTab, setDisabledEditTab] = useState(true);
+  const [disabledEditGroup, setDisabledEditGroup] = useState(true);
   const [disabledDelete, setDisabledDelete] = useState(true);
   const [disabledDeleteTab, setDisabledDeleteTab] = useState(true);
+  const [disabledDeleteGroup, setDisabledDeleteGroup] = useState(true);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [showDeleteConfirmationTab, setShowDeleteConfirmationTab] =
     useState(false);
@@ -62,9 +64,19 @@ export default function MenuSetting() {
     nMenuId: 0,
   });
 
-  console.log("selectedRowTable?.ID", selectedRowTable?.ID);
+  const [dataGroupRibbon, setDataGroupRibbon] = useState({
+    ID: 0,
+    LastModified: "2022-08-21T14:06:09.421Z",
+    ModifiedById: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    Name: "",
+    Order: 0,
+    Description: "",
+    IsVisible: true,
+    nMenuTabId: 0,
+  });
 
   rightRibbon.nMenuId = selectedRowTable?.ID;
+  dataGroupRibbon.nMenuTabId = selectedRowTab?.ID;
 
   const dataMenuSetting = useSelector(
     (state) => state.dataMenuSetting.dataMenuSetting
@@ -86,6 +98,8 @@ export default function MenuSetting() {
 
   const handleRowClickGroup = (event) => {
     setSelectedRowGroup(event.data);
+    setDisabledEditGroup(false);
+    setDisabledDeleteGroup(false);
   };
 
   const handleRowClickItem = (event) => {
@@ -105,7 +119,7 @@ export default function MenuSetting() {
       setAccordionDisabled2(true);
       setAccordionDisabled3(true);
       setDataMenuTabRes([]);
-      setDataMenuGroupRes([]);
+      // setDataMenuGroupRes([]);
       setDataMenuItemRes([]);
       setSelectedRowTab();
       setDisabledEditTab(true);
@@ -181,6 +195,13 @@ export default function MenuSetting() {
 
   const handleChangeRightRibbon = (fieldName, value) => {
     setRightRibbon((prevFormData) => ({
+      ...prevFormData,
+      [fieldName]: value,
+    }));
+  };
+
+  const handleChangeGroupRibbon = (fieldName, value) => {
+    setDataGroupRibbon((prevFormData) => ({
       ...prevFormData,
       [fieldName]: value,
     }));
@@ -299,7 +320,7 @@ export default function MenuSetting() {
         }, 50);
         rightRibbon.Name = "";
         rightRibbon.Description = "";
-        rightRibbon.Order = null;
+        rightRibbon.Order = 0;
         setDisabledEditTab(true);
         setDisabledDeleteTab(true);
         toast.current.show({
@@ -345,7 +366,7 @@ export default function MenuSetting() {
 
         rightRibbon.Name = "";
         rightRibbon.Description = "";
-        rightRibbon.Order = "";
+        rightRibbon.Order = 0;
 
         setDisabledEditTab(true);
         setDisabledDeleteTab(true);
@@ -392,7 +413,7 @@ export default function MenuSetting() {
 
         rightRibbon.Name = "";
         rightRibbon.Description = "";
-        rightRibbon.Order = "";
+        rightRibbon.Order = 0;
 
         setDisabledEditTab(true);
         setDisabledDeleteTab(true);
@@ -401,6 +422,48 @@ export default function MenuSetting() {
           severity: "success",
           summary: "Success",
           detail: "Item deleted successfully",
+        });
+      })
+      .catch((err) => {});
+  };
+
+  //////////////////////Group Tabel///////////////////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    setDataGroupRibbon((prevFormData) => ({
+      ...prevFormData,
+      Name: selectedRowGroup?.Name,
+      Description: selectedRowGroup?.Description,
+      Order: selectedRowGroup?.Order,
+    }));
+  }, [selectedRowGroup]);
+
+  const insertMenuGroup = (e) => {
+    setShowAccardeon(false);
+    console.log("insert");
+    projectServices
+      .insertMenuGroup(dataGroupRibbon)
+      .then((res) => {
+        setTimeout(() => {
+          setShowAccardeon(true);
+          setDataMenuGroupRes([...dataMenuGroupRes, res.data]);
+        }, 50);
+
+        console.log("AAAAAAAAA", dataMenuGroupRes);
+        console.log("BBBBBBBBB", res.data);
+        console.log("CCCCCCCCC", [...dataMenuGroupRes, res.data]);
+
+        dataGroupRibbon.Name = "";
+        dataGroupRibbon.Description = "";
+        dataGroupRibbon.Order = 0;
+
+        setDisabledEditGroup(true);
+        setDisabledDeleteGroup(true);
+
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Item Added successfully",
         });
       })
       .catch((err) => {});
@@ -500,7 +563,7 @@ export default function MenuSetting() {
               <div>Do you sure want to delete?</div>
             </Dialog>
 
-            <div style={{ marginTop: "10px" }}>
+            <div>
               <DataTable
                 value={dataMenuSetting}
                 size="small"
@@ -696,7 +759,7 @@ export default function MenuSetting() {
                   >
                     <CustomInputText
                       value={rightRibbon.Order}
-                      label="Name"
+                      label="Order"
                       onChange={(e) =>
                         handleChangeRightRibbon("Order", e.target.value)
                       }
@@ -705,6 +768,62 @@ export default function MenuSetting() {
                 </div>
               </AccordionTab>
               <AccordionTab header="Header II" disabled={accordionDisabled2}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    margin: "5px",
+                    marginTop: "-8px",
+                  }}
+                >
+                  <Button
+                    rounded
+                    className="w-2rem h-2rem p-0"
+                    style={{
+                      marginRight: "10px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    severity="success"
+                    onClick={insertMenuGroup}
+                  >
+                    <i className="pi pi-plus"></i>
+                  </Button>
+                  <Button
+                    rounded
+                    className="w-2rem h-2rem p-0"
+                    style={{
+                      marginRight: "10px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    severity="warning"
+                    disabled={disabledEditGroup}
+                    onClick={() => {
+                      handleEdit();
+                    }}
+                  >
+                    <i className="pi pi-file-edit"></i>
+                  </Button>
+                  <Button
+                    rounded
+                    className="w-2rem h-2rem p-0"
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    severity="danger"
+                    disabled={disabledDeleteGroup}
+                    onClick={() => {
+                      handleDelete();
+                    }}
+                  >
+                    <i className="pi pi-trash"></i>
+                  </Button>
+                </div>
                 <DataTable
                   value={dataMenuGroupRes}
                   size="small"
@@ -733,6 +852,42 @@ export default function MenuSetting() {
                   <Column field="Description" header="Description"></Column>
                   <Column field="Order" header="Order"></Column>
                 </DataTable>
+                <div style={{ display: "flex", marginTop: "10px" }}>
+                  <div style={{ margin: "10px", width: "50%" }}>
+                    <CustomInputText
+                      value={dataGroupRibbon.Name}
+                      label="Name"
+                      onChange={(e) =>
+                        handleChangeGroupRibbon("Name", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div style={{ margin: "10px", width: "50%" }}>
+                    <CustomInputText
+                      value={dataGroupRibbon.Description}
+                      label="Description"
+                      onChange={(e) =>
+                        handleChangeGroupRibbon("Description", e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
+                <div style={{ display: "flex", marginTop: "5px" }}>
+                  <div
+                    style={{
+                      margin: "10px",
+                      width: "100%",
+                    }}
+                  >
+                    <CustomInputText
+                      value={dataGroupRibbon.Order}
+                      label="Order"
+                      onChange={(e) =>
+                        handleChangeGroupRibbon("Order", e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
               </AccordionTab>
               <AccordionTab header="Header III" disabled={accordionDisabled3}>
                 <DataTable
