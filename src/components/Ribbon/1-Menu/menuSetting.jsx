@@ -182,6 +182,8 @@ export default function MenuSetting() {
     }));
   };
 
+  ////////////////////////////Main Table//////////////////////////////////////////////////////
+
   useEffect(() => {
     setInsertMenuRibbon((prevFormData) => ({
       ...prevFormData,
@@ -257,6 +259,8 @@ export default function MenuSetting() {
       .catch((err) => {});
   };
 
+  /////////////////////////Tab TABLE///////////////////////////////////////////////////////////////////////
+
   useEffect(() => {
     setRightRibbon((prevFormData) => ({
       ...prevFormData,
@@ -288,8 +292,6 @@ export default function MenuSetting() {
       })
       .catch((err) => {});
   };
-
-  console.log("selectedRowGroup.Name", selectedRowTab?.Name);
 
   const handleEditRightRibbon = () => {
     setShowAccardeon(false);
