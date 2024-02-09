@@ -39,6 +39,8 @@ export const ApiConst = Object.freeze({
   insertMenuTabByMenuId: "api/MenuTab/GetByMenuId",
   getMenuGroupByMenuTabId: "api/MenuGroup/GetAllByMenuTabID",
   insertMenuGroup: "api/MenuGroup/Insert",
+  updateMenuGroup: "api/MenuGroup/Update",
+  deleteMenuGroup: "api/MenuGroup/Delete",
   getMenuItemByMenuGroupID: "api/MenuItem/GetAllByMenuGroupId",
 
   //user

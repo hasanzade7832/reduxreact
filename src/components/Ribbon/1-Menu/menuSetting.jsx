@@ -43,6 +43,8 @@ export default function MenuSetting() {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [showDeleteConfirmationTab, setShowDeleteConfirmationTab] =
     useState(false);
+  const [showDeleteConfirmationGroup, setShowDeleteConfirmationGroup] =
+    useState(false);
 
   const [insertMenuRibbon, setInsertMenuRibbon] = useState({
     ID: 0,
@@ -469,6 +471,98 @@ export default function MenuSetting() {
       .catch((err) => {});
   };
 
+  const handleEditMenuGroup = () => {
+    setShowAccardeon(false);
+    const updatedSelectedRow = {
+      ...selectedRowGroup,
+      Name: dataGroupRibbon?.Name,
+      Description: dataGroupRibbon?.Description,
+      Order: dataGroupRibbon?.Order,
+    };
+
+    projectServices
+      .updateMenuGroup(updatedSelectedRow)
+      .then((res) => {
+        const updatedIndex = dataMenuGroupRes.findIndex(
+          (item) => item.ID === selectedRowGroup.ID
+        );
+
+        if (updatedIndex !== -1) {
+          const newDataMenuGroupRes = [...dataMenuGroupRes];
+          newDataMenuGroupRes[updatedIndex] = Object.assign(
+            {},
+            newDataMenuGroupRes[updatedIndex],
+            updatedSelectedRow
+          );
+
+          setDataMenuGroupRes(newDataMenuGroupRes);
+        }
+
+        setTimeout(() => {
+          setShowAccardeon(true);
+        }, 50);
+
+        dataGroupRibbon.Name = "";
+        dataGroupRibbon.Description = "";
+        dataGroupRibbon.Order = 0;
+
+        setDisabledEditGroup(true);
+        setDisabledDeleteGroup(true);
+
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Item updated successfully",
+        });
+      })
+      .catch((err) => {});
+  };
+
+  const cancelDeleteGroup = () => {
+    setSelectedRowGroup(null);
+    setShowDeleteConfirmationGroup(false);
+  };
+
+  const handleDeleteGroup = () => {
+    setSelectedRowGroup(selectedRowGroup);
+    setShowDeleteConfirmationGroup(true);
+  };
+
+  const confirmDeleteGroup = () => {
+    setShowAccardeon(false);
+    const deletedItemId = selectedRowGroup?.ID;
+
+    projectServices
+      .deleteMenuGroup({ id: deletedItemId })
+      .then((res) => {
+        // Remove the item from dataMenuTabRes
+        const newDataMenuGroupRes = dataMenuGroupRes.filter(
+          (item) => item.ID !== deletedItemId
+        );
+
+        setDataMenuGroupRes(newDataMenuGroupRes);
+        setShowDeleteConfirmationGroup(false);
+
+        setTimeout(() => {
+          setShowAccardeon(true);
+        }, 50);
+
+        dataGroupRibbon.Name = "";
+        dataGroupRibbon.Description = "";
+        dataGroupRibbon.Order = 0;
+
+        setDisabledEditTab(true);
+        setDisabledDeleteTab(true);
+
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Item deleted successfully",
+        });
+      })
+      .catch((err) => {});
+  };
+
   return (
     <>
       <Toast ref={toast} position="top-right" />
@@ -801,9 +895,7 @@ export default function MenuSetting() {
                     }}
                     severity="warning"
                     disabled={disabledEditGroup}
-                    onClick={() => {
-                      handleEdit();
-                    }}
+                    onClick={handleEditMenuGroup}
                   >
                     <i className="pi pi-file-edit"></i>
                   </Button>
@@ -818,11 +910,36 @@ export default function MenuSetting() {
                     severity="danger"
                     disabled={disabledDeleteGroup}
                     onClick={() => {
-                      handleDelete();
+                      handleDeleteGroup();
                     }}
                   >
                     <i className="pi pi-trash"></i>
                   </Button>
+                  <Dialog
+                    visible={showDeleteConfirmationGroup}
+                    onHide={cancelDeleteGroup}
+                    header="Confirmation"
+                    icon="pi pi-exclamation-triangle"
+                    position="center"
+                    footer={
+                      <div>
+                        <Button
+                          label="No"
+                          icon="pi pi-times"
+                          className="p-button-text"
+                          onClick={cancelDeleteGroup}
+                        />
+                        <Button
+                          label="Yes"
+                          icon="pi pi-check"
+                          className="p-button-text"
+                          onClick={confirmDeleteGroup}
+                        />
+                      </div>
+                    }
+                  >
+                    <div>Do you sure want to delete?</div>
+                  </Dialog>
                 </div>
                 <DataTable
                   value={dataMenuGroupRes}

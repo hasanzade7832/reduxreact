@@ -117,8 +117,16 @@ class projectService {
     return await httpClient.post(ApiConst.insertMenuGroup, data);
   }
 
+  async updateMenuGroup(data) {
+    return await httpClient.post(ApiConst.updateMenuGroup, data);
+  }
+
   async getMenuItemByMenuGroupID(data) {
     return await httpClient.post(ApiConst.getMenuItemByMenuGroupID, data);
+  }
+
+  async deleteMenuGroup(data) {
+    return await httpClient.post(ApiConst.deleteMenuGroup, data);
   }
 
   //user
