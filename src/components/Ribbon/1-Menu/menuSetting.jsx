@@ -35,8 +35,12 @@ export default function MenuSetting() {
   const [dataMenuItem, setDataMenuItem] = useState([]);
   const [dataMenuItemRes, setDataMenuItemRes] = useState([]);
   const [disabledEdit, setDisabledEdit] = useState(true);
+  const [disabledEditTab, setDisabledEditTab] = useState(true);
   const [disabledDelete, setDisabledDelete] = useState(true);
+  const [disabledDeleteTab, setDisabledDeleteTab] = useState(true);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [showDeleteConfirmationTab, setShowDeleteConfirmationTab] =
+    useState(false);
 
   const [insertMenuRibbon, setInsertMenuRibbon] = useState({
     ID: 0,
@@ -76,6 +80,8 @@ export default function MenuSetting() {
 
   const handleRowClickTab = (event) => {
     setSelectedRowTab(event.data);
+    setDisabledEditTab(false);
+    setDisabledDeleteTab(false);
   };
 
   const handleRowClickGroup = (event) => {
@@ -101,6 +107,9 @@ export default function MenuSetting() {
       setDataMenuTabRes([]);
       setDataMenuGroupRes([]);
       setDataMenuItemRes([]);
+      setSelectedRowTab();
+      setDisabledEditTab(true);
+      setDisabledDeleteTab(true);
     }, 50);
     setActiveIndex([0]);
   };
@@ -151,7 +160,6 @@ export default function MenuSetting() {
       projectServices
         .getMenuItemByMenuGroupID({ id: dataMenuItem?.ID })
         .then((res) => {
-          console.log("CCCCCCCCC", res.data);
           setDataMenuItemRes(res.data);
         })
         .catch(() => {});
@@ -162,11 +170,7 @@ export default function MenuSetting() {
     console.log("ac", activeIndex);
   }, [activeIndex]);
 
-  const handleRowSelectionChange = (event) => {
-    // setSelectedRow(event.data);
-    // setAccordionDisabled2(true);
-    // setAccordionDisabled3(true);
-  };
+  const handleRowSelectionChange = (event) => {};
 
   const handleChange = (fieldName, value) => {
     setInsertMenuRibbon((prevFormData) => ({
@@ -201,6 +205,10 @@ export default function MenuSetting() {
         // dataMenuSetting = [...dataMenuSetting, res.data];
         insertMenuRibbon.Name = "";
         insertMenuRibbon.Description = "";
+
+        setDisabledEdit(true);
+        setDisabledDelete(true);
+
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -221,8 +229,13 @@ export default function MenuSetting() {
       .updateMenu(updatedSelectedRow)
       .then((res) => {
         dispatch(fetchMenuSetting());
+
         insertMenuRibbon.Name = "";
         insertMenuRibbon.Description = "";
+
+        setDisabledEdit(true);
+        setDisabledDelete(true);
+
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -247,8 +260,11 @@ export default function MenuSetting() {
       .deleteMenu({ id: selectedRowTable?.ID })
       .then((res) => {
         dispatch(fetchMenuSetting());
+
         insertMenuRibbon.Name = "";
         insertMenuRibbon.Description = "";
+        setDisabledEdit(true);
+        setDisabledDelete(true);
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -284,6 +300,8 @@ export default function MenuSetting() {
         rightRibbon.Name = "";
         rightRibbon.Description = "";
         rightRibbon.Order = null;
+        setDisabledEditTab(true);
+        setDisabledDeleteTab(true);
         toast.current.show({
           severity: "success",
           summary: "Success",
@@ -328,10 +346,61 @@ export default function MenuSetting() {
         rightRibbon.Name = "";
         rightRibbon.Description = "";
         rightRibbon.Order = "";
+
+        setDisabledEditTab(true);
+        setDisabledDeleteTab(true);
+
         toast.current.show({
           severity: "success",
           summary: "Success",
           detail: "Item updated successfully",
+        });
+      })
+      .catch((err) => {});
+  };
+
+  const cancelDeleteTab = () => {
+    setSelectedRowTab(null);
+    setShowDeleteConfirmationTab(false);
+  };
+
+  const handleDeleteTab = () => {
+    setSelectedRowTab(selectedRowTab);
+    setShowDeleteConfirmationTab(true);
+  };
+
+  const confirmDeleteTab = () => {
+    setShowAccardeon(false);
+    const deletedItemId = selectedRowTab?.ID;
+
+    projectServices
+      .deleteMenuTab({ id: deletedItemId })
+      .then((res) => {
+        // Remove the item from dataMenuTabRes
+        const newDataMenuTabRes = dataMenuTabRes.filter(
+          (item) => item.ID !== deletedItemId
+        );
+
+        setDataMenuTabRes(newDataMenuTabRes);
+        setShowDeleteConfirmationTab(false);
+
+        setTimeout(() => {
+          setShowAccardeon(true);
+          setAccordionDisabled2(true);
+          setAccordionDisabled3(true);
+        }, 50);
+
+        rightRibbon.Name = "";
+        rightRibbon.Description = "";
+        rightRibbon.Order = "";
+
+        setDisabledEditTab(true);
+        setDisabledDeleteTab(true);
+
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Item deleted successfully",
         });
       })
       .catch((err) => {});
@@ -518,7 +587,7 @@ export default function MenuSetting() {
                       alignItems: "center",
                     }}
                     severity="warning"
-                    disabled={disabledEdit}
+                    disabled={disabledEditTab}
                     onClick={() => {
                       handleEditRightRibbon();
                     }}
@@ -537,13 +606,38 @@ export default function MenuSetting() {
                       alignItems: "center",
                     }}
                     severity="danger"
-                    disabled={disabledDelete}
+                    disabled={disabledDeleteTab}
                     onClick={() => {
-                      handleDelete();
+                      handleDeleteTab();
                     }}
                   >
                     <i style={{ fontSize: "10px" }} className="pi pi-trash"></i>
                   </Button>
+                  <Dialog
+                    visible={showDeleteConfirmationTab}
+                    onHide={cancelDeleteTab}
+                    header="Confirmation"
+                    icon="pi pi-exclamation-triangle"
+                    position="center"
+                    footer={
+                      <div>
+                        <Button
+                          label="No"
+                          icon="pi pi-times"
+                          className="p-button-text"
+                          onClick={cancelDeleteTab}
+                        />
+                        <Button
+                          label="Yes"
+                          icon="pi pi-check"
+                          className="p-button-text"
+                          onClick={confirmDeleteTab}
+                        />
+                      </div>
+                    }
+                  >
+                    <div>Do you sure want to delete?</div>
+                  </Dialog>
                 </div>
                 <DataTable
                   value={dataMenuTabRes}
