@@ -11,6 +11,8 @@ import projectServices from "../../services/project.services";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import { Dialog } from "primereact/dialog";
+import CustomRadioButtons from "../../globalComponents/main/RadioButtonComp";
+
 import "../../Ribbon/ribbon.css";
 
 export default function MenuSetting() {
@@ -47,6 +49,8 @@ export default function MenuSetting() {
     useState(false);
   const [showDeleteConfirmationGroup, setShowDeleteConfirmationGroup] =
     useState(false);
+  const [ingredient, setIngredient] = useState(1);
+
 
   const [insertMenuRibbon, setInsertMenuRibbon] = useState({
     ID: 0,
@@ -223,6 +227,14 @@ export default function MenuSetting() {
 
   const handleChangeGroupRibbon = (fieldName, value) => {
     setDataGroupRibbon((prevFormData) => ({
+      ...prevFormData,
+      [fieldName]: value,
+    }));
+  };
+
+  const handleChangeItemRibbon = (fieldName, value) => {
+    console.log("aaaaaaaaa",fieldName,value);
+    setDataItemRibbon((prevFormData) => ({
       ...prevFormData,
       [fieldName]: value,
     }));
@@ -581,6 +593,113 @@ export default function MenuSetting() {
       })
       .catch((err) => { });
   };
+
+  //////////////////////item Tabel///////////////////////////////////////////////////////////////////////
+  useEffect(() => {
+    setDataItemRibbon((prevFormData) => ({
+      ...prevFormData,
+      Name: selectedRowItem?.Name,
+      Description: selectedRowItem?.Description,
+      Order: selectedRowItem?.Order,
+      HelpText: selectedRowItem?.HelpText,
+      Command: selectedRowItem?.Command,
+      CommandWeb: selectedRowItem?.CommandWeb,
+      CommandMobile: selectedRowItem?.CommandMobile,
+      KeyTip: selectedRowItem?.KeyTip,
+    }));
+  }, [selectedRowItem]);
+
+  const insertMenuItem = () => {
+    setShowAccardeon(false);
+    projectServices
+      .insertMenuItem(dataItemRibbon)
+      .then((res) => {
+        setTimeout(() => {
+          setShowAccardeon(true);
+          setAccordionDisabled2(true);
+          setAccordionDisabled3(true);
+          setDataMenuItemRes([...dataMenuItemRes, res.data]);
+        }, 50);
+
+        dataItemRibbon.Name = "";
+        dataItemRibbon.Description = "";
+        dataItemRibbon.Order = 0;
+        dataItemRibbon.HelpText = "";
+        dataItemRibbon.Command = "";
+        dataItemRibbon.CommandWeb = "";
+        dataItemRibbon.CommandMobile = "";
+        dataItemRibbon.KeyTip = "";
+
+        setDisabledEditItem(true);
+        setDisabledDeleteItem(true);
+
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Item Added successfully",
+        });
+      })
+      .catch((err) => { });
+  };
+
+  const handleEditItem = () => {
+    setShowAccardeon(false);
+    const updatedSelectedRow = {
+      ...selectedRowItem,
+      Name: dataItemRibbon?.Name,
+      Description: dataItemRibbon?.Description,
+      Order: dataItemRibbon?.Order,
+      HelpText:dataItemRibbon?.HelpText,
+      Command:dataItemRibbon?.Command ,
+      CommandWeb:dataItemRibbon?.CommandWeb ,
+      CommandMobile:dataItemRibbon?.CommandMobile ,
+      KeyTip:dataItemRibbon?.KeyTip ,
+    };
+
+    projectServices
+      .updateMenuItem(updatedSelectedRow)
+      .then((res) => {
+        const updatedIndex = dataMenuItemRes.findIndex(
+          (item) => item.ID === selectedRowItem.ID
+        );
+
+        if (updatedIndex !== -1) {
+          const newDataMenuItemRes = [...dataMenuItemRes];
+          newDataMenuItemRes[updatedIndex] = Object.assign(
+            {},
+            newDataMenuItemRes[updatedIndex],
+            updatedSelectedRow
+          );
+
+          setDataMenuItemRes(newDataMenuItemRes);
+        }
+
+        setTimeout(() => {
+          setShowAccardeon(true);
+        }, 50);
+
+        dataItemRibbon.Name = "";
+        dataItemRibbon.Description = "";
+        dataItemRibbon.Order = 0;
+        dataItemRibbon.HelpText = "";
+        dataItemRibbon.Command = "";
+        dataItemRibbon.CommandWeb = "";
+        dataItemRibbon.CommandMobile = "";
+        dataItemRibbon.KeyTip = "";
+
+        setDisabledEditGroup(true);
+        setDisabledDeleteGroup(true);
+
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Item updated successfully",
+        });
+      })
+      .catch((err) => { });
+  };
+
+  
 
   return (
     <>
@@ -1044,7 +1163,7 @@ export default function MenuSetting() {
                       alignItems: "center",
                     }}
                     severity="success"
-                    onClick={insertRightRibbon}
+                    onClick={insertMenuItem}
                   >
                     <i style={{ fontSize: "10px" }} className="pi pi-plus"></i>
                   </Button>
@@ -1059,9 +1178,7 @@ export default function MenuSetting() {
                     }}
                     severity="warning"
                     disabled={disabledEditItem}
-                    onClick={() => {
-                      handleEditRightRibbon();
-                    }}
+                    onClick={handleEditItem}
                   >
                     <i
                       style={{ fontSize: "10px" }}
@@ -1134,9 +1251,121 @@ export default function MenuSetting() {
                   scrollHeight="200px"
                 >
                   <Column field="Name" header="Name"></Column>
-                  <Column field="category" header="Category"></Column>
-                  <Column field="quantity" header="Quantity"></Column>
+                  <Column field="Command" header="Command"></Column>
+                  <Column field="KeyTip" header="KeyTip"></Column>
+                  <Column field="Order" header="Order"></Column>
+                  <Column field="Description" header="Description"></Column>
                 </DataTable>
+                <div style={{ display: "flex", marginTop: "10px" }}>
+                  <div style={{ margin: "10px", width: "50%" }}>
+                    <CustomInputText
+                      value={dataItemRibbon.Name}
+                      label="Name"
+                      onChange={(e) =>
+                        handleChangeItemRibbon("Name", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div style={{ margin: "10px", width: "50%" }}>
+                    <CustomInputText
+                      value={dataItemRibbon.Description}
+                      label="Description"
+                      onChange={(e) =>
+                        handleChangeItemRibbon("Description", e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
+                <div style={{ display: "flex", marginTop: "10px" }}>
+                  <div style={{ margin: "10px", width: "50%" }}>
+                    <CustomInputText
+                      value={dataItemRibbon.Order}
+                      label="Order"
+                      onChange={(e) =>
+                        handleChangeItemRibbon("Order", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div style={{ margin: "10px", width: "50%" }}>
+                    <CustomInputText
+                      value={dataItemRibbon.HelpText}
+                      label="Help Text"
+                      onChange={(e) =>
+                        handleChangeItemRibbon("HelpText", e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
+                <div style={{ display: "flex", marginTop: "10px" }}>
+                  <div style={{ margin: "10px", width: "50%" }}>
+                    <CustomInputText
+                      value={dataItemRibbon.Command}
+                      label="Windows App Command"
+                      onChange={(e) =>
+                        handleChangeItemRibbon("Command", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div style={{ margin: "10px", width: "50%" }}>
+                    <CustomInputText
+                      value={dataItemRibbon.CommandWeb}
+                      label="Web App Command"
+                      onChange={(e) =>
+                        handleChangeItemRibbon("CommandWeb", e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
+                <div style={{ display: "flex", marginTop: "10px" }}>
+                  <div style={{ margin: "10px", width: "50%" }}>
+                    <CustomInputText
+                      value={dataItemRibbon.CommandMobile}
+                      label="Mobile App Command"
+                      onChange={(e) =>
+                        handleChangeItemRibbon("CommandMobile", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div style={{ margin: "10px", width: "50%" }}>
+                    <CustomInputText
+                      value={dataItemRibbon?.KeyTip}
+                      label="Key Tip"
+                      onChange={(e) =>
+                        handleChangeItemRibbon("KeyTip", e.target.value)
+                        // console.log("ew",e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
+                {/* <div style={{ marginTop: "10px" }}>
+                  <div>
+                    <span style={{ marginLeft: "10px", fontWeight: "bold" }}>
+                      State:
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      width: "50%",
+                      marginTop: "10px",
+                    }}
+                  >
+                    <CustomRadioButtons
+                      value={ingredient}
+                      onChange={(e) => {
+                        setIngredient(e.target.value);
+                        handleChangeItemRibbon("WFStateForDeemed", e.target.value);
+                      }}
+                      checked={ingredient}
+                      options={[
+                        { value: 1, label: "Accept" },
+                        { value: 2, label: "Reject" },
+                        { value: 3, label: "Close" },
+                      ]}
+                    />
+                  </div>
+                </div> */}
               </AccordionTab>
             </Accordion>
           )}

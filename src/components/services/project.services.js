@@ -120,15 +120,24 @@ class projectService {
   async updateMenuGroup(data) {
     return await httpClient.post(ApiConst.updateMenuGroup, data);
   }
-
+  
+  async deleteMenuGroup(data) {
+    return await httpClient.post(ApiConst.deleteMenuGroup, data);
+  }
+  
   async getMenuItemByMenuGroupID(data) {
     return await httpClient.post(ApiConst.getMenuItemByMenuGroupID, data);
   }
 
-  async deleteMenuGroup(data) {
-    return await httpClient.post(ApiConst.deleteMenuGroup, data);
+  async insertMenuItem(data) {
+    return await httpClient.post(ApiConst.insertMenuItem, data);
   }
 
+  async updateMenuItem(data) {
+    return await httpClient.post(ApiConst.updateMenuItem, data);
+  }
+
+  
   //user
   async getAllUser() {
     return await httpClient.post(ApiConst.getAllUser);
