@@ -52,40 +52,39 @@ export default function MenuSetting() {
     const [showDeleteConfirmationItem, setShowDeleteConfirmationItem] =
     useState(false);
   
-  const [ingredient, setIngredient] = useState(1);
-
-
-  const [insertMenuRibbon, setInsertMenuRibbon] = useState({
-    ID: 0,
-    LastModified: null,
-    ModifiedById: null,
-    Name: "",
-    Description: "",
-    IsVisible: true,
-  });
-
-  const [rightRibbon, setRightRibbon] = useState({
-    ID: 0,
-    LastModified: null,
-    ModifiedById: null,
-    Name: "",
-    Order: 0,
-    Description: "",
-    IsVisible: true,
-    nMenuId: 0,
-  });
-
-  const [dataGroupRibbon, setDataGroupRibbon] = useState({
-    ID: 0,
-    LastModified: "2022-08-21T14:06:09.421Z",
-    ModifiedById: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    Name: "",
-    Order: 0,
-    Description: "",
-    IsVisible: true,
-    nMenuTabId: 0,
-  });
-
+    
+    
+    const [insertMenuRibbon, setInsertMenuRibbon] = useState({
+      ID: 0,
+      LastModified: null,
+      ModifiedById: null,
+      Name: "",
+      Description: "",
+      IsVisible: true,
+    });
+    
+    const [rightRibbon, setRightRibbon] = useState({
+      ID: 0,
+      LastModified: null,
+      ModifiedById: null,
+      Name: "",
+      Order: 0,
+      Description: "",
+      IsVisible: true,
+      nMenuId: 0,
+    });
+    
+    const [dataGroupRibbon, setDataGroupRibbon] = useState({
+      ID: 0,
+      LastModified: "2022-08-21T14:06:09.421Z",
+      ModifiedById: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      Name: "",
+      Order: 0,
+      Description: "",
+      IsVisible: true,
+      nMenuTabId: 0,
+    });
+    
   const [dataItemRibbon, setDataItemRibbon] = useState({
     ID: 0,
     LastModified: null,
@@ -103,6 +102,8 @@ export default function MenuSetting() {
     nMenuGroupId: 0,
     IconImageId: null,
   })
+  
+  const [ingredient, setIngredient] = useState(dataItemRibbon?.Size || 0);
 
   rightRibbon.nMenuId = selectedRowTable?.ID;
   dataGroupRibbon.nMenuTabId = selectedRowTab?.ID;
@@ -236,12 +237,33 @@ export default function MenuSetting() {
   };
 
   const handleChangeItemRibbon = (fieldName, value) => {
-    console.log("aaaaaaaaa",fieldName,value);
+    console.log("dataItemRibbon1",dataItemRibbon)
+    console.log("value1",value)
+    console.log("fieldName1",fieldName)
     setDataItemRibbon((prevFormData) => ({
       ...prevFormData,
       [fieldName]: value,
     }));
+
+    console.log("dataItemRibbon2",dataItemRibbon)
+
   };
+
+  const handleChangeItemDrop = (fieldName, value) => {
+    console.log("dataItemRibbon1",dataItemRibbon)
+    console.log("value1",value)
+    console.log("fieldName1",fieldName)
+    
+    dataItemRibbon.Size = value;
+
+    setDataItemRibbon((prevFormData) => ({
+      ...prevFormData.Size = value,
+    }));
+
+    console.log("dataItemRibbon2",dataItemRibbon)
+
+  };
+  
 
   ////////////////////////////Main Table//////////////////////////////////////////////////////
 
@@ -610,6 +632,7 @@ export default function MenuSetting() {
       CommandWeb: selectedRowItem?.CommandWeb,
       CommandMobile: selectedRowItem?.CommandMobile,
       KeyTip: selectedRowItem?.KeyTip,
+      Size: selectedRowItem?.Size
     }));
   }, [selectedRowItem]);
 
@@ -658,6 +681,7 @@ export default function MenuSetting() {
       CommandWeb:dataItemRibbon?.CommandWeb ,
       CommandMobile:dataItemRibbon?.CommandMobile ,
       KeyTip:dataItemRibbon?.KeyTip ,
+      Size:dataItemRibbon?.Size
     };
 
     projectServices
@@ -1389,35 +1413,21 @@ export default function MenuSetting() {
                     />
                   </div>
                 </div>
-                {/* <div style={{ marginTop: "10px" }}>
-                  <div>
-                    <span style={{ marginLeft: "10px", fontWeight: "bold" }}>
-                      State:
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      width: "50%",
-                      marginTop: "10px",
-                    }}
-                  >
-                    <CustomRadioButtons
-                      value={ingredient}
+                <div style={{ display: "flex", marginTop: "10px", width: "50%" }}>
+                  <CustomRadioButtons
+                      // value={dataItemRibbon?.Size}
                       onChange={(e) => {
-                        setIngredient(e.target.value);
-                        handleChangeItemRibbon("WFStateForDeemed", e.target.value);
+                        // setIngredient(e.target.value);
+                        handleChangeItemDrop("Size", e.target.value);
                       }}
-                      checked={ingredient}
+                      checked={dataItemRibbon?.Size}
                       options={[
-                        { value: 1, label: "Accept" },
-                        { value: 2, label: "Reject" },
-                        { value: 3, label: "Close" },
+                        { value: 0, label: "Larg" },
+                        { value: 1, label: "Middle" },
+                        { value: 2, label: "Small" },
                       ]}
                     />
                   </div>
-                </div> */}
               </AccordionTab>
             </Accordion>
           )}
