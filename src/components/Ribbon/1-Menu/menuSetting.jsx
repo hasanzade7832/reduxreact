@@ -1415,10 +1415,10 @@ export default function MenuSetting() {
                 </div>
                 <div style={{ display: "flex", marginTop: "10px", width: "50%" }}>
                   <CustomRadioButtons
-                      // value={dataItemRibbon?.Size}
+                      value={dataItemRibbon?.Size}
                       onChange={(e) => {
-                        // setIngredient(e.target.value);
-                        handleChangeItemDrop("Size", e.target.value);
+                        setIngredient(e.target.value);
+                        handleChangeItemRibbon("Size", e.target.value);
                       }}
                       checked={dataItemRibbon?.Size}
                       options={[

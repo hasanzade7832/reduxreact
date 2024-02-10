@@ -2,9 +2,7 @@ import { RadioButton } from "primereact/radiobutton";
 
 const CustomRadioButtons = ({ value, name, onChange, checked, options }) => {
   
-  console.log("Hi")
-  console.log("checked", checked)
-  
+
   
   return (
     <div
@@ -24,8 +22,7 @@ const CustomRadioButtons = ({ value, name, onChange, checked, options }) => {
             marginLeft: "10px",
           }}
         >
-          {checked} -
-          {option.value}
+    
           <RadioButton
             inputId={`${option.value}`}
             name={name}
