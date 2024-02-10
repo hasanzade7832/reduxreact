@@ -29,8 +29,18 @@ export const ApiConst = Object.freeze({
 
   //ribbon
   getAllMenu: "api/Menu/GetAll",
+  insertMenu: "api/Menu/Insert",
+  deleteMenu: "api/Menu/Delete",
+  updateMenu: "api/Menu/Update",
   getMenuTabByMenuId: "api/MenuTab/GetByMenuId",
+  insertMenuTab: "api/MenuTab/Insert",
+  updateMenuTab: "api/MenuTab/Update",
+  deleteMenuTab: "api/MenuTab/Delete",
+  insertMenuTabByMenuId: "api/MenuTab/GetByMenuId",
   getMenuGroupByMenuTabId: "api/MenuGroup/GetAllByMenuTabID",
+  insertMenuGroup: "api/MenuGroup/Insert",
+  updateMenuGroup: "api/MenuGroup/Update",
+  deleteMenuGroup: "api/MenuGroup/Delete",
   getMenuItemByMenuGroupID: "api/MenuItem/GetAllByMenuGroupId",
 
   //user

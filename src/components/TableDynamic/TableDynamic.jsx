@@ -309,7 +309,6 @@ const TableDynamic = () => {
         </Button>
         <Button
           disabled={isEditDisabled}
-          // text
           style={{ backgroundColor: "white", marginRight: "10px" }}
           severity="danger"
           onClick={() => {
@@ -326,7 +325,6 @@ const TableDynamic = () => {
           ></i>
         </Button>
       </div>
-
       <div style={{ marginTop: "10px" }}>
         <DataTable
           height={500}

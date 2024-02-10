@@ -81,15 +81,52 @@ class projectService {
     return await httpClient.post(ApiConst.getAllMenu);
   }
 
+  async insertMenu(data) {
+    return await httpClient.post(ApiConst.insertMenu, data);
+  }
+
+  async deleteMenu(data) {
+    return await httpClient.post(ApiConst.deleteMenu, data);
+  }
+
+  async updateMenu(data) {
+    return await httpClient.post(ApiConst.updateMenu, data);
+  }
+
   async getMenuTabByMenuId(data) {
     return await httpClient.post(ApiConst.getMenuTabByMenuId, data);
+  }
+
+  async insertMenuTab(data) {
+    return await httpClient.post(ApiConst.insertMenuTab, data);
+  }
+
+  async updateMenuTab(data) {
+    return await httpClient.post(ApiConst.updateMenuTab, data);
+  }
+
+  async deleteMenuTab(data) {
+    return await httpClient.post(ApiConst.deleteMenuTab, data);
   }
 
   async getMenuGroupByMenuTabId(data) {
     return await httpClient.post(ApiConst.getMenuGroupByMenuTabId, data);
   }
+
+  async insertMenuGroup(data) {
+    return await httpClient.post(ApiConst.insertMenuGroup, data);
+  }
+
+  async updateMenuGroup(data) {
+    return await httpClient.post(ApiConst.updateMenuGroup, data);
+  }
+
   async getMenuItemByMenuGroupID(data) {
     return await httpClient.post(ApiConst.getMenuItemByMenuGroupID, data);
+  }
+
+  async deleteMenuGroup(data) {
+    return await httpClient.post(ApiConst.deleteMenuGroup, data);
   }
 
   //user

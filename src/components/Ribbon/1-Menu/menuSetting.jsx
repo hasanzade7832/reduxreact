@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -8,13 +8,18 @@ import { Accordion, AccordionTab } from "primereact/accordion";
 import ribbonSlice from "../../../redux/ribbon/ribbonSlice";
 import { fetchMenuSetting } from "../../../redux/ribbon/ribbonSlice";
 import projectServices from "../../services/project.services";
-
+import { Button } from "primereact/button";
+import { Toast } from "primereact/toast";
+import { Dialog } from "primereact/dialog";
 import "../../Ribbon/ribbon.css";
 
 export default function MenuSetting() {
+  const toast = useRef(null);
+
   const dispatch = useDispatch();
 
   const [selectedRow, setSelectedRow] = useState(null);
+  const [selectedRowTable, setSelectedRowTable] = useState(null);
   const [selectedRowTab, setSelectedRowTab] = useState(null);
   const [selectedRowGroup, setSelectedRowGroup] = useState(null);
   const [selectedRowItem, setSelectedRowItem] = useState(null);
@@ -29,45 +34,119 @@ export default function MenuSetting() {
   const [dataMenuGroupRes, setDataMenuGroupRes] = useState([]);
   const [dataMenuItem, setDataMenuItem] = useState([]);
   const [dataMenuItemRes, setDataMenuItemRes] = useState([]);
-  
+  const [disabledEdit, setDisabledEdit] = useState(true);
+  const [disabledEditTab, setDisabledEditTab] = useState(true);
+  const [disabledEditGroup, setDisabledEditGroup] = useState(true);
+  const [disabledEditItem, setDisabledEditItem] = useState(true);
+  const [disabledDelete, setDisabledDelete] = useState(true);
+  const [disabledDeleteTab, setDisabledDeleteTab] = useState(true);
+  const [disabledDeleteGroup, setDisabledDeleteGroup] = useState(true);
+  const [disabledDeleteItem, setDisabledDeleteItem] = useState(true);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [showDeleteConfirmationTab, setShowDeleteConfirmationTab] =
+    useState(false);
+  const [showDeleteConfirmationGroup, setShowDeleteConfirmationGroup] =
+    useState(false);
 
-  const selectedRowTable = useSelector(
-    (state) => state.selectedRowDataRibbon.selectedRowDataRibbon
-  );
+  const [insertMenuRibbon, setInsertMenuRibbon] = useState({
+    ID: 0,
+    LastModified: null,
+    ModifiedById: null,
+    Name: "",
+    Description: "",
+    IsVisible: true,
+  });
 
-  console.log("selectedRowTable", selectedRowTable);
+  const [rightRibbon, setRightRibbon] = useState({
+    ID: 0,
+    LastModified: null,
+    ModifiedById: null,
+    Name: "",
+    Order: 0,
+    Description: "",
+    IsVisible: true,
+    nMenuId: 0,
+  });
+
+  const [dataGroupRibbon, setDataGroupRibbon] = useState({
+    ID: 0,
+    LastModified: "2022-08-21T14:06:09.421Z",
+    ModifiedById: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    Name: "",
+    Order: 0,
+    Description: "",
+    IsVisible: true,
+    nMenuTabId: 0,
+  });
+
+  const [dataItemRibbon, setDataItemRibbon] = useState({
+    ID: 0,
+    LastModified: null,
+    ModifiedById: null,
+    Name: "",
+    Description: "",
+    Order: 0,
+    Command: "",
+    CommandWeb: "",
+    CommandMobile: "",
+    HelpText: "",
+    KeyTip: "",
+    Size: 0,
+    IsVisible: true,
+    nMenuGroupId: 0,
+    IconImageId: null,
+  })
+
+  rightRibbon.nMenuId = selectedRowTable?.ID;
+  dataGroupRibbon.nMenuTabId = selectedRowTab?.ID;
+  dataItemRibbon.nMenuGroupId = selectedRowGroup?.ID;
 
   const dataMenuSetting = useSelector(
     (state) => state.dataMenuSetting.dataMenuSetting
   );
 
   const handleRowClick = (event) => {
-    console.log("main");
+    console.log("main", event.data);
+    // setSelectedRow(event.data);
+    setSelectedRowTable(event.data);
+    setDisabledEdit(false);
+    setDisabledDelete(false);
   };
 
   const handleRowClickTab = (event) => {
     setSelectedRowTab(event.data);
+    setDisabledEditTab(false);
+    setDisabledDeleteTab(false);
   };
 
   const handleRowClickGroup = (event) => {
     setSelectedRowGroup(event.data);
+    setDisabledEditGroup(false);
+    setDisabledDeleteGroup(false);
   };
 
   const handleRowClickItem = (event) => {
     setSelectedRowItem(event.data);
+    setDisabledEditItem(false);
+    setDisabledDeleteItem(false);
   };
 
   const handleTab0 = (event) => {
+    setSelectedRow(event.data);
     setShowAccardeon(false);
-    setActiveIndex([])
-    setTimeout(() => {
-      setSelectedRow(event.data); 
-      setShowAccardeon(true);
-      setDataMenuGroupRes([]);
-      setDataMenuItemRes([]);
-      setActiveIndex([0])
-  }, 50);
     setAccordionDisabled1(false);
+    setAccordionDisabled2(false);
+    setAccordionDisabled3(false);
+    setActiveIndex([]);
+    setTimeout(() => {
+      setShowAccardeon(true);
+      setAccordionDisabled2(true);
+      setAccordionDisabled3(true);
+      setSelectedRowTab();
+      setDisabledEditTab(true);
+      setDisabledDeleteTab(true);
+    }, 50);
+    setActiveIndex([0]);
   };
 
   const handleTab1 = (event) => {
@@ -95,7 +174,7 @@ export default function MenuSetting() {
           console.log("AAAAAAAAAAAA", res.data);
           setDataMenuTabRes(res.data);
         })
-        .catch(() => {});
+        .catch(() => { });
     }
   }, [selectedRow, dataMenuTab]);
 
@@ -107,7 +186,7 @@ export default function MenuSetting() {
           console.log("BBBBBBBBBBB", res.data);
           setDataMenuGroupRes(res.data);
         })
-        .catch(() => {});
+        .catch(() => { });
     }
   }, [dataMenuGroup]);
 
@@ -116,21 +195,396 @@ export default function MenuSetting() {
       projectServices
         .getMenuItemByMenuGroupID({ id: dataMenuItem?.ID })
         .then((res) => {
-          console.log("CCCCCCCCC", res.data);
           setDataMenuItemRes(res.data);
         })
-        .catch(() => {});
+        .catch(() => { });
     }
   }, [dataMenuItem]);
 
+  useEffect(() => {
+    console.log("ac", activeIndex);
+  }, [activeIndex]);
 
+  const handleRowSelectionChange = (event) => { };
 
-  const handleRowSelectionChange = (e) => {
-    // setAccordionDisabled2(true);
-    // setAccordionDisabled3(true);
+  const handleChange = (fieldName, value) => {
+    setInsertMenuRibbon((prevFormData) => ({
+      ...prevFormData,
+      [fieldName]: value,
+    }));
   };
+
+  const handleChangeRightRibbon = (fieldName, value) => {
+    setRightRibbon((prevFormData) => ({
+      ...prevFormData,
+      [fieldName]: value,
+    }));
+  };
+
+  const handleChangeGroupRibbon = (fieldName, value) => {
+    setDataGroupRibbon((prevFormData) => ({
+      ...prevFormData,
+      [fieldName]: value,
+    }));
+  };
+
+  ////////////////////////////Main Table//////////////////////////////////////////////////////
+
+  useEffect(() => {
+    setInsertMenuRibbon((prevFormData) => ({
+      ...prevFormData,
+      Name: selectedRowTable?.Name,
+      Description: selectedRowTable?.Description,
+    }));
+  }, [selectedRowTable]);
+
+  const insertMenu = (e) => {
+    console.log("insert");
+    projectServices
+      .insertMenu(insertMenuRibbon)
+      .then((res) => {
+        dispatch(fetchMenuSetting());
+        // dataMenuSetting = [...dataMenuSetting, res.data];
+        insertMenuRibbon.Name = "";
+        insertMenuRibbon.Description = "";
+
+        setDisabledEdit(true);
+        setDisabledDelete(true);
+
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Item Added successfully",
+        });
+      })
+      .catch((err) => { });
+  };
+
+  const handleEdit = () => {
+    const updatedSelectedRow = {
+      ...selectedRowTable,
+      Name: insertMenuRibbon.Name,
+      Description: insertMenuRibbon.Description,
+    };
+
+    projectServices
+      .updateMenu(updatedSelectedRow)
+      .then((res) => {
+        dispatch(fetchMenuSetting());
+
+        insertMenuRibbon.Name = "";
+        insertMenuRibbon.Description = "";
+
+        setDisabledEdit(true);
+        setDisabledDelete(true);
+
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Item updated successfully",
+        });
+      })
+      .catch((err) => { });
+  };
+
+  const cancelDelete = () => {
+    setSelectedRowTable(null);
+    setShowDeleteConfirmation(false);
+  };
+
+  const handleDelete = () => {
+    setSelectedRowTable(selectedRowTable);
+    setShowDeleteConfirmation(true);
+  };
+
+  const confirmDelete = () => {
+    projectServices
+      .deleteMenu({ id: selectedRowTable?.ID })
+      .then((res) => {
+        dispatch(fetchMenuSetting());
+
+        insertMenuRibbon.Name = "";
+        insertMenuRibbon.Description = "";
+        setDisabledEdit(true);
+        setDisabledDelete(true);
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Item deleted successfully",
+        });
+        setShowDeleteConfirmation(false);
+      })
+      .catch((err) => { });
+  };
+
+  /////////////////////////Tab TABLE///////////////////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    setRightRibbon((prevFormData) => ({
+      ...prevFormData,
+      Name: selectedRowTab?.Name,
+      Description: selectedRowTab?.Description,
+      Order: selectedRowTab?.Order,
+    }));
+  }, [selectedRowTab]);
+
+  const insertRightRibbon = () => {
+    setShowAccardeon(false);
+    projectServices
+      .insertMenuTab(rightRibbon)
+      .then((res) => {
+        setTimeout(() => {
+          setShowAccardeon(true);
+          setAccordionDisabled2(true);
+          setAccordionDisabled3(true);
+          setDataMenuTabRes([...dataMenuTabRes, res.data]);
+        }, 50);
+        rightRibbon.Name = "";
+        rightRibbon.Description = "";
+        rightRibbon.Order = 0;
+        setDisabledEditTab(true);
+        setDisabledDeleteTab(true);
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Item Added successfully",
+        });
+      })
+      .catch((err) => { });
+  };
+
+  const handleEditRightRibbon = () => {
+    setShowAccardeon(false);
+    const updatedSelectedRow = {
+      ...selectedRowTab,
+      Name: rightRibbon?.Name,
+      Description: rightRibbon?.Description,
+      Order: rightRibbon?.Order,
+    };
+
+    console.log("id", updatedSelectedRow?.ID);
+    projectServices
+      .updateMenuTab(updatedSelectedRow)
+      .then((res) => {
+        const updatedIndex = dataMenuTabRes.findIndex(
+          (item) => item.ID === selectedRowTab.ID
+        );
+
+        if (updatedIndex !== -1) {
+          const newDataMenuTabRes = [...dataMenuTabRes];
+          newDataMenuTabRes[updatedIndex] = Object.assign(
+            {},
+            newDataMenuTabRes[updatedIndex],
+            updatedSelectedRow
+          );
+
+          setDataMenuTabRes(newDataMenuTabRes);
+        }
+
+        setTimeout(() => {
+          setShowAccardeon(true);
+        }, 50);
+
+        rightRibbon.Name = "";
+        rightRibbon.Description = "";
+        rightRibbon.Order = 0;
+
+        setDisabledEditTab(true);
+        setDisabledDeleteTab(true);
+
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Item updated successfully",
+        });
+      })
+      .catch((err) => { });
+  };
+
+  const cancelDeleteTab = () => {
+    setSelectedRowTab(null);
+    setShowDeleteConfirmationTab(false);
+  };
+
+  const handleDeleteTab = () => {
+    setSelectedRowTab(selectedRowTab);
+    setShowDeleteConfirmationTab(true);
+  };
+
+  const confirmDeleteTab = () => {
+    setShowAccardeon(false);
+    const deletedItemId = selectedRowTab?.ID;
+
+    projectServices
+      .deleteMenuTab({ id: deletedItemId })
+      .then((res) => {
+        // Remove the item from dataMenuTabRes
+        const newDataMenuTabRes = dataMenuTabRes.filter(
+          (item) => item.ID !== deletedItemId
+        );
+
+        setDataMenuTabRes(newDataMenuTabRes);
+        setShowDeleteConfirmationTab(false);
+
+        setTimeout(() => {
+          setShowAccardeon(true);
+          setAccordionDisabled2(true);
+          setAccordionDisabled3(true);
+        }, 50);
+
+        rightRibbon.Name = "";
+        rightRibbon.Description = "";
+        rightRibbon.Order = 0;
+
+        setDisabledEditTab(true);
+        setDisabledDeleteTab(true);
+
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Item deleted successfully",
+        });
+      })
+      .catch((err) => { });
+  };
+
+  //////////////////////Group Tabel///////////////////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    setDataGroupRibbon((prevFormData) => ({
+      ...prevFormData,
+      Name: selectedRowGroup?.Name,
+      Description: selectedRowGroup?.Description,
+      Order: selectedRowGroup?.Order,
+    }));
+  }, [selectedRowGroup]);
+
+  const insertMenuGroup = (e) => {
+    setShowAccardeon(false);
+    console.log("insert");
+    projectServices
+      .insertMenuGroup(dataGroupRibbon)
+      .then((res) => {
+        setTimeout(() => {
+          setShowAccardeon(true);
+          setDataMenuGroupRes([...dataMenuGroupRes, res.data]);
+        }, 50);
+
+        console.log("AAAAAAAAA", dataMenuGroupRes);
+        console.log("BBBBBBBBB", res.data);
+        console.log("CCCCCCCCC", [...dataMenuGroupRes, res.data]);
+
+        dataGroupRibbon.Name = "";
+        dataGroupRibbon.Description = "";
+        dataGroupRibbon.Order = 0;
+
+        setDisabledEditGroup(true);
+        setDisabledDeleteGroup(true);
+
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Item Added successfully",
+        });
+      })
+      .catch((err) => { });
+  };
+
+  const handleEditMenuGroup = () => {
+    setShowAccardeon(false);
+    const updatedSelectedRow = {
+      ...selectedRowGroup,
+      Name: dataGroupRibbon?.Name,
+      Description: dataGroupRibbon?.Description,
+      Order: dataGroupRibbon?.Order,
+    };
+
+    projectServices
+      .updateMenuGroup(updatedSelectedRow)
+      .then((res) => {
+        const updatedIndex = dataMenuGroupRes.findIndex(
+          (item) => item.ID === selectedRowGroup.ID
+        );
+
+        if (updatedIndex !== -1) {
+          const newDataMenuGroupRes = [...dataMenuGroupRes];
+          newDataMenuGroupRes[updatedIndex] = Object.assign(
+            {},
+            newDataMenuGroupRes[updatedIndex],
+            updatedSelectedRow
+          );
+
+          setDataMenuGroupRes(newDataMenuGroupRes);
+        }
+
+        setTimeout(() => {
+          setShowAccardeon(true);
+        }, 50);
+
+        dataGroupRibbon.Name = "";
+        dataGroupRibbon.Description = "";
+        dataGroupRibbon.Order = 0;
+
+        setDisabledEditGroup(true);
+        setDisabledDeleteGroup(true);
+
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Item updated successfully",
+        });
+      })
+      .catch((err) => { });
+  };
+
+  const cancelDeleteGroup = () => {
+    setSelectedRowGroup(null);
+    setShowDeleteConfirmationGroup(false);
+  };
+
+  const handleDeleteGroup = () => {
+    setSelectedRowGroup(selectedRowGroup);
+    setShowDeleteConfirmationGroup(true);
+  };
+
+  const confirmDeleteGroup = () => {
+    setShowAccardeon(false);
+    const deletedItemId = selectedRowGroup?.ID;
+
+    projectServices
+      .deleteMenuGroup({ id: deletedItemId })
+      .then((res) => {
+        // Remove the item from dataMenuTabRes
+        const newDataMenuGroupRes = dataMenuGroupRes.filter(
+          (item) => item.ID !== deletedItemId
+        );
+
+        setDataMenuGroupRes(newDataMenuGroupRes);
+        setShowDeleteConfirmationGroup(false);
+
+        setTimeout(() => {
+          setShowAccardeon(true);
+        }, 50);
+
+        dataGroupRibbon.Name = "";
+        dataGroupRibbon.Description = "";
+        dataGroupRibbon.Order = 0;
+
+        setDisabledEditTab(true);
+        setDisabledDeleteTab(true);
+
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Item deleted successfully",
+        });
+      })
+      .catch((err) => { });
+  };
+
   return (
     <>
+      <Toast ref={toast} position="top-right" />
       <Splitter className="custom-splitter">
         <SplitterPanel style={{ minwidth: "100px", overflow: "hidden" }}>
           <div
@@ -141,30 +595,122 @@ export default function MenuSetting() {
               width: "100%",
             }}
           >
-            <DataTable
-              value={dataMenuSetting}
-              size="small"
-              showGridlines
-              selectionMode="single"
-              selection={selectedRow}
-              onSelectionChange={handleRowSelectionChange}
-              onRowClick={(event) => handleRowClick(event)}
-              onRowDoubleClick={handleTab0}
-              className="custom-datatable"
-              rowClassName={(rowData) =>
-                selectedRow && selectedRow.ID === rowData.ID
-                  ? "selected-row"
-                  : ""
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                margin: "10px",
+              }}
+            >
+              <Button
+                rounded
+                className="w-2rem h-2rem p-0"
+                style={{
+                  marginRight: "10px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                severity="success"
+                onClick={insertMenu}
+              >
+                <i className="pi pi-plus"></i>
+              </Button>
+              <Button
+                rounded
+                className="w-2rem h-2rem p-0"
+                style={{
+                  marginRight: "10px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                severity="warning"
+                disabled={disabledEdit}
+                onClick={() => {
+                  handleEdit();
+                }}
+              >
+                <i className="pi pi-file-edit"></i>
+              </Button>
+              <Button
+                rounded
+                className="w-2rem h-2rem p-0"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                severity="danger"
+                disabled={disabledDelete}
+                onClick={() => {
+                  handleDelete();
+                }}
+              >
+                <i className="pi pi-trash"></i>
+              </Button>
+            </div>
+            <Dialog
+              visible={showDeleteConfirmation}
+              onHide={cancelDelete}
+              header="Confirmation"
+              icon="pi pi-exclamation-triangle"
+              position="center"
+              footer={
+                <div>
+                  <Button
+                    label="No"
+                    icon="pi pi-times"
+                    className="p-button-text"
+                    onClick={cancelDelete}
+                  />
+                  <Button
+                    label="Yes"
+                    icon="pi pi-check"
+                    className="p-button-text"
+                    onClick={confirmDelete}
+                  />
+                </div>
               }
             >
-              <Column field="Name" header="Name"></Column>
-            </DataTable>
-            <div style={{ display: "flex" }}>
+              <div>Do you sure want to delete?</div>
+            </Dialog>
+
+            <div>
+              <DataTable
+                value={dataMenuSetting}
+                size="small"
+                showGridlines
+                selectionMode="single"
+                selection={selectedRowTable}
+                onSelectionChange={handleRowSelectionChange}
+                onRowClick={(event) => handleRowClick(event)}
+                onRowDoubleClick={handleTab0}
+                className="custom-datatable"
+                rowClassName={(rowData) =>
+                  selectedRowTable && selectedRowTable.ID === rowData.ID
+                    ? "selected-row"
+                    : ""
+                }
+              >
+                <Column field="Name" header="Name"></Column>
+                <Column field="Description" header="Description"></Column>
+              </DataTable>
+            </div>
+            <div style={{ display: "flex", marginTop: "40px" }}>
               <div style={{ margin: "10px", width: "50%" }}>
-                <CustomInputText />
+                <CustomInputText
+                  value={insertMenuRibbon.Name}
+                  label="Name"
+                  onChange={(e) => handleChange("Name", e.target.value)}
+                />
               </div>
               <div style={{ margin: "10px", width: "50%" }}>
-                <CustomInputText />
+                <CustomInputText
+                  value={insertMenuRibbon.Description}
+                  label="Description"
+                  onChange={(e) => handleChange("Description", e.target.value)}
+                />
               </div>
             </div>
           </div>
@@ -185,6 +731,90 @@ export default function MenuSetting() {
               activeIndex={activeIndex}
             >
               <AccordionTab header="Header I" disabled={accordionDisabled1}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    margin: "5px",
+                    marginTop: "-10px",
+                  }}
+                >
+                  <Button
+                    rounded
+                    className="w-2rem h-2rem p-0"
+                    style={{
+                      marginRight: "10px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    severity="success"
+                    onClick={insertRightRibbon}
+                  >
+                    <i style={{ fontSize: "10px" }} className="pi pi-plus"></i>
+                  </Button>
+                  <Button
+                    rounded
+                    className="w-2rem h-2rem p-0"
+                    style={{
+                      marginRight: "10px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    severity="warning"
+                    disabled={disabledEditTab}
+                    onClick={() => {
+                      handleEditRightRibbon();
+                    }}
+                  >
+                    <i
+                      style={{ fontSize: "10px" }}
+                      className="pi pi-file-edit"
+                    ></i>
+                  </Button>
+                  <Button
+                    rounded
+                    className="w-2rem h-2rem p-0"
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    severity="danger"
+                    disabled={disabledDeleteTab}
+                    onClick={() => {
+                      handleDeleteTab();
+                    }}
+                  >
+                    <i style={{ fontSize: "10px" }} className="pi pi-trash"></i>
+                  </Button>
+                  <Dialog
+                    visible={showDeleteConfirmationTab}
+                    onHide={cancelDeleteTab}
+                    header="Confirmation"
+                    icon="pi pi-exclamation-triangle"
+                    position="center"
+                    footer={
+                      <div>
+                        <Button
+                          label="No"
+                          icon="pi pi-times"
+                          className="p-button-text"
+                          onClick={cancelDeleteTab}
+                        />
+                        <Button
+                          label="Yes"
+                          icon="pi pi-check"
+                          className="p-button-text"
+                          onClick={confirmDeleteTab}
+                        />
+                      </div>
+                    }
+                  >
+                    <div>Do you sure want to delete?</div>
+                  </Dialog>
+                </div>
                 <DataTable
                   value={dataMenuTabRes}
                   size="small"
@@ -207,14 +837,129 @@ export default function MenuSetting() {
                       : ""
                   }
                   scrollable
-                  scrollHeight="200px"
+                  scrollHeight="150px"
                 >
                   <Column field="Name" header="Name"></Column>
                   <Column field="Description" header="Description"></Column>
                   <Column field="Order" header="Order"></Column>
                 </DataTable>
+                <div style={{ display: "flex", marginTop: "10px" }}>
+                  <div style={{ margin: "10px", width: "50%" }}>
+                    <CustomInputText
+                      value={rightRibbon.Name}
+                      label="Name"
+                      onChange={(e) =>
+                        handleChangeRightRibbon("Name", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div style={{ margin: "10px", width: "50%" }}>
+                    <CustomInputText
+                      value={rightRibbon.Description}
+                      label="Description"
+                      onChange={(e) =>
+                        handleChangeRightRibbon("Description", e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
+                <div style={{ display: "flex", marginTop: "5px" }}>
+                  <div
+                    style={{
+                      margin: "10px",
+                      width: "100%",
+                    }}
+                  >
+                    <CustomInputText
+                      value={rightRibbon.Order}
+                      label="Order"
+                      onChange={(e) =>
+                        handleChangeRightRibbon("Order", e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
               </AccordionTab>
               <AccordionTab header="Header II" disabled={accordionDisabled2}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    margin: "5px",
+                    marginTop: "-8px",
+                  }}
+                >
+                  <Button
+                    rounded
+                    className="w-2rem h-2rem p-0"
+                    style={{
+                      marginRight: "10px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    severity="success"
+                    onClick={insertMenuGroup}
+                  >
+                    <i className="pi pi-plus"></i>
+                  </Button>
+                  <Button
+                    rounded
+                    className="w-2rem h-2rem p-0"
+                    style={{
+                      marginRight: "10px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    severity="warning"
+                    disabled={disabledEditGroup}
+                    onClick={handleEditMenuGroup}
+                  >
+                    <i className="pi pi-file-edit"></i>
+                  </Button>
+                  <Button
+                    rounded
+                    className="w-2rem h-2rem p-0"
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    severity="danger"
+                    disabled={disabledDeleteGroup}
+                    onClick={() => {
+                      handleDeleteGroup();
+                    }}
+                  >
+                    <i className="pi pi-trash"></i>
+                  </Button>
+                  <Dialog
+                    visible={showDeleteConfirmationGroup}
+                    onHide={cancelDeleteGroup}
+                    header="Confirmation"
+                    icon="pi pi-exclamation-triangle"
+                    position="center"
+                    footer={
+                      <div>
+                        <Button
+                          label="No"
+                          icon="pi pi-times"
+                          className="p-button-text"
+                          onClick={cancelDeleteGroup}
+                        />
+                        <Button
+                          label="Yes"
+                          icon="pi pi-check"
+                          className="p-button-text"
+                          onClick={confirmDeleteGroup}
+                        />
+                      </div>
+                    }
+                  >
+                    <div>Do you sure want to delete?</div>
+                  </Dialog>
+                </div>
                 <DataTable
                   value={dataMenuGroupRes}
                   size="small"
@@ -243,8 +988,128 @@ export default function MenuSetting() {
                   <Column field="Description" header="Description"></Column>
                   <Column field="Order" header="Order"></Column>
                 </DataTable>
+                <div style={{ display: "flex", marginTop: "10px" }}>
+                  <div style={{ margin: "10px", width: "50%" }}>
+                    <CustomInputText
+                      value={dataGroupRibbon.Name}
+                      label="Name"
+                      onChange={(e) =>
+                        handleChangeGroupRibbon("Name", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div style={{ margin: "10px", width: "50%" }}>
+                    <CustomInputText
+                      value={dataGroupRibbon.Description}
+                      label="Description"
+                      onChange={(e) =>
+                        handleChangeGroupRibbon("Description", e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
+                <div style={{ display: "flex", marginTop: "5px" }}>
+                  <div
+                    style={{
+                      margin: "10px",
+                      width: "100%",
+                    }}
+                  >
+                    <CustomInputText
+                      value={dataGroupRibbon.Order}
+                      label="Order"
+                      onChange={(e) =>
+                        handleChangeGroupRibbon("Order", e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
               </AccordionTab>
               <AccordionTab header="Header III" disabled={accordionDisabled3}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    margin: "5px",
+                    marginTop: "-10px",
+                  }}
+                >
+                  <Button
+                    rounded
+                    className="w-2rem h-2rem p-0"
+                    style={{
+                      marginRight: "10px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    severity="success"
+                    onClick={insertRightRibbon}
+                  >
+                    <i style={{ fontSize: "10px" }} className="pi pi-plus"></i>
+                  </Button>
+                  <Button
+                    rounded
+                    className="w-2rem h-2rem p-0"
+                    style={{
+                      marginRight: "10px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    severity="warning"
+                    disabled={disabledEditItem}
+                    onClick={() => {
+                      handleEditRightRibbon();
+                    }}
+                  >
+                    <i
+                      style={{ fontSize: "10px" }}
+                      className="pi pi-file-edit"
+                    ></i>
+                  </Button>
+                  <Button
+                    rounded
+                    className="w-2rem h-2rem p-0"
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    severity="danger"
+                    disabled={disabledDeleteItem}
+                    onClick={() => {
+                      handleDeleteTab();
+                    }}
+                  >
+                    <i style={{ fontSize: "10px" }} className="pi pi-trash"></i>
+                  </Button>
+                  <Dialog
+                    visible={showDeleteConfirmationTab}
+                    onHide={cancelDeleteTab}
+                    header="Confirmation"
+                    icon="pi pi-exclamation-triangle"
+                    position="center"
+                    footer={
+                      <div>
+                        <Button
+                          label="No"
+                          icon="pi pi-times"
+                          className="p-button-text"
+                          onClick={cancelDeleteTab}
+                        />
+                        <Button
+                          label="Yes"
+                          icon="pi pi-check"
+                          className="p-button-text"
+                          onClick={confirmDeleteTab}
+                        />
+                      </div>
+                    }
+                  >
+                    <div>Do you sure want to delete?</div>
+                  </Dialog>
+                </div>
                 <DataTable
                   value={dataMenuItemRes}
                   size="small"

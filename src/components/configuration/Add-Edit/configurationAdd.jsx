@@ -1,8 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { Dropdown } from "primereact/dropdown";
-
-import { VirtualScroller } from "primereact/virtualscroller";
-
 import { useSelector, useDispatch } from "react-redux";
 import CustomInputText from "../../globalComponents/main/inputCom";
 import BoxDefaultButton from "../../globalComponents/box/boxDefaultButton";
@@ -663,7 +659,7 @@ const ConfigurationAdd = () => {
         style={{
           overflowY: "auto",
           whiteSpace: "nowrap",
-          height:"100vh",
+          height: "100vh",
           maxHeight: "calc(100vh - 11.8rem)",
         }}
       >
