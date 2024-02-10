@@ -49,6 +49,9 @@ export default function MenuSetting() {
     useState(false);
   const [showDeleteConfirmationGroup, setShowDeleteConfirmationGroup] =
     useState(false);
+    const [showDeleteConfirmationItem, setShowDeleteConfirmationItem] =
+    useState(false);
+  
   const [ingredient, setIngredient] = useState(1);
 
 
@@ -286,6 +289,7 @@ export default function MenuSetting() {
 
         insertMenuRibbon.Name = "";
         insertMenuRibbon.Description = "";
+        insertMenuRibbon.Order = 0
 
         setDisabledEdit(true);
         setDisabledDelete(true);
@@ -694,6 +698,56 @@ export default function MenuSetting() {
           severity: "success",
           summary: "Success",
           detail: "Item updated successfully",
+        });
+      })
+      .catch((err) => { });
+  };
+
+  const cancelDeleteItem= () => {
+    setSelectedRowItem(null);
+    setShowDeleteConfirmationItem(false);
+  };
+
+  const handleDeleteItem = () => {
+    setSelectedRowItem(selectedRowItem);
+    setShowDeleteConfirmationItem(true);
+  };
+
+  const confirmDeleteItem = () => {
+    setShowAccardeon(false);
+    const deletedItemId = selectedRowItem?.ID;
+
+    projectServices
+      .deleteMenuItem({ id: deletedItemId })
+      .then((res) => {
+        // Remove the item from dataMenuTabRes
+        const newDataMenuItemRes = dataMenuItemRes.filter(
+          (item) => item.ID !== deletedItemId
+        );
+
+        setDataMenuItemRes(newDataMenuItemRes);
+        setShowDeleteConfirmationItem(false);
+
+        setTimeout(() => {
+          setShowAccardeon(true);
+        }, 50);
+
+        dataItemRibbon.Name = "";
+        dataItemRibbon.Description = "";
+        dataItemRibbon.Order = 0;
+        dataItemRibbon.HelpText = "";
+        dataItemRibbon.Command = "";
+        dataItemRibbon.CommandWeb = "";
+        dataItemRibbon.CommandMobile = "";
+        dataItemRibbon.KeyTip = "";
+
+        setDisabledEditItem(true);
+        setDisabledDeleteItem(true);
+
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Item deleted successfully",
         });
       })
       .catch((err) => { });
@@ -1195,15 +1249,13 @@ export default function MenuSetting() {
                     }}
                     severity="danger"
                     disabled={disabledDeleteItem}
-                    onClick={() => {
-                      handleDeleteTab();
-                    }}
+                    onClick={handleDeleteItem}
                   >
                     <i style={{ fontSize: "10px" }} className="pi pi-trash"></i>
                   </Button>
                   <Dialog
-                    visible={showDeleteConfirmationTab}
-                    onHide={cancelDeleteTab}
+                    visible={showDeleteConfirmationItem}
+                    onHide={cancelDeleteItem}
                     header="Confirmation"
                     icon="pi pi-exclamation-triangle"
                     position="center"
@@ -1213,13 +1265,13 @@ export default function MenuSetting() {
                           label="No"
                           icon="pi pi-times"
                           className="p-button-text"
-                          onClick={cancelDeleteTab}
+                          onClick={cancelDeleteItem}
                         />
                         <Button
                           label="Yes"
                           icon="pi pi-check"
                           className="p-button-text"
-                          onClick={confirmDeleteTab}
+                          onClick={confirmDeleteItem}
                         />
                       </div>
                     }

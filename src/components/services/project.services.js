@@ -137,7 +137,10 @@ class projectService {
     return await httpClient.post(ApiConst.updateMenuItem, data);
   }
 
-  
+  async deleteMenuItem(data) {
+    return await httpClient.post(ApiConst.deleteMenuItem, data);
+  }
+
   //user
   async getAllUser() {
     return await httpClient.post(ApiConst.getAllUser);
