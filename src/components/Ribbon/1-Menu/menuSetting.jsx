@@ -714,6 +714,7 @@ export default function MenuSetting() {
         dataItemRibbon.CommandWeb = "";
         dataItemRibbon.CommandMobile = "";
         dataItemRibbon.KeyTip = "";
+        dataItemRibbon.Size = null
 
         setDisabledEditGroup(true);
         setDisabledDeleteGroup(true);
