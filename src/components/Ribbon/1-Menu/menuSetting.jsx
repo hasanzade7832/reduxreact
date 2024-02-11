@@ -49,42 +49,40 @@ export default function MenuSetting() {
     useState(false);
   const [showDeleteConfirmationGroup, setShowDeleteConfirmationGroup] =
     useState(false);
-    const [showDeleteConfirmationItem, setShowDeleteConfirmationItem] =
+  const [showDeleteConfirmationItem, setShowDeleteConfirmationItem] =
     useState(false);
-  
-    
-    
-    const [insertMenuRibbon, setInsertMenuRibbon] = useState({
-      ID: 0,
-      LastModified: null,
-      ModifiedById: null,
-      Name: "",
-      Description: "",
-      IsVisible: true,
-    });
-    
-    const [rightRibbon, setRightRibbon] = useState({
-      ID: 0,
-      LastModified: null,
-      ModifiedById: null,
-      Name: "",
-      Order: 0,
-      Description: "",
-      IsVisible: true,
-      nMenuId: 0,
-    });
-    
-    const [dataGroupRibbon, setDataGroupRibbon] = useState({
-      ID: 0,
-      LastModified: "2022-08-21T14:06:09.421Z",
-      ModifiedById: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      Name: "",
-      Order: 0,
-      Description: "",
-      IsVisible: true,
-      nMenuTabId: 0,
-    });
-    
+
+  const [insertMenuRibbon, setInsertMenuRibbon] = useState({
+    ID: 0,
+    LastModified: null,
+    ModifiedById: null,
+    Name: "",
+    Description: "",
+    IsVisible: true,
+  });
+
+  const [rightRibbon, setRightRibbon] = useState({
+    ID: 0,
+    LastModified: null,
+    ModifiedById: null,
+    Name: "",
+    Order: 0,
+    Description: "",
+    IsVisible: true,
+    nMenuId: 0,
+  });
+
+  const [dataGroupRibbon, setDataGroupRibbon] = useState({
+    ID: 0,
+    LastModified: "2022-08-21T14:06:09.421Z",
+    ModifiedById: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    Name: "",
+    Order: 0,
+    Description: "",
+    IsVisible: true,
+    nMenuTabId: 0,
+  });
+
   const [dataItemRibbon, setDataItemRibbon] = useState({
     ID: 0,
     LastModified: null,
@@ -101,8 +99,8 @@ export default function MenuSetting() {
     IsVisible: true,
     nMenuGroupId: 0,
     IconImageId: null,
-  })
-  
+  });
+
   const [ingredient, setIngredient] = useState(dataItemRibbon?.Size || 0);
 
   rightRibbon.nMenuId = selectedRowTable?.ID;
@@ -182,7 +180,7 @@ export default function MenuSetting() {
           console.log("AAAAAAAAAAAA", res.data);
           setDataMenuTabRes(res.data);
         })
-        .catch(() => { });
+        .catch(() => {});
     }
   }, [selectedRow, dataMenuTab]);
 
@@ -194,7 +192,7 @@ export default function MenuSetting() {
           console.log("BBBBBBBBBBB", res.data);
           setDataMenuGroupRes(res.data);
         })
-        .catch(() => { });
+        .catch(() => {});
     }
   }, [dataMenuGroup]);
 
@@ -205,7 +203,7 @@ export default function MenuSetting() {
         .then((res) => {
           setDataMenuItemRes(res.data);
         })
-        .catch(() => { });
+        .catch(() => {});
     }
   }, [dataMenuItem]);
 
@@ -213,7 +211,7 @@ export default function MenuSetting() {
     console.log("ac", activeIndex);
   }, [activeIndex]);
 
-  const handleRowSelectionChange = (event) => { };
+  const handleRowSelectionChange = (event) => {};
 
   const handleChange = (fieldName, value) => {
     setInsertMenuRibbon((prevFormData) => ({
@@ -237,33 +235,30 @@ export default function MenuSetting() {
   };
 
   const handleChangeItemRibbon = (fieldName, value) => {
-    console.log("dataItemRibbon1",dataItemRibbon)
-    console.log("value1",value)
-    console.log("fieldName1",fieldName)
+    console.log("dataItemRibbon1", dataItemRibbon);
+    console.log("value1", value);
+    console.log("fieldName1", fieldName);
     setDataItemRibbon((prevFormData) => ({
       ...prevFormData,
       [fieldName]: value,
     }));
 
-    console.log("dataItemRibbon2",dataItemRibbon)
-
+    console.log("dataItemRibbon2", dataItemRibbon);
   };
 
   const handleChangeItemDrop = (fieldName, value) => {
-    console.log("dataItemRibbon1",dataItemRibbon)
-    console.log("value1",value)
-    console.log("fieldName1",fieldName)
-    
+    console.log("dataItemRibbon1", dataItemRibbon);
+    console.log("value1", value);
+    console.log("fieldName1", fieldName);
+
     dataItemRibbon.Size = value;
 
     setDataItemRibbon((prevFormData) => ({
-      ...prevFormData.Size = value,
+      ...(prevFormData.Size = value),
     }));
 
-    console.log("dataItemRibbon2",dataItemRibbon)
-
+    console.log("dataItemRibbon2", dataItemRibbon);
   };
-  
 
   ////////////////////////////Main Table//////////////////////////////////////////////////////
 
@@ -294,7 +289,7 @@ export default function MenuSetting() {
           detail: "Item Added successfully",
         });
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
   const handleEdit = () => {
@@ -311,7 +306,7 @@ export default function MenuSetting() {
 
         insertMenuRibbon.Name = "";
         insertMenuRibbon.Description = "";
-        insertMenuRibbon.Order = 0
+        insertMenuRibbon.Order = 0;
 
         setDisabledEdit(true);
         setDisabledDelete(true);
@@ -322,7 +317,7 @@ export default function MenuSetting() {
           detail: "Item updated successfully",
         });
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
   const cancelDelete = () => {
@@ -352,7 +347,7 @@ export default function MenuSetting() {
         });
         setShowDeleteConfirmation(false);
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
   /////////////////////////Tab TABLE///////////////////////////////////////////////////////////////////////
@@ -388,7 +383,7 @@ export default function MenuSetting() {
           detail: "Item Added successfully",
         });
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
   const handleEditRightRibbon = () => {
@@ -436,7 +431,7 @@ export default function MenuSetting() {
           detail: "Item updated successfully",
         });
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
   const cancelDeleteTab = () => {
@@ -483,7 +478,7 @@ export default function MenuSetting() {
           detail: "Item deleted successfully",
         });
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
   //////////////////////Group Tabel///////////////////////////////////////////////////////////////////////
@@ -525,7 +520,7 @@ export default function MenuSetting() {
           detail: "Item Added successfully",
         });
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
   const handleEditMenuGroup = () => {
@@ -572,7 +567,7 @@ export default function MenuSetting() {
           detail: "Item updated successfully",
         });
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
   const cancelDeleteGroup = () => {
@@ -617,7 +612,7 @@ export default function MenuSetting() {
           detail: "Item deleted successfully",
         });
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
   //////////////////////item Tabel///////////////////////////////////////////////////////////////////////
@@ -632,7 +627,7 @@ export default function MenuSetting() {
       CommandWeb: selectedRowItem?.CommandWeb,
       CommandMobile: selectedRowItem?.CommandMobile,
       KeyTip: selectedRowItem?.KeyTip,
-      Size: selectedRowItem?.Size
+      Size: selectedRowItem?.Size,
     }));
   }, [selectedRowItem]);
 
@@ -666,7 +661,7 @@ export default function MenuSetting() {
           detail: "Item Added successfully",
         });
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
   const handleEditItem = () => {
@@ -676,12 +671,12 @@ export default function MenuSetting() {
       Name: dataItemRibbon?.Name,
       Description: dataItemRibbon?.Description,
       Order: dataItemRibbon?.Order,
-      HelpText:dataItemRibbon?.HelpText,
-      Command:dataItemRibbon?.Command ,
-      CommandWeb:dataItemRibbon?.CommandWeb ,
-      CommandMobile:dataItemRibbon?.CommandMobile ,
-      KeyTip:dataItemRibbon?.KeyTip ,
-      Size:dataItemRibbon?.Size
+      HelpText: dataItemRibbon?.HelpText,
+      Command: dataItemRibbon?.Command,
+      CommandWeb: dataItemRibbon?.CommandWeb,
+      CommandMobile: dataItemRibbon?.CommandMobile,
+      KeyTip: dataItemRibbon?.KeyTip,
+      Size: dataItemRibbon?.Size,
     };
 
     projectServices
@@ -714,7 +709,7 @@ export default function MenuSetting() {
         dataItemRibbon.CommandWeb = "";
         dataItemRibbon.CommandMobile = "";
         dataItemRibbon.KeyTip = "";
-        dataItemRibbon.Size = null
+        dataItemRibbon.Size = null;
 
         setDisabledEditGroup(true);
         setDisabledDeleteGroup(true);
@@ -725,10 +720,10 @@ export default function MenuSetting() {
           detail: "Item updated successfully",
         });
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
-  const cancelDeleteItem= () => {
+  const cancelDeleteItem = () => {
     setSelectedRowItem(null);
     setShowDeleteConfirmationItem(false);
   };
@@ -775,10 +770,8 @@ export default function MenuSetting() {
           detail: "Item deleted successfully",
         });
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
-
-  
 
   return (
     <>
@@ -1407,28 +1400,35 @@ export default function MenuSetting() {
                     <CustomInputText
                       value={dataItemRibbon?.KeyTip}
                       label="Key Tip"
-                      onChange={(e) =>
-                        handleChangeItemRibbon("KeyTip", e.target.value)
+                      onChange={
+                        (e) => handleChangeItemRibbon("KeyTip", e.target.value)
                         // console.log("ew",e.target.value)
                       }
                     />
                   </div>
                 </div>
-                <div style={{ display: "flex", marginTop: "10px", width: "50%" }}>
+                <div
+                  style={{ display: "flex", marginTop: "10px", width: "50%" }}
+                >
+                  <span style={{ fontWeight: "bold" }}>Size :</span>
+                </div>
+                <div
+                  style={{ display: "flex", marginTop: "10px", width: "50%" }}
+                >
                   <CustomRadioButtons
-                      value={dataItemRibbon?.Size}
-                      onChange={(e) => {
-                        setIngredient(e.target.value);
-                        handleChangeItemRibbon("Size", e.target.value);
-                      }}
-                      checked={dataItemRibbon?.Size}
-                      options={[
-                        { value: 0, label: "Larg" },
-                        { value: 1, label: "Middle" },
-                        { value: 2, label: "Small" },
-                      ]}
-                    />
-                  </div>
+                    value={dataItemRibbon?.Size}
+                    onChange={(e) => {
+                      setIngredient(e.target.value);
+                      handleChangeItemRibbon("Size", e.target.value);
+                    }}
+                    checked={dataItemRibbon?.Size}
+                    options={[
+                      { value: 0, label: "Larg" },
+                      { value: 1, label: "Middle" },
+                      { value: 2, label: "Small" },
+                    ]}
+                  />
+                </div>
               </AccordionTab>
             </Accordion>
           )}

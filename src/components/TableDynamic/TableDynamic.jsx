@@ -9,6 +9,7 @@ import {
 } from "../../redux/configuration/configurationSlice";
 import { fetchCommands } from "../../redux/commands/commandsSlice";
 import { fetchUsers } from "../../redux/user/userSlice";
+import { fetchRoles } from "../../redux/roles/rolesSlice";
 import { Button } from "primereact/button";
 import { mainSlice } from "../../redux/mainSlice";
 import { Toast } from "primereact/toast";
@@ -71,6 +72,14 @@ const TableDynamic = () => {
     (state) => state.selectedRowData.selectedRowData
   );
 
+  const dataRoles = useSelector((state) => state.dataRoles.dataRoles);
+
+  const headersStringRoles = useSelector(
+    (state) => state.dataRoles.headersString
+  );
+
+  const fieldsColumnsRole = useSelector((state) => state.dataRoles.fieldColumn);
+
   useEffect(() => {
     if (subTabName === "Configuration") {
       dispatch(fetchConfiguration());
@@ -80,6 +89,8 @@ const TableDynamic = () => {
       dispatch(fetchCommands());
     } else if (subTabName === "User") {
       dispatch(fetchUsers());
+    } else if (subTabName === "Roles") {
+      dispatch(fetchRoles());
     }
   }, [subTabName]);
 
@@ -109,6 +120,11 @@ const TableDynamic = () => {
       data: dataUsers,
       headersString: headersStringUsers,
       fieldsColumns: fieldsColumnsUser,
+    },
+    Roles: {
+      data: dataRoles,
+      headersString: headersStringRoles,
+      fieldsColumns: fieldsColumnsRole,
     },
   };
 
@@ -208,6 +224,22 @@ const TableDynamic = () => {
         .deleteUser({ gid: selectedRowData.ID })
         .then((res) => {
           dispatch(fetchUsers());
+          dispatch(mainSlice.actions.setIsAddClicked(true));
+          dispatch(mainSlice.actions.setHandleAddComponent(true));
+          dispatch(mainSlice.actions.setModeSelectedRow(true));
+          setShowDeleteConfirmation(false);
+          toast.current.show({
+            severity: "success",
+            summary: "Success",
+            detail: "Item deleted successfully",
+          });
+        })
+        .catch(() => {});
+    } else if (subTabName == "Roles") {
+      projectServices
+        .deletePost({ gid: selectedRowData.ID })
+        .then((res) => {
+          dispatch(fetchRoles());
           dispatch(mainSlice.actions.setIsAddClicked(true));
           dispatch(mainSlice.actions.setHandleAddComponent(true));
           dispatch(mainSlice.actions.setModeSelectedRow(true));

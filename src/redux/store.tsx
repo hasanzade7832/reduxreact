@@ -5,6 +5,7 @@ import { loginSlice } from "./Login/loginSlice";
 import commandsSlice from "./commands/commandsSlice";
 import commandsUsers from "./user/userSlice";
 import ribbonSlice from "./ribbon/ribbonSlice";
+import ribbonRoles from "./roles/rolesSlice";
 import programTemplateSlice from "./programtemplate/programtemplateSlice";
 
 export const store = configureStore({
@@ -74,6 +75,7 @@ export const store = configureStore({
     dataMenuTab: ribbonSlice.reducer,
     dataMenuGroup: ribbonSlice.reducer,
     dataMenuItem: ribbonSlice.reducer,
+    dataRoles: ribbonRoles.reducer,
   },
 });
 
@@ -248,6 +250,9 @@ export type RootState = {
   };
   dataMenuItem: {
     dataMenuItem: string[];
+  };
+  dataRoles: {
+    dataRoles: string[];
   };
 };
 export type AppDispatch = typeof store.dispatch;

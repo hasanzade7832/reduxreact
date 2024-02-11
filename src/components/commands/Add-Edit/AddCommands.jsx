@@ -14,9 +14,6 @@ import {
 import projectServices from "../../services/project.services";
 import { Toast } from "primereact/toast";
 
-{/* <Button outlined={activeIndex !== 0} rounded label="1" onClick={() => setActiveIndex(0)} className="w-2rem h-2rem p-0" /> */}
-
-
 const CommandsAdd = () => {
   const dispatch = useDispatch();
 
@@ -58,7 +55,7 @@ const CommandsAdd = () => {
     (state) => state.selectedRowData.selectedRowData
   );
 
-  console.log("rowwwwww",selectedRow);
+  console.log("rowwwwww", selectedRow);
 
   const dataViewMode = useSelector((state) => state.dataViewMode.dataViewMode);
 
@@ -217,7 +214,7 @@ const CommandsAdd = () => {
         style={{
           overflowY: "auto",
           whiteSpace: "nowrap",
-          height:"100vh",
+          height: "100vh",
           maxHeight: "calc(100vh - 12rem)",
         }}
       >

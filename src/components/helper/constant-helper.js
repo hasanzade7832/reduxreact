@@ -42,13 +42,19 @@ export const ApiConst = Object.freeze({
   updateMenuGroup: "api/MenuGroup/Update",
   deleteMenuGroup: "api/MenuGroup/Delete",
   getMenuItemByMenuGroupID: "api/MenuItem/GetAllByMenuGroupId",
-  insertMenuItem:"api/MenuItem/Insert",
-  updateMenuItem:"api/MenuItem/Update",
-  deleteMenuItem:"api/MenuItem/Delete",
+  insertMenuItem: "api/MenuItem/Insert",
+  updateMenuItem: "api/MenuItem/Update",
+  deleteMenuItem: "api/MenuItem/Delete",
 
   //user
   getAllUser: "api/User/GetAll",
   insertUser: "api/User/Insert",
   updateUser: "api/User/Update",
   deleteUser: "api/User/Delete",
+
+  //roles
+  getAllPost: "api/Post/GetAll",
+  insertPost: "api/Post/Insert",
+  updatePost: "api/Post/Update",
+  deletePost: "api/Post/Delete",
 });

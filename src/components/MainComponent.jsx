@@ -6,6 +6,7 @@ import tabData from "../utils/tabData";
 import AddConfiguration from "./configuration/Add-Edit/configurationAdd";
 import AddCommands from "./commands/Add-Edit/AddCommands";
 import AddUser from "./user/Add-Edit/AddUser";
+import AddRoles from "./Roles/Add-Edit/Roles";
 import { mainSlice } from "../redux/mainSlice";
 import MainRibbonTab from "../components/Ribbon/1-Menu/menuSetting";
 
@@ -70,6 +71,12 @@ function MainComponent() {
     subTabName === "User" &&
     subTabName === prevSubTabName;
 
+  //showRoles
+  const showRoles =
+    handleAddComponent &&
+    subTabName === "Roles" &&
+    subTabName === prevSubTabName;
+
   return (
     <>
       {splitterShow && subTabName !== "Ribbon" && (
@@ -82,6 +89,7 @@ function MainComponent() {
               {showConfiguration && <AddConfiguration />}
               {showCommands && <AddCommands />}
               {showUsers && <AddUser />}
+              {showRoles && <AddRoles />}
             </div>
           </SplitterPanel>
         </Splitter>
