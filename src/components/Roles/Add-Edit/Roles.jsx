@@ -58,18 +58,22 @@ const RolesAdd = () => {
       dispatch(mainSlice.actions.setIsEditMode(true));
       setRolesData((prevFormData) => ({
         ...prevFormData,
-        Name: selectedRow.Name,
-        PostCode: selectedRow.PostCode,
-        Description: selectedRow.Description,
-        Responsibility: selectedRow.Responsibility,
-        Authorization: selectedRow.Authorization,
-        Competencies: selectedRow.Competencies,
-        Grade: selectedRow.Grade,
-        Type: selectedRow.Type,
-        isStaticPost: selectedRow.isStaticPost,
+        Name: selectedRow?.Name || "",
+        PostCode: selectedRow?.PostCode || "",
+        Description: selectedRow?.Description || "",
+        Responsibility: selectedRow?.Responsibility || "",
+        Authorization: selectedRow?.Authorization || "",
+        Competencies: selectedRow?.Competencies || "",
+        Grade: selectedRow?.Grade || "",
+        Type: selectedRow?.Type || "",
+        isStaticPost: selectedRow?.isStaticPost,
       }));
     }
   }, [isAddClicked, selectedRow]);
+
+  useEffect(() => {
+    dispatch(fetchRoles());
+  }, []);
 
   const handleChange = (fieldName, value) => {
     setRolesData((prevFormData) => ({
