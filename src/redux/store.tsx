@@ -6,6 +6,7 @@ import commandsSlice from "./commands/commandsSlice";
 import commandsUsers from "./user/userSlice";
 import ribbonSlice from "./ribbon/ribbonSlice";
 import ribbonRoles from "./roles/rolesSlice";
+import assignmentSlice from "./assignment/assignmentSlice";
 import programTemplateSlice from "./programtemplate/programtemplateSlice";
 
 export const store = configureStore({
@@ -76,6 +77,7 @@ export const store = configureStore({
     dataMenuGroup: ribbonSlice.reducer,
     dataMenuItem: ribbonSlice.reducer,
     dataRoles: ribbonRoles.reducer,
+    dataAssignment:assignmentSlice.reducer
   },
 });
 
@@ -254,5 +256,8 @@ export type RootState = {
   dataRoles: {
     dataRoles: string[];
   };
+  dataAssignment:{
+    dataAssignment:string[];
+  }
 };
 export type AppDispatch = typeof store.dispatch;

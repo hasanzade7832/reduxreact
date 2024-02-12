@@ -57,4 +57,7 @@ export const ApiConst = Object.freeze({
   insertPost: "api/Post/Insert",
   updatePost: "api/Post/Update",
   deletePost: "api/Post/Delete",
+
+  //assignment
+  getAllPostForAssignment: "api/Post/GetAllForAdmin",
 });

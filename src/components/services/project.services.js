@@ -168,6 +168,12 @@ class projectService {
   async deletePost(data) {
     return await httpClient.post(ApiConst.deletePost, data);
   }
+
+  //assignment
+  async getAllPostForAssignment() {
+    return await httpClient.post(ApiConst.getAllPostForAssignment);
+  }
+  
 }
 
 export default new projectService();

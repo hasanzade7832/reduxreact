@@ -10,6 +10,7 @@ import {
 import { fetchCommands } from "../../redux/commands/commandsSlice";
 import { fetchUsers } from "../../redux/user/userSlice";
 import { fetchRoles } from "../../redux/roles/rolesSlice";
+import { fetchAssignment } from "../../redux/assignment/assignmentSlice";
 import { Button } from "primereact/button";
 import { mainSlice } from "../../redux/mainSlice";
 import { Toast } from "primereact/toast";
@@ -80,6 +81,18 @@ const TableDynamic = () => {
 
   const fieldsColumnsRole = useSelector((state) => state.dataRoles.fieldColumn);
 
+  const dataAssignments = useSelector((state) => state.dataAssignment.dataAssignment);
+  console.log("dataAssignments",dataAssignments);
+
+  const headersStringAssignments = useSelector(
+    (state) => state.dataAssignment.headersString
+  );
+  console.log("headersStringAssignments",headersStringAssignments);
+
+  const fieldsColumnsAssignments = useSelector((state) => state.dataAssignment.fieldColumn);
+  console.log("fieldsColumnsAssignments",fieldsColumnsAssignments);
+  
+
   useEffect(() => {
     if (subTabName === "Configuration") {
       dispatch(fetchConfiguration());
@@ -91,6 +104,8 @@ const TableDynamic = () => {
       dispatch(fetchUsers());
     } else if (subTabName === "Roles") {
       dispatch(fetchRoles());
+    } else if(subTabName === "Staffing"){
+      dispatch(fetchAssignment());
     }
   }, [subTabName]);
 
@@ -125,6 +140,11 @@ const TableDynamic = () => {
       data: dataRoles,
       headersString: headersStringRoles,
       fieldsColumns: fieldsColumnsRole,
+    },
+    Staffing: {
+      data: dataAssignments,
+      headersString: headersStringAssignments,
+      fieldsColumns: fieldsColumnsAssignments,
     },
   };
 
