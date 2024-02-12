@@ -43,13 +43,13 @@ const AddAsignment = () => {
     console.log("dataRoles", dataRoles);
 
     const selectedRowRole = useSelector((state) => state.selectedRowRole.selectedRowRole);
-    const selectedRowRoleEdit =useSelector((state) => state.selectedRowRoleEdit.selectedRowRoleEdit);
+    const selectedRowRoleEdit = useSelector((state) => state.selectedRowRoleEdit.selectedRowRoleEdit);
 
     useEffect(() => {
         if (isAddClicked) {
             setDataAssignment(prevFormData => ({
                 ...prevFormData,
-                Name: dispatch(assignmentSlice.actions.setSelectedRowRoleEdit())
+                Name: dispatch(assignmentSlice.actions.setSelectedRowRoleEdit(null))
             }));
             console.log("set", dataAssignment.Name)
         } else if (selectedRow) {
@@ -62,11 +62,11 @@ const AddAsignment = () => {
             console.log("dataProjectSelected", dataProjectSelected?.Name);
             dispatch(assignmentSlice.actions.setSelectedRowRoleEdit(dataProjectSelected))
 
-                setDataAssignment(prevState => ({
-                    ...prevState,
-                    Name: selectedRowRoleEdit 
-                }));
-                console.log("set", dataAssignment.Name)
+            setDataAssignment(prevState => ({
+                ...prevState,
+                Name: selectedRowRoleEdit 
+            }));
+            console.log("set", dataAssignment.Name)
         }
     }, [isAddClicked, selectedRow, dataRoles]);
 
