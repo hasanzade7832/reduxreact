@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk,PayloadAction } from "@reduxjs/toolkit";
 
 import projectServices from "../../components/services/project.services";
 
@@ -22,12 +22,16 @@ interface AssignmentData {
 
 interface MainState {
   dataAssignment:AssignmentData[];
+  selectedRowRole:string;
+  selectedRowRoleEdit:string;
   headersString: string;
   fieldColumn: string;
 }
 
 const initialState: MainState = {
   dataAssignment: [],
+  selectedRowRole:"",
+  selectedRowRoleEdit:"",
   headersString: "",
   fieldColumn: "",
 };
@@ -35,7 +39,14 @@ const initialState: MainState = {
 const assignmentSlice = createSlice({
   name: "Assignment",
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedRowRole: (state, action: PayloadAction<string>) => {
+        state.selectedRowRole = action.payload;
+      },
+      setSelectedRowRoleEdit: (state, action: PayloadAction<string>) => {
+        state.selectedRowRoleEdit = action.payload;
+      },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchAssignment.fulfilled, (state, action) => {
         state.dataAssignment = action.payload.filter((item: AssignmentData) => item.OwnerName !== "" && item.OwnerName !== null);

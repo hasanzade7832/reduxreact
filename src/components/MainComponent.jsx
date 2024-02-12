@@ -7,6 +7,7 @@ import AddConfiguration from "./configuration/Add-Edit/configurationAdd";
 import AddCommands from "./commands/Add-Edit/AddCommands";
 import AddUser from "./user/Add-Edit/AddUser";
 import AddRoles from "./Roles/Add-Edit/Roles";
+import AddAsignment from "./assignments/Add-Edit/AddAssignment";
 import { mainSlice } from "../redux/mainSlice";
 import MainRibbonTab from "../components/Ribbon/1-Menu/menuSetting";
 
@@ -77,6 +78,12 @@ function MainComponent() {
     subTabName === "Roles" &&
     subTabName === prevSubTabName;
 
+  //assignment
+  const showAssignment =
+    handleAddComponent &&
+    subTabName === "Staffing" &&
+    subTabName === prevSubTabName;
+
   return (
     <>
       {splitterShow && subTabName !== "Ribbon" && (
@@ -90,6 +97,7 @@ function MainComponent() {
               {showCommands && <AddCommands />}
               {showUsers && <AddUser />}
               {showRoles && <AddRoles />}
+              {showAssignment && <AddAsignment/>}
             </div>
           </SplitterPanel>
         </Splitter>

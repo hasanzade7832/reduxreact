@@ -77,7 +77,9 @@ export const store = configureStore({
     dataMenuGroup: ribbonSlice.reducer,
     dataMenuItem: ribbonSlice.reducer,
     dataRoles: ribbonRoles.reducer,
-    dataAssignment:assignmentSlice.reducer
+    dataAssignment:assignmentSlice.reducer,
+    selectedRowRole:assignmentSlice.reducer,
+    selectedRowRoleEdit:assignmentSlice.reducer
   },
 });
 
@@ -258,6 +260,12 @@ export type RootState = {
   };
   dataAssignment:{
     dataAssignment:string[];
+  };
+  selectedRowRole:{
+    selectedRowRole:string;
+  }
+  selectedRowRoleEdit:{
+    selectedRowRoleEdit:string;
   }
 };
 export type AppDispatch = typeof store.dispatch;

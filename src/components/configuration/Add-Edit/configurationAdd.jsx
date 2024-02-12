@@ -68,6 +68,8 @@ const ConfigurationAdd = () => {
     (state) => state.dataConfiguration.dataPrugTemplate
   );
 
+  console.log("dataPrugTemplate",dataPrugTemplate);
+
   const dataRibbon = useSelector((state) => state.dataRibbon.dataRibbon);
 
   const dataWfTemplate = useSelector(
