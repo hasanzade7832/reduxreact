@@ -92,7 +92,7 @@ const AddAsignment = () => {
 
       /////////////////////////////////////////////////
       const foundProject = dataRoles.find((item) => {
-        return item?.nPostTypeID === selectedRow?.nPostTypeID;
+        return item?.ID === selectedRow?.ID;
       });
 
       const dataProjectSelected = foundProject ? foundProject : null;
