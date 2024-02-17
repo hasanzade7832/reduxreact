@@ -5,12 +5,7 @@ import "../styles/tableStyles.css"
 import { useSelector, useDispatch } from "react-redux";
 
 export default function TableBoxRole() {
-  const dataTableValues = [
-    { id: 1, Name: 'John Doe' },
-    { id: 2, Name: 'Jane Smith' },
-    { id: 3, Name: 'Mary Johnson'},
-    { id: 4, Name: 'Michael Clark'}
-  ];
+
 
   const dataAssignments = useSelector((state) => state.dataAssignment.dataAssignment);
   console.log("dataAssignments",dataAssignments)
