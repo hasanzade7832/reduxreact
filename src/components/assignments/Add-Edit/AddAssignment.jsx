@@ -23,7 +23,7 @@ const AddAsignment = () => {
     })
 
     const handleChange = (fieldName, value) => {
-        console.log("fi", fieldName, value);
+        //console.log("fi", fieldName, value);
         setDataAssignment((prevFormData) => ({
             ...prevFormData,
             [fieldName]: value,
@@ -36,39 +36,42 @@ const AddAsignment = () => {
         (state) => state.selectedRowData.selectedRowData
     );
 
-    console.log("selectedRow", selectedRow);
+    //console.log("selectedRow", selectedRow);
 
     const dataRoles = useSelector((state) => state.dataRoles.dataRoles);
 
-    console.log("dataRoles", dataRoles);
+    //console.log("dataRoles", dataRoles);
 
     const selectedRowRole = useSelector((state) => state.selectedRowRole.selectedRowRole);
     const selectedRowRoleEdit = useSelector((state) => state.selectedRowRoleEdit.selectedRowRoleEdit);
 
     useEffect(() => {
         if (isAddClicked) {
+            dispatch(mainSlice.actions.setIsEditMode(false));
             setDataAssignment(prevFormData => ({
                 ...prevFormData,
                 Name: dispatch(assignmentSlice.actions.setSelectedRowRoleEdit(null))
             }));
-            console.log("set", dataAssignment.Name)
+            //console.log("set", dataAssignment.Name)
         } else if (selectedRow) {
-
+            dispatch(mainSlice.actions.setIsEditMode(true));
             const foundProject = dataRoles.find((item) => {
                 return item?.ID === selectedRow?.ID;
             });
 
             const dataProjectSelected = foundProject ? foundProject : null;
-            console.log("dataProjectSelected", dataProjectSelected?.Name);
+            //console.log("dataProjectSelected", dataProjectSelected?.Name);
             dispatch(assignmentSlice.actions.setSelectedRowRoleEdit(dataProjectSelected))
 
             setDataAssignment(prevState => ({
                 ...prevState,
-                Name: selectedRowRoleEdit 
+                Name: selectedRowRoleEdit?.Name || ""
             }));
-            console.log("set", dataAssignment.Name)
+            console.log("set", selectedRowRoleEdit?.Name)
+            dispatch(assignmentSlice.actions.setSelectedRowRole())
+    
         }
-    }, [isAddClicked, selectedRow, dataRoles]);
+    }, [isAddClicked, selectedRow, dataRoles,selectedRowRoleEdit]);
 
 
     useEffect(() => {

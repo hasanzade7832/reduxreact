@@ -917,7 +917,7 @@ export default function MenuSetting() {
         >
           {showAccardeon && (
             <Accordion
-              onChange={(e) => console.log("Ddddddd", e)}
+              // onChange={(e) => console.log("Ddddddd", e)}
               multiple
               activeIndex={activeIndex}
             >
