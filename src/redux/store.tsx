@@ -79,7 +79,11 @@ export const store = configureStore({
     dataRoles: ribbonRoles.reducer,
     dataAssignment:assignmentSlice.reducer,
     selectedRowRole:assignmentSlice.reducer,
-    selectedRowRoleEdit:assignmentSlice.reducer
+    selectedRowRoleEdit:assignmentSlice.reducer,
+    dialogRole:assignmentSlice.reducer,
+    nameOfDialoRole:assignmentSlice.reducer,
+    selectedRowProjectName:assignmentSlice.reducer,
+    selectedRowProjectNameEdit:assignmentSlice.reducer
   },
 });
 
@@ -266,6 +270,18 @@ export type RootState = {
   }
   selectedRowRoleEdit:{
     selectedRowRoleEdit:string;
+  }
+  dialogRole:{
+    dialogRole:string;
+  }
+  nameOfDialoRole:{
+    nameOfDialoRole:string;
+  }
+  selectedRowProjectName:{
+    selectedRowProjectName:string;
+  }
+  selectedRowProjectNameEdit:{
+    selectedRowProjectNameEdit:string;
   }
 };
 export type AppDispatch = typeof store.dispatch;
