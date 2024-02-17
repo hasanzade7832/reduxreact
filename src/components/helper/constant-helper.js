@@ -60,4 +60,5 @@ export const ApiConst = Object.freeze({
 
   //assignment
   getAllPostForAssignment: "api/Post/GetAllForAdmin",
+  getAllProject: "api/Project/GetAll",
 });

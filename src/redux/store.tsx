@@ -77,13 +77,14 @@ export const store = configureStore({
     dataMenuGroup: ribbonSlice.reducer,
     dataMenuItem: ribbonSlice.reducer,
     dataRoles: ribbonRoles.reducer,
-    dataAssignment:assignmentSlice.reducer,
-    selectedRowRole:assignmentSlice.reducer,
-    selectedRowRoleEdit:assignmentSlice.reducer,
-    dialogRole:assignmentSlice.reducer,
-    nameOfDialoRole:assignmentSlice.reducer,
-    selectedRowProjectName:assignmentSlice.reducer,
-    selectedRowProjectNameEdit:assignmentSlice.reducer
+    dataAssignment: assignmentSlice.reducer,
+    selectedRowRole: assignmentSlice.reducer,
+    selectedRowRoleEdit: assignmentSlice.reducer,
+    dialogRole: assignmentSlice.reducer,
+    nameOfDialoRole: assignmentSlice.reducer,
+    selectedRowProjectName: assignmentSlice.reducer,
+    selectedRowProjectNameEdit: assignmentSlice.reducer,
+    dataAllProject: assignmentSlice.reducer,
   },
 });
 
@@ -262,26 +263,29 @@ export type RootState = {
   dataRoles: {
     dataRoles: string[];
   };
-  dataAssignment:{
-    dataAssignment:string[];
+  dataAssignment: {
+    dataAssignment: string[];
   };
-  selectedRowRole:{
-    selectedRowRole:string;
-  }
-  selectedRowRoleEdit:{
-    selectedRowRoleEdit:string;
-  }
-  dialogRole:{
-    dialogRole:string;
-  }
-  nameOfDialoRole:{
-    nameOfDialoRole:string;
-  }
-  selectedRowProjectName:{
-    selectedRowProjectName:string;
-  }
-  selectedRowProjectNameEdit:{
-    selectedRowProjectNameEdit:string;
-  }
+  selectedRowRole: {
+    selectedRowRole: string;
+  };
+  selectedRowRoleEdit: {
+    selectedRowRoleEdit: string;
+  };
+  dialogRole: {
+    dialogRole: string;
+  };
+  nameOfDialoRole: {
+    nameOfDialoRole: string;
+  };
+  selectedRowProjectName: {
+    selectedRowProjectName: string;
+  };
+  selectedRowProjectNameEdit: {
+    selectedRowProjectNameEdit: string;
+  };
+  dataAllProject: {
+    dataAllProject: string[];
+  };
 };
 export type AppDispatch = typeof store.dispatch;

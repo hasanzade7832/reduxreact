@@ -173,7 +173,9 @@ class projectService {
   async getAllPostForAssignment() {
     return await httpClient.post(ApiConst.getAllPostForAssignment);
   }
-  
+  async getAllProject() {
+    return await httpClient.post(ApiConst.getAllProject);
+  }
 }
 
 export default new projectService();
