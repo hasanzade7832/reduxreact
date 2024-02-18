@@ -35,6 +35,7 @@ interface MainState {
   dataAllProject: string[];
   selectedRowRole: string;
   selectedRowProjectName: string;
+  selectedRowUser: string;
   selectedRowRoleEdit: string;
   selectedRowProjectNameEdit: string;
   headersString: string;
@@ -48,6 +49,7 @@ const initialState: MainState = {
   dataAllProject: [],
   selectedRowRole: "",
   selectedRowProjectName: "",
+  selectedRowUser: "",
   selectedRowRoleEdit: "",
   selectedRowProjectNameEdit: "",
   headersString: "",
@@ -77,6 +79,9 @@ const assignmentSlice = createSlice({
     },
     setSelectedRowProjectNameEdit: (state, action: PayloadAction<string>) => {
       state.selectedRowProjectNameEdit = action.payload;
+    },
+    setSelectedRowUser: (state, action: PayloadAction<string>) => {
+      state.selectedRowUser = action.payload;
     },
   },
   extraReducers: (builder) => {

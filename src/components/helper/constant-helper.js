@@ -51,6 +51,7 @@ export const ApiConst = Object.freeze({
   insertUser: "api/User/Insert",
   updateUser: "api/User/Update",
   deleteUser: "api/User/Delete",
+  getIdByUserToken: "api/user/GetByToken",
 
   //roles
   getAllPost: "api/Post/GetAll",

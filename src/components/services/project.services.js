@@ -154,6 +154,9 @@ class projectService {
   async deleteUser(data) {
     return await httpClient.post(ApiConst.deleteUser, data);
   }
+  async getIdByUserToken(data) {
+    return await httpClient.post(ApiConst.getIdByUserToken, data);
+  }
 
   //roles
   async getAllPost() {

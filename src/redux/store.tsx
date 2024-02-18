@@ -70,6 +70,7 @@ export const store = configureStore({
     dataApiMode: commandsSlice.reducer,
     dataUsers: commandsUsers.reducer,
     dataUserType: commandsUsers.reducer,
+    dataUsersToken: commandsUsers.reducer,
     dataMenuSetting: ribbonSlice.reducer,
     selectedRowDataRibbon: ribbonSlice.reducer,
     activeIndex: ribbonSlice.reducer,
@@ -85,6 +86,7 @@ export const store = configureStore({
     selectedRowProjectName: assignmentSlice.reducer,
     selectedRowProjectNameEdit: assignmentSlice.reducer,
     dataAllProject: assignmentSlice.reducer,
+    selectedRowUser: assignmentSlice.reducer,
   },
 });
 
@@ -286,6 +288,12 @@ export type RootState = {
   };
   dataAllProject: {
     dataAllProject: string[];
+  };
+  dataUsersToken: {
+    dataUsersToken: string[];
+  };
+  selectedRowUser: {
+    selectedRowUser: string;
   };
 };
 export type AppDispatch = typeof store.dispatch;

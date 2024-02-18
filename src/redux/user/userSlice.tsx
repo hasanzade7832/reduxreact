@@ -11,6 +11,15 @@ export const fetchUsers = createAsyncThunk("fetchUsers", async () => {
   }
 });
 
+export const fetchUsersToken = createAsyncThunk("fetchUsersToken", async () => {
+  try {
+    const response = await projectServices.getIdByUserToken();
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+});
+
 export const fetchUserType = createAsyncThunk("fetchUserType", async () => {
   try {
     const response = await projectServices.getEnum({ str: "UserType" });
@@ -22,6 +31,7 @@ export const fetchUserType = createAsyncThunk("fetchUserType", async () => {
 
 interface MainState {
   dataUsers: string[];
+  dataUsersToken: string[];
   dataUserType: string[];
   headersString: string;
   fieldColumn: string;
@@ -29,6 +39,7 @@ interface MainState {
 
 const initialState: MainState = {
   dataUsers: [],
+  dataUsersToken: [],
   dataUserType: [],
   headersString: "",
   fieldColumn: "",
@@ -41,11 +52,16 @@ const commandsSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchUsers.fulfilled, (state, action) => {
       state.dataUsers = action.payload;
-      state.headersString = "Username|userType|Name|Family|Website|Mobile|Email|IsVisible";
-      state.fieldColumn = "Username|userType|Name|Family|Website|Mobile|Email|IsVisible";
+      state.headersString =
+        "Username|userType|Name|Family|Website|Mobile|Email|IsVisible";
+      state.fieldColumn =
+        "Username|userType|Name|Family|Website|Mobile|Email|IsVisible";
     });
     builder.addCase(fetchUserType.fulfilled, (state, action) => {
       state.dataUserType = action.payload;
+    });
+    builder.addCase(fetchUsersToken.fulfilled, (state, action) => {
+      state.dataUsersToken = action.payload;
     });
   },
 });
