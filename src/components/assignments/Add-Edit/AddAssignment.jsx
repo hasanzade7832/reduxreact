@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUsers } from "../../../redux/user/userSlice";
 import { fetchRoles } from "../../../redux/roles/rolesSlice";
@@ -6,9 +6,14 @@ import { fetchAllProject } from "../../../redux/assignment/assignmentSlice";
 import { fetchUsersToken } from "../../../redux/user/userSlice";
 import assignmentSlice from "../../../redux/assignment/assignmentSlice";
 import DropdownComponentwithButton from "../../globalComponents/main/dropDownWithButton";
+import AddBar from "../../globalComponents/main/addBar";
+import EditBar from "../../globalComponents/main/editBar";
+import { Toast } from "primereact/toast";
+import projectServices from "../../services/project.services";
 
 const AddAsignment = () => {
   const dispatch = useDispatch();
+  const toast = useRef(null);
 
   const dataUsersToken = useSelector(
     (state) => state.dataUsersToken.dataUsersToken
@@ -44,7 +49,7 @@ const AddAsignment = () => {
     isHaveAddressbar: false,
     isAccessCreateProject: false,
     CreateDate: new Date(),
-    CreateById: dataUsersToken.ID,
+    CreateById: dataUsersToken?.ID,
     ModifiedById: null,
     status: 1,
     PostCode: null,
@@ -57,6 +62,8 @@ const AddAsignment = () => {
     Type: null,
     Description: null,
   });
+
+  const isEditMode = useSelector((state) => state.isEditMode.isEditMode);
 
   const dataRoles = useSelector((state) => state.dataRoles.dataRoles);
 
@@ -95,8 +102,27 @@ const AddAsignment = () => {
     }));
   };
 
+  const addCommand = () => {
+    console.log("add");
+    projectServices.updatePost(dataAssignment).then((res) => {
+      console.log("res", res.data);
+    });
+  };
+
+  const editCommand = () => {
+    console.log("edit");
+  };
+
   return (
     <>
+      <Toast ref={toast} position="top-right" />
+      <div>
+        {isEditMode ? (
+          <EditBar onClick={editCommand} />
+        ) : (
+          <AddBar onClick={addCommand} />
+        )}
+      </div>
       {/* ///////////////////////////////////ردیف 1/////////////////////////////////////// */}
       <div className="grid" style={{ marginLeft: "20px", marginTop: "20px" }}>
         <div className="col-5">
