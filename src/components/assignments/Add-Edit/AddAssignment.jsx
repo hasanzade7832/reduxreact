@@ -37,31 +37,70 @@ const AddAsignment = () => {
   }
 
   const [dataAssignment, setDataAssignment] = useState({
-    ID: uuid(),
-    OwnerID: null,
-    Name: null,
-    nPostTypeID: null,
+    // ID: uuid(),
+    // OwnerID: null,
+    // Name: null,
+    // nPostTypeID: null,
+    // nProjectID: null,
+    // nCompanyID: null,
+    // nMenuID: null,
+    // ParrentId: null,
+    // isStaticPost: false,
+    // isHaveAddressbar: false,
+    // isAccessCreateProject: false,
+    // CreateDate: new Date(),
+    // CreateById: dataUsersToken?.ID,
+    // ModifiedById: null,
+    // status: 1,
+    // PostCode: null,
+    // Responsibility: null,
+    // Authorization: null,
+    // Competencies: null,
+    // Grade: null,
+    // IsVisible: false,
+    // LastModified: null,
+    // Type: null,
+    // Description: null,
+    ID: "d1b9f42d-9f3f-4e40-b676-0f95041c9842",
+    Name: "",
+    ParrentId: null,
+    CreateDate: "2023-10-01T14:55:17.003",
+    CreateById: null,
+    ModifiedById: "d36eda78-5de1-4f70-bc99-d5a2c26a5f8c",
+    isStaticPost: false,
+    isAccessCreateProject: false,
+    isHaveAddressbar: false,
+    OwnerID:null,
     nProjectID: null,
     nCompanyID: null,
-    nMenuID: null,
-    ParrentId: null,
-    isStaticPost: false,
-    isHaveAddressbar: false,
-    isAccessCreateProject: false,
-    CreateDate: new Date(),
-    CreateById: dataUsersToken?.ID,
-    ModifiedById: null,
+    nPostTypeID: null,
     status: 1,
+    nMenuID: null,
     PostCode: null,
     Responsibility: null,
+    Description: null,
     Authorization: null,
     Competencies: null,
     Grade: null,
-    IsVisible: false,
-    LastModified: null,
     Type: null,
-    Description: null,
+    IsVisible: true,
+    LastModified: "2023-10-24T17:52:46.76"
   });
+
+  const selectedRowRole = useSelector(
+    (state) => state.selectedRowRole.selectedRowRole
+  );
+
+   useEffect(() => {
+    if (selectedRowRole) {
+      setDataAssignment((prevFormData) => ({
+        ...prevFormData,
+        Name: selectedRowRole?.Name,
+        nPostTypeID: selectedRowRole?.nPostTypeID,
+        nProjectID: selectedRowRole?.nProjectID,
+      }));
+    }
+  }, [selectedRowRole]);
 
   const isEditMode = useSelector((state) => state.isEditMode.isEditMode);
 
@@ -80,10 +119,7 @@ const AddAsignment = () => {
     dispatch(fetchUsersToken());
   }, []);
 
-  const selectedRowRole = useSelector(
-    (state) => state.selectedRowRole.selectedRowRole
-  );
-
+ 
   const selectedRowProjectName = useSelector(
     (state) => state.selectedRowProjectName.selectedRowProjectName
   );
@@ -102,12 +138,28 @@ const AddAsignment = () => {
     }));
   };
 
+
   const addCommand = () => {
     console.log("add");
-    projectServices.updatePost(dataAssignment).then((res) => {
-      console.log("res", res.data);
-    });
+    console.log("selectedRowRole", selectedRowRole?.Name);
+
+    if (selectedRowRole) {
+      setDataAssignment((prevFormData) => ({
+        ...prevFormData,
+        Name: selectedRowRole?.Name,
+        nPostTypeID: selectedRowRole?.nPostTypeID,
+        nProjectID: selectedRowRole?.nProjectID,
+        // OwnerID: selectedRowRole?.OwnerID
+      }));
+
+      projectServices.updatePost(dataAssignment).then((res) => {
+        console.log("res", res.data);
+      });
+    } else {
+      console.error("selectedRowRole does not exist");
+    }
   };
+
 
   const editCommand = () => {
     console.log("edit");
@@ -136,9 +188,9 @@ const AddAsignment = () => {
               handleChange("nPostTypeID", selectedValue);
               dispatch(assignmentSlice.actions.setSelectedRowRole(e.value));
             }}
-            // onButtonClick={funcDialogDefaultRibbon}
-            // showDialog={dialogDefaultRibbon}
-            // hideDialog={hideDialog}
+          // onButtonClick={funcDialogDefaultRibbon}
+          // showDialog={dialogDefaultRibbon}
+          // hideDialog={hideDialog}
           />
         </div>
         <div className="col-1"></div>
@@ -155,9 +207,9 @@ const AddAsignment = () => {
                 assignmentSlice.actions.setSelectedRowProjectName(e.value)
               );
             }}
-            // onButtonClick={funcDialogDefaultRibbon}
-            // showDialog={dialogDefaultRibbon}
-            // hideDialog={hideDialog}
+          // onButtonClick={funcDialogDefaultRibbon}
+          // showDialog={dialogDefaultRibbon}
+          // hideDialog={hideDialog}
           />
         </div>
       </div>
@@ -173,10 +225,11 @@ const AddAsignment = () => {
               const selectedValue = e.value ? e.value.ID : null;
               handleChange("OwnerID", selectedValue);
               dispatch(assignmentSlice.actions.setSelectedRowUser(e.value));
+              console.log("IDDDDDDD", e.value.ID)
             }}
-            // onButtonClick={funcDialogDefaultRibbon}
-            // showDialog={dialogDefaultRibbon}
-            // hideDialog={hideDialog}
+          // onButtonClick={funcDialogDefaultRibbon}
+          // showDialog={dialogDefaultRibbon}
+          // hideDialog={hideDialog}
           />
         </div>
         <div className="col-1"></div>
