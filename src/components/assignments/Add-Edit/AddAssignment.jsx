@@ -140,7 +140,7 @@ const AddAsignment = () => {
         Name: selectedRowRole?.Name,
         nPostTypeID: selectedRowRole?.nPostTypeID,
         nProjectID: selectedRowRole?.nProjectID,
-        // OwnerID: selectedRowRole?.OwnerID
+        OwnerID: selectedRowRole?.OwnerID,
       }));
 
       projectServices.updatePost(dataAssignment).then((res) => {
