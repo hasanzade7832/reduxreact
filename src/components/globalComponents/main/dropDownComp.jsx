@@ -9,6 +9,7 @@ const CustomDropdown = ({
   options,
   optionLabel,
   label,
+  disabled,
 }) => {
   return (
     <span className="p-float-label" style={{ flex: "1" }}>
@@ -22,6 +23,7 @@ const CustomDropdown = ({
         filter
         style={{ width: "100%" }}
         placeholder=""
+        disabled={disabled}
       />
       <label
         style={{

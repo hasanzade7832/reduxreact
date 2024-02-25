@@ -19,6 +19,8 @@ const CustomDropdownComponent = ({
   onButtonClick,
   showDialog,
   hideDialog,
+  disabledDropDown,
+  diabledButton,
 }) => {
   const nameOfDialogTable = useSelector(
     (state) => state.nameofDialogTable.nameofDialogTable
@@ -35,6 +37,7 @@ const CustomDropdownComponent = ({
             optionLabel={optionLabel}
             label={label}
             onChange={onChange}
+            disabled={disabledDropDown}
           />
         </div>
         <div style={{ marginTop: "10px" }}>
@@ -42,6 +45,7 @@ const CustomDropdownComponent = ({
             label="..."
             className="button-small"
             onClick={onButtonClick}
+            disabled={diabledButton}
           />
         </div>
       </div>
